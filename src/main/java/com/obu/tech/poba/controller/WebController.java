@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
+@RequestMapping("")
 public class WebController {
 
     private boolean isShowBtnUpdate = false;
