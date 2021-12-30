@@ -1,4 +1,4 @@
-package com.obu.tech.poba.controller;
+package com.obu.tech.poba.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 @RequestMapping("")
@@ -37,13 +36,14 @@ public class WebController {
 
     @RequestMapping(value = "/header", method = RequestMethod.POST)
     public ModelAndView header(HttpServletRequest request) throws Exception {
-        ModelAndView view = new ModelAndView("layout/header");
+        ModelAndView view = new ModelAndView("fragments/header");
         view.addObject("user", "One buck up");
         return view;
     }
+
     @RequestMapping(value = "/sidebar", method = RequestMethod.POST)
     public ModelAndView sidebar(HttpServletRequest request, HttpSession session) throws Exception {
-        ModelAndView view = new ModelAndView("layout/sidebar");
+        ModelAndView view = new ModelAndView("fragments/sidebar");
         return view;
     }
 }
