@@ -13,26 +13,26 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/personnel-info")
 public class PersonnelInfoController {
 
-    @GetMapping(value = {"/further-study-info", "/further-study-info/{id}"})
-    public ModelAndView furtherStudyInfo(HttpServletRequest request, @PathVariable(required = false) String id) throws Exception {
+    @GetMapping(value = {"/education-info", "/education-info/{id}"})
+    public ModelAndView educationInfo(HttpServletRequest request, @PathVariable(required = false) String id) throws Exception {
         System.out.println("ID: " + id);
         ModelAndView view = null;
         if (StringUtils.isBlank(id)) {
-            view = new ModelAndView("personnel-info/further-study-info");
+            view = new ModelAndView("personnel-info/education-info");
         } else {
-            view = new ModelAndView("personnel-info/further-study-info-view");
+            view = new ModelAndView("personnel-info/education-info-view");
         }
         return view;
     }
 
-    @GetMapping(value = {"/further-study-info/manage", "/further-study-info/manage/{id}"})
-    public ModelAndView furtherStudyInfoManage(HttpServletRequest request, @PathVariable(required = false) String id) throws Exception {
+    @GetMapping(value = {"/education-info/manage", "/education-info/manage/{id}"})
+    public ModelAndView educationInfoManagement(HttpServletRequest request, @PathVariable(required = false) String id) throws Exception {
         System.out.println("ID: " + id);
         ModelAndView view = null;
         if (StringUtils.isBlank(id)) {
-            view = new ModelAndView("personnel-info/further-study-info-add");
+            view = new ModelAndView("personnel-info/education-info-add");
         } else {
-            view = new ModelAndView("personnel-info/further-study-info-edit");
+            view = new ModelAndView("personnel-info/education-info-edit");
         }
         return view;
     }
