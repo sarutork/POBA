@@ -4,10 +4,11 @@ import com.obu.tech.poba.dao.StudyInfoDao;
 import com.obu.tech.poba.model.StudyInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
-
+@Repository
 public class StudyInfoDaoImpl implements StudyInfoDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;

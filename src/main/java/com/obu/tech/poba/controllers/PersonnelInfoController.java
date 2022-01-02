@@ -13,20 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/personnel-info")
 public class PersonnelInfoController {
 
-    @GetMapping(value = {"/education-info", "/education-info/{id}"})
-    public ModelAndView educationInfo(HttpServletRequest request, @PathVariable(required = false) String id) throws Exception {
-        System.out.println("ID: " + id);
-        ModelAndView view = null;
-        if (StringUtils.isBlank(id)) {
-            view = new ModelAndView("personnel-info/education-info");
-        } else {
-            view = new ModelAndView("personnel-info/education-info-view");
-        }
+    @GetMapping(value = "/education-info")
+    public ModelAndView educationInfo(HttpServletRequest request) throws Exception {
+        ModelAndView view = new ModelAndView("personnel-info/education-info");
         return view;
     }
 
-    @GetMapping(value = {"/education-info/manage", "/education-info/manage/{id}"})
-    public ModelAndView educationInfoManagement(HttpServletRequest request, @PathVariable(required = false) String id) throws Exception {
+    @GetMapping(value = {"/education-info/management", "/education-info/management/{id}"})
+    public ModelAndView educationInfoManagement(HttpServletRequest request,  @PathVariable(required = false) String id) throws Exception {
         System.out.println("ID: " + id);
         ModelAndView view = null;
         if (StringUtils.isBlank(id)) {
