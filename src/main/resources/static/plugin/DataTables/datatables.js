@@ -11401,7 +11401,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sNext": "Next",
+				"sNext": "ถัดไป",
 	
 	
 				/**
@@ -11424,7 +11424,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sPrevious": "Previous"
+				"sPrevious": "ก่อนหน้า"
 			},
 	
 			/**
@@ -11479,7 +11479,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"sInfo": "แสดง _START_ ถึง _END_ จาก _TOTAL_ รายการ",
 	
 	
 			/**
@@ -11640,7 +11640,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLengthMenu": "Show _MENU_ entries",
+			"sLengthMenu": "แสดง _MENU_ รายการ",
 	
 	
 			/**

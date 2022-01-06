@@ -1,9 +1,9 @@
-<nav id="main-header" class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row" xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+<nav id="main-header" class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row" xmlns:th="http://www.thymeleaf.org">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="javascript:window.location = 'home'">
+        <a class="navbar-brand brand-logo" href="/poba/home">
             <img th:src="@{/images/logo2.png}" alt="logo"/>
         </a>
-        <a class="navbar-brand brand-logo-mini" href="javascript:window.location = 'home'">
+        <a class="navbar-brand brand-logo-mini" href="/poba/home">
             <img th:src="@{/images/logo.png}" class="img-fluid" alt="logo"/>
         </a>
     </div>
@@ -20,7 +20,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown mg-top-2-0" aria-labelledby="profile-dropdown">
                     <a class="dropdown-item" href="#">
-                        <i class="fa fa-user menu-icon"></i>
+                        <i class="mdi mdi-account menu-icon"></i>
                         ข้อมูลส่วนตัว
                     </a>
                     <a class="dropdown-item" href="javascript:window.location = 'login'">

@@ -1,74 +1,76 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>OPBA</title>
-        <link rel="stylesheet" th:href="@{/plugin/serein/vendors/iconfonts/mdi/font/css/materialdesignicons.min.css}">
-        <link rel="stylesheet" th:href="@{/plugin/serein/vendors/css/vendor.bundle.base.css}">
-        <link rel="stylesheet" th:href="@{/plugin/serein/vendors/css/vendor.bundle.addons.css}">
-        <link rel="stylesheet" th:href="@{/plugin/serein/css/vertical-layout-dark/style.css}">
-        <link rel="shortcut icon" th:href="@{/plugin/serein/images/favicon.png}" />
-        <link rel="stylesheet" th:href="@{/plugin/font-awesome/css/all.css}">
-        <link rel="stylesheet" th:href="@{/app/app.css}">
-        <script th:src="@{/plugin/serein/vendors/js/vendor.bundle.base.js}"></script>
-        <script th:src="@{/plugin/serein/vendors/js/vendor.bundle.addons.js}"></script>
-        <script th:src="@{/plugin/serein/js/off-canvas.js}"></script>
-        <script th:src="@{/plugin/serein/js/hoverable-collapse.js}"></script>
-        <script th:src="@{/plugin/serein/js/template.js}"></script>
-        <script th:src="@{/plugin/serein/js/settings.js}"></script>
-        <script th:src="@{/plugin/serein/js/todolist.js}"></script>
-        <script th:src="@{/plugin/jquery/jquery-3.4.js}"></script>
-        <script th:src="@{/app/login.js}"></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>POBA</title>
 
-    <body>
-        <div class="container-scroller">
-            <div class="container-fluid page-body-wrapper full-page-wrapper">
-                <div class="content-wrapper d-flex align-items-center auth">
-                    <div class="row w-100">
-                        <div class="col-lg-4 mx-auto">
-                            <div class="auth-form-light text-left p-5">
-                                <div class="col-12 d-flex justify-content-center">
-                                    <span>ระบบฐานข้อมูลกลางคณะรัฐศาสตร์</span>
-                                </div>
-                                <form id="authen" class="pt-3">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-lg" id="username"
-                                               placeholder="Username">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-lg" id="passwd"
-                                               placeholder="Password">
-                                    </div>
-                                    <div class="mt-3 er-lg-in">
-                                        <div class="alert alert-danger" role="alert">
-                                            username/password ไม่ถูกต้อง
-                                        </div>
-                                    </div>
-                                    <div class="mt-3">
-                                        <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
-                                           href="javascript:void(0);" onclick="authenticate()">SIGN IN</a>
-                                    </div>
-                                </form>
-                                <form id="form-login" method="post" action="home">
-                                    <input type="hidden">
-                                </form>
-                            </div>
+    <link rel="stylesheet" th:href="@{/plugin/serein/vendors/iconfonts/mdi/font/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" th:href="@{/plugin/serein/vendors/css/vendor.bundle.base.css}">
+    <link rel="stylesheet" th:href="@{/plugin/serein/vendors/css/vendor.bundle.addons.css}">
+    <link rel="stylesheet" th:href="@{/plugin/serein/css/vertical-layout-dark/style.css}">
+    <link rel="shortcut icon" th:href="@{/plugin/serein/images/favicon.png}" />
+    <link rel="stylesheet" th:href="@{/plugin/font-awesome/css/all.css}">
+    <link rel="stylesheet" th:href="@{/app/app.css}">
+
+    <script th:src="@{/plugin/serein/vendors/js/vendor.bundle.base.js}"></script>
+    <script th:src="@{/plugin/serein/vendors/js/vendor.bundle.addons.js}"></script>
+    <script th:src="@{/plugin/serein/js/off-canvas.js}"></script>
+    <script th:src="@{/plugin/serein/js/hoverable-collapse.js}"></script>
+    <script th:src="@{/plugin/serein/js/template.js}"></script>
+    <script th:src="@{/plugin/serein/js/settings.js}"></script>
+    <script th:src="@{/plugin/serein/js/todolist.js}"></script>
+    <script th:src="@{/plugin/jquery/jquery-3.4.js}"></script>
+    <script th:src="@{/app/login.js}"></script>
+
+</head>
+
+<body>
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth">
+            <div class="row w-100">
+                <div class="col-lg-4 mx-auto">
+                    <div class="auth-form-light text-left p-5">
+                        <div class="col-12 d-flex justify-content-center">
+                            <span>ระบบฐานข้อมูลกลางคณะรัฐศาสตร์</span>
                         </div>
+                        <form id="authen" class="pt-3">
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" id="username" placeholder="Username">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control form-control-lg" id="passwd" placeholder="Password">
+                            </div>
+                            <div class="mt-3 er-lg-in">
+                                <div class="alert alert-danger" role="alert">
+                                    username/password ไม่ถูกต้อง
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <button class="btn btn-poba btn-lg font-weight-medium auth-form-btn w-100" onclick="authenticate()">SIGN IN</button>
+                            </div>
+                        </form>
+                        <form id="form-login" method="post" action="home">
+                            <input type="hidden">
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
-    <script>
-        $(function(){
-            document.querySelector('#passwd').addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                  $(".auth-form-btn").trigger("click");
-                }
-            });
+    </div>
+</div>
+</body>
+
+<script>
+    $(function() {
+        document.querySelector('#passwd').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                $(".auth-form-btn").trigger("click");
+            }
         });
-    </script>
+    });
+</script>
+
 </html>

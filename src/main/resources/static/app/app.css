@@ -613,17 +613,51 @@ div .scroll {
     cursor: pointer;
 }
 
-.btn-primary {
-    background-color: #D33957 !important;
-    border-color: #D33957 !important;
+.btn-poba {
+    background-color: #d33957;
+    border-color: #d33957;
+    color: #ffffff;
 }
 
-.sidebar {
-    background: #313C54 !important;
+.btn-poba:hover {
+    background-color: #ab2640;
+    border-color: #ab2640;
 }
 
-.sidebar .nav .nav-item * {
-    color: #ebe5e5 !important;
+.btn-outline-poba {
+    background-color: #ffffff;
+    border-color: #d33957;
+    color: #d33957;
+}
+
+.btn-outline-poba:hover {
+    background-color: #ab2640;
+    border-color: #ab2640;
+    color: #ffffff;
+}
+
+#sidebar {
+    background: #313C54;
+}
+
+#sidebar .nav .nav-item * {
+    color: #ebe5e5;
+}
+
+#sidebar .nav .nav-item > .collapse .nav-item:hover > .nav-link {
+    color: #d33957;
+}
+
+#sidebar .nav .nav-item.active > .nav-link * {
+    color: #d33957;
+}
+
+#sidebar .nav .nav-item.active > .collapse .nav-item > .nav-link.active {
+    color: #d33957;
+}
+
+#sidebar .nav .nav-item.active > .nav-link:before {
+    background-color: #d33957;
 }
 
 .navbar * {
@@ -640,19 +674,95 @@ div .scroll {
     padding: 0 !important;
 }
 
-#breadcrumb .breadcrumb {
+.content-wrapper *:not(.btn, .breadcrumb *) {
+    color: #000000;
+    font-size: .875rem;
+}
+
+.breadcrumb {
     height: 70px;
     background-color: #e5e5e5;
     align-items: center;
     border: none;
 }
 
-#breadcrumb .breadcrumb * {
+.breadcrumb .breadcrumb-item * {
     color: #000000;
+    font-size: 1rem;
     font-weight: bold;
 }
 
-#breadcrumb .breadcrumb .breadcrumb-item+.breadcrumb-item::before {
+.breadcrumb .breadcrumb-item a:hover {
+    color: #d33957;
+    text-decoration: none !important;
+}
+
+.breadcrumb .breadcrumb-item+.breadcrumb-item::before {
     content: ">";
+}
+
+.content-wrapper form * {
+    border-radius: .25rem !important;
+}
+
+.content-wrapper form label {
+    justify-content: right;
+}
+
+.content-wrapper form input {
+    border: 1px solid #e5e5e5;
+}
+
+.content-wrapper form input:focus {
+    border-color: #d33957;
+    color: #000000;
+}
+
+.content-wrapper button.btn {
+    width: 130px;
+}
+
+.content-wrapper .table table {
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-collapse: collapse !important;
+}
+
+.content-wrapper .table table td {
+    border-top: 1px solid #e5e5e5;
+}
+
+.content-wrapper .table select {
+    background-color: #ffffff;
+}
+
+.table ul.pagination a.page-link {
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    box-shadow: none;
+}
+
+.table ul.pagination > li.page-item:is(.previous, .next) a {
+    color: #000000;
+}
+
+.table ul.pagination > li.page-item:not(.previous, .next) a {
+    color: #d33957;
+}
+
+.table ul.pagination > li.page-item.active a {
+    background-color: #d33957;
+    border-color: #d33957;
+    color: #ffffff;
+}
+
+.table ul.pagination > li.page-item.disabled {
+    visibility: hidden;
+}
+
+.table ul.pagination > li.page-item:hover a {
+    background-color: #ab2640;
+    border-color: #ab2640;
+    color: #ffffff;
 }
 

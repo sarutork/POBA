@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<th:block layout:fragment="content">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="/poba/personnel-info/education">ข้อมูลศึกษาต่อ / ไปแลกเปลี่ยน</a></li>
+            <li class="breadcrumb-item active"><span th:text="${viewName}"></span></li>
+        </ol>
+    </div>
+
+    <div class="px-3">
+
+    </div>
+
+    <script>
+        $(document).ready(function() {
+
+        });
+    </script>
+
+</th:block>
+</html>
