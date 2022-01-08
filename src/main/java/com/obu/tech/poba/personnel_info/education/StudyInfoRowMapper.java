@@ -14,9 +14,10 @@ public class StudyInfoRowMapper implements RowMapper<StudyInfo> {
         studyInfo.setPrefix(resultSet.getString("prefix"));
         studyInfo.setName(resultSet.getString("name"));
         studyInfo.setSurname(resultSet.getString("surname"));
+        studyInfo.setFullName(studyInfo.getName()+" "+studyInfo.getSurname());
         studyInfo.setTravelOrder(resultSet.getString("travel_order"));
-        studyInfo.setStartDate(resultSet.getTimestamp("start_date"));
-        studyInfo.setEndDate(resultSet.getTimestamp("end_date"));
+        studyInfo.setStartDate(resultSet.getString("start_date"));
+        studyInfo.setEndDate(resultSet.getString("end_date"));
         studyInfo.setTotalDate(resultSet.getInt("total_date"));
         studyInfo.setActivityDetail(resultSet.getString("activity_detail"));
         studyInfo.setLocation(resultSet.getString("location"));

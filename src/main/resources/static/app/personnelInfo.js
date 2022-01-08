@@ -41,59 +41,27 @@ function initHistoryInfo() {
     });
 }
 
-function initEducationInfo() {
-/*
-    $.ajaxSetup({
-        beforeSend: (xhr) => {
-            xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access_token"));
-        }
-    });
-
-    var educationInfo = $('#educationInfo').DataTable({
+function findEducationInfo() {
+    $('#table-education').DataTable({
         ajax: {
             type: "GET",
             url: "../../poba/api/personnel-info/education",
-            dataSrc: ""
+            dataSrc: "",
+            data: function(d){
+                d.name = $('#staff-name').val();
+                d.startDate = $('#start-date').val();
+                d.endDate = $('#end-date').val();
+            }
         },
         columns: [
-            { data: "staff_id" },
-            { data: "name" },
+            { data: "staffId" },
+            { data: "fullName" },
             { data: "location" },
             { data: "country" },
-            { data: "start_date" },
-            { data: "end_date" }
+            { data: "startDate" },
+            { data: "endDate" }
         ],
         searching: false,
-        bInfo: true,
-        scrollX: true
-    });
-*/
-    var dataSet = [
-        [ 1, 'Mr. Ekamon M.', 'Kasikorn Business-Technology Group', 'Thailand', '1/1/2564', '31/12/2565' ],
-        [ 2, 'ผศ.ดร. วินัยบุศนินท์', 'University of Wisconsin-Madison', 'สหรัฐอเมริกา', '1/8/2561', '31/7/2562' ],
-        [ 3, 'ผศ.ดร. วินัยบุศนินท์', 'University of Wisconsin-Madison', 'สหรัฐอเมริกา', '1/8/2561', '31/7/2562' ],
-        [ 4, 'ผศ.ดร. วินัยบุศนินท์', 'University of Wisconsin-Madison', 'สหรัฐอเมริกา', '1/8/2561', '31/7/2562' ],
-        [ 5, 'ผศ.ดร. วินัยบุศนินท์', 'University of Wisconsin-Madison', 'สหรัฐอเมริกา', '1/8/2561', '31/7/2562' ],
-        [ 6, 'ผศ.ดร. วินัยบุศนินท์', 'University of Wisconsin-Madison', 'สหรัฐอเมริกา', '1/8/2561', '31/7/2562' ],
-        [ 7, 'ผศ.ดร. วินัยบุศนินท์', 'University of Wisconsin-Madison', 'สหรัฐอเมริกา', '1/8/2561', '31/7/2562' ],
-        [ 8, 'ผศ.ดร. วินัยบุศนินท์', 'University of Wisconsin-Madison', 'สหรัฐอเมริกา', '1/8/2561', '31/7/2562' ],
-        [ 9, 'ผศ.ดร. วินัยบุศนินท์', 'University of Wisconsin-Madison', 'สหรัฐอเมริกา', '1/8/2561', '31/7/2562' ],
-        [ 10, 'ผศ.ดร. วินัยบุศนินท์', 'University of Wisconsin-Madison', 'สหรัฐอเมริกา', '1/8/2561', '31/7/2562' ],
-        [ 11, 'ผศ.ดร. วินัยบุศนินท์', 'University of Wisconsin-Madison', 'สหรัฐอเมริกา', '1/8/2561', '31/7/2562' ],
-        [ 12, 'ผศ.ดร. วินัยบุศนินท์', 'University of Wisconsin-Madison', 'สหรัฐอเมริกา', '1/8/2561', '31/7/2562' ],
-        [ 13, 'ผศ.ดร. วินัยบุศนินท์', 'University of Wisconsin-Madison', 'สหรัฐอเมริกา', '1/8/2561', '31/7/2562' ]
-    ];
-
-    $('#table-education').DataTable({
-        data: dataSet,
-        columns: [
-            { title: '#' },
-            { title: 'ชื่อ-นามสกุล' },
-            { title: 'มหาวิทยาลัย/สถาบันที่ไป' },
-            { title: 'ประเทศ' },
-            { title: 'วันที่ไป' },
-            { title: 'วันที่กลับ' }
-        ],
-        searching: false
+        "bDestroy": true
     });
 }

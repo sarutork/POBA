@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -16,9 +17,10 @@ public class StudyInfo {
     public String prefix;
     public String name;
     public String surname;
+    public String fullName;
     public String travelOrder;
-    public Timestamp startDate;
-    public Timestamp endDate;
+    public String startDate;
+    public String endDate;
     public int totalDate;
     public String activityDetail;
     public String location;

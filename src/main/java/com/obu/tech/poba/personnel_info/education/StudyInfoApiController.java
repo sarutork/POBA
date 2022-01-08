@@ -16,8 +16,8 @@ public class StudyInfoApiController {
     private StudyInfoRepository studyInfoRepository;
 
     @GetMapping
-    public ResponseEntity<List<StudyInfo>> search() {
-        return ResponseEntity.ok().body(studyInfoRepository.findAll());
+    public ResponseEntity<List<StudyInfo>> search(@ModelAttribute StudyInfo studyInfo) {
+        return ResponseEntity.ok().body(studyInfoRepository.findByCriteria(studyInfo));
     }
 
     @PostMapping("/add")
