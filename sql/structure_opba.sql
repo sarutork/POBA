@@ -324,13 +324,14 @@ CREATE TABLE IF NOT EXISTS `published_join` (
 -- Dumping structure for table poba.researcher
 DROP TABLE IF EXISTS `researcher`;
 CREATE TABLE IF NOT EXISTS `researcher` (
-  `staff_id` int(11) NOT NULL,
+  `staff_id` int(11) NOT NULL AUTO_INCREMENT,
   `prefix` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   `r_status` varchar(255) NOT NULL,
   `r_type` varchar(255) NOT NULL,
-  `length_of_work` datetime NOT NULL,
+  `work_start_date` date NOT NULL,
+  `work_end_date` date NOT NULL,
   `doc_of_work` varchar(255) DEFAULT NULL,
   `note_of_work` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`staff_id`)

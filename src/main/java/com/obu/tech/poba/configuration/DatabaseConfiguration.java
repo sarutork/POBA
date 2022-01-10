@@ -11,6 +11,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -43,19 +44,19 @@ public class DatabaseConfiguration {
         return new DataSourceTransactionManager(dataSource);
     }
 
-    @Bean(destroyMethod = "")
-    public DataSource dataSource() {
-        /*/ // SIT-UAT
-        JndiDataSourceLookup jndiDataSourceLookup = new JndiDataSourceLookup();
-        jndiDataSourceLookup.setResourceRef(true);
-        DataSource dataSource = jndiDataSourceLookup.getDataSource("java:jboss/datasources/mysqlds");
-        /*/ // UIS
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
-        dataSource.setUrl(environment.getProperty("jdbc.url"));
-        dataSource.setUsername(environment.getProperty("jdbc.username"));
-        dataSource.setPassword(environment.getProperty("jdbc.password"));
-        //*/
-        return dataSource;
-    }
+//    @Bean(destroyMethod = "")
+//    public DataSource dataSource() {
+//        /*/ // SIT-UAT
+//        JndiDataSourceLookup jndiDataSourceLookup = new JndiDataSourceLookup();
+//        jndiDataSourceLookup.setResourceRef(true);
+//        DataSource dataSource = jndiDataSourceLookup.getDataSource("java:jboss/datasources/mysqlds");
+//        /*/ // UIS
+//        BasicDataSource dataSource = new BasicDataSource();
+//        dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
+//        dataSource.setUrl(environment.getProperty("jdbc.url"));
+//        dataSource.setUsername(environment.getProperty("jdbc.username"));
+//        dataSource.setPassword(environment.getProperty("jdbc.password"));
+//        //*/
+//        return dataSource;
+//    }
 }

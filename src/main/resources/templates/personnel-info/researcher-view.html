@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<th:block layout:fragment="content">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="/poba/personnel-info/researchers">ข้อมูลอาจารย์ /
+                นักวิจัยชาวต่างชาติ</a></li>
+            <li class="breadcrumb-item active"><span>ดูข้อมูล</span></li>
+        </ol>
+    </div>
+
+    <div class="px-3">
+
+        <table id="researcher-detail" class="table-info">
+            <tbody>
+                <tr>
+                    <th>ชื่อ-นามสกุล:</th>
+                    <td th:text="|${researcher.name} ${researcher.surname}|"></td>
+                </tr>
+                <tr>
+                    <th>สถานะ:</th>
+                    <td th:text="${researcher.status}"></td>
+                </tr>
+                <tr>
+                    <th>ประเภท:</th>
+                    <td th:text="${researcher.type}"></td>
+                </tr>
+                <tr>
+                    <th>ระยะเวลาในการปฏิบัติงาน / ว่างจ้าง:</th>
+                    <td th:text="|${researcher.workStartDate} - ${researcher.workEndDate}|"></td>
+                </tr>
+                <tr>
+                    <th>หมายเหตุ:</th>
+                    <td th:text="${researcher.noteOfWork}"></td>
+                </tr>
+                <tr>
+                    <th>เอกสารสัญญาจ้าง:</th>
+                    <td th:text="${researcher.docOfWork}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <script>
+        $(document).ready(function() {
+
+        });
+    </script>
+
+</th:block>
+</html>
