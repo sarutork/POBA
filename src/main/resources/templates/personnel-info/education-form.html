@@ -13,8 +13,58 @@
         </ol>
     </div>
 
-    <div class="px-3">
-
+    <div class="container px-3">
+        <form id="form-education-add" action="/poba/api/personnel-info/education/add" method="post">
+            <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red;">*</span>:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="นาย">นาย</option>
+                    <option value="นางสาว">นางสาว</option>
+                    <option value="นาง">นาง</option>
+                </select>
+            </div>
+            <div class="row mb-2">
+                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="name" name="name">
+            </div>
+            <div class="row mb-2">
+                <label for="travelOrder" class="form-control-label col-sm-2">คำสั่งเดินทาง:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="travelOrder" name="travelOrder">
+            </div>
+            <div class="row mb-2">
+                <label for="startDate" class="form-control-label col-sm-2">วันที่ไป:</label>
+                <input type="date" class="form-control bg-white col-sm-2" id="startDate" name="startDate" onchange="startDateChange();">
+                <label for="endDate" class="form-control-label col-sm-1">วันที่กลับ:</label>
+                <input type="date" class="form-control bg-white col-sm-2" id="endDate" name="endDate"onchange="endDateChange();">
+                <label for="totalDate" class="form-control-label col-sm-1">จำนวนวัน:</label>
+                <input type="text" class="form-control bg-gray col-sm-2" id="totalDate" name="totalDate" readonly>
+            </div>
+            <div class="row mb-2">
+                <label for="activityDetail" class="form-control-label col-sm-2">รายละเอียดกิจกรรม:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="activityDetail" name="activityDetail">
+            </div>
+            <div class="row mb-2">
+                <label for="location" class="form-control-label col-sm-2">มหาวิทยาลัย/สถาบันที่ไป:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="location" name="location">
+                <label for="locationType" class="form-control-label col-sm-1">ประเภท:</label>
+                <select class="form-control bg-white col-sm-2" id="locationType" name="locationType">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ในประเทศ">ในประเทศ</option>
+                    <option value="ต่างประเทศ">ต่างประเทศ</option>
+                </select>
+            </div>
+            <div class="row mb-2">
+                <label for="country" class="form-control-label col-sm-2">ชื่อประเทศ:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="country" name="country">
+                <label for="fund" class="form-control-label col-sm-1">แหล่งทุน:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="fund" name="fund">
+            </div>
+            <div class="row justify-content-center mt-5">
+                <button type="submit" class="btn btn-poba mr-3">บันทึก</button>
+                <button type="button" class="btn btn-outline-poba mr-3" onclick="">ยกเลิก</button>
+            </div>
+        </form>
     </div>
 
     <script>

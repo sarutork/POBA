@@ -55,13 +55,59 @@ function findEducationInfo() {
         },
         columns: [
             { data: "staffId" },
-            { data: "fullName" },
+            { data: "name"},
             { data: "location" },
             { data: "country" },
             { data: "startDate" },
             { data: "endDate" }
         ],
+        columnDefs: [
+            {
+               render: function (data, type, row) {
+                   var fullName = row["name"] + ' ' + row["surname"];
+                       return fullName;
+                    },
+               targets: 1,
+            },
+        ],
         searching: false,
         "bDestroy": true
     });
+}
+
+function calDiffDays(date1, date2){
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+}
+
+
+function startDateChange(){
+    var startDate = $("#startDate").val();
+    var endDate = $("#endDate").val();
+
+    $("#endDate").attr('min',startDate);
+
+    if(startDate != null && endDate != null && startDate != "" && endDate != ""){
+             const date1 = new Date(startDate);
+             const date2 = new Date(endDate);
+             const diffTime = date2 - date1;
+             if (diffTime < 0 ){
+                $("#endDate").val("");
+             }else{
+                diffDays = calDiffDays(date1, date2);
+                $("#totalDate").val(diffDays);
+             }
+    }
+}
+function endDateChange(){
+    var startDate = $("#startDate").val();
+    var endDate = $("#endDate").val();
+    if(startDate != null && endDate != null && startDate != "" && endDate != ""){
+             const date1 = new Date(startDate);
+             const date2 = new Date(endDate);
+             const diffTime = date2 - date1;
+             diffDays = calDiffDays(date1, date2);
+             $("#totalDate").val(diffDays);
+    }
 }

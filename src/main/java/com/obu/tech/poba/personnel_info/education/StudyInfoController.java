@@ -19,9 +19,6 @@ public class StudyInfoController {
     static final String VIEW_STUDY_INFO_FORM = "personnel-info/education-form";
     static final String VIEW_STUDY_INFO_DETAIL = "personnel-info/education-view";
 
-    @Autowired
-    private StudyInfoRepository studyInfoRepository;
-
     @GetMapping
     public ModelAndView overview() {
         ModelAndView view = new ModelAndView(VIEW_STUDY_INFO);

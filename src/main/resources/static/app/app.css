@@ -766,3 +766,6 @@ div .scroll {
     color: #ffffff;
 }
 
+.form-control-label{
+    text-align: right;
+}
