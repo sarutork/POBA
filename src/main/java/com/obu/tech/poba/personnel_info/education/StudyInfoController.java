@@ -19,6 +19,9 @@ public class StudyInfoController {
     static final String VIEW_STUDY_INFO_FORM = "personnel-info/education-form";
     static final String VIEW_STUDY_INFO_DETAIL = "personnel-info/education-view";
 
+    @Autowired
+    private StudyInfoService studyInfoService;
+
     @GetMapping
     public ModelAndView overview() {
         ModelAndView view = new ModelAndView(VIEW_STUDY_INFO);
@@ -35,10 +38,12 @@ public class StudyInfoController {
     }
 
     @GetMapping(value = "/{id}")
-    public ModelAndView showStudyInfo(@PathVariable String id) {
+    public ModelAndView showStudyInfo(@PathVariable String id){
         System.out.println("View study info, id: " + id);
         ModelAndView view = new ModelAndView(VIEW_STUDY_INFO_DETAIL);
         view.addObject("user", "Ekamon");
+        StudyInfo studyInfo = studyInfoService.findById(id);
+        view.addObject("studyInfo",studyInfo);
         return view;
     }
 

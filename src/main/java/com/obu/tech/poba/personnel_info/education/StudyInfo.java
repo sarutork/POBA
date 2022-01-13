@@ -14,7 +14,7 @@ import java.util.Date;
 public class StudyInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int staffId;
+    public long staffId;
     public String prefix;
     public String name;
     public String surname;

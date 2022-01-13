@@ -2,7 +2,9 @@ package com.obu.tech.poba.personnel_info.education;
 
 import com.obu.tech.poba.utils.search.SearchConditionBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
@@ -26,6 +28,16 @@ public class StudyInfoService {
     }
     public StudyInfo save(StudyInfo studyInfo) {
         return studyInfoRepository.saveAndFlush(studyInfo);
+    }
+
+    public StudyInfo findById(String id) {
+        if (id.matches("\\d+")) {
+            return studyInfoRepository.findById(Long.parseLong(id))
+                    .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
+        } else {
+            System.out.println("Invalid researcher.staff_id: '" + id + "'");
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
