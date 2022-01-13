@@ -39,7 +39,6 @@ public class StudyInfoController {
         System.out.println("View study info, id: " + id);
         ModelAndView view = new ModelAndView(VIEW_STUDY_INFO_DETAIL);
         view.addObject("user", "Ekamon");
-//        view.addObject("studyInfo", studyInfoRepository.findById(id).orElseThrow(notFoundException()));
         return view;
     }
 

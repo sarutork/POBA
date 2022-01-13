@@ -42,7 +42,7 @@ function initHistoryInfo() {
 }
 
 function findEducationInfo() {
-    $('#table-education').DataTable({
+   var tableEducation =  $('#table-education').DataTable({
         ajax: {
             type: "GET",
             url: "../../poba/api/personnel-info/education",
@@ -64,7 +64,7 @@ function findEducationInfo() {
         columnDefs: [
             {
                render: function (data, type, row) {
-                   var fullName = row["name"] + ' ' + row["surname"];
+                   var fullName = row["prefix"]+' '+row["name"] + ' ' + row["surname"];
                        return fullName;
                     },
                targets: 1,
@@ -73,6 +73,12 @@ function findEducationInfo() {
         searching: false,
         "bDestroy": true
     });
+    $('#table-education tbody').on('click', 'tr', function () {
+            if(!$('#table-education tbody tr td').hasClass("dataTables_empty")){
+               var data = tableEducation.row( this ).data();
+                window.location.href = "/poba/personnel-info/education/"+data.staffId;
+            }
+        } );
 }
 
 function calDiffDays(date1, date2){
