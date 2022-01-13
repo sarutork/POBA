@@ -616,24 +616,25 @@ div .scroll {
 .btn-poba {
     background-color: #d33957;
     border-color: #d33957;
-    color: #ffffff;
+    color: #ffffff !important;
 }
 
 .btn-poba:hover {
     background-color: #ab2640;
     border-color: #ab2640;
+    color: #ffffff !important;
 }
 
 .btn-outline-poba {
     background-color: #ffffff;
     border-color: #d33957;
-    color: #d33957;
+    color: #d33957 !important;
 }
 
 .btn-outline-poba:hover {
     background-color: #ab2640;
     border-color: #ab2640;
-    color: #ffffff;
+    color: #ffffff !important;
 }
 
 #sidebar {
@@ -669,16 +670,6 @@ div .scroll {
     width: auto !important;
 }
 
-.content-wrapper {
-    background: #eef0f5 !important;
-    padding: 0 !important;
-}
-
-.content-wrapper *:not(.btn, .breadcrumb *) {
-    color: #000000;
-    font-size: .875rem;
-}
-
 .breadcrumb {
     height: 70px;
     background-color: #e5e5e5;
@@ -688,8 +679,7 @@ div .scroll {
 
 .breadcrumb .breadcrumb-item * {
     color: #000000;
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 1.25rem;
 }
 
 .breadcrumb .breadcrumb-item a:hover {
@@ -701,68 +691,131 @@ div .scroll {
     content: ">";
 }
 
+.content-wrapper {
+    background: #eef0f5 !important;
+    padding: 0;
+}
+
+.content-wrapper form *:not(.btn) {
+    color: #000000 !important;
+    font-size: 1rem;
+}
+
 .content-wrapper form * {
     border-radius: .25rem !important;
 }
 
-.content-wrapper form label {
-    justify-content: right;
+.content-wrapper input, select {
+    background-color: #ffffff !important;
+    border: 1px solid #dfdfdf;
+    color: #000000;
+    height: 47px !important;
 }
 
-.content-wrapper form input {
-    border: 1px solid #e5e5e5;
-}
-
-.content-wrapper form input:focus {
-    border-color: #d33957;
+.content-wrapper input:focus {
+    background-color: #ffffff;
+    border-color: #000000;
     color: #000000;
 }
 
-.content-wrapper button.btn {
+.content-wrapper .btn {
     width: 130px;
+    height: 47px;
+}
+
+.content-wrapper select:required:invalid {
+    color: #aaa7a7 !important;
+}
+
+.content-wrapper .table * {
+    font-size: 1rem;
+}
+
+.content-wrapper .table *, table, select:focus {
+    color: #000000;
+}
+
+.content-wrapper .table table, .table .pagination .page-link {
+    background-color: #ffffff;
+    border: 1px solid #dfdfdf;
 }
 
 .content-wrapper .table table {
-    background-color: #ffffff;
-    border: 1px solid #e5e5e5;
     border-collapse: collapse !important;
 }
 
+.content-wrapper .table table th {
+    border-bottom: none;
+}
+
 .content-wrapper .table table td {
-    border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #dfdfdf;
 }
 
-.content-wrapper .table select {
-    background-color: #ffffff;
-}
-
-.table ul.pagination a.page-link {
-    background-color: #ffffff;
-    border: 1px solid #e5e5e5;
+.table .pagination .page-link {
     box-shadow: none;
 }
 
-.table ul.pagination > li.page-item:is(.previous, .next) a {
+.table .pagination > .page-item:is(.previous, .next) a {
     color: #000000;
 }
 
-.table ul.pagination > li.page-item:not(.previous, .next) a {
+.table .pagination > .page-item:not(.previous, .next) a {
     color: #d33957;
 }
 
-.table ul.pagination > li.page-item.active a {
+.table .pagination > .page-item.active a {
     background-color: #d33957;
     border-color: #d33957;
     color: #ffffff;
 }
 
-.table ul.pagination > li.page-item.disabled {
+.table .pagination > .page-item.disabled {
     visibility: hidden;
 }
 
-.table ul.pagination > li.page-item:hover a {
+.table .pagination > .page-item:hover a {
     background-color: #ab2640;
     border-color: #ab2640;
     color: #ffffff;
+}
+
+table.view-info {
+    background-color: #ffffff;
+    border: none;
+}
+
+table.view-info th {
+    background-color: #d4d4d4;
+    border: 1px solid #d4d4d4;
+    font-weight: normal;
+    text-align: right;
+    width: 20%;
+}
+
+table.view-info td {
+    border: 1px solid #dfdfdf;
+    border-left: none;
+}
+
+table.view-info th, td {
+    padding: .75rem;
+    padding-right: .2rem;
+}
+
+.form-wrapper {
+    min-height: 80%;
+    position: relative;
+}
+
+.form-wrapper .form-fields {
+    padding-bottom: 80px
+}
+
+.form-wrapper .form-buttons {
+    bottom: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
 }
 

@@ -26,8 +26,10 @@ public class ResearcherController {
     }
 
     @GetMapping(value = "/add")
-    public String showAddView() {
-        return VIEW_RESEARCHER_FORM;
+    public ModelAndView showAddView() {
+        ModelAndView view = new ModelAndView(VIEW_RESEARCHER_FORM);
+        view.addObject("viewName", "เพิ่มข้อมูล");
+        return view;
     }
 
     @GetMapping(value = "/{id}")
@@ -42,6 +44,7 @@ public class ResearcherController {
     public ModelAndView showEditView(@PathVariable("id") String id) {
         Researcher researcher = researcherService.findById(id);
         ModelAndView view = new ModelAndView(VIEW_RESEARCHER_FORM);
+        view.addObject("viewName", "แก้ไขข้อมูล");
         view.addObject("researcher", researcher);
         return view;
     }
@@ -49,9 +52,9 @@ public class ResearcherController {
     @PostMapping
     @ResponseBody
     public ResponseEntity<List<Researcher>> search(@RequestParam(required = false) String name,
-                                                   @RequestParam(required = false) LocalDate startDate,
-                                                   @RequestParam(required = false) LocalDate endDate) {
-        List<Researcher> researchers = researcherService.search(name, startDate, endDate);
+                                                   @RequestParam(required = false) LocalDate workStartDate,
+                                                   @RequestParam(required = false) LocalDate workEndDate) {
+        List<Researcher> researchers = researcherService.search(name, workStartDate, workEndDate);
         return researchers.isEmpty()
                 ? ResponseEntity.notFound().build()
                 : ResponseEntity.ok().body(researchers);

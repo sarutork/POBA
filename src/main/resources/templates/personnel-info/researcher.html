@@ -14,22 +14,22 @@
 
     <div class="px-3">
 
-        <form id="form-education" class="form-inline justify-content-end flex-md-row flex-column">
-            <div class="form-group mb-3">
-                <label for="staff-name" class="mr-1">ค้นหาข้อมูล:</label>
-                <input type="text" class="form-control bg-white mr-3" id="staff-name" placeholder="ค้นหาด้วยชื่อ">
-            </div>
-            <div class="form-group mb-3">
-                <label for="from-date" class="mr-1">วันที่ไป:</label>
-                <input type="date" class="form-control bg-white mr-3" id="from-date">
-            </div>
-            <div class="form-group mb-3">
-                <label for="to-date" class="mr-1">วันที่กลับ:</label>
-                <input type="date" class="form-control bg-white mr-3" id="to-date">
-            </div>
-            <div class="form-group mb-3">
-                <button type="submit" class="btn btn-outline-poba mr-3">ค้นหา</button>
-                <button type="submit" class="btn btn-poba">เพิ่มข้อมูล</button>
+        <form id="form-researcher" class="mb-5">
+            <div class="d-flex flex-xl-row flex-column">
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                    <label for="name" class="col-2 text-sm-right col-form-label">ค้นหาข้อมูล:</label>
+                    <input id="name" type="text" class="col-10 form-control flex-xl-grow-1" placeholder="ค้นหาด้วยชื่อ">
+                </div>
+                <div class="row px-3 mb-xl-0 mb-3">
+                    <label for="work-start-date" class="col-2 text-sm-right col-form-label">วันที่ไป:</label>
+                    <input id="work-start-date" type="date" class="col-4 form-control">
+                    <label for="work-end-date" class="col-2 text-sm-right col-form-label">วันที่กลับ:</label>
+                    <input id="work-end-date" type="date" class="col-4 form-control">
+                </div>
+                <div class="pl-xl-3 d-inline-flex justify-content-end">
+                    <button type="submit" class="btn btn-outline-poba mr-3">ค้นหา</button>
+                    <a class="btn btn-poba" href="/poba/personnel-info/researchers/add">เพิ่มข้อมูล</a>
+                </div>
             </div>
         </form>
 
@@ -47,7 +47,7 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td colspan="6" class="dataTables_empty text-center bg-secondary">ศึกษาต่อ / ไปแลกเปลี่ยน</td>
+                    <td colspan="6" class="dataTables_empty text-center bg-secondary">อาจารย์ / นักวิจัยชาวต่างชาติ</td>
                 </tr>
                 </tbody>
             </table>
