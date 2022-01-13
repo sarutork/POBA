@@ -20,7 +20,7 @@ public class StudyInfoController {
     static final String VIEW_STUDY_INFO_DETAIL = "personnel-info/education-view";
 
     @Autowired
-    private StudyInfoRepository studyInfoRepository;
+    private StudyInfoService studyInfoService;
 
     @GetMapping
     public ModelAndView overview() {
@@ -38,11 +38,12 @@ public class StudyInfoController {
     }
 
     @GetMapping(value = "/{id}")
-    public ModelAndView showStudyInfo(@PathVariable String id) {
+    public ModelAndView showStudyInfo(@PathVariable String id){
         System.out.println("View study info, id: " + id);
         ModelAndView view = new ModelAndView(VIEW_STUDY_INFO_DETAIL);
         view.addObject("user", "Ekamon");
-//        view.addObject("studyInfo", studyInfoRepository.findById(id).orElseThrow(notFoundException()));
+        StudyInfo studyInfo = studyInfoService.findById(id);
+        view.addObject("studyInfo",studyInfo);
         return view;
     }
 
