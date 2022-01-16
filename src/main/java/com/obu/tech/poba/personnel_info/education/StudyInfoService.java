@@ -14,9 +14,6 @@ import static com.obu.tech.poba.utils.search.SearchOperator.*;
 public class StudyInfoService {
     @Autowired StudyInfoRepository studyInfoRepository;
 
-    List<StudyInfo> findAll(){
-        return studyInfoRepository.findAll();
-    }
     List<StudyInfo> findBySearchCriteria(StudyInfo studyInfo){
         return studyInfoRepository.findAll(new SearchConditionBuilder<StudyInfo>()
                 .ifNotNullThenAnd("name", LIKE, studyInfo.getName())
@@ -39,9 +36,5 @@ public class StudyInfoService {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
     }
-//    public StudyInfo update(StudyInfo studyInfo){
-//
-//
-//    }
 
 }

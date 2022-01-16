@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<th:block layout:fragment="content">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item active"><span>ช้อมูลการสอน</span></li>
+        </ol>
+    </div>
+
+    <div class="px-3">
+        <form id="form-teaching" class="form-inline justify-content-end flex-md-row flex-column">
+            <div class="form-group mb-3">
+                <label for="staffName" class="mr-1">ค้นหาข้อมูล:</label>
+                <input type="text" class="form-control bg-white mr-3" id="staffName">
+            </div>
+            <div class="form-group mb-3">
+                <label for="studyYear" class="mr-1">ปีการศึกษา:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="studyYear" name="studyYear">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="2565">2565</option>
+                    <option value="2564">2564</option>
+                    <option value="2563">2563</option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label for="semester" class="mr-1">ภาคการศึกษา:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="semester" name="studyYear">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ภาคการศึกษาต้น">ภาคการศึกษาต้น</option>
+                    <option value="ภาคการศึกษาปลาย">ภาคการศึกษาปลาย</option>
+                    <option value="ภาคฤดูร้อน">ภาคฤดูร้อน</option>
+                    <option value="ภาคการศึกษาที่ 1">ภาคการศึกษาที่ 1</option>
+                    <option value="ภาคการศึกษาที่ 2">ภาคการศึกษาที่ 2</option>
+                    <option value="ภาคการศึกษาที่ 3">ภาคการศึกษาที่ 3</option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <button type="button" class="btn btn-outline-poba mr-3" onclick="findTeachingInfo();">ค้นหา</button>
+                <a href="" class="btn btn-poba">เพิ่มข้อมูล</a>
+            </div>
+        </form>
+
+        <div class="table table-responsive">
+            <table id="table-teaching" class="display" width="100%">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ชื่อ-นามสกุลผู้สอน</th>
+                    <th>ปีการศึกษา</th>
+                    <th>ภาคการศึกษา</th>
+                    <th>ชื่อย่อวิชา</th>
+                    <th>ระบบ</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="6" class="dataTables_empty text-center bg-secondary">ข้อมูลการสอน</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function() {
+        });
+
+    </script>
+
+</th:block>
+</html>
