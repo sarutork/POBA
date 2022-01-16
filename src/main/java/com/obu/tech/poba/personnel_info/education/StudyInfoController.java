@@ -34,6 +34,8 @@ public class StudyInfoController {
         ModelAndView view = new ModelAndView(VIEW_STUDY_INFO_FORM);
         view.addObject("user", "Ekamon");
         view.addObject("viewName", "เพิ่มข้อมูล");
+        StudyInfo studyInfo = new StudyInfo();
+        view.addObject("studyInfo",studyInfo);
         return view;
     }
 
@@ -53,7 +55,8 @@ public class StudyInfoController {
         ModelAndView view = new ModelAndView(VIEW_STUDY_INFO_FORM);
         view.addObject("user", "Ekamon");
         view.addObject("viewName", "แก้ไขข้อมูล");
-//        view.addObject("studyInfo", studyInfoRepository.findById(id).orElseThrow(notFoundException()));
+        StudyInfo studyInfo = studyInfoService.findById(id);
+        view.addObject("studyInfo",studyInfo);
         return view;
     }
 

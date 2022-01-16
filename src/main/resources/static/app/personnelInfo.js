@@ -119,10 +119,15 @@ function endDateChange(){
 }
 
 function submitEducationInfo(){
+    var type = "POST";
+    var staffId = $("#staffId").val();
+    if (staffId != null &&  staffId != 0 ){
+        type = "PUT"
+    }
     $.ajax({
-         type: "POST",
-         url: '/poba/api/personnel-info/education/add',
-         data: $("#form-education-add").serialize(),
+         type: type,
+         url: "/poba/api/personnel-info/education/save",
+         data: $("#form-education").serialize(),
          success: function() {
                 //$("#noti-msg").text("บันทึกสำเร็จ");
                 var x = document.getElementById("noti-msg");

@@ -39,5 +39,9 @@ public class StudyInfoService {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
     }
+//    public StudyInfo update(StudyInfo studyInfo){
+//
+//
+//    }
 
 }

@@ -6,10 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.validation.Valid;
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequestMapping("api/personnel-info/education")
@@ -24,8 +21,8 @@ public class StudyInfoApiController {
         return ResponseEntity.ok().body(studyInfoService.findBySearchCriteria(studyInfo));
     }
 
-    @PostMapping(path = "/add",consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView add(StudyInfo studyInfo, BindingResult bindingResult) {
+    @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ModelAndView save(StudyInfo studyInfo, BindingResult bindingResult) {
         ModelAndView view = new ModelAndView(VIEW_STUDY_INFO);
         view.addObject("user", "Ekamon");
         if (bindingResult.hasErrors()) {
@@ -44,6 +41,4 @@ public class StudyInfoApiController {
 
         return view;
     }
-
-
 }
