@@ -117,3 +117,19 @@ function endDateChange(){
              $("#totalDate").val(diffDays);
     }
 }
+
+function submitEducationInfo(){
+    $.ajax({
+         type: "POST",
+         url: '/poba/api/personnel-info/education/add',
+         data: $("#form-education-add").serialize(),
+         success: function() {
+                //$("#noti-msg").text("บันทึกสำเร็จ");
+                var x = document.getElementById("noti-msg");
+                    x.style.display = "block";
+                setTimeout(function(){
+                    window.location.href = "/poba/personnel-info/education";
+                },2000);
+         }
+    });
+}

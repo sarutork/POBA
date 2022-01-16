@@ -13,8 +13,14 @@
         </ol>
     </div>
 
+    <div id="noti-msg" class="col-sm-12 mb-4" style="width: 100%;
+                  padding: 10px 0;
+                  text-align: center;
+                  background-color: rgb(107, 210, 125);
+                  display:none;"><h4 style="color:white">บันทึกสำเร็จ</h4></div>
+
     <div class="container px-3">
-        <form id="form-education-add" action="/poba/api/personnel-info/education/add" method="post">
+        <form id="form-education-add">
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red;">*</span>:</label>
                 <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
@@ -61,7 +67,7 @@
                 <input type="text" class="form-control bg-white col-sm-4" id="fund" name="fund">
             </div>
             <div class="row justify-content-center mt-5">
-                <button type="submit" class="btn btn-poba mr-3">บันทึก</button>
+                <button type="button" class="btn btn-poba mr-3" onclick="submitEducationInfo();">บันทึก</button>
                 <button type="button" class="btn btn-outline-poba mr-3" onclick="">ยกเลิก</button>
             </div>
         </form>

@@ -14,7 +14,7 @@ import java.util.Locale;
 @RestController
 @RequestMapping("api/personnel-info/education")
 public class StudyInfoApiController {
-    static final String VIEW_STUDY_INFO = "personnel-info/education";
+    static final String VIEW_STUDY_INFO = "/personnel-info/education";
 
     @Autowired
     private StudyInfoService studyInfoService;
