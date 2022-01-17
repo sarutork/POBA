@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<th:block layout:fragment="content">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="/poba/teaching">ข้อมูลการสอน</a></li>
+            <li class="breadcrumb-item active"><span th:text="${viewName}"></span></li>
+        </ol>
+    </div>
+
+    <div id="noti-msg" class="col-sm-12 mb-4" style="width: 100%;
+                  padding: 10px 0;
+                  text-align: center;
+                  background-color: rgb(107, 210, 125);
+                  display:none;"><h4 style="color:white">บันทึกสำเร็จ</h4></div>
+
+    <div class="container px-3">
+        <form id="form-teaching">
+            <input type="hidden" id="staffId" name="staffId" th:value="${teaching.staffId}"/>
+            <div class="row col-sm-12 mb-2">
+                <label><b>ข้อมูลผู้สอน</b></label>
+            </div>
+            <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="นาย" th:selected="${teaching.prefix == 'นาย'}? 'selected'">นาย</option>
+                    <option value="นางสาว" th:selected="${teaching.prefix == 'นางสาว'}? 'selected'">นางสาว</option>
+                    <option value="นาง" th:selected="${teaching.prefix == 'นาง'}? 'selected'">นาง</option>
+                </select>
+                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
+                <input type="text" class="form-control bg-white col-sm-2" id="name" name="name"
+                       th:attr="value=${teaching.name != null}? |${teaching.name} ${teaching.surname}|: ''"/>
+
+                <label class="col-sm-2 form-control-label" for="teachStatus">สถานะการสอน<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="teachStatus" name="teachStatus"required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="สอนหลัก" th:selected="${teaching.teachStatus == 'สอนหลัก'}? 'selected'">สอนหลัก</option>
+                    <option value="สอนร่วม" th:selected="${teaching.teachStatus == 'สอนร่วม'}? 'selected'">สอนร่วม</option>
+                    <option value="เชิญสอน (อาจารย์พิเศษ)" th:selected="${teaching.teachStatus == 'เชิญสอน (อาจารย์พิเศษ)'}? 'selected'">เชิญสอน (อาจารย์พิเศษ)</option>
+                </select>
+            </div>
+            <div class="row col-sm-12 mb-2">
+                <label><b>ข้อมูลเชิญสอน</b></label>
+            </div>
+            <div class="row mb-2">
+                <label for="institutionInfo" class="form-control-label col-sm-2">หน่วยงานสังกัด:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="institutionInfo" name="institutionInfo"
+                       th:attr="value=${teaching.institutionInfo != null}? ${teaching.institutionInfo} : ''"/>
+                <label for="teachTopic" class="form-control-label col-sm-2">เรื่อง/หัวข้อในการสอน:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="teachTopic" name="teachTopic"
+                       th:attr="value=${teaching.teachTopic != null}? ${teaching.teachTopic} : ''"/>
+            </div>
+            <div class="row mb-2">
+                <label for="teachTimes" class="form-control-label col-sm-2">จำนวนครั้ง:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="teachTimes" name="teachTimes"
+                       th:attr="value=${teaching.teachTimes != null}? ${teaching.teachTimes} : ''"/>
+                <label for="teachDate" class="form-control-label col-sm-2">วันเดือน ปี:</label>
+                <input type="date" class="form-control bg-white col-sm-2" id="teachDate" name="teachDate"
+                       th:attr="value=${teaching.teachDate != null}? ${teaching.teachDate}: ''"/>
+            </div>
+            <div class="row mb-2">
+                <label for="noteOfTeach" class="form-control-label col-sm-2">หมายเหตุ:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="noteOfTeach" name="noteOfTeach"
+                       th:attr="value=${teaching.noteOfTeach != null}? ${teaching.noteOfTeach} : ''"/>
+            </div>
+            <div class="row col-sm-12 mb-2">
+                <label><b>ข้อมูลการสอน</b></label>
+            </div>
+            <div class="row mb-2">
+                <label for="studyYear" class="form-control-label col-sm-2">ปีการศึกษา:</label>
+                <select type="text" class="form-control bg-white col-sm-4" id="studyYear" name="studyYear">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="2565">2565</option>
+                    <option value="2564">2564</option>
+                    <option value="2563">2563</option>
+                </select>
+                <label for="semester" class="form-control-label col-sm-2">ภาคการศึกษา:</label>
+                <select type="text" class="form-control bg-white col-sm-4" id="semester" name="studyYear">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ภาคการศึกษาต้น">ภาคการศึกษาต้น</option>
+                    <option value="ภาคการศึกษาปลาย">ภาคการศึกษาปลาย</option>
+                    <option value="ภาคฤดูร้อน">ภาคฤดูร้อน</option>
+                    <option value="ภาคการศึกษาที่ 1">ภาคการศึกษาที่ 1</option>
+                    <option value="ภาคการศึกษาที่ 2">ภาคการศึกษาที่ 2</option>
+                    <option value="ภาคการศึกษาที่ 3">ภาคการศึกษาที่ 3</option>
+                </select>
+            </div>
+            <div class="row mb-2">
+                <label for="studyType" class="form-control-label col-sm-2">ระบบ:</label>
+                <select type="text" class="form-control bg-white col-sm-4" id="studyType" name="studyType">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                </select>
+                <label for="subjectId" class="form-control-label col-sm-2">รหัสวิชา:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="subjectId" name="subjectId"
+                       th:attr="value=${teaching.subjectId != null}? ${teaching.subjectId} : ''" readonly/>
+            </div>
+            <div class="row mb-2">
+                <label for="subjectName" class="form-control-label col-sm-2">ชื่อย่อวิชา:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="subjectName" name="subjectName"
+                       th:attr="value=${teaching.subjectName != null}? ${teaching.subjectName} : ''" readonly/>
+                <label for="subjectCredit" class="form-control-label col-sm-2">หน่วยกิต:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="subjectCredit" name="subjectCredit"
+                       th:attr="value=${teaching.subjectCredit != null}? ${teaching.subjectCredit} : ''"/>
+            </div>
+            <div class="row mb-2">
+                <label for="currentCredit" class="form-control-label col-sm-2">ตอนเรียน:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="currentCredit" name="currentCredit"
+                       th:attr="value=${teaching.currentCredit != null}? ${teaching.currentCredit} : ''"/>
+                <label for="teachType" class="form-control-label col-sm-2">วิธีสอน:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="teachType" name="teachType"
+                       th:attr="value=${teaching.teachType != null}? ${teaching.teachType} : ''"/>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+
+        });
+    </script>
+
+</th:block>
+</html>

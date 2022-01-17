@@ -16,6 +16,8 @@ import java.util.List;
 @RequestMapping("/teaching")
 public class TeachingController {
     static final String VIEW_TEACHING_INFO = "teaching-info/teaching";
+    static final String VIEW_TEACHING_FORM = "teaching-info/teaching-form";
+
 
     @Autowired
     private TeachingService teachingService;
@@ -30,5 +32,15 @@ public class TeachingController {
     public ResponseEntity<List<Teaching>> search(@ModelAttribute Teaching teaching) {
         System.out.println(">>>>>>>>>>>>>>Search");
         return ResponseEntity.ok().body(teachingService.findBySearchCriteria(teaching));
+    }
+
+    @GetMapping("/add")
+    public ModelAndView add() {
+        ModelAndView view = new ModelAndView(VIEW_TEACHING_FORM);
+        view.addObject("user", "Ekamon");
+        view.addObject("viewName", "เพิ่มข้อมูล");
+        Teaching teaching = new Teaching();
+        view.addObject("teaching", teaching);
+        return view;
     }
 }
