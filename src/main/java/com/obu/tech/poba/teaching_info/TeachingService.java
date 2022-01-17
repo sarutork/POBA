@@ -12,6 +12,8 @@ public class TeachingService {
     List<Teaching> findBySearchCriteria(Teaching teaching){
         return teachingRepository.findAll(new SearchConditionBuilder<Teaching>()
                 .ifNotNullThenAnd("name", LIKE, teaching.getName())
+                .ifNotNullThenAnd("studyYear", LIKE, teaching.getStudyYear())
+                .ifNotNullThenAnd("semester", LIKE, teaching.getSemester())
                 .build()
         );
     }
