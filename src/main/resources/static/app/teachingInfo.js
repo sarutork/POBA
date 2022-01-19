@@ -38,3 +38,24 @@ function findTeachingInfo() {
             }
         } );
 }
+
+function submitTeachingInfo(){
+    var type = "POST";
+    var staffId = $("#staffId").val();
+    if (staffId != null &&  staffId != 0 ){
+        type = "PUT"
+    }
+    $.ajax({
+         type: type,
+         url: "/poba/teaching/save",
+         data: $("#form-teaching").serialize(),
+         success: function() {
+                //$("#noti-msg").text("บันทึกสำเร็จ");
+                /*var x = document.getElementById("noti-msg");
+                    x.style.display = "block";
+                setTimeout(function(){
+                    window.location.href = "/poba/teaching";
+                },2000);*/
+         }
+    });
+}

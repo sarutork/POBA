@@ -17,4 +17,10 @@ public class TeachingService {
                 .build()
         );
     }
+
+    public Teaching save(Teaching teaching) {
+        System.out.printf("teaching: "+teaching.name);
+        return teachingRepository.saveAndFlush(teaching);
+    }
+
 }

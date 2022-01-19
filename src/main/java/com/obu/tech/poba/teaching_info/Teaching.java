@@ -3,11 +3,9 @@ package com.obu.tech.poba.teaching_info;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
 import javax.persistence.*;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -27,8 +25,8 @@ public class Teaching {
     public int currentCredit;
     public String teachType;
     public String teachDay;
-    public Timestamp studyStart;
-    public Timestamp studyEnd;
+    public LocalDate studyStart;
+    public LocalDate studyEnd;
     public String teachLocation;
     public String teachRoom;
     public String prefix;
@@ -38,16 +36,21 @@ public class Teaching {
     public String institutionInfo;
     public String teachTopic;
     public int teachTimes;
-    public Timestamp teachDate;
+    public LocalDate teachDate;
     public String noteOfTeach;
     public String teachStyle;
     public String teachStyleDetail;
     public String totalOfStudents;
     public String totalStudentsRegister;
-    public Timestamp midtermExamDate;
-    public Time midtermExamTime;
-    public Timestamp finalExamDate;
-    public Time finalExamTime;
+    public LocalDate midtermExamDate;
+
+    @Column(nullable = true)
+    public LocalTime midtermExamTime;
+
+    public LocalDate finalExamDate;
+
+    @Column(nullable = true)
+    public LocalTime finalExamTime;
 
 
 }

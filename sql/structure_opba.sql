@@ -423,7 +423,7 @@ CREATE TABLE IF NOT EXISTS `students_report` (
 -- Dumping structure for table poba.study_info
 DROP TABLE IF EXISTS `study_info`;
 CREATE TABLE IF NOT EXISTS `study_info` (
-  `staff_id` int(11) NOT NULL,
+  `staff_id` int(11) NOT NULL AUTO_INCREMENT,
   `prefix` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
@@ -450,7 +450,7 @@ CREATE TABLE IF NOT EXISTS `table_1` (
 -- Dumping structure for table poba.teach_info
 DROP TABLE IF EXISTS `teach_info`;
 CREATE TABLE IF NOT EXISTS `teach_info` (
-  `staff_id` int(11) NOT NULL,
+  `staff_id` int(11) NOT NULL AUTO_INCREMENT,
   `study_year` varchar(255) NOT NULL,
   `semester` varchar(255) NOT NULL,
   `study_type` varchar(255) NOT NULL,
@@ -460,8 +460,8 @@ CREATE TABLE IF NOT EXISTS `teach_info` (
   `current_credit` int(11) NOT NULL,
   `teach_type` varchar(255) NOT NULL,
   `teach_day` varchar(255) NOT NULL,
-  `study_start` timestamp NULL DEFAULT NULL,
-  `study_end` timestamp NULL DEFAULT NULL,
+  `study_start` date NULL DEFAULT NULL,
+  `study_end` date NULL DEFAULT NULL,
   `teach_location` varchar(255) NOT NULL,
   `teach_room` varchar(255) NOT NULL,
   `prefix` varchar(255) NOT NULL,
@@ -477,9 +477,9 @@ CREATE TABLE IF NOT EXISTS `teach_info` (
   `teach_style_detail` varchar(255) NOT NULL,
   `total_of_students` varchar(255) NOT NULL,
   `total_students_register` varchar(255) NOT NULL,
-  `midterm_exam_date` datetime DEFAULT NULL,
+  `midterm_exam_date` date DEFAULT NULL,
   `midterm_exam_time` time DEFAULT NULL,
-  `final_exam_date` datetime DEFAULT NULL,
+  `final_exam_date` date DEFAULT NULL,
   `final_exam_time` time DEFAULT NULL,
   PRIMARY KEY (`staff_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

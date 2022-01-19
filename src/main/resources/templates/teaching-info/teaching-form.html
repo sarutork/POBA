@@ -81,7 +81,7 @@
                     <option value="2563">2563</option>
                 </select>
                 <label for="semester" class="form-control-label col-sm-2">ภาคการศึกษา:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="semester" name="studyYear">
+                <select type="text" class="form-control bg-white col-sm-4" id="semester" name="semester">
                     <option value="">กรุณาเลือก</option>
                     <option value="ภาคการศึกษาต้น">ภาคการศึกษาต้น</option>
                     <option value="ภาคการศึกษาปลาย">ภาคการศึกษาปลาย</option>
@@ -95,18 +95,18 @@
                 <label for="studyType" class="form-control-label col-sm-2">ระบบ:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="studyType" name="studyType">
                     <option value="">กรุณาเลือก</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
+                    <option value="ตรีภาค">ตรีภาค</option>
+                    <option value="ทวิภาค">ทวิภาค</option>
+                    <option value="ทวิภาค-นานาชาติ">ทวิภาค-นานาชาติ</option>
                 </select>
                 <label for="subjectId" class="form-control-label col-sm-2">รหัสวิชา:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="subjectId" name="subjectId"
-                       th:attr="value=${teaching.subjectId != null}? ${teaching.subjectId} : ''" readonly/>
+                       th:attr="value=${teaching.subjectId != null}? ${teaching.subjectId} : ''"/>
             </div>
             <div class="row mb-2">
                 <label for="subjectName" class="form-control-label col-sm-2">ชื่อย่อวิชา:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="subjectName" name="subjectName"
-                       th:attr="value=${teaching.subjectName != null}? ${teaching.subjectName} : ''" readonly/>
+                       th:attr="value=${teaching.subjectName != null}? ${teaching.subjectName} : ''"/>
                 <label for="subjectCredit" class="form-control-label col-sm-2">หน่วยกิต:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="subjectCredit" name="subjectCredit"
                        th:attr="value=${teaching.subjectCredit != null}? ${teaching.subjectCredit} : ''"/>
@@ -133,6 +133,7 @@
                     <option value="TU">TU</option>
                     <option value="WE">WE</option>
                 </select>
+                <input type="hidden" id="studyStart" name="studyStart"/>
                 <label for="studyStartHH" class="form-control-label col-sm-1">เวลาเรียนเริ่มต้น:</label>
                 <select type="text" class="form-control bg-white col-sm-1" id="studyStartHH" name="studyStartHH">
                     <option value="">HH</option>
@@ -144,19 +145,19 @@
                     <option value="11">11</option>
                     <option value="12">12</option>
                 </select>
-                    <select type="text" class="form-control bg-white col-sm-1" id="studyStartMM" name="studyStartMM">
-                        <option value="">MM</option>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="40">40</option>
-                        <option value="50">50</option>
-                    </select>
-                    <select type="text" class="form-control bg-white col-sm-1" id="studyStartAM" name="studyStartAM">
-                        <option value="AM">AM</option>
-                        <option value="PM">PM</option>
-                    </select>
+                <select type="text" class="form-control bg-white col-sm-1" id="studyStartMM" name="studyStartMM">
+                    <option value="">MM</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
                 </select>
+                <select type="text" class="form-control bg-white col-sm-1" id="studyStartAM" name="studyStartAM">
+                    <option value="AM">AM</option>
+                    <option value="PM">PM</option>
+                </select>
+                <input type="hidden" id="studyEnd" name="studyEnd"/>
                 <label for="studyEndHH" class="form-control-label col-sm-1">เวลาเรียนสิ้นสุด:</label>
                 <select type="text" class="form-control bg-white col-sm-1" id="studyEndHH" name="studyEndHH">
                     <option value="">HH</option>
@@ -220,6 +221,7 @@
             <div class="row mb-2">
                 <label for="midtermExamDate" class="form-control-label col-sm-2">วันสอบกลางภาค:</label>
                 <input type="date" class="form-control bg-white col-sm-2" id="midtermExamDate" name="midtermExamDate"/>
+                <input type="hidden" id="midtermExamTime" name="midtermExamTime"/>
                 <label for="midtermExamTimeStartHH" class="form-control-label col-sm-1">เวลาสอบกลางภาคเริ่มต้น:</label>
                 <select type="text" class="form-control bg-white col-sm-1" id="midtermExamTimeStartHH" name="midtermExamTimeStartHH">
                     <option value="">HH</option>
@@ -271,6 +273,7 @@
             <div class="row mb-2">
                 <label for="finalExamDate" class="form-control-label col-sm-2">วันสอบปลายภาค:</label>
                 <input type="date" class="form-control bg-white col-sm-2" id="finalExamDate" name="finalExamDate"/>
+                <input type="hidden" id="finalExamTime" name="finalExamTime"/>
                 <label for="finalExamTimeStartHH" class="form-control-label col-sm-1">เวลาสอบปลายภาคเริ่มต้น:</label>
                 <select type="text" class="form-control bg-white col-sm-1" id="finalExamTimeStartHH" name="finalExamTimeStartHH">
                     <option value="">HH</option>
@@ -321,7 +324,7 @@
             </div>
         </form>
         <div class="row justify-content-center mt-5 mb-5">
-            <button type="button" class="btn btn-poba mr-3" onclick="">บันทึก</button>
+            <button type="button" class="btn btn-poba mr-3" onclick="submitTeachingInfo();">บันทึก</button>
             <button type="button" class="btn btn-outline-poba mr-3" onclick="">ยกเลิก</button>
         </div>
     </div>
