@@ -823,3 +823,10 @@ table.view-info th, td {
     text-align: right;
 }
 
+.display-block{
+    display:block;
+}
+.display-none{
+    display:none;
+}
+

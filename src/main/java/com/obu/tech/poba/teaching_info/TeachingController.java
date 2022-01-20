@@ -1,14 +1,12 @@
 package com.obu.tech.poba.teaching_info;
 
+import com.obu.tech.poba.personnel_info.education.StudyInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -64,6 +62,18 @@ public class TeachingController {
         //TODO: Handle error
         teachingService.save(teaching);
 
+        return view;
+    }
+
+    @GetMapping(value = "/{id}")
+    public ModelAndView showTeachingInfo(@PathVariable String id){
+        System.out.println("View teaching info, id: " + id);
+        ModelAndView view = new ModelAndView(VIEW_TEACHING_FORM);
+        view.addObject("user", "Ekamon");
+        view.addObject("viewName", "ดูข้อมูล");
+
+        Teaching teaching = teachingService.findById(id);
+        view.addObject("teaching",teaching);
         return view;
     }
 }

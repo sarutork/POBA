@@ -34,7 +34,7 @@ function findTeachingInfo() {
     $('#table-teaching tbody').on('click', 'tr', function () {
             if(!$('#table-teaching tbody tr td').hasClass("dataTables_empty")){
                var data = tableTeaching.row( this ).data();
-                window.location.href = ""+data.staffId;
+                window.location.href = "/poba/teaching/"+data.staffId;
             }
         } );
 }
@@ -51,11 +51,16 @@ function submitTeachingInfo(){
          data: $("#form-teaching").serialize(),
          success: function() {
                 //$("#noti-msg").text("บันทึกสำเร็จ");
-                /*var x = document.getElementById("noti-msg");
+                var x = document.getElementById("noti-msg");
                     x.style.display = "block";
                 setTimeout(function(){
                     window.location.href = "/poba/teaching";
-                },2000);*/
+                },2000);
          }
     });
+}
+
+function editTeachingInfo(){
+    //Enable field for editing
+    //Show submit button for saving
 }
