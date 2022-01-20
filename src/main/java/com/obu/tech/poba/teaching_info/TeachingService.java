@@ -31,7 +31,7 @@ public class TeachingService {
             return teachingRepository.findById(Long.parseLong(id))
                     .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
         } else {
-            System.out.println("Invalid researcher.staff_id: '" + id + "'");
+            System.out.println("Invalid staff_id: '" + id + "'");
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
     }

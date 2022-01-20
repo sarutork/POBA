@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<th:block layout:fragment="content">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item active"><span>ข้อมูลที่ปรึกษาระดับปริญญา ตรี โท เอก</span></li>
+        </ol>
+    </div>
+
+    <div class="px-3">
+        <form id="form-teaching" class="form-inline justify-content-end flex-md-row flex-column">
+            <div class="form-group mb-3">
+                <label for="staffName" class="mr-1">ค้นหาข้อมูล:</label>
+                <input type="text" class="form-control bg-white mr-3" id="staffName">
+            </div>
+            <div class="form-group mb-3">
+                <label for="yearOfStudy" class="mr-1">ปีที่เข้าศึกษา:</label>
+                <select type="text" class="form-control bg-white mr-3" id="yearOfStudy" name="yearOfStudy">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="2565">2565</option>
+                    <option value="2564">2564</option>
+                    <option value="2563">2563</option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label for="studentsLevel" class="mr-1">ระดับการศึกษา:</label>
+                <select type="text" class="form-control bg-white mr-3" id="studentsLevel" name="studentsLevel">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ปริญญาตรี">ปริญญาตรี</option>
+                    <option value="ปริญญาโท">ปริญญาโท</option>
+                    <option value="ปริญญาเอก">ปริญญาเอก</option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <button type="button" class="btn btn-outline-poba mr-3" onclick="findConsultantStudent();">ค้นหา</button>
+                <a href="/poba/consultant/students/add" class="btn btn-poba">เพิ่มข้อมูล</a>            </div>
+        </form>
+
+        <div class="table table-responsive">
+            <table id="table-consultant-student" class="display" width="100%">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ชื่อ-นามสกุลที่ปรึกษา</th>
+                    <th>ชื่อ-นามสกุลนิสิต</th>
+                    <th>ปีที่เข้าศึกษา</th>
+                    <th>ระดับการศึกษา</th>
+                    <th>หลักสูตร</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="6" class="dataTables_empty text-center bg-secondary">ข้อมูลที่ปรึกษาระดับปริญญา ตรี โท เอก</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function() {
+        });
+
+    </script>
+
+</th:block>
+</html>
