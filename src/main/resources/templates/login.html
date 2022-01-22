@@ -49,11 +49,8 @@
                                 </div>
                             </div>
                             <div class="mt-3">
-                                <button class="btn btn-poba btn-lg font-weight-medium auth-form-btn w-100" onclick="authenticate()">SIGN IN</button>
+                                <button type="button" class="btn btn-poba font-weight-medium w-100" onclick="authenticate()">SIGN IN</button>
                             </div>
-                        </form>
-                        <form id="form-login" method="post" action="home">
-                            <input type="hidden">
                         </form>
                     </div>
                 </div>
@@ -62,15 +59,4 @@
     </div>
 </div>
 </body>
-
-<script>
-    $(function() {
-        document.querySelector('#passwd').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                $(".auth-form-btn").trigger("click");
-            }
-        });
-    });
-</script>
-
 </html>
