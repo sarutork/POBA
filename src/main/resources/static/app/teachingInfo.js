@@ -53,6 +53,9 @@ function submitTeachingInfo(){
                 //$("#noti-msg").text("บันทึกสำเร็จ");
                 var x = document.getElementById("noti-msg");
                     x.style.display = "block";
+
+                window.scrollTo(0, 0);
+
                 setTimeout(function(){
                     window.location.href = "/poba/teaching";
                 },2000);
@@ -61,6 +64,15 @@ function submitTeachingInfo(){
 }
 
 function editTeachingInfo(){
-    //Enable field for editing
-    //Show submit button for saving
+    $(":input").prop("disabled", false);
+
+    $("#submit").removeClass("display-none");
+    $("#submit").addClass("display-block");
+
+    $("#edit").removeClass("display-block");
+    $("#edit").addClass("display-none");
+
+    $("#viewName").text("แก้ไข")
+
+    window.scrollTo(0, 0);
 }

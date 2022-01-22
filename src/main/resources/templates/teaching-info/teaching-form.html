@@ -9,7 +9,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
             <li class="breadcrumb-item"><a href="/poba/teaching">ข้อมูลการสอน</a></li>
-            <li class="breadcrumb-item active"><span th:text="${viewName}"></span></li>
+            <li class="breadcrumb-item active" ><span id="viewName" th:text="${viewName}"></span></li>
         </ol>
     </div>
 
@@ -323,11 +323,11 @@
                 </select>
             </div>
         </form>
-        <div class="row justify-content-center mt-5 mb-5" th:classappend="${teaching.staffId == 0 ? 'display-block' : 'display-none'} ">
+        <div id="submit" class="row justify-content-center mt-5 mb-5" th:classappend="${teaching.staffId == 0 ? 'display-block' : 'display-none'} ">
             <button type="button" class="btn btn-poba mr-3" onclick="submitTeachingInfo();">บันทึก</button>
             <button type="button" class="btn btn-outline-poba mr-3" onclick="">ยกเลิก</button>
         </div>
-        <div class="row justify-content-center mt-5 mb-5" th:classappend="${teaching.staffId != 0 ? 'display-block' : 'display-none'}">
+        <div id="edit"class="row justify-content-center mt-5 mb-5" th:classappend="${teaching.staffId != 0 ? 'display-block' : 'display-none'}">
             <button type="button" class="btn btn-poba mr-3" onclick="">ยกเลิก</button>
             <button type="button" class="btn btn-outline-poba mr-3" onclick="editTeachingInfo();">แก้ไข</button>
         </div>
@@ -335,7 +335,11 @@
 
     <script>
         $(document).ready(function() {
-
+             var staffId = $("#staffId").val();
+             if(staffId != '' && staffId > 0){
+                $("input").prop("disabled", true);
+                $("select").prop("disabled", true);
+             }
         });
     </script>
 
