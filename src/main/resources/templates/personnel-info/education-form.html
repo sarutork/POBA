@@ -32,53 +32,54 @@
                 </select>
             </div>
             <div class="row mb-2">
-                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
+                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
-                       th:attr="value=${studyInfo.name != null}? |${studyInfo.name} ${studyInfo.surname}|: ''"/>
+                       th:attr="value=${studyInfo.name != null}? |${studyInfo.name} ${studyInfo.surname}|: ''" required/>
             </div>
             <div class="row mb-2">
-                <label for="travelOrder" class="form-control-label col-sm-2">คำสั่งเดินทาง:</label>
+                <label for="travelOrder" class="form-control-label col-sm-2">คำสั่งเดินทาง<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="travelOrder" name="travelOrder"
-                       th:attr="value=${studyInfo.travelOrder != null}? ${studyInfo.travelOrder}: ''"/>
+                       th:attr="value=${studyInfo.travelOrder != null}? ${studyInfo.travelOrder}: ''" required/>
             </div>
             <div class="row mb-2">
-                <label for="startDate" class="form-control-label col-sm-2">วันที่ไป:</label>
+                <label for="startDate" class="form-control-label col-sm-2">วันที่ไป<span style="color:red !important;">*</span>:</label>
                 <input type="date" class="form-control bg-white col-sm-2" id="startDate" name="startDate" onchange="startDateChange();"
-                       th:attr="value=${studyInfo.startDate != null}? ${studyInfo.startDate}: ''"/>
-                <label for="endDate" class="form-control-label col-sm-1">วันที่กลับ:</label>
+                       th:attr="value=${studyInfo.startDate != null}? ${studyInfo.startDate}: ''" required/>
+                <label for="endDate" class="form-control-label col-sm-1">วันที่กลับ<span style="color:red !important;">*</span>:</label>
                 <input type="date" class="form-control bg-white col-sm-2" id="endDate" name="endDate"onchange="endDateChange();"
-                       th:attr="value=${studyInfo.endDate != null}? ${studyInfo.endDate}: ''"/>
+                       th:attr="value=${studyInfo.endDate != null}? ${studyInfo.endDate}: ''" required/>
                 <label for="totalDate" class="form-control-label col-sm-1">จำนวนวัน:</label>
                 <input type="text" class="form-control bg-gray col-sm-2" id="totalDate" name="totalDate" readonly
                        th:attr="value=${studyInfo.totalDate != null}? ${studyInfo.totalDate}: ''"/>
             </div>
             <div class="row mb-2">
-                <label for="activityDetail" class="form-control-label col-sm-2">รายละเอียดกิจกรรม:</label>
+                <label for="activityDetail" class="form-control-label col-sm-2">รายละเอียดกิจกรรม<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="activityDetail" name="activityDetail"
-                       th:attr="value=${studyInfo.activityDetail != null}? ${studyInfo.activityDetail}: ''"/>
+                       th:attr="value=${studyInfo.activityDetail != null}? ${studyInfo.activityDetail}: ''" required/>
             </div>
             <div class="row mb-2">
-                <label for="location" class="form-control-label col-sm-2">มหาวิทยาลัย/สถาบันที่ไป:</label>
+                <label for="location" class="form-control-label col-sm-2">มหาวิทยาลัย/สถาบันที่ไป<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="location" name="location"
-                       th:attr="value=${studyInfo.location != null}? ${studyInfo.location}: ''"/>
-                <label for="locationType" class="form-control-label col-sm-1">ประเภท:</label>
-                <select class="form-control bg-white col-sm-2" id="locationType" name="locationType">
+                       th:attr="value=${studyInfo.location != null}? ${studyInfo.location}: ''" required/>
+                <label for="locationType" class="form-control-label col-sm-1">ประเภท<span style="color:red !important;">*</span>:</label>
+                <select class="form-control bg-white col-sm-2" id="locationType" name="locationType" required>
                     <option value="">กรุณาเลือก</option>
                     <option value="ในประเทศ" th:selected="${studyInfo.locationType == 'ในประเทศ'}? 'selected'">ในประเทศ</option>
                     <option value="ต่างประเทศ" th:selected="${studyInfo.locationType == 'ต่างประเทศ'}? 'selected'">ต่างประเทศ</option>
                 </select>
             </div>
             <div class="row mb-2">
-                <label for="country" class="form-control-label col-sm-2">ชื่อประเทศ:</label>
+                <label for="country" class="form-control-label col-sm-2">ชื่อประเทศ<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="country" name="country"
-                       th:attr="value=${studyInfo.country != null}? ${studyInfo.country}: ''"/>
-                <label for="fund" class="form-control-label col-sm-1">แหล่งทุน:</label>
+                       th:attr="value=${studyInfo.country != null}? ${studyInfo.country}: ''" required/>
+                <label for="fund" class="form-control-label col-sm-1">แหล่งทุน<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="fund" name="fund"
-                       th:attr="value=${studyInfo.fund != null}? ${studyInfo.fund}: ''"/>
+                       th:attr="value=${studyInfo.fund != null}? ${studyInfo.fund}: ''" required/>
             </div>
             <div class="row justify-content-center mt-5">
                 <button type="button" class="btn btn-poba mr-3" onclick="submitEducationInfo();">บันทึก</button>
-                <button type="button" class="btn btn-outline-poba mr-3" onclick="">ยกเลิก</button>
+                <a href="/poba/personnel-info/education" class="btn btn-outline-poba mr-3">ยกเลิก</a>
+
             </div>
         </form>
     </div>

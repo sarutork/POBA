@@ -132,6 +132,7 @@ function submitEducationInfo(){
                 //$("#noti-msg").text("บันทึกสำเร็จ");
                 var x = document.getElementById("noti-msg");
                     x.style.display = "block";
+                    window.scrollTo(0, 0);
                 setTimeout(function(){
                     window.location.href = "/poba/personnel-info/education";
                 },2000);
