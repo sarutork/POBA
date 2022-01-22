@@ -76,28 +76,28 @@
                 <label for="studyYear" class="form-control-label col-sm-2">ปีการศึกษา:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="studyYear" name="studyYear">
                     <option value="">กรุณาเลือก</option>
-                    <option value="2565">2565</option>
-                    <option value="2564">2564</option>
-                    <option value="2563">2563</option>
+                    <option value="2565" th:selected="${teaching.studyYear == '2565'}? 'selected'">2565</option>
+                    <option value="2564" th:selected="${teaching.studyYear == '2564'}? 'selected'">2564</option>
+                    <option value="2563" th:selected="${teaching.studyYear == '2563'}? 'selected'">2563</option>
                 </select>
                 <label for="semester" class="form-control-label col-sm-2">ภาคการศึกษา:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="semester" name="semester">
                     <option value="">กรุณาเลือก</option>
-                    <option value="ภาคการศึกษาต้น">ภาคการศึกษาต้น</option>
-                    <option value="ภาคการศึกษาปลาย">ภาคการศึกษาปลาย</option>
-                    <option value="ภาคฤดูร้อน">ภาคฤดูร้อน</option>
-                    <option value="ภาคการศึกษาที่ 1">ภาคการศึกษาที่ 1</option>
-                    <option value="ภาคการศึกษาที่ 2">ภาคการศึกษาที่ 2</option>
-                    <option value="ภาคการศึกษาที่ 3">ภาคการศึกษาที่ 3</option>
+                    <option value="ภาคการศึกษาต้น" th:selected="${teaching.semester == 'ภาคการศึกษาต้น'}? 'selected'">ภาคการศึกษาต้น</option>
+                    <option value="ภาคการศึกษาปลาย" th:selected="${teaching.semester == 'ภาคการศึกษาปลาย'}? 'selected'">ภาคการศึกษาปลาย</option>
+                    <option value="ภาคฤดูร้อน" th:selected="${teaching.semester == 'ภาคฤดูร้อน'}? 'selected'">ภาคฤดูร้อน</option>
+                    <option value="ภาคการศึกษาที่ 1" th:selected="${teaching.semester == 'ภาคการศึกษาที่ 1'}? 'selected'">ภาคการศึกษาที่ 1</option>
+                    <option value="ภาคการศึกษาที่ 2" th:selected="${teaching.semester == 'ภาคการศึกษาที่ 2'}? 'selected'">ภาคการศึกษาที่ 2</option>
+                    <option value="ภาคการศึกษาที่ 3" th:selected="${teaching.semester == 'ภาคการศึกษาที่ 3'}? 'selected'">ภาคการศึกษาที่ 3</option>
                 </select>
             </div>
             <div class="row mb-2">
                 <label for="studyType" class="form-control-label col-sm-2">ระบบ:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="studyType" name="studyType">
                     <option value="">กรุณาเลือก</option>
-                    <option value="ตรีภาค">ตรีภาค</option>
-                    <option value="ทวิภาค">ทวิภาค</option>
-                    <option value="ทวิภาค-นานาชาติ">ทวิภาค-นานาชาติ</option>
+                    <option value="ตรีภาค" th:selected="${teaching.studyType == 'ตรีภาค'}? 'selected'">ตรีภาค</option>
+                    <option value="ทวิภาค" th:selected="${teaching.studyType == 'ทวิภาค'}? 'selected'">ทวิภาค</option>
+                    <option value="ทวิภาค-นานาชาติ" th:selected="${teaching.studyType == 'ทวิภาค-นานาชาติ'}? 'selected'">ทวิภาค-นานาชาติ</option>
                 </select>
                 <label for="subjectId" class="form-control-label col-sm-2">รหัสวิชา:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="subjectId" name="subjectId"
@@ -123,15 +123,15 @@
                 <label for="teachDay" class="form-control-label col-sm-2">วัน:</label>
                 <select type="text" class="form-control bg-white col-sm-2" id="teachDay" name="teachDay">
                     <option value="">กรุณาเลือก</option>
-                    <option value="AR">AR</option>
-                    <option value="TO BE ARRANGED">TO BE ARRANGED</option>
-                    <option value="IA">IA</option>
-                    <option value="INDIVIDUALLY ARRANGED">INDIVIDUALLY ARRANGED</option>
-                    <option value="MO">MO</option>
-                    <option value="SU">SU</option>
-                    <option value="TH">TH</option>
-                    <option value="TU">TU</option>
-                    <option value="WE">WE</option>
+                    <option value="AR" th:selected="${teaching.teachDay == 'AR'}? 'selected'">AR</option>
+                    <option value="TO BE ARRANGED" th:selected="${teaching.teachDay == 'TO BE ARRANGED'}? 'selected'">TO BE ARRANGED</option>
+                    <option value="IA" th:selected="${teaching.teachDay == 'IA'}? 'selected'">IA</option>
+                    <option value="INDIVIDUALLY ARRANGED" th:selected="${teaching.teachDay == 'INDIVIDUALLY ARRANGED'}? 'selected'">INDIVIDUALLY ARRANGED</option>
+                    <option value="MO" th:selected="${teaching.teachDay == 'MO'}? 'selected'">MO</option>
+                    <option value="SU" th:selected="${teaching.teachDay == 'SU'}? 'selected'">SU</option>
+                    <option value="TH" th:selected="${teaching.teachDay == 'TH'}? 'selected'">TH</option>
+                    <option value="TU" th:selected="${teaching.teachDay == 'TU'}? 'selected'">TU</option>
+                    <option value="WE" th:selected="${teaching.teachDay == 'WE'}? 'selected'">WE</option>
                 </select>
                 <input type="hidden" id="studyStart" name="studyStart"/>
                 <label for="studyStartHH" class="form-control-label col-sm-1">เวลาเรียนเริ่มต้น:</label>
@@ -186,13 +186,13 @@
                 <label for="teachLocation" class="form-control-label col-sm-2">อาคาร:</label>
                 <select type="text" class="form-control bg-white col-sm-4 mr-3" id="teachLocation" name="teachLocation">
                     <option value="">กรุณาเลือก</option>
-                    <option value="CHALE">CHALE</option>
-                    <option value="MAHIT">MAHIT</option>
-                    <option value="PINIT">PINIT</option>
-                    <option value="POL1">POL1</option>
-                    <option value="POL2">POL2</option>
-                    <option value="POL3">POL3</option>
-                    <option value="อื่น ๆ">อื่น ๆ</option>
+                    <option value="CHALE" th:selected="${teaching.teachLocation == 'CHALE'}? 'selected'">CHALE</option>
+                    <option value="MAHIT" th:selected="${teaching.teachLocation == 'MAHIT'}? 'selected'">MAHIT</option>
+                    <option value="PINIT" th:selected="${teaching.teachLocation == 'PINIT'}? 'selected'">PINIT</option>
+                    <option value="POL1" th:selected="${teaching.teachLocation == 'POL1'}? 'selected'">POL1</option>
+                    <option value="POL2" th:selected="${teaching.teachLocation == 'POL2'}? 'selected'">POL2</option>
+                    <option value="POL3" th:selected="${teaching.teachLocation == 'POL3'}? 'selected'">POL3</option>
+                    <option value="อื่นๆ" th:selected="${teaching.teachLocation == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
                 </select>
                 <input type="text" class="form-control bg-white col-sm-4" id="teachLocationAdd" name="teachLocationAdd" placeholder="โปรดระบุอาคารเพิ่มเติม"/>
             </div>
@@ -202,9 +202,9 @@
                        th:attr="value=${teaching.teachRoom != null}? ${teaching.teachRoom} : ''"/>
                 <label for="teachStyle" class="form-control-label col-sm-2">รูปแบบการสอน:</label>
                 <select type="text" class="form-control bg-white col-sm-3" id="teachStyle" name="teachStyle">
-                    <option value="Online">Online</option>
-                    <option value="Onsite">Onsite</option>
-                    <option value="Hybrid">Hybrid</option>
+                    <option value="Online" th:selected="${teaching.teachStyle == 'Online'}? 'selected'">Online</option>
+                    <option value="Onsite" th:selected="${teaching.teachStyle == 'Onsite'}? 'selected'">Onsite</option>
+                    <option value="Hybrid" th:selected="${teaching.teachStyle == 'Hybrid'}? 'selected'">Hybrid</option>
                 </select>
             </div>
             <div class="row mb-2">
@@ -220,7 +220,8 @@
             </div>
             <div class="row mb-2">
                 <label for="midtermExamDate" class="form-control-label col-sm-2">วันสอบกลางภาค:</label>
-                <input type="date" class="form-control bg-white col-sm-2" id="midtermExamDate" name="midtermExamDate"/>
+                <input type="date" class="form-control bg-white col-sm-2" id="midtermExamDate" name="midtermExamDate"
+                       th:attr="value=${teaching.midtermExamDate != null}? ${teaching.midtermExamDate} : ''"/>
                 <input type="hidden" id="midtermExamTime" name="midtermExamTime"/>
                 <label for="midtermExamTimeStartHH" class="form-control-label col-sm-1">เวลาสอบกลางภาคเริ่มต้น:</label>
                 <select type="text" class="form-control bg-white col-sm-1" id="midtermExamTimeStartHH" name="midtermExamTimeStartHH">
@@ -272,7 +273,8 @@
             </div>
             <div class="row mb-2">
                 <label for="finalExamDate" class="form-control-label col-sm-2">วันสอบปลายภาค:</label>
-                <input type="date" class="form-control bg-white col-sm-2" id="finalExamDate" name="finalExamDate"/>
+                <input type="date" class="form-control bg-white col-sm-2" id="finalExamDate" name="finalExamDate"
+                       th:attr="value=${teaching.finalExamDate != null}? ${teaching.finalExamDate} : ''"/>
                 <input type="hidden" id="finalExamTime" name="finalExamTime"/>
                 <label for="finalExamTimeStartHH" class="form-control-label col-sm-1">เวลาสอบปลายภาคเริ่มต้น:</label>
                 <select type="text" class="form-control bg-white col-sm-1" id="finalExamTimeStartHH" name="finalExamTimeStartHH">
@@ -325,10 +327,10 @@
         </form>
         <div id="submit" class="row justify-content-center mt-5 mb-5" th:classappend="${teaching.staffId == 0 ? 'display-block' : 'display-none'} ">
             <button type="button" class="btn btn-poba mr-3" onclick="submitTeachingInfo();">บันทึก</button>
-            <button type="button" class="btn btn-outline-poba mr-3" onclick="">ยกเลิก</button>
+            <a href="/poba/teaching" class="btn btn-outline-poba mr-3">ยกเลิก</a>
         </div>
         <div id="edit"class="row justify-content-center mt-5 mb-5" th:classappend="${teaching.staffId != 0 ? 'display-block' : 'display-none'}">
-            <button type="button" class="btn btn-poba mr-3" onclick="">ยกเลิก</button>
+            <a href="/poba/teaching" class="btn btn-poba mr-3">ยกเลิก</a>
             <button type="button" class="btn btn-outline-poba mr-3" onclick="editTeachingInfo();">แก้ไข</button>
         </div>
     </div>
