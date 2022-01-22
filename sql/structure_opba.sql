@@ -75,6 +75,8 @@ CREATE TABLE IF NOT EXISTS `consultant_students` (
   `surname` varchar(255) DEFAULT NULL,
   `students_id` int(11) DEFAULT NULL,
   `student_prefix` varchar(255) DEFAULT NULL,
+  `student_name` varchar(255) DEFAULT NULL,
+  `student_surname` varchar(255) DEFAULT NULL,
   `year_of_study` varchar(255) DEFAULT NULL,
   `admission_status` varchar(255) DEFAULT NULL,
   `students_level` varchar(255) DEFAULT NULL,

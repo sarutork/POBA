@@ -38,3 +38,24 @@ function findConsultantStudent() {
             }
         } );
 }
+
+function submitConsultantStudent(){
+    var type = "POST";
+    var staffId = $("#staffId").val();
+    if (staffId != null &&  staffId != 0 ){
+        type = "PUT"
+    }
+    $.ajax({
+         type: type,
+         url: "/poba/consultant/students/save",
+         data: $("#form-consultant-student").serialize(),
+         success: function() {
+                //$("#noti-msg").text("บันทึกสำเร็จ");
+                var x = document.getElementById("noti-msg");
+                    x.style.display = "block";
+                setTimeout(function(){
+                    window.location.href = "/poba/consultant/students";
+                },2000);
+         }
+    });
+}

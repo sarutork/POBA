@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<th:block layout:fragment="content">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="/poba/consultant/students">ข้อมูลที่ปรึกษาระดับปริญญา ตรี โท เอก</a></li>
+            <li class="breadcrumb-item active"><span th:text="${viewName}"></span></li>
+        </ol>
+    </div>
+
+    <div id="noti-msg" class="col-sm-12 mb-4" style="width: 100%;
+                  padding: 10px 0;
+                  text-align: center;
+                  background-color: rgb(107, 210, 125);
+                  display:none;"><h4 style="color:white">บันทึกสำเร็จ</h4></div>
+
+    <div class="container px-3">
+        <form id="form-consultant-student">
+            <input type="hidden" id="staffId" name="staffId" th:value="${consultantStudent.staffId}"/>
+            <div class="row col-sm-12 mb-2">
+                <label><b>ข้อมูลที่ปรึกษา</b></label>
+            </div>
+            <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-4 form-control bg-white" id="prefix" name="prefix"required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="อ." th:selected="${consultantStudent.prefix == 'อ.'}? 'selected'">อ.</option>
+                    <option value="อ.ดร." th:selected="${consultantStudent.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
+                    <option value="ผศ." th:selected="${consultantStudent.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
+                    <option value="ผศ.ดร." th:selected="${consultantStudent.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
+                    <option value="รศ." th:selected="${consultantStudent.prefix == 'รศ.'}? 'selected'">รศ.</option>
+                    <option value="รศ.ดร." th:selected="${consultantStudent.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
+                    <option value="ศ." th:selected="${consultantStudent.prefix == 'ศ.'}? 'selected'">ศ.</option>
+                    <option value="ศ.ดร." th:selected="${consultantStudent.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
+                    <option value="อื่นๆ" th:selected="${consultantStudent.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
+                </select>
+                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
+                       th:attr="value=${consultantStudent.name != null}? |${consultantStudent.name} ${consultantStudent.surname}|: ''"/>
+            </div>
+            <div class="row col-sm-12 mb-2">
+                <label><b>ข้อมูลนิสิต</b></label>
+            </div>
+            <div class="row mb-2">
+                <label for="studentsId" class="form-control-label col-sm-2">เลขประจำตัวนิสิต:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="studentsId" name="studentsId"
+                       th:attr="value=${consultantStudent.studentsId != 0}? ${consultantStudent.studentsId}: ''"/>
+            </div>
+            <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="studentPrefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-4 form-control bg-white" id="studentPrefix" name="studentPrefix"required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="นาย" th:selected="${consultantStudent.studentPrefix == 'นาย'}? 'selected'">นาย</option>
+                    <option value="นางสาว" th:selected="${consultantStudent.studentPrefix == 'นางสาว'}? 'selected'">นางสาว</option>
+                    <option value="นาง" th:selected="${consultantStudent.studentPrefix == 'นาง'}? 'selected'">นาง</option>
+                </select>
+                <label for="studentName" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="studentName" name="studentName"
+                       th:attr="value=${consultantStudent.studentName != null}? |${consultantStudent.studentName} ${consultantStudent.studentSurname}|: ''"/>
+            </div>
+            <div class="row mb-2">
+                <label for="yearOfStudy" class="form-control-label col-sm-2">ปีที่เข้าศึกษา:</label>
+                <select type="text" class="form-control bg-white col-sm-4" id="yearOfStudy" name="yearOfStudy">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="2565" th:selected="${consultantStudent.yearOfStudy == '2565'}? 'selected'">2565</option>
+                    <option value="2564" th:selected="${consultantStudent.yearOfStudy == '2564'}? 'selected'">2564</option>
+                    <option value="2563" th:selected="${consultantStudent.yearOfStudy == '2563'}? 'selected'">2563</option>
+                </select>
+                <label for="studentsLevel" class="form-control-label col-sm-2">ระดับการศึกษา:</label>
+                <select type="text" class="form-control bg-white col-sm-4" id="studentsLevel" name="studentsLevel">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ปริญญาตรี" th:selected="${consultantStudent.studentsLevel == 'ปริญญาตรี'}? 'selected'">ปริญญาตรี</option>
+                    <option value="ปริญญาโท" th:selected="${consultantStudent.studentsLevel == 'ปริญญาโท'}? 'selected'">ปริญญาโท</option>
+                    <option value="ปริญญาเอก" th:selected="${consultantStudent.studentsLevel == 'ปริญญาเอก'}? 'selected'">ปริญญาเอก</option>
+                </select>
+            </div>
+            <div class="row mb-2">
+                <label for="admissionStatus" class="form-control-label col-sm-2">สถานะการรับเข้า:</label>
+                <select type="text" class="form-control bg-white col-sm-4" id="admissionStatus" name="admissionStatus">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="โครงการจุฬาฯ-ชนบท" th:selected="${consultantStudent.admissionStatus == 'โครงการจุฬาฯ-ชนบท'}? 'selected'">โครงการจุฬาฯ-ชนบท</option>
+                    <option value="โครงการปอเนอะ" th:selected="${consultantStudent.admissionStatus == 'โครงการปอเนอะ'}? 'selected'">โครงการปอเนอะ</option>
+                    <option value="โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)" th:selected="${consultantStudent.admissionStatus == 'โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)'}? 'selected'">โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)</option>
+                    <option value="Admission" th:selected="${consultantStudent.admissionStatus == 'Admission'}? 'selected'">Admission</option>
+                    <option value="นิสิตแลกเปลี่ยน" th:selected="${consultantStudent.admissionStatus == 'นิสิตแลกเปลี่ยน'}? 'selected'">นิสิตแลกเปลี่ยน</option>
+                    <option value="สามัญเต็มเวลา" th:selected="${consultantStudent.admissionStatus == 'สามัญเต็มเวลา'}? 'selected'">สามัญเต็มเวลา</option>
+                    <option value="ทดลองศึกษา" th:selected="${consultantStudent.admissionStatus == 'ทดลองศึกษา'}? 'selected'">ทดลองศึกษา</option>
+                </select>
+                <label for="course" class="form-control-label col-sm-2">หลักสูตร:</label>
+                <select type="text" class="form-control bg-white col-sm-4" id="course" name="course">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ร.บ." th:selected="${consultantStudent.course == 'ร.บ.'}? 'selected'">ร.บ.</option>
+                    <option value="ร.บ.(PGS)" th:selected="${consultantStudent.course == 'ร.บ.(PGS)'}? 'selected'">ร.บ.(PGS)</option>
+                    <option value="ร.ม.การปกครอง" th:selected="${consultantStudent.course == 'ร.ม.การปกครอง'}? 'selected'">ร.ม.การปกครอง</option>
+                    <option value="ร.ม.การเมืองฯ" th:selected="${consultantStudent.course == 'ร.ม.การเมืองฯ'}? 'selected'">ร.ม.การเมืองฯ</option>
+                    <option value="ร.ม.ความสัมพันธ์ฯ (ในเวลา)" th:selected="${consultantStudent.course == 'ร.ม.ความสัมพันธ์ฯ (ในเวลา)'}? 'selected'">ร.ม.ความสัมพันธ์ฯ (ในเวลา)</option>
+                    <option value="ร.ม.ความสัมพันธ์ฯ (นอกเวลา)" th:selected="${consultantStudent.course == 'ร.ม.ความสัมพันธ์ฯ (นอกเวลา)'}? 'selected'">ร.ม.ความสัมพันธ์ฯ (นอกเวลา)</option>
+                    <option value="ร.ม.ธรรมมาภิบาล" th:selected="${consultantStudent.course == 'ร.ม.ธรรมมาภิบาล'}? 'selected'">ร.ม.ธรรมมาภิบาล</option>
+                    <option value="ศศ.ม.สังคมฯ" th:selected="${consultantStudent.course == 'ศศ.ม.สังคมฯ'}? 'selected'">ศศ.ม.สังคมฯ</option>
+                    <option value="ศศ.ม.อาชญาฯ" th:selected="${consultantStudent.course == 'ศศ.ม.อาชญาฯ'}? 'selected'">ศศ.ม.อาชญาฯ</option>
+                    <option value="ศศ.ด.อาชญาฯ" th:selected="${consultantStudent.course == 'ศศ.ด.อาชญาฯ'}? 'selected'">ศศ.ด.อาชญาฯ</option>
+                    <option value="ศศ.ด.สังคมฯ" th:selected="${consultantStudent.course == 'ศศ.ด.สังคมฯ'}? 'selected'">ศศ.ด.สังคมฯ</option>
+                    <option value="รป.ม.(ในเวลา)" th:selected="${consultantStudent.course == 'รป.ม.(ในเวลา)'}? 'selected'">รป.ม.(ในเวลา)</option>
+                    <option value="รป.ม.(นอกเวลา)" th:selected="${consultantStudent.course == 'รป.ม.(นอกเวลา)'}? 'selected'">รป.ม.(นอกเวลา)</option>
+                    <option value="ร.ด." th:selected="${consultantStudent.course == 'ร.ด.'}? 'selected'">ร.ด.</option>
+                    <option value="ศศ.ม.การพัฒนาฯ" th:selected="${consultantStudent.course == 'ศศ.ม.การพัฒนาฯ'}? 'selected'">ศศ.ม.การพัฒนาฯ</option>
+                    <option value="ศศ.ด.การพัฒนาฯ" th:selected="${consultantStudent.course == 'ศศ.ด.การพัฒนาฯ'}? 'selected'">ศศ.ด.การพัฒนาฯ</option>
+                </select>
+            </div>
+            <div class="row mb-2">
+                <label for="department" class="form-control-label col-sm-2">ภาควิชา:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="department" name="department"
+                       th:attr="value=${consultantStudent.department != null}? ${consultantStudent.department} : ''"/>
+            </div>
+        </form>
+        <div class="row justify-content-center mt-5 mb-5" th:classappend="${consultantStudent.staffId == 0 ? 'display-block' : 'display-none'} ">
+            <button type="button" class="btn btn-poba mr-3" onclick="submitConsultantStudent();">บันทึก</button>
+            <button type="button" class="btn btn-outline-poba mr-3" onclick="">ยกเลิก</button>
+        </div>
+        <div class="row justify-content-center mt-5 mb-5" th:classappend="${consultantStudent.staffId != 0 ? 'display-block' : 'display-none'}">
+            <button type="button" class="btn btn-poba mr-3" onclick="">ยกเลิก</button>
+            <button type="button" class="btn btn-outline-poba mr-3" onclick="editConsultantStudent();">แก้ไข</button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+
+        });
+    </script>
+
+</th:block>
+</html>

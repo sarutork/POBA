@@ -20,6 +20,8 @@ public class ConsultantStudent {
     public String surname;
     public int studentsId;
     public String studentPrefix;
+    public String studentName;
+    public String studentSurname;
     public String yearOfStudy;
     public String admissionStatus;
     public String studentsLevel;

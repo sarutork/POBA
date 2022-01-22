@@ -30,7 +30,6 @@ public class ConsultantStudentController {
     }
     @GetMapping("/search")
     public ResponseEntity<List<ConsultantStudent>> search(@ModelAttribute ConsultantStudent consultantStudent) {
-        System.out.println(">>>>>>>>>>>>>>Search");
         return ResponseEntity.ok().body(consultantStudentService.findBySearchCriteria(consultantStudent));
     }
 
@@ -60,6 +59,14 @@ public class ConsultantStudentController {
             surname += fullNameArr[i] + " ";
         }
         consultantStudent.setSurname(surname.trim());
+
+        String[] fullStudentNameArr = consultantStudent.getStudentName().split(" ");
+        consultantStudent.setStudentName(fullStudentNameArr[0].trim());
+        String studentSurname ="";
+        for(int i=1 ;i< fullNameArr.length; i++) {
+            studentSurname += fullStudentNameArr[i] + " ";
+        }
+        consultantStudent.setStudentSurname(studentSurname.trim());
         //TODO: Handle error
         consultantStudentService.save(consultantStudent);
 
