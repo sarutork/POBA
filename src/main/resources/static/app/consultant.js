@@ -13,7 +13,7 @@ function findConsultantStudent() {
         columns: [
             { data: "staffId" },
             { data: "name"},
-            { data: "studentsId" },
+            { data: "studentName" },
             { data: "yearOfStudy" },
             { data: "studentsLevel" },
             { data: "course" },
@@ -26,6 +26,13 @@ function findConsultantStudent() {
                        return fullName;
                     },
                targets: 1,
+            },
+            {
+               render: function (data, type, row) {
+                   var fullName = row["studentPrefix"]+' '+row["studentName"] + ' ' + row["studentSurname"];
+                       return fullName;
+                    },
+               targets: 2,
             },
         ],
         searching: false,
@@ -58,4 +65,16 @@ function submitConsultantStudent(){
                 },2000);
          }
     });
+}
+
+function editConsultantStudent(){
+    $(":input").prop("disabled", false);
+
+    $("#submit").removeClass("display-none");
+    $("#submit").addClass("display-block");
+
+    $("#edit").removeClass("display-block");
+    $("#edit").addClass("display-none");
+
+    $("#viewName").text("แก้ไข")
 }

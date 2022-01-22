@@ -9,7 +9,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
             <li class="breadcrumb-item"><a href="/poba/consultant/students">ข้อมูลที่ปรึกษาระดับปริญญา ตรี โท เอก</a></li>
-            <li class="breadcrumb-item active"><span th:text="${viewName}"></span></li>
+            <li class="breadcrumb-item active"><span id="viewName" th:text="${viewName}"></span></li>
         </ol>
     </div>
 
@@ -27,7 +27,8 @@
             </div>
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-4 form-control bg-white" id="prefix" name="prefix"required>
+                <select type="text" class="col-sm-4 form-control bg-white" id="prefix" name="prefix"required
+                        th:disabled="${consultantStudent.staffId != 0}">
                     <option value="">กรุณาเลือก</option>
                     <option value="อ." th:selected="${consultantStudent.prefix == 'อ.'}? 'selected'">อ.</option>
                     <option value="อ.ดร." th:selected="${consultantStudent.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
@@ -41,7 +42,8 @@
                 </select>
                 <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
-                       th:attr="value=${consultantStudent.name != null}? |${consultantStudent.name} ${consultantStudent.surname}|: ''"/>
+                       th:attr="value=${consultantStudent.name != null}? |${consultantStudent.name} ${consultantStudent.surname}|: ''"
+                       th:disabled="${consultantStudent.staffId != 0}"/>
             </div>
             <div class="row col-sm-12 mb-2">
                 <label><b>ข้อมูลนิสิต</b></label>
@@ -49,11 +51,13 @@
             <div class="row mb-2">
                 <label for="studentsId" class="form-control-label col-sm-2">เลขประจำตัวนิสิต:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="studentsId" name="studentsId"
-                       th:attr="value=${consultantStudent.studentsId != 0}? ${consultantStudent.studentsId}: ''"/>
+                       th:attr="value=${consultantStudent.studentsId != 0}? ${consultantStudent.studentsId}: ''"
+                       th:disabled="${consultantStudent.staffId != 0}"/>
             </div>
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="studentPrefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-4 form-control bg-white" id="studentPrefix" name="studentPrefix"required>
+                <select type="text" class="col-sm-4 form-control bg-white" id="studentPrefix" name="studentPrefix"
+                        th:disabled="${consultantStudent.staffId != 0}" required>
                     <option value="">กรุณาเลือก</option>
                     <option value="นาย" th:selected="${consultantStudent.studentPrefix == 'นาย'}? 'selected'">นาย</option>
                     <option value="นางสาว" th:selected="${consultantStudent.studentPrefix == 'นางสาว'}? 'selected'">นางสาว</option>
@@ -61,18 +65,21 @@
                 </select>
                 <label for="studentName" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="studentName" name="studentName"
-                       th:attr="value=${consultantStudent.studentName != null}? |${consultantStudent.studentName} ${consultantStudent.studentSurname}|: ''"/>
+                       th:attr="value=${consultantStudent.studentName != null}? |${consultantStudent.studentName} ${consultantStudent.studentSurname}|: ''"
+                       th:disabled="${consultantStudent.staffId != 0}"/>
             </div>
             <div class="row mb-2">
                 <label for="yearOfStudy" class="form-control-label col-sm-2">ปีที่เข้าศึกษา:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="yearOfStudy" name="yearOfStudy">
+                <select type="text" class="form-control bg-white col-sm-4" id="yearOfStudy" name="yearOfStudy"
+                        th:disabled="${consultantStudent.staffId != 0}">
                     <option value="">กรุณาเลือก</option>
                     <option value="2565" th:selected="${consultantStudent.yearOfStudy == '2565'}? 'selected'">2565</option>
                     <option value="2564" th:selected="${consultantStudent.yearOfStudy == '2564'}? 'selected'">2564</option>
                     <option value="2563" th:selected="${consultantStudent.yearOfStudy == '2563'}? 'selected'">2563</option>
                 </select>
                 <label for="studentsLevel" class="form-control-label col-sm-2">ระดับการศึกษา:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="studentsLevel" name="studentsLevel">
+                <select type="text" class="form-control bg-white col-sm-4" id="studentsLevel" name="studentsLevel"
+                        th:disabled="${consultantStudent.staffId != 0}">
                     <option value="">กรุณาเลือก</option>
                     <option value="ปริญญาตรี" th:selected="${consultantStudent.studentsLevel == 'ปริญญาตรี'}? 'selected'">ปริญญาตรี</option>
                     <option value="ปริญญาโท" th:selected="${consultantStudent.studentsLevel == 'ปริญญาโท'}? 'selected'">ปริญญาโท</option>
@@ -81,7 +88,8 @@
             </div>
             <div class="row mb-2">
                 <label for="admissionStatus" class="form-control-label col-sm-2">สถานะการรับเข้า:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="admissionStatus" name="admissionStatus">
+                <select type="text" class="form-control bg-white col-sm-4" id="admissionStatus" name="admissionStatus"
+                        th:disabled="${consultantStudent.staffId != 0}">
                     <option value="">กรุณาเลือก</option>
                     <option value="โครงการจุฬาฯ-ชนบท" th:selected="${consultantStudent.admissionStatus == 'โครงการจุฬาฯ-ชนบท'}? 'selected'">โครงการจุฬาฯ-ชนบท</option>
                     <option value="โครงการปอเนอะ" th:selected="${consultantStudent.admissionStatus == 'โครงการปอเนอะ'}? 'selected'">โครงการปอเนอะ</option>
@@ -92,7 +100,8 @@
                     <option value="ทดลองศึกษา" th:selected="${consultantStudent.admissionStatus == 'ทดลองศึกษา'}? 'selected'">ทดลองศึกษา</option>
                 </select>
                 <label for="course" class="form-control-label col-sm-2">หลักสูตร:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="course" name="course">
+                <select type="text" class="form-control bg-white col-sm-4" id="course" name="course"
+                        th:disabled="${consultantStudent.staffId != 0}">
                     <option value="">กรุณาเลือก</option>
                     <option value="ร.บ." th:selected="${consultantStudent.course == 'ร.บ.'}? 'selected'">ร.บ.</option>
                     <option value="ร.บ.(PGS)" th:selected="${consultantStudent.course == 'ร.บ.(PGS)'}? 'selected'">ร.บ.(PGS)</option>
@@ -115,16 +124,17 @@
             <div class="row mb-2">
                 <label for="department" class="form-control-label col-sm-2">ภาควิชา:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="department" name="department"
-                       th:attr="value=${consultantStudent.department != null}? ${consultantStudent.department} : ''"/>
+                       th:attr="value=${consultantStudent.department != null}? ${consultantStudent.department} : ''"
+                       th:disabled="${consultantStudent.staffId != 0}"/>
             </div>
         </form>
-        <div class="row justify-content-center mt-5 mb-5" th:classappend="${consultantStudent.staffId == 0 ? 'display-block' : 'display-none'} ">
+        <div id="submit" class="row justify-content-center mt-5 mb-5" th:classappend="${consultantStudent.staffId == 0 ? 'display-block' : 'display-none'} ">
             <button type="button" class="btn btn-poba mr-3" onclick="submitConsultantStudent();">บันทึก</button>
-            <button type="button" class="btn btn-outline-poba mr-3" onclick="">ยกเลิก</button>
+            <a href="/poba/consultant/students" class="btn btn-outline-poba ">ยกเลิก</a>
         </div>
-        <div class="row justify-content-center mt-5 mb-5" th:classappend="${consultantStudent.staffId != 0 ? 'display-block' : 'display-none'}">
-            <button type="button" class="btn btn-poba mr-3" onclick="">ยกเลิก</button>
-            <button type="button" class="btn btn-outline-poba mr-3" onclick="editConsultantStudent();">แก้ไข</button>
+        <div id="edit" class="row justify-content-center mt-5 mb-5" th:classappend="${consultantStudent.staffId != 0 ? 'display-block' : 'display-none'}">
+            <a href="/poba/consultant/students" class="btn btn-poba mr-3">ยกเลิก</a>
+            <button type="button" class="btn btn-outline-poba" onclick="editConsultantStudent();">แก้ไข</button>
         </div>
     </div>
 
