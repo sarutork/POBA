@@ -698,11 +698,11 @@ div .scroll {
 
 .content-wrapper form *:not(.btn) {
     color: #000000 !important;
-    font-size: 1rem;
 }
 
 .content-wrapper form * {
     border-radius: .25rem !important;
+    font-size: 1rem;
 }
 
 .content-wrapper input, select {

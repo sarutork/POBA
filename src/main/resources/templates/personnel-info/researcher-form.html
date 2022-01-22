@@ -18,9 +18,10 @@
 
             <div class="form-fields">
 
-                <div class="row mb-3">
-                    <label for="prefix" class="col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
-                    <div class="col-lg-3 col-sm-4 pl-sm-0">
+                <div class="row px-3 mb-3">
+                    <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
+                           for="prefix">คำนำหน้า:</label>
+                    <div class="col-lg-3 col-sm-4 px-0">
                         <select class="form-control" id="prefix" required>
                             <option value="" hidden>กรุณาเลือก</option>
                             <option value="Mr.">Mr.</option>
@@ -30,24 +31,27 @@
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <label for="name" class="col-sm-2 col-form-label text-md-right">ชื่อ-นามสกุล:</label>
-                    <div class="col-lg-5 col-md-8 col-sm-10 pl-sm-0">
+                <div class="row px-3 mb-3">
+                    <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
+                           for="name">ชื่อ-นามสกุล:</label>
+                    <div class="col-lg-5 col-md-8 col-sm-10 px-0">
                         <input type="text" class="form-control" id="name">
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <label for="status" class="col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
-                    <div class="col-lg-3 col-sm-4 pl-sm-0">
+                <div class="row px-3 mb-3">
+                    <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
+                           for="status">คำนำหน้า:</label>
+                    <div class="col-lg-3 col-sm-4 px-0 pb-sm-0 pb-3">
                         <select class="form-control" id="status" required>
                             <option value="" hidden>กรุณาเลือก</option>
                             <option value="อาจารย์">อาจารย์</option>
                             <option value="นักวิจัย">นักวิจัย</option>
                         </select>
                     </div>
-                    <label for="type" class="col-lg-1 col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
-                    <div class="col-lg-3 col-sm-4 pl-sm-0">
+                    <label class="col-lg-1 col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
+                           for="type">คำนำหน้า:</label>
+                    <div class="col-lg-3 col-sm-4 px-0">
                         <select class="form-control" id="type" required>
                             <option value="" hidden>กรุณาเลือก</option>
                             <option value="Part time">Part time</option>
@@ -57,28 +61,32 @@
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <span class="col-12 pt-2 pb-4">ระยะเวลาในการปฏิบัติงาน/ว่างจ้าง</span>
-                    <label for="work-start-date" class="col-sm-2 col-form-label text-md-right">วันที่เริ่มต้น:</label>
-                    <div class="col-lg-3 col-sm-4 pl-sm-0">
-                        <input type="date" class="form-control" id="work-start-date" value="">
+                <div class="row px-3 mb-3">
+                    <span class="col-12 px-0 py-3">ระยะเวลาในการปฏิบัติงาน/ว่างจ้าง</span>
+                    <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
+                           for="work-start-date">วันที่เริ่มต้น:</label>
+                    <div class="col-lg-3 col-sm-4 px-0 pb-sm-0 pb-3">
+                        <input type="date" class="form-control" id="work-start-date">
                     </div>
-                    <label for="work-end-date" class="col-lg-1 col-sm-2 col-form-label text-md-right">วันที่สิ้นสุด:</label>
-                    <div class="col-lg-3 col-sm-4 pl-sm-0">
-                        <input type="date" class="form-control" id="work-end-date" value="">
+                    <label class="col-lg-1 col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
+                           for="work-end-date">วันที่สิ้นสุด:</label>
+                    <div class="col-lg-3 col-sm-4 px-0">
+                        <input type="date" class="form-control" id="work-end-date">
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <label for="note" class="col-sm-2 col-form-label text-md-right">หมายเหตุ:</label>
-                    <div class="col-lg-5 col-md-8 col-sm-10 pl-sm-0">
+                <div class="row px-3 mb-3">
+                    <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
+                           for="note">หมายเหตุ:</label>
+                    <div class="col-lg-5 col-md-8 col-sm-10 px-0">
                         <input type="text" class="form-control" id="note">
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <label for="doc-of-work" class="col-sm-2 col-form-label text-md-right">เอกสารสัญญาจ้าง:</label>
-                    <div class="col pl-sm-0">
+                <div class="row px-3 mb-3">
+                    <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
+                           for="doc-of-work">เอกสารสัญญาจ้าง:</label>
+                    <div class="col px-0">
                         <button class="btn btn-outline-poba" id="doc-of-work">เลือกไฟล์</button>
                     </div>
                 </div>
@@ -86,8 +94,8 @@
             </div>
 
             <div class="form-buttons">
-                <button type="submit" class="btn btn-outline-poba mr-3">ค้นหา</button>
-                <button type="submit" class="btn btn-poba">เพิ่มข้อมูล</button>
+                <button type="submit" class="btn btn-poba mr-3">กลับ</button>
+                <button type="submit" class="btn btn-outline-poba">แก้ไข</button>
             </div>
 
         </form>

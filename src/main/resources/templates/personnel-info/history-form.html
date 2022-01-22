@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<th:block layout:fragment="content">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="/poba/personnel-info/education">ข้อมูลประวัติบุคลากร</a></li>
+            <li class="breadcrumb-item active"><span th:text="${viewName}"></span></li>
+        </ol>
+    </div>
+
+    <div class="pt-4 px-3">
+
+        <form id="form-history">
+
+            <div class="row mb-3">
+                <label for="staff-id" class="col-sm-2 col-form-label text-md-right">Pers. No.:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <input type="text" class="form-control" id="staff-id" disabled>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="name1" class="col-sm-2 col-form-label text-md-right">ชื่อ-นามสกุล:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <select class="form-control" id="name1" required>
+                        <option value="" hidden>กรุณาเลือก</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="Miss">Miss</option>
+                        <option value="Mrs.">Mrs.</option>
+                    </select>
+                </div>
+                <label for="name2" class="col-sm-3 col-form-label text-md-right">ชื่อ-นามสกุล:</label>
+                <div class="col-lg-4
+                            col-md-4
+                            col-sm-4 pl-sm-0">
+                    <input type="text" class="form-control" id="name2">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="email-org" class="col-sm-2 col-form-label text-md-right">อีเมล จุฬาฯ:</label>
+                <div class="col-lg-4
+                            col-md-4
+                            col-sm-4 pl-sm-0">
+                    <input type="text" class="form-control" id="email-org">
+                </div>
+                <label for="email-private" class="col-sm-2 col-form-label text-md-right">อีเมล ส่วนตัว:</label>
+                <div class="col-lg-4
+                            col-md-4
+                            col-sm-4 pl-sm-0">
+                    <input type="text" class="form-control" id="email-private">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="tel" class="col-sm-2 col-form-label text-md-right">เบอร์ห้องทำงาน:</label>
+                <div class="col-lg-4
+                            col-md-4
+                            col-sm-4 pl-sm-0">
+                    <input type="text" class="form-control" id="tel">
+                </div>
+                <label for="mobile" class="col-sm-2 col-form-label text-md-right">เบอร์มือถือ:</label>
+                <div class="col-lg-4
+                            col-md-4
+                            col-sm-4 pl-sm-0">
+                    <input type="text" class="form-control" id="mobile">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="date1" class="col-sm-2 col-form-label text-md-right">วันที่เข้าจุฬา:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <input type="date" class="form-control" id="date1">
+                </div>
+                <label for="date2" class="col-sm-3 col-form-label text-md-right">วันที่นับอายุงาน:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <input type="date" class="form-control" id="date2">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="date3" class="col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <input type="date" class="form-control" id="date3">
+                </div>
+                <label for="date4" class="col-sm-3 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <input type="date" class="form-control" id="date4">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                fieldset here.
+            </div>
+
+            <div class="row mb-3">
+                <label for="name7" class="col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-4
+                            col-md-4
+                            col-sm-4 pl-sm-0">
+                    <input type="text" class="form-control" id="name7">
+                </div>
+                <label for="name8" class="col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-4
+                            col-md-4
+                            col-sm-4 pl-sm-0">
+                    <input type="text" class="form-control" id="name8">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="name9" class="col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <select class="form-control" id="name9" required>
+                        <option value="" hidden>กรุณาเลือก</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="Miss">Miss</option>
+                        <option value="Mrs.">Mrs.</option>
+                    </select>
+                </div>
+                <label for="name10" class="col-sm-3 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <select class="form-control" id="name10" required>
+                        <option value="" hidden>กรุณาเลือก</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="Miss">Miss</option>
+                        <option value="Mrs.">Mrs.</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="name11" class="col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <select class="form-control" id="name11" required>
+                        <option value="" hidden>กรุณาเลือก</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="Miss">Miss</option>
+                        <option value="Mrs.">Mrs.</option>
+                    </select>
+                </div>
+                <label for="name12" class="col-sm-3 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <select class="form-control" id="name12" required>
+                        <option value="" hidden>กรุณาเลือก</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="Miss">Miss</option>
+                        <option value="Mrs.">Mrs.</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="name13" class="col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <select class="form-control" id="name13" required>
+                        <option value="" hidden>กรุณาเลือก</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="Miss">Miss</option>
+                        <option value="Mrs.">Mrs.</option>
+                    </select>
+                </div>
+                <label for="name14" class="col-sm-3 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <select class="form-control" id="name14" required>
+                        <option value="" hidden>กรุณาเลือก</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="Miss">Miss</option>
+                        <option value="Mrs.">Mrs.</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="name15" class="col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <select class="form-control" id="name15" required>
+                        <option value="" hidden>กรุณาเลือก</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="Miss">Miss</option>
+                        <option value="Mrs.">Mrs.</option>
+                    </select>
+                </div>
+                <label for="name16" class="col-sm-3 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <select class="form-control" id="name16" required>
+                        <option value="" hidden>กรุณาเลือก</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="Miss">Miss</option>
+                        <option value="Mrs.">Mrs.</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="name17" class="col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <select class="form-control" id="name17" required>
+                        <option value="" hidden>กรุณาเลือก</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="Miss">Miss</option>
+                        <option value="Mrs.">Mrs.</option>
+                    </select>
+                </div>
+                <label for="name18" class="col-sm-3 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <select class="form-control" id="name18" required>
+                        <option value="" hidden>กรุณาเลือก</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="Miss">Miss</option>
+                        <option value="Mrs.">Mrs.</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="name19" class="col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-4
+                            col-md-4
+                            col-sm-4 pl-sm-0">
+                    <input type="text" class="form-control" id="name19">
+                </div>
+                <label for="name20" class="col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-4
+                            col-md-4
+                            col-sm-4 pl-sm-0">
+                    <input type="text" class="form-control" id="name20">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="name21" class="col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-4
+                            col-md-4
+                            col-sm-4 pl-sm-0">
+                    <input type="text" class="form-control" id="name21">
+                </div>
+                <label for="name22" class="col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-4
+                            col-md-4
+                            col-sm-4 pl-sm-0">
+                    <input type="text" class="form-control" id="name22">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="name23" class="col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
+                <div class="col-lg-4
+                            col-sm-10 pl-sm-0">
+                    <input type="text" class="form-control" id="name23">
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <script>
+        $(document).ready(function() {
+
+        });
+    </script>
+
+</th:block>
+</html>
