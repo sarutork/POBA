@@ -139,3 +139,25 @@ function submitEducationInfo(){
          }
     });
 }
+
+function submitResearcherInfo(){
+    var type = "POST";
+    var staffId = $("#staffId").val();
+    if (staffId != null &&  staffId != 0 ){
+        type = "PUT"
+    }
+    $.ajax({
+         type: type,
+         url: "/poba/personnel-info/researchers/add",
+         data: $("#form-researcher").serialize(),
+         success: function() {
+                //$("#noti-msg").text("บันทึกสำเร็จ");
+                var x = document.getElementById("noti-msg");
+                    x.style.display = "block";
+                    window.scrollTo(0, 0);
+                setTimeout(function(){
+                    window.location.href = "/poba/personnel-info/researchers";
+                },2000);
+         }
+    });
+}

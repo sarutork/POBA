@@ -3,6 +3,7 @@ package com.obu.tech.poba.personnel_info.research;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -61,9 +62,24 @@ public class ResearcherController {
     }
 
     @PostMapping(value = "/add")
-    public ModelAndView add(@RequestBody Researcher inputData) {
-        Researcher researcher = researcherService.save(inputData);
+    public ModelAndView add(Researcher inputData, BindingResult bindingResult) {
         ModelAndView view = new ModelAndView(VIEW_RESEARCHERS);
+
+        if (bindingResult.hasErrors()) {
+            //TODO: Handle error
+            System.out.println("Error: "+bindingResult.getAllErrors());
+            return view;
+        }
+
+        String[] fullNameArr = inputData.getName().split(" ");
+        inputData.setName(fullNameArr[0].trim());
+        String surname ="";
+        for(int i=1 ;i< fullNameArr.length; i++) {
+            surname += fullNameArr[i] + " ";
+        }
+        inputData.setSurname(surname.trim());
+
+        Researcher researcher = researcherService.save(inputData);
         view.addObject("responseMessage", "บันทึกสำเร็จ");
         view.addObject("researcher", researcher);
         return view;
