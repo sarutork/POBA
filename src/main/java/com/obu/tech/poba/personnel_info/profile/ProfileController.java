@@ -1,18 +1,28 @@
-package com.obu.tech.poba.personnel_info.history;
+package com.obu.tech.poba.personnel_info.profile;
 
+import com.obu.tech.poba.teaching_info.Teaching;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
-@RequestMapping("/personnel-info/history")
-public class HistoryInfoController {
+import java.awt.*;
+import java.util.List;
 
-    static final String VIEW_HISTORY_INFO = "personnel-info/history";
-    static final String VIEW_HISTORY_INFO_FORM = "personnel-info/history-form";
-    static final String VIEW_HISTORY_INFO_DETAIL = "personnel-info/history-view";
+@Controller
+@RequestMapping("/personnel-info/profile")
+public class ProfileController {
+
+    static final String VIEW_HISTORY_INFO = "personnel-info/profile";
+    static final String VIEW_HISTORY_INFO_FORM = "personnel-info/profile-form";
+    static final String VIEW_HISTORY_INFO_DETAIL = "personnel-info/profile-view";
+
+    @Autowired
+    ProfileService profileService;
 
     @GetMapping
     public ModelAndView showListView() {
@@ -43,5 +53,9 @@ public class HistoryInfoController {
         return view;
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Profile>> search(@ModelAttribute Profile profile) {
+        return ResponseEntity.ok().body(profileService.findBySearchCriteria(profile));
+    }
 
 }

@@ -17,6 +17,7 @@ public class ConsultantStudentService {
     List<ConsultantStudent> findBySearchCriteria(ConsultantStudent consultantStudent){
         return consultantStudentRepository.findAll(new SearchConditionBuilder<ConsultantStudent>()
                 .ifNotNullThenAnd("name", LIKE, consultantStudent.getName())
+                .ifNotNullThenOr("surname", LIKE, consultantStudent.getName())
                 .ifNotNullThenAnd("yearOfStudy", LIKE, consultantStudent.getYearOfStudy())
                 .ifNotNullThenAnd("studentsLevel", LIKE, consultantStudent.getStudentsLevel())
                 .build()

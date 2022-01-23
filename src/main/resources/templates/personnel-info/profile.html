@@ -21,14 +21,14 @@
                     <input id="name" type="text" class="col-8 form-control" placeholder="ค้นหาด้วยชื่อ">
                 </div>
                 <div class="pl-md-3 d-inline-flex justify-content-end">
-                    <button type="submit" class="btn btn-outline-poba mr-3">ค้นหา</button>
+                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findProfileInfo()">ค้นหา</button>
                     <button type="submit" class="btn btn-poba">เพิ่มข้อมูล</button>
                 </div>
             </div>
         </form>
 
         <div class="table table-responsive">
-            <table id="table-history" class="display" width="100%">
+            <table id="table-profile" class="display" width="100%">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -41,7 +41,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="6" class="dataTables_empty text-center bg-secondary">ค้นหาด้วยชื่อ</td>
+                        <td colspan="6" class="dataTables_empty text-center bg-secondary">ข้อมูลประวัติบุคลากร</td>
                     </tr>
                 </tbody>
             </table>
