@@ -21,28 +21,28 @@
                     <input id="name" type="text" class="col-10 form-control flex-xl-grow-1" placeholder="ค้นหาด้วยชื่อ">
                 </div>
                 <div class="row px-3 mb-xl-0 mb-3">
-                    <label for="work-start-date" class="col-2 text-sm-right col-form-label">วันที่ไป:</label>
+                    <label for="work-start-date" class="col-2 text-sm-right col-form-label">วันที่เริ่มต้น:</label>
                     <input id="work-start-date" type="date" class="col-4 form-control">
-                    <label for="work-end-date" class="col-2 text-sm-right col-form-label">วันที่กลับ:</label>
+                    <label for="work-end-date" class="col-2 text-sm-right col-form-label">วันที่สิ้นสุด:</label>
                     <input id="work-end-date" type="date" class="col-4 form-control">
                 </div>
                 <div class="pl-xl-3 d-inline-flex justify-content-end">
-                    <button type="submit" class="btn btn-outline-poba mr-3">ค้นหา</button>
+                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findResearcherInfo();">ค้นหา</button>
                     <a class="btn btn-poba" href="/poba/personnel-info/researchers/add">เพิ่มข้อมูล</a>
                 </div>
             </div>
         </form>
 
         <div class="table table-responsive">
-            <table id="table-education" class="display" width="100%">
+            <table id="table-researcher" class="display" width="100%">
                 <thead>
                 <tr>
                     <th>#</th>
                     <th>ชื่อ-นามสกุล</th>
-                    <th>มหาวิทยาลัย/สถาบันที่ไป</th>
-                    <th>ประเทศ</th>
-                    <th>วันที่ไป</th>
-                    <th>วันที่กลับ</th>
+                    <th>สถานะ</th>
+                    <th>ประเภท</th>
+                    <th>วันที่เริ่มต้น</th>
+                    <th>วันที่สิ้นสุด</th>
                 </tr>
                 </thead>
                 <tbody>

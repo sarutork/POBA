@@ -140,6 +140,46 @@ function submitEducationInfo(){
     });
 }
 
+function findResearcherInfo() {
+   var tableResearcher =  $('#table-researcher').DataTable({
+        ajax: {
+            type: "GET",
+            url: "/poba/personnel-info/researchers/search",
+            dataSrc: "",
+            data: function(d){
+                d.name = $('#name').val();
+                d.workStartDate = $('#work-start-date').val();
+                d.workEndDate = $('#work-end-date').val();
+            }
+        },
+        columns: [
+            { data: "staffId" },
+            { data: "name"},
+            { data: "status" },
+            { data: "type" },
+            { data: "workStartDate" },
+            { data: "workEndDate" }
+        ],
+        columnDefs: [
+            {
+               render: function (data, type, row) {
+                   var fullName = row["prefix"]+' '+row["name"] + ' ' + row["surname"];
+                       return fullName;
+                    },
+               targets: 1,
+            },
+        ],
+        searching: false,
+        "bDestroy": true
+    });
+    $('#tableResearcher tbody').on('click', 'tr', function () {
+            if(!$('#table-researcher tbody tr td').hasClass("dataTables_empty")){
+               var data = tableEducation.row( this ).data();
+                window.location.href = "/poba/personnel-info/researchers/"+data.staffId;
+            }
+        } );
+}
+
 function submitResearcherInfo(){
     var type = "POST";
     var staffId = $("#staffId").val();

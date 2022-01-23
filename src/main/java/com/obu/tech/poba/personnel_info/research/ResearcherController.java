@@ -1,5 +1,6 @@
 package com.obu.tech.poba.personnel_info.research;
 
+import com.obu.tech.poba.teaching_info.Teaching;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -50,12 +51,12 @@ public class ResearcherController {
         return view;
     }
 
-    @PostMapping
+    @GetMapping("/search")
     @ResponseBody
-    public ResponseEntity<List<Researcher>> search(@RequestParam(required = false) String name,
-                                                   @RequestParam(required = false) LocalDate workStartDate,
-                                                   @RequestParam(required = false) LocalDate workEndDate) {
-        List<Researcher> researchers = researcherService.search(name, workStartDate, workEndDate);
+    public ResponseEntity<List<Researcher>> search(@ModelAttribute Researcher researcher) {
+        System.out.println(researcher.getWorkEndDate());
+        System.out.println(researcher.getWorkStartDate());
+        List<Researcher> researchers = researcherService.search(researcher.getName(), researcher.getWorkStartDate(), researcher.getWorkEndDate());
         return researchers.isEmpty()
                 ? ResponseEntity.notFound().build()
                 : ResponseEntity.ok().body(researchers);
