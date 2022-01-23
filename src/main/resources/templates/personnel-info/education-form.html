@@ -23,8 +23,8 @@
         <form id="form-education">
             <input type="hidden" id="staffId" name="staffId" th:value="${studyInfo.staffId}"/>
             <div class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
+                <label class="col-sm-3 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-3 form-control bg-white" id="prefix" name="prefix"required>
                     <option value="">กรุณาเลือก</option>
                     <option value="นาย" th:selected="${studyInfo.prefix == 'นาย'}? 'selected'">นาย</option>
                     <option value="นางสาว" th:selected="${studyInfo.prefix == 'นางสาว'}? 'selected'">นางสาว</option>
@@ -32,17 +32,17 @@
                 </select>
             </div>
             <div class="row mb-2">
-                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                <label for="name" class="form-control-label col-sm-3">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
                        th:attr="value=${studyInfo.name != null}? |${studyInfo.name} ${studyInfo.surname}|: ''" required/>
             </div>
             <div class="row mb-2">
-                <label for="travelOrder" class="form-control-label col-sm-2">คำสั่งเดินทาง<span style="color:red !important;">*</span>:</label>
+                <label for="travelOrder" class="form-control-label col-sm-3">คำสั่งเดินทาง<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="travelOrder" name="travelOrder"
                        th:attr="value=${studyInfo.travelOrder != null}? ${studyInfo.travelOrder}: ''" required/>
             </div>
             <div class="row mb-2">
-                <label for="startDate" class="form-control-label col-sm-2">วันที่ไป<span style="color:red !important;">*</span>:</label>
+                <label for="startDate" class="form-control-label col-sm-3">วันที่ไป<span style="color:red !important;">*</span>:</label>
                 <input type="date" class="form-control bg-white col-sm-2" id="startDate" name="startDate" onchange="startDateChange();"
                        th:attr="value=${studyInfo.startDate != null}? ${studyInfo.startDate}: ''" required/>
                 <label for="endDate" class="form-control-label col-sm-1">วันที่กลับ<span style="color:red !important;">*</span>:</label>
@@ -53,12 +53,12 @@
                        th:attr="value=${studyInfo.totalDate != null}? ${studyInfo.totalDate}: ''"/>
             </div>
             <div class="row mb-2">
-                <label for="activityDetail" class="form-control-label col-sm-2">รายละเอียดกิจกรรม<span style="color:red !important;">*</span>:</label>
+                <label for="activityDetail" class="form-control-label col-sm-3">รายละเอียดกิจกรรม<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="activityDetail" name="activityDetail"
                        th:attr="value=${studyInfo.activityDetail != null}? ${studyInfo.activityDetail}: ''" required/>
             </div>
             <div class="row mb-2">
-                <label for="location" class="form-control-label col-sm-2">มหาวิทยาลัย/สถาบันที่ไป<span style="color:red !important;">*</span>:</label>
+                <label for="location" class="form-control-label col-sm-3">มหาวิทยาลัย/สถาบันที่ไป<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="location" name="location"
                        th:attr="value=${studyInfo.location != null}? ${studyInfo.location}: ''" required/>
                 <label for="locationType" class="form-control-label col-sm-1">ประเภท<span style="color:red !important;">*</span>:</label>
@@ -69,7 +69,7 @@
                 </select>
             </div>
             <div class="row mb-2">
-                <label for="country" class="form-control-label col-sm-2">ชื่อประเทศ<span style="color:red !important;">*</span>:</label>
+                <label for="country" class="form-control-label col-sm-3">ชื่อประเทศ<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="country" name="country"
                        th:attr="value=${studyInfo.country != null}? ${studyInfo.country}: ''" required/>
                 <label for="fund" class="form-control-label col-sm-1">แหล่งทุน<span style="color:red !important;">*</span>:</label>

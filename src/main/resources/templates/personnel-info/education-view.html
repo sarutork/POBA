@@ -16,43 +16,43 @@
     <div class="container px-3">
         <form id="form-education-detail">
             <div class="row">
-                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
+                <label for="name" class="form-control-label col-sm-3">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-6" id="name" name="name" th:value="|${studyInfo.prefix} ${studyInfo.name} ${studyInfo.surname}|" readonly>
             </div>
             <div class="row">
-                <label for="travelOrder" class="form-control-label col-sm-2">คำสั่งเดินทาง:</label>
+                <label for="travelOrder" class="form-control-label col-sm-3">คำสั่งเดินทาง:</label>
                 <input type="text" class="form-control bg-white col-sm-6" id="travelOrder" name="travelOrder" th:value="${studyInfo.travelOrder}" readonly>
             </div>
             <div class="row">
-                <label for="startDate" class="form-control-label col-sm-2">วันที่ไป:</label>
+                <label for="startDate" class="form-control-label col-sm-3">วันที่ไป:</label>
                 <input type="text" class="form-control bg-white col-sm-6" id="startDate" name="startDate" th:value="${studyInfo.startDate}" readonly>
             </div>
             <div class="row">
-                <label for="endDate" class="form-control-label col-sm-2">วันที่กลับ:</label>
+                <label for="endDate" class="form-control-label col-sm-3">วันที่กลับ:</label>
                 <input type="text" class="form-control bg-white col-sm-6" id="endDate" name="endDate" th:value="${studyInfo.endDate}" readonly>
             </div>
             <div class="row">
-                <label for="totalDate" class="form-control-label col-sm-2">จำนวนวัน:</label>
+                <label for="totalDate" class="form-control-label col-sm-3">จำนวนวัน:</label>
                 <input type="text" class="form-control bg-white col-sm-6" id="totalDate" name="totalDate" th:value="${studyInfo.totalDate}" readonly>
             </div>
             <div class="row">
-                <label for="activityDetail" class="form-control-label col-sm-2">รายละเอียดกิจกรรม:</label>
+                <label for="activityDetail" class="form-control-label col-sm-3">รายละเอียดกิจกรรม:</label>
                 <input type="text" class="form-control bg-white col-sm-6" id="activityDetail" name="activityDetail" th:value="${studyInfo.activityDetail}" readonly>
             </div>
             <div class="row">
-                <label for="location" class="form-control-label col-sm-2">มหาวิทยาลัย/สถาบันที่ไป:</label>
+                <label for="location" class="form-control-label col-sm-3">มหาวิทยาลัย/สถาบันที่ไป:</label>
                 <input type="text" class="form-control bg-white col-sm-6" id="location" name="location" th:value="${studyInfo.location}" readonly>
             </div>
             <div class="row">
-                <label for="locationType" class="form-control-label col-sm-2">ประเภท:</label>
+                <label for="locationType" class="form-control-label col-sm-3">ประเภท:</label>
                 <input type="text" class="form-control bg-white col-sm-6" id="locationType" name="location" th:value="${studyInfo.locationType}" readonly>
             </div>
             <div class="row">
-                <label for="country" class="form-control-label col-sm-2">ชื่อประเทศ:</label>
+                <label for="country" class="form-control-label col-sm-3">ชื่อประเทศ:</label>
                 <input type="text" class="form-control bg-white col-sm-6" id="country" name="location" th:value="${studyInfo.country}" readonly>
             </div>
             <div class="row">
-                <label for="fund" class="form-control-label col-sm-2">ชื่อประเทศ:</label>
+                <label for="fund" class="form-control-label col-sm-3">แหล่งทุน:</label>
                 <input type="text" class="form-control bg-white col-sm-6" id="fund" name="fund" th:value="${studyInfo.fund}" readonly>
             </div>
             <div class="row justify-content-center mt-5">
