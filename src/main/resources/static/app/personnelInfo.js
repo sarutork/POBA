@@ -172,9 +172,9 @@ function findResearcherInfo() {
         searching: false,
         "bDestroy": true
     });
-    $('#tableResearcher tbody').on('click', 'tr', function () {
+    $('#table-researcher tbody').on('click', 'tr', function () {
             if(!$('#table-researcher tbody tr td').hasClass("dataTables_empty")){
-               var data = tableEducation.row( this ).data();
+               var data = tableResearcher.row( this ).data();
                 window.location.href = "/poba/personnel-info/researchers/"+data.staffId;
             }
         } );
