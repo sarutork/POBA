@@ -823,12 +823,6 @@ table.view-info th, td {
     text-align: right;
 }
 
-.display-block{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.text-align-center{
+    text-align: center;
 }
-.display-none{
-    display:none;
-}
-

@@ -70,11 +70,11 @@ function submitConsultantStudent(){
 function editConsultantStudent(){
     $(":input").prop("disabled", false);
 
-    $("#submit").removeClass("display-none");
-    $("#submit").addClass("display-block");
+    $("#submit").removeClass("d-none");
+    $("#submit").addClass("d-block");
 
-    $("#edit").removeClass("display-block");
-    $("#edit").addClass("display-none");
+    $("#edit").removeClass("d-block");
+    $("#edit").addClass("d-none");
 
     $("#viewName").text("แก้ไข")
 }
