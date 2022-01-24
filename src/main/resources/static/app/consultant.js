@@ -22,14 +22,22 @@ function findConsultantStudent() {
         columnDefs: [
             {
                render: function (data, type, row) {
-                   var fullName = row["prefix"]+' '+row["name"] + ' ' + row["surname"];
+                   var prefix = row["prefix"];
+                   if(prefix == "อื่นๆ"){
+                        prefix = row["prefixOther"]
+                   }
+                   var fullName = prefix+' '+row["name"] + ' ' + row["surname"];
                        return fullName;
                     },
                targets: 1,
             },
             {
                render: function (data, type, row) {
-                   var fullName = row["studentPrefix"]+' '+row["studentName"] + ' ' + row["studentSurname"];
+                   var prefix = row["studentPrefix"];
+                      if(prefix == "อื่นๆ"){
+                           prefix = row["studentPrefixOther"]
+                      }
+                   var fullName = prefix+' '+row["studentName"] + ' ' + row["studentSurname"];
                        return fullName;
                     },
                targets: 2,

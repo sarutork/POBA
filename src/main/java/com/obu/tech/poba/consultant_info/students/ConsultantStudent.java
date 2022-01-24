@@ -16,10 +16,12 @@ public class ConsultantStudent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long staffId;
     public String prefix;
+    public String prefixOther;
     public String name;
     public String surname;
     public int studentsId;
     public String studentPrefix;
+    public String studentPrefixOther;
     public String studentName;
     public String studentSurname;
     public String yearOfStudy;

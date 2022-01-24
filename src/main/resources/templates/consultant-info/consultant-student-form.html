@@ -27,7 +27,7 @@
             </div>
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-4 form-control bg-white" id="prefix" name="prefix"required
+                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required
                         th:disabled="${consultantStudent.staffId != 0}">
                     <option value="">กรุณาเลือก</option>
                     <option value="อ." th:selected="${consultantStudent.prefix == 'อ.'}? 'selected'">อ.</option>
@@ -40,6 +40,11 @@
                     <option value="ศ.ดร." th:selected="${consultantStudent.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
                     <option value="อื่นๆ" th:selected="${consultantStudent.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
                 </select>
+                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${consultantStudent.prefixOther != null}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${consultantStudent.prefixOther != null}? ${consultantStudent.prefixOther}: ''"
+                       th:classappend="${consultantStudent.prefixOther != null}? 'd-block':'d-none'"
+                       th:disabled="${consultantStudent.staffId != 0}"/>
                 <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
                        th:attr="value=${consultantStudent.name != null}? |${consultantStudent.name} ${consultantStudent.surname}|: ''"
@@ -56,13 +61,19 @@
             </div>
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="studentPrefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-4 form-control bg-white" id="studentPrefix" name="studentPrefix"
+                <select type="text" class="col-sm-2 form-control bg-white" id="studentPrefix" name="studentPrefix"
                         th:disabled="${consultantStudent.staffId != 0}" required>
                     <option value="">กรุณาเลือก</option>
                     <option value="นาย" th:selected="${consultantStudent.studentPrefix == 'นาย'}? 'selected'">นาย</option>
                     <option value="นางสาว" th:selected="${consultantStudent.studentPrefix == 'นางสาว'}? 'selected'">นางสาว</option>
                     <option value="นาง" th:selected="${consultantStudent.studentPrefix == 'นาง'}? 'selected'">นาง</option>
+                    <option value="อื่นๆ" th:selected="${consultantStudent.studentPrefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
                 </select>
+                <div id="studentPrefixOtherTmp" class="col-sm-2" th:classappend="${consultantStudent.studentPrefixOther != null}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="studentPrefixOther" name="studentPrefixOther" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${consultantStudent.studentPrefixOther != null}? ${consultantStudent.studentPrefixOther}: ''"
+                       th:classappend="${consultantStudent.studentPrefixOther != null}? 'd-block':'d-none'"
+                       th:disabled="${consultantStudent.staffId != 0}"/>
                 <label for="studentName" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="studentName" name="studentName"
                        th:attr="value=${consultantStudent.studentName != null}? |${consultantStudent.studentName} ${consultantStudent.studentSurname}|: ''"
@@ -141,6 +152,42 @@
     <script>
         $(document).ready(function() {
 
+        });
+
+        $('#prefix').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#prefixOther").removeClass("d-none");
+                $("#prefixOther").addClass("d-block");
+
+                $("#prefixOtherTmp").removeClass("d-block");
+                $("#prefixOtherTmp").addClass("d-none");
+            }else{
+                $("#prefixOther").val("");
+                $("#prefixOther").removeClass("d-block");
+                $("#prefixOther").addClass("d-none");
+
+                $("#prefixOtherTmp").removeClass("d-none");
+                $("#prefixOtherTmp").addClass("d-block");
+            }
+        });
+
+         $('#studentPrefix').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#studentPrefixOther").removeClass("d-none");
+                $("#studentPrefixOther").addClass("d-block");
+
+                $("#studentPrefixOtherTmp").removeClass("d-block");
+                $("#studentPrefixOtherTmp").addClass("d-none");
+            }else{
+                $("#studentPrefixOther").val("");
+                $("#studentPrefixOther").removeClass("d-block");
+                $("#studentPrefixOther").addClass("d-none");
+
+                $("#studentPrefixOtherTmp").removeClass("d-none");
+                $("#studentPrefixOtherTmp").addClass("d-block");
+            }
         });
     </script>
 
