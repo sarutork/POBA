@@ -824,7 +824,9 @@ table.view-info th, td {
 }
 
 .display-block{
-    display:block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .display-none{
     display:none;

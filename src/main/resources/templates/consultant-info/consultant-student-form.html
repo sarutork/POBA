@@ -52,7 +52,7 @@
                 <label for="studentsId" class="form-control-label col-sm-2">เลขประจำตัวนิสิต:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="studentsId" name="studentsId"
                        th:attr="value=${consultantStudent.studentsId != 0}? ${consultantStudent.studentsId}: ''"
-                       th:disabled="${consultantStudent.staffId != 0}"/>
+                       th:disabled="${consultantStudent.staffId != 0}" maxlength="10" />
             </div>
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="studentPrefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
@@ -128,11 +128,11 @@
                        th:disabled="${consultantStudent.staffId != 0}"/>
             </div>
         </form>
-        <div id="submit" class="row justify-content-center mt-5 mb-5" th:classappend="${consultantStudent.staffId == 0 ? 'display-block' : 'display-none'} ">
+        <div id="submit" class="row mt-5 mb-5" th:classappend="${consultantStudent.staffId == 0 ? 'display-block' : 'display-none'} ">
             <button type="button" class="btn btn-poba mr-3" onclick="submitConsultantStudent();">บันทึก</button>
             <a href="/poba/consultant/students" class="btn btn-outline-poba ">ยกเลิก</a>
         </div>
-        <div id="edit" class="row justify-content-center mt-5 mb-5" th:classappend="${consultantStudent.staffId != 0 ? 'display-block' : 'display-none'}">
+        <div id="edit" class="row mt-5 mb-5" th:classappend="${consultantStudent.staffId != 0 ? 'display-block' : 'display-none'}">
             <a href="/poba/consultant/students" class="btn btn-poba mr-3">ยกเลิก</a>
             <button type="button" class="btn btn-outline-poba" onclick="editConsultantStudent();">แก้ไข</button>
         </div>
