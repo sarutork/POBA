@@ -99,16 +99,16 @@
             </div>
             <div class="row mb-2">
                 <label for="admissionStatus" class="form-control-label col-sm-2">สถานะการรับเข้า:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="admissionStatus" name="admissionStatus"
-                        th:disabled="${consultantStudent.staffId != 0}">
+                <select type="text" class="form-control bg-white col-sm-4" id="admissionStatus" name="admissionStatus" disabled>
                     <option value="">กรุณาเลือก</option>
-                    <option value="โครงการจุฬาฯ-ชนบท" th:selected="${consultantStudent.admissionStatus == 'โครงการจุฬาฯ-ชนบท'}? 'selected'">โครงการจุฬาฯ-ชนบท</option>
-                    <option value="โครงการปอเนอะ" th:selected="${consultantStudent.admissionStatus == 'โครงการปอเนอะ'}? 'selected'">โครงการปอเนอะ</option>
-                    <option value="โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)" th:selected="${consultantStudent.admissionStatus == 'โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)'}? 'selected'">โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)</option>
-                    <option value="Admission" th:selected="${consultantStudent.admissionStatus == 'Admission'}? 'selected'">Admission</option>
-                    <option value="นิสิตแลกเปลี่ยน" th:selected="${consultantStudent.admissionStatus == 'นิสิตแลกเปลี่ยน'}? 'selected'">นิสิตแลกเปลี่ยน</option>
-                    <option value="สามัญเต็มเวลา" th:selected="${consultantStudent.admissionStatus == 'สามัญเต็มเวลา'}? 'selected'">สามัญเต็มเวลา</option>
-                    <option value="ทดลองศึกษา" th:selected="${consultantStudent.admissionStatus == 'ทดลองศึกษา'}? 'selected'">ทดลองศึกษา</option>
+                    <option value="ปริญญาตรี:โครงการจุฬาฯ-ชนบท" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:โครงการจุฬาฯ-ชนบท'}? 'selected'">โครงการจุฬาฯ-ชนบท</option>
+                    <option value="ปริญญาตรี:โครงการปอเนอะ" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:โครงการปอเนอะ'}? 'selected'">โครงการปอเนอะ</option>
+                    <option value="ปริญญาตรี:โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)'}? 'selected'">โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)</option>
+                    <option value="ปริญญาตรี:Admission" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:Admission'}? 'selected'">Admission</option>
+                    <option value="ปริญญาตรี:นิสิตแลกเปลี่ยน" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:นิสิตแลกเปลี่ยน'}? 'selected'">นิสิตแลกเปลี่ยน</option>
+                    <option value="ปริญญาโท:สามัญเต็มเวลา" th:selected="${consultantStudent.admissionStatus == 'ปริญญาโท:สามัญเต็มเวลา'}? 'selected'">สามัญเต็มเวลา</option>
+                    <option value="ปริญญาโท:ทดลองศึกษา" th:selected="${consultantStudent.admissionStatus == 'ปริญญาโท:ทดลองศึกษา'}? 'selected'">ทดลองศึกษา</option>
+                    <option value="ปริญญาโท:นิสิตแลกเปลี่ยน" th:selected="${consultantStudent.admissionStatus == 'ปริญญาโท:นิสิตแลกเปลี่ยน'}? 'selected'">นิสิตแลกเปลี่ยน</option>
                 </select>
                 <label for="course" class="form-control-label col-sm-2">หลักสูตร:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="course" name="course"
@@ -187,6 +187,22 @@
 
                 $("#studentPrefixOtherTmp").removeClass("d-none");
                 $("#studentPrefixOtherTmp").addClass("d-block");
+            }
+        });
+
+        var options = $("#admissionStatus").html();
+        $("#studentsLevel").change(function(e) {
+            $("#admissionStatus").prop("disabled", false);
+            var text = $("#studentsLevel :selected").text();
+            $("#admissionStatus").html(options);
+            if(text == "ปริญญาตรี"){
+                $('#admissionStatus :not([value^="ปริญญาตรี"])').remove();
+            }else if(text == "ปริญญาโท"){
+                $('#admissionStatus :not([value^="ปริญญาโท"])').remove();
+            }else if(text == "ปริญญาเอก"){
+                $('#admissionStatus :not([value^="ปริญญาเอก"])').remove();
+            }if(text == "กรุณาเลือก"){
+                $("#admissionStatus").prop("disabled", true);
             }
         });
     </script>
