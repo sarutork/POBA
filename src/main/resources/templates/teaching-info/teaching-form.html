@@ -116,8 +116,20 @@
                 <input type="text" class="form-control bg-white col-sm-4" id="currentCredit" name="currentCredit"
                        th:attr="value=${teaching.currentCredit != null}? ${teaching.currentCredit} : ''"/>
                 <label for="teachType" class="form-control-label col-sm-2">วิธีสอน:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="teachType" name="teachType"
-                       th:attr="value=${teaching.teachType != null}? ${teaching.teachType} : ''"/>
+                <select type="text" class="form-control bg-white col-sm-4" id="teachType" name="teachType">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="DISC" th:selected="${teaching.teachType == 'AR'}? 'selected'">DISC</option>
+                    <option value="FWK" th:selected="${teaching.teachType == 'FWK'}? 'selected'">FWK</option>
+                    <option value="IDPS" th:selected="${teaching.teachType == 'IDPS'}? 'selected'">IDPS</option>
+                    <option value="LECT" th:selected="${teaching.teachType == 'LECT'}? 'selected'">LECT</option>
+                    <option value="PRAC" th:selected="${teaching.teachType == 'PRAC'}? 'selected'">PRAC</option>
+                    <option value="SMNA" th:selected="${teaching.teachType == 'SMNA'}? 'selected'">SMNA</option>
+                    <option value="L/F = LECTURE/FIELDWORK" th:selected="${teaching.teachType == 'L/F = LECTURE/FIELDWORK'}? 'selected'">L/F = LECTURE/FIELDWORK</option>
+                    <option value="L/L = LECTURE/LABORATORY" th:selected="${teaching.teachType == 'L/L = LECTURE/LABORATORY'}? 'selected'">L/L = LECTURE/LABORATORY</option>
+                    <option value="L/P = LECTURE/PRACTICE" th:selected="${teaching.teachType == 'L/P = LECTURE/PRACTICE'}? 'selected'">L/P = LECTURE/PRACTICE</option>
+                    <option value="IDPS = INDEPENDENT STUDY" th:selected="${teaching.teachType == 'IDPS = INDEPENDENT STUDY'}? 'selected'">IDPS = INDEPENDENT STUDY</option>
+                    <option value="IDVS = INDIVIDUAL STUDY" th:selected="${teaching.teachType == 'IDVS = INDIVIDUAL STUDY'}? 'selected'">IDVS = INDIVIDUAL STUDY</option>
+                </select>
             </div>
             <div class="row mb-2">
                 <label for="teachDay" class="form-control-label col-sm-2">วัน:</label>
@@ -194,7 +206,7 @@
                     <option value="POL3" th:selected="${teaching.teachLocation == 'POL3'}? 'selected'">POL3</option>
                     <option value="อื่นๆ" th:selected="${teaching.teachLocation == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
                 </select>
-                <input type="text" class="form-control bg-white col-sm-4" id="teachLocationAdd" name="teachLocationAdd" placeholder="โปรดระบุอาคารเพิ่มเติม"/>
+<!--                <input type="text" class="form-control bg-white col-sm-4" id="teachLocationAdd" name="teachLocationAdd" placeholder="โปรดระบุอาคารเพิ่มเติม"/>-->
             </div>
             <div class="row mb-2">
                 <label for="teachRoom" class="form-control-label col-sm-2">ห้อง:</label>

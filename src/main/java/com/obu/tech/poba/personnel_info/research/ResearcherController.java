@@ -57,9 +57,7 @@ public class ResearcherController {
         System.out.println(researcher.getWorkEndDate());
         System.out.println(researcher.getWorkStartDate());
         List<Researcher> researchers = researcherService.search(researcher.getName(), researcher.getWorkStartDate(), researcher.getWorkEndDate());
-        return researchers.isEmpty()
-                ? ResponseEntity.notFound().build()
-                : ResponseEntity.ok().body(researchers);
+        return ResponseEntity.ok().body(researchers);
     }
 
     @PostMapping(value = "/add")

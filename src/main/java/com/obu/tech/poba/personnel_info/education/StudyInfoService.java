@@ -19,7 +19,7 @@ public class StudyInfoService {
                 .ifNotNullThenAnd("name", LIKE, studyInfo.getName())
                 .ifNotNullThenOr("surname", LIKE, studyInfo.getName())
                 .ifNotNullThenAnd("startDate", DATE_AFTER_OR_EQUAL, studyInfo.getStartDate())
-                .ifNotNullThenAnd("endDate", DATE_AFTER_OR_EQUAL, studyInfo.getEndDate())
+                .ifNotNullThenAnd("endDate", DATE_BEFORE_OR_EQUAL, studyInfo.getEndDate())
                 .build()
         );
     }

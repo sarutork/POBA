@@ -43,7 +43,7 @@
                 <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${consultantStudent.prefixOther != null}? 'd-none':'d-block'"></div>
                 <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
                        th:attr="value=${consultantStudent.prefixOther != null}? ${consultantStudent.prefixOther}: ''"
-                       th:classappend="${consultantStudent.prefixOther != null}? 'd-block':'d-none'"
+                       th:classappend="${consultantStudent.prefix == 'อื่นๆ'}? 'd-block':'d-none'"
                        th:disabled="${consultantStudent.staffId != 0}"/>
                 <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
@@ -72,7 +72,7 @@
                 <div id="studentPrefixOtherTmp" class="col-sm-2" th:classappend="${consultantStudent.studentPrefixOther != null}? 'd-none':'d-block'"></div>
                 <input type="text" class="form-control bg-white col-sm-2" id="studentPrefixOther" name="studentPrefixOther" placeholder="อื่นๆ โปรดระบุ"
                        th:attr="value=${consultantStudent.studentPrefixOther != null}? ${consultantStudent.studentPrefixOther}: ''"
-                       th:classappend="${consultantStudent.studentPrefixOther != null}? 'd-block':'d-none'"
+                       th:classappend="${consultantStudent.studentPrefix == 'อื่นๆ'}? 'd-block':'d-none'"
                        th:disabled="${consultantStudent.staffId != 0}"/>
                 <label for="studentName" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="studentName" name="studentName"
@@ -100,15 +100,17 @@
             <div class="row mb-2">
                 <label for="admissionStatus" class="form-control-label col-sm-2">สถานะการรับเข้า:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="admissionStatus" name="admissionStatus" disabled>
-                    <option value="">กรุณาเลือก</option>
+                    <option value="ปริญญาตรี:กรุณาเลือก">กรุณาเลือก</option>
                     <option value="ปริญญาตรี:โครงการจุฬาฯ-ชนบท" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:โครงการจุฬาฯ-ชนบท'}? 'selected'">โครงการจุฬาฯ-ชนบท</option>
                     <option value="ปริญญาตรี:โครงการปอเนอะ" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:โครงการปอเนอะ'}? 'selected'">โครงการปอเนอะ</option>
                     <option value="ปริญญาตรี:โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)'}? 'selected'">โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)</option>
                     <option value="ปริญญาตรี:Admission" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:Admission'}? 'selected'">Admission</option>
                     <option value="ปริญญาตรี:นิสิตแลกเปลี่ยน" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:นิสิตแลกเปลี่ยน'}? 'selected'">นิสิตแลกเปลี่ยน</option>
+                    <option value="ปริญญาโท:กรุณาเลือก">กรุณาเลือก</option>
                     <option value="ปริญญาโท:สามัญเต็มเวลา" th:selected="${consultantStudent.admissionStatus == 'ปริญญาโท:สามัญเต็มเวลา'}? 'selected'">สามัญเต็มเวลา</option>
                     <option value="ปริญญาโท:ทดลองศึกษา" th:selected="${consultantStudent.admissionStatus == 'ปริญญาโท:ทดลองศึกษา'}? 'selected'">ทดลองศึกษา</option>
                     <option value="ปริญญาโท:นิสิตแลกเปลี่ยน" th:selected="${consultantStudent.admissionStatus == 'ปริญญาโท:นิสิตแลกเปลี่ยน'}? 'selected'">นิสิตแลกเปลี่ยน</option>
+                    <option value="ปริญญาเอก:กรุณาเลือก">กรุณาเลือก</option>
                 </select>
                 <label for="course" class="form-control-label col-sm-2">หลักสูตร:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="course" name="course"

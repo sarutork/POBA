@@ -21,7 +21,7 @@ public class Researcher {
     private long staffId;
 
     @Column(nullable = false)
-    @Pattern(regexp = "(Mr\\.|Miss|Mrs\\.)", message = "Invalid prefix")
+   // @Pattern(regexp = "(นาย\\.|นาง|นางสาว\\.)", message = "Invalid prefix")
     private String prefix;
 
     @Column(nullable = false)
