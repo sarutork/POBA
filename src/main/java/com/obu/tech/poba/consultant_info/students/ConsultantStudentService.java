@@ -18,6 +18,8 @@ public class ConsultantStudentService {
         return consultantStudentRepository.findAll(new SearchConditionBuilder<ConsultantStudent>()
                 .ifNotNullThenAnd("name", LIKE, consultantStudent.getName())
                 .ifNotNullThenOr("surname", LIKE, consultantStudent.getName())
+                .ifNotNullThenOr("studentName", LIKE, consultantStudent.getName())
+                .ifNotNullThenOr("studentSurname", LIKE, consultantStudent.getName())
                 .ifNotNullThenAnd("yearOfStudy", LIKE, consultantStudent.getYearOfStudy())
                 .ifNotNullThenAnd("studentsLevel", LIKE, consultantStudent.getStudentsLevel())
                 .build()
