@@ -77,6 +77,7 @@ function submitConsultantStudent(){
 
 function editConsultantStudent(){
     $(":input").prop("disabled", false);
+    $("#studentsLevel").trigger("change");
 
     $("#submit").removeClass("d-none");
     $("#submit").addClass("d-block");
