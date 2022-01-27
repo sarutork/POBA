@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -18,27 +20,32 @@ public class StudyInfoApiController {
 
     @GetMapping
     public ResponseEntity<List<StudyInfo>> search(@ModelAttribute StudyInfo studyInfo) {
+        System.out.println(String.format("studyInfo %s",studyInfo));
         return ResponseEntity.ok().body(studyInfoService.findBySearchCriteria(studyInfo));
     }
 
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ModelAndView save(StudyInfo studyInfo, BindingResult bindingResult) {
+        System.out.println(String.format("studyInfo %s",studyInfo));
         ModelAndView view = new ModelAndView(VIEW_STUDY_INFO);
-        view.addObject("user", "Ekamon");
-        if (bindingResult.hasErrors()) {
+        try {
+            view.addObject("user", "Ekamon");
+            if (bindingResult.hasErrors()) {
+                //TODO: Handle error
+                return view;
+            }
+            String[] fullNameArr = studyInfo.getName().split(" ");
+            studyInfo.setName(fullNameArr[0].trim());
+            String surname = "";
+            for (int i = 1; i < fullNameArr.length; i++) {
+                surname += fullNameArr[i] + " ";
+            }
+            studyInfo.setSurname(surname.trim());
             //TODO: Handle error
-            return view;
+            studyInfoService.save(studyInfo);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        String[] fullNameArr = studyInfo.getName().split(" ");
-        studyInfo.setName(fullNameArr[0].trim());
-        String surname ="";
-        for(int i=1 ;i< fullNameArr.length; i++) {
-            surname += fullNameArr[i] + " ";
-        }
-        studyInfo.setSurname(surname.trim());
-        //TODO: Handle error
-        studyInfoService.save(studyInfo);
-
         return view;
     }
 }

@@ -3,6 +3,8 @@ package com.obu.tech.poba.teaching_info;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -25,7 +27,9 @@ public class Teaching {
     public int currentCredit;
     public String teachType;
     public String teachDay;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate studyStart;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate studyEnd;
     public String teachLocation;
     public String teachRoom;
@@ -36,17 +40,20 @@ public class Teaching {
     public String institutionInfo;
     public String teachTopic;
     public int teachTimes;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate teachDate;
     public String noteOfTeach;
     public String teachStyle;
     public String teachStyleDetail;
     public String totalOfStudents;
     public String totalStudentsRegister;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate midtermExamDate;
 
     @Column(nullable = true)
     public LocalTime midtermExamTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate finalExamDate;
 
     @Column(nullable = true)

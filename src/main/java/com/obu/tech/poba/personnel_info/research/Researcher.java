@@ -3,6 +3,7 @@ package com.obu.tech.poba.personnel_info.research;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -41,9 +42,11 @@ public class Researcher {
     private String type;
 
     @Column(nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate workStartDate;
 
     @Column(nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate workEndDate;
 
     private String docOfWork;
