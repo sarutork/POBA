@@ -101,7 +101,7 @@
                 </select>
                 <label for="subjectId" class="form-control-label col-sm-2">รหัสวิชา:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="subjectId" name="subjectId"
-                       th:attr="value=${teaching.subjectId != null}? ${teaching.subjectId} : ''"/>
+                       th:attr="value=${teaching.subjectId != null}? ${teaching.subjectId} : ''" maxlength="5"/>
             </div>
             <div class="row mb-2">
                 <label for="subjectName" class="form-control-label col-sm-2">ชื่อย่อวิชา:</label>
@@ -118,7 +118,7 @@
                 <label for="teachType" class="form-control-label col-sm-2">วิธีสอน:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="teachType" name="teachType">
                     <option value="">กรุณาเลือก</option>
-                    <option value="DISC" th:selected="${teaching.teachType == 'AR'}? 'selected'">DISC</option>
+                    <option value="DISC" th:selected="${teaching.teachType == 'DISC'}? 'selected'">DISC</option>
                     <option value="FWK" th:selected="${teaching.teachType == 'FWK'}? 'selected'">FWK</option>
                     <option value="IDPS" th:selected="${teaching.teachType == 'IDPS'}? 'selected'">IDPS</option>
                     <option value="LECT" th:selected="${teaching.teachType == 'LECT'}? 'selected'">LECT</option>
@@ -221,8 +221,13 @@
             </div>
             <div class="row mb-2">
                 <label for="teachStyleDetail" class="form-control-label col-sm-2">รายละเอียดการสอน:</label>
-                <input type="text" class="form-control bg-white col-sm-2" id="teachStyleDetail" name="teachStyleDetail"
-                       th:attr="value=${teaching.teachStyleDetail != null}? ${teaching.teachStyleDetail} : ''"/>
+                <select type="text" class="form-control bg-white col-sm-2" id="teachStyleDetail" name="teachStyleDetail">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="EMAIL" th:selected="${teaching.teachStyleDetail == 'EMAIL'}? 'selected'">EMAIL</option>
+                    <option value="WEBSITE" th:selected="${teaching.teachStyleDetail == 'WEBSITE'}? 'selected'">WEBSITE</option>
+                    <option value="LINE" th:selected="${teaching.teachStyleDetail == 'LINE'}? 'selected'">LINE</option>
+                    <option value="FACEBOOK" th:selected="${teaching.teachStyleDetail == 'FACEBOOK'}? 'selected'">FACEBOOK</option>
+                </select>
                 <label for="totalOfStudents" class="form-control-label col-sm-2">จำนวนนิสิตรับได้ทั้งหมด:</label>
                 <input type="text" class="form-control bg-white col-sm-2" id="totalOfStudents" name="totalOfStudents"
                        th:attr="value=${teaching.totalOfStudents != null}? ${teaching.totalOfStudents}: ''"/>
