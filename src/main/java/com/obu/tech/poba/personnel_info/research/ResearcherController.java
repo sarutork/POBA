@@ -1,14 +1,16 @@
 package com.obu.tech.poba.personnel_info.research;
 
-import com.obu.tech.poba.teaching_info.Teaching;
+import com.obu.tech.poba.utils.exceptions.InvalidInputException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.LocalDate;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -31,6 +33,7 @@ public class ResearcherController {
     public ModelAndView showAddView() {
         ModelAndView view = new ModelAndView(VIEW_RESEARCHER_FORM);
         view.addObject("viewName", "เพิ่มข้อมูล");
+        view.addObject("researcher", new Researcher());
         return view;
     }
 
@@ -45,50 +48,62 @@ public class ResearcherController {
     @GetMapping(value = "/{id}/edit")
     public ModelAndView showEditView(@PathVariable("id") String id) {
         Researcher researcher = researcherService.findById(id);
+
+        // why don't we just make 2 separate fields on UI? (- -")
+        if (StringUtils.isNotBlank(researcher.getSurname())) {
+            researcher.setName(researcher.getName() + " " + researcher.getSurname());
+        }
+
         ModelAndView view = new ModelAndView(VIEW_RESEARCHER_FORM);
         view.addObject("viewName", "แก้ไขข้อมูล");
         view.addObject("researcher", researcher);
         return view;
     }
 
-    @GetMapping("/search")
     @ResponseBody
+    @GetMapping("/search")
     public ResponseEntity<List<Researcher>> search(@ModelAttribute Researcher researcher) {
-        System.out.println(researcher.getWorkEndDate());
-        System.out.println(researcher.getWorkStartDate());
-        List<Researcher> researchers = researcherService.search(researcher.getName(), researcher.getWorkStartDate(), researcher.getWorkEndDate());
+        List<Researcher> researchers = researcherService.search(researcher);
         return ResponseEntity.ok().body(researchers);
     }
 
-    @PostMapping(value = "/add")
-    public ModelAndView add(Researcher inputData, BindingResult bindingResult) {
-        ModelAndView view = new ModelAndView(VIEW_RESEARCHERS);
-
+    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ModelAndView add(@ModelAttribute("researcher") @Valid Researcher inputData,
+                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            //TODO: Handle error
-            System.out.println("Error: "+bindingResult.getAllErrors());
-            return view;
+            ModelAndView view = new ModelAndView(VIEW_RESEARCHER_FORM);
+            view.addObject("viewName", "เพิ่มข้อมูล");
+            throw new InvalidInputException(view, inputData, bindingResult);
         }
-
-        String[] fullNameArr = inputData.getName().split(" ");
-        inputData.setName(fullNameArr[0].trim());
-        String surname ="";
-        for(int i=1 ;i< fullNameArr.length; i++) {
-            surname += fullNameArr[i] + " ";
+        try {
+            return new ModelAndView(VIEW_RESEARCHER_DETAIL)
+                    .addObject("researcher", researcherService.save(inputData))
+                    .addObject("responseMessage", "บันทึกสำเร็จ")
+                    .addObject("success", true); // success green, else red
+        } catch (Exception ex) {
+            return new ModelAndView(VIEW_RESEARCHERS)
+                    .addObject("responseMessage", "ไม่สำเร็จ");
         }
-        inputData.setSurname(surname.trim());
-
-        Researcher researcher = researcherService.save(inputData);
-        view.addObject("responseMessage", "บันทึกสำเร็จ");
-        view.addObject("researcher", researcher);
-        return view;
     }
 
-    @PutMapping(value = "/{id}")
-    public ModelAndView edit(@PathVariable("id") String id, @RequestBody Researcher updateData) {
-        Researcher researcher = researcherService.findById(id);
+    @PostMapping(value = "/{id}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ModelAndView edit(@PathVariable("id") String id,
+                             @ModelAttribute("researcher") @Valid Researcher updateData,
+                             BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            ModelAndView view = new ModelAndView(VIEW_RESEARCHER_FORM);
+            view.addObject("viewName", "แก้ไขข้อมูล");
+            throw new InvalidInputException(view, updateData, bindingResult);
+        }
         ModelAndView view = new ModelAndView(VIEW_RESEARCHER_DETAIL);
-        view.addObject("researcher", researcher);
+        try {
+            view.addObject("researcher", researcherService.update(id, updateData));
+            view.addObject("responseMessage", "บันทึกสำเร็จ");
+            view.addObject("success", true);
+        } catch (Exception ex) {
+            view.addObject("researcher", researcherService.findById(id));
+            view.addObject("responseMessage", "ไม่สำเร็จ");
+        }
         return view;
     }
 }

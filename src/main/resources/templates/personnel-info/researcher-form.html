@@ -13,14 +13,14 @@
         </ol>
     </div>
 
-    <div id="noti-msg" class="col-sm-12 mb-4" style="width: 100%;
-                  padding: 10px 0;
-                  text-align: center;
-                  background-color: rgb(107, 210, 125);
-                  display:none;"><h4 style="color:white">บันทึกสำเร็จ</h4></div>
-
     <div class="p-3 h-100">
-        <form id="form-researcher" class="form-wrapper">
+
+        <th:block layout:replace="~{fragments/input-errors}"/>
+
+        <form id="form-researcher" class="form-wrapper" method="post"
+              th:object="${researcher}"
+              th:with="id=${researcher.staffId}"
+              th:action="@{/personnel-info/researchers/__${id ?: 'add'}__}">
 
             <div class="form-fields">
 
@@ -28,7 +28,7 @@
                     <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
                            for="prefix">คำนำหน้า:</label>
                     <div class="col-lg-3 col-sm-4 px-0">
-                        <select class="form-control" id="prefix" name="prefix" required>
+                        <select class="form-control" id="prefix" required th:field="*{prefix}">
                             <option value="" hidden>กรุณาเลือก</option>
                             <option value="Mr.">Mr.</option>
                             <option value="Miss">Miss</option>
@@ -41,7 +41,7 @@
                     <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
                            for="name">ชื่อ-นามสกุล:</label>
                     <div class="col-lg-5 col-md-8 col-sm-10 px-0">
-                        <input type="text" class="form-control" id="name" name="name"/>
+                        <input type="text" class="form-control" id="name" th:field="*{name}"/>
                     </div>
                 </div>
 
@@ -49,7 +49,7 @@
                     <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
                            for="status">คำนำหน้า:</label>
                     <div class="col-lg-3 col-sm-4 px-0 pb-sm-0 pb-3">
-                        <select class="form-control" id="status" name="status" required>
+                        <select class="form-control" id="status" required th:field="*{status}">
                             <option value="" hidden>กรุณาเลือก</option>
                             <option value="อาจารย์">อาจารย์</option>
                             <option value="นักวิจัย">นักวิจัย</option>
@@ -58,7 +58,7 @@
                     <label class="col-lg-1 col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
                            for="type">คำนำหน้า:</label>
                     <div class="col-lg-3 col-sm-4 px-0">
-                        <select class="form-control" id="type" name="type" required>
+                        <select class="form-control" id="type" required th:field="*{type}">
                             <option value="" hidden>กรุณาเลือก</option>
                             <option value="Part time">Part time</option>
                             <option value="Full time">Full time</option>
@@ -72,12 +72,12 @@
                     <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
                            for="work-start-date">วันที่เริ่มต้น:</label>
                     <div class="col-lg-3 col-sm-4 px-0 pb-sm-0 pb-3">
-                        <input type="date" class="form-control" id="work-start-date" name="workStartDate" />
+                        <input type="date" class="form-control" id="work-start-date" th:field="*{workStartDate}"/>
                     </div>
                     <label class="col-lg-1 col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
                            for="work-end-date">วันที่สิ้นสุด:</label>
                     <div class="col-lg-3 col-sm-4 px-0">
-                        <input type="date" class="form-control" id="work-end-date" name="workEndDate">
+                        <input type="date" class="form-control" id="work-end-date" th:field="*{workEndDate}"/>
                     </div>
                 </div>
 
@@ -85,7 +85,7 @@
                     <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
                            for="note">หมายเหตุ:</label>
                     <div class="col-lg-5 col-md-8 col-sm-10 px-0">
-                        <input type="text" class="form-control" id="note" name="noteOfWork">
+                        <input type="text" class="form-control" id="note" th:field="*{noteOfWork}"/>
                     </div>
                 </div>
 
@@ -94,24 +94,21 @@
                            for="doc-of-work">เอกสารสัญญาจ้าง:</label>
                     <div class="col px-0">
                         <button class="btn btn-outline-poba" id="doc-of-work">เลือกไฟล์</button>
+                        <span th:field="*{docOfWork}"></span>
                     </div>
                 </div>
 
             </div>
 
             <div class="form-buttons">
-                <button type="button" class="btn btn-poba mr-3" onclick="submitResearcherInfo();">บันทึก</button>
-                <a href="/poba/personnel-info/researchers" class="btn btn-outline-poba mr-3">ยกเลิก</a>
+                <button type="submit" class="btn btn-poba mr-3">บันทึก</button>
+                <a th:with="id=${researcher.staffId}"
+                   th:href="@{/personnel-info/researchers/__${id ?: ''}__}"
+                   class="btn btn-outline-poba">ยกเลิก</a>
             </div>
 
         </form>
     </div>
-
-    <script>
-        $(document).ready(function() {
-
-        });
-    </script>
 
 </th:block>
 </html>

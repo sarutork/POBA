@@ -19,33 +19,28 @@ public class Researcher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long staffId;
+    private Long staffId;
 
-    @Column(nullable = false)
-   // @Pattern(regexp = "(นาย\\.|นาง|นางสาว\\.)", message = "Invalid prefix")
+    @Pattern(regexp = "(นาย\\.|นาง|นางสาว\\.|Mr(s)?\\.|Miss)", message = "Invalid prefix")
     private String prefix;
 
-    @Column(nullable = false)
     @Size(max = 255, message = "Input name is too long")
     private String name;
 
-    @Column(nullable = false)
     @Size(max = 255, message = "Input surname is too long")
     private String surname;
 
-    @Column(name = "r_status", nullable = false)
-    @Pattern(regexp = "(อาจารย์|นักวิจัย)", message = "Invalid r_status")
+    @Column(name = "r_status")
+    @Pattern(regexp = "(อาจารย์|นักวิจัย)", message = "Invalid status")
     private String status;
 
-    @Column(name = "r_type", nullable = false)
-    @Pattern(regexp = "(Part time|Full time|นักวิจัยหลังปริญญาเอก \\(Postdoctoral\\))", message = "Invalid r_type")
+    @Column(name = "r_type")
+    @Pattern(regexp = "(Part time|Full time|นักวิจัยหลังปริญญาเอก \\(Postdoctoral\\))", message = "Invalid type")
     private String type;
 
-    @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate workStartDate;
 
-    @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate workEndDate;
 

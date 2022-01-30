@@ -22,8 +22,11 @@ public class ResearcherServiceTest {
 
     @Test
     public void search() {
-        researcherService.search("duy", LocalDate.now(), null)
-                .forEach(System.out::println);
+        researcherService.search(new Researcher() {{
+                    setName("duy");
+                    setWorkStartDate(null);
+                    setWorkEndDate(LocalDate.now());
+                }}).forEach(System.out::println);
     }
 
     @Test
