@@ -696,13 +696,18 @@ div .scroll {
     padding: 0;
 }
 
+form *,
+.table *,
+.btn {
+    font-size: 1rem !important;
+}
+
 .content-wrapper form *:not(.btn) {
     color: #000000 !important;
 }
 
 .content-wrapper form * {
     border-radius: .25rem !important;
-    font-size: 1rem;
 }
 
 .content-wrapper input, select {
@@ -710,6 +715,7 @@ div .scroll {
     border: 1px solid #dfdfdf;
     color: #000000;
     height: 47px !important;
+    padding-left: .75rem;
 }
 
 .content-wrapper input:focus {
@@ -725,10 +731,6 @@ div .scroll {
 
 .content-wrapper select:required:invalid {
     color: #aaa7a7 !important;
-}
-
-.content-wrapper .table * {
-    font-size: 1rem;
 }
 
 .content-wrapper .table *, table, select:focus {
@@ -750,6 +752,11 @@ div .scroll {
 
 .content-wrapper .table table td {
     border-top: 1px solid #dfdfdf;
+}
+
+.content-wrapper .table table tbody tr:hover {
+    background-color: #dfdfdf;
+    cursor: pointer;
 }
 
 .table .pagination .page-link {
@@ -825,4 +832,10 @@ table.view-info th, td {
 
 .text-align-center{
     text-align: center;
+}
+
+.alert {
+    border: none;
+    font-size: inherit;
+    min-height: 47px;
 }

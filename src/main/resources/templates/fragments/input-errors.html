@@ -1,0 +1,8 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     th:if="${fieldErrors}"
+     class="alert alert-dismissible alert-danger">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <ul class="mb-0">
+        <li th:each="e : ${fieldErrors}" th:text="${e}"></li>
+    </ul>
+</div>
