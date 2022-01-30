@@ -14,21 +14,16 @@ public class InvalidInputException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "Invalid input data";
 
     private final ModelAndView redirect; // add/update failed -> redirect back to this view
-    private final Object object; // add/update data
-    private String objectName; // model name
-    private List<String> errors;
+    private final List<String> errors = new ArrayList<>();
 
     private void setErrors(BindingResult bindingResult) {
         if (Objects.nonNull(bindingResult) && bindingResult.hasFieldErrors()) {
-            this.objectName = bindingResult.getObjectName();
-            this.errors = new ArrayList<>();
             bindingResult.getFieldErrors().forEach(e -> errors.add(e.getDefaultMessage()));
         }
     }
 
-    public InvalidInputException(ModelAndView redirect, Object object, BindingResult bindingResult) {
+    public InvalidInputException(ModelAndView redirect, BindingResult bindingResult) {
         this.redirect = redirect;
-        this.object = object;
         setErrors(bindingResult);
     }
 }

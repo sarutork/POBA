@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import static java.util.Objects.nonNull;
+import java.util.List;
+
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Slf4j
@@ -26,10 +27,8 @@ public class ExceptionController {
     @ExceptionHandler(InvalidInputException.class)
     public ModelAndView handleInvalidInput(InvalidInputException ex) {
         ModelAndView view = ex.getRedirect();
-        if (nonNull(ex.getObjectName())) {
-            view.addObject("fieldErrors", ex.getErrors());
-            view.addObject(ex.getObjectName(), ex.getObject());
-        }
+        List<String> errors = ex.getErrors();
+        if (!errors.isEmpty()) view.addObject("fieldErrors", errors);
         return view;
     }
 }

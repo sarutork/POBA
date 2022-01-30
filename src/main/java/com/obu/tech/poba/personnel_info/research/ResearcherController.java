@@ -71,9 +71,10 @@ public class ResearcherController {
     public ModelAndView add(@ModelAttribute("researcher") @Valid Researcher inputData,
                             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            ModelAndView view = new ModelAndView(VIEW_RESEARCHER_FORM);
-            view.addObject("viewName", "เพิ่มข้อมูล");
-            throw new InvalidInputException(view, inputData, bindingResult);
+            ModelAndView view = new ModelAndView(VIEW_RESEARCHER_FORM)
+                    .addObject("viewName", "เพิ่มข้อมูล")
+                    .addObject("researcher", inputData);
+            throw new InvalidInputException(view, bindingResult);
         }
         try {
             return new ModelAndView(VIEW_RESEARCHER_DETAIL)
@@ -91,9 +92,10 @@ public class ResearcherController {
                              @ModelAttribute("researcher") @Valid Researcher updateData,
                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            ModelAndView view = new ModelAndView(VIEW_RESEARCHER_FORM);
-            view.addObject("viewName", "แก้ไขข้อมูล");
-            throw new InvalidInputException(view, updateData, bindingResult);
+            ModelAndView view = new ModelAndView(VIEW_RESEARCHER_FORM)
+                    .addObject("viewName", "แก้ไขข้อมูล")
+                    .addObject("researcher", updateData);
+            throw new InvalidInputException(view, bindingResult);
         }
         ModelAndView view = new ModelAndView(VIEW_RESEARCHER_DETAIL);
         try {
