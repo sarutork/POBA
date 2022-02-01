@@ -467,6 +467,7 @@ CREATE TABLE IF NOT EXISTS `teach_info` (
   `teach_location` varchar(255) NOT NULL,
   `teach_room` varchar(255) NOT NULL,
   `prefix` varchar(255) NOT NULL,
+  `prefixOther` varchar(255),
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   `teach_status` varchar(255) NOT NULL,

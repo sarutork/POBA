@@ -33,6 +33,7 @@ public class Teaching {
     public String teachLocation;
     public String teachRoom;
     public String prefix;
+    public String prefixOther;
     public String name;
     public String surname;
     public String teachStatus;
