@@ -179,7 +179,11 @@
                     <option value="POL3" th:selected="${teaching.teachLocation == 'POL3'}? 'selected'">POL3</option>
                     <option value="อื่นๆ" th:selected="${teaching.teachLocation == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
                 </select>
-<!--                <input type="text" class="form-control bg-white col-sm-4" id="teachLocationAdd" name="teachLocationAdd" placeholder="โปรดระบุอาคารเพิ่มเติม"/>-->
+                <div id="teachLocationOtherTmp" class="col-sm-2" th:classappend="${teaching.teachLocationOther != null}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="teachLocationOther" name="teachLocationOther" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${teaching.teachLocationOther != null}? ${teaching.teachLocationOther}: ''"
+                       th:classappend="${teaching.teachLocation == 'อื่นๆ'}? 'd-block':'d-none'"
+                       th:disabled="${teaching.staffId != 0}"/>
             </div>
             <div class="row mb-2">
                 <label for="teachRoom" class="form-control-label col-sm-2">ห้อง:</label>
@@ -266,6 +270,24 @@
 
                 $("#prefixOtherTmp").removeClass("d-none");
                 $("#prefixOtherTmp").addClass("d-block");
+            }
+        });
+
+        $('#teachLocation').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#teachLocationOther").removeClass("d-none");
+                $("#teachLocationOther").addClass("d-block");
+
+                $("#teachLocationOtherTmp").removeClass("d-block");
+                $("#teachLocationOtherTmp").addClass("d-none");
+            }else{
+                $("#teachLocationOther").val("");
+                $("#teachLocationOther").removeClass("d-block");
+                $("#teachLocationOther").addClass("d-none");
+
+                $("#teachLocationOtherTmp").removeClass("d-none");
+                $("#teachLocationOtherTmp").addClass("d-block");
             }
         });
     </script>

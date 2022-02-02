@@ -4,11 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
-import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -31,6 +28,7 @@ public class Teaching {
     public String studyStart;
     public String studyEnd;
     public String teachLocation;
+    public String teachLocationOther;
     public String teachRoom;
     public String prefix;
     public String prefixOther;
