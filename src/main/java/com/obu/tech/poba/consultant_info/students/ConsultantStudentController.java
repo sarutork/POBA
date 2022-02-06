@@ -58,9 +58,10 @@ public class ConsultantStudentController {
         return view;
     }
 
-    @GetMapping("/search/sum/consultant/{name}")
-    public ModelAndView sumConsultant(@PathVariable String name) {
+    @GetMapping("/search/sum/consultant/{name}/{surname}")
+    public ModelAndView sumConsultant(@PathVariable String name,@PathVariable String surname) {
         System.out.println(name);
+        System.out.println(surname);
         ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS_FORM_SUM_CST_DTL);
         view.addObject("user", "Ekamon");
         view.addObject("viewName", "เพิ่มข้อมูล");

@@ -112,7 +112,6 @@ function findSumConsultant(){
                 { data: "course" },
                 { data: "countStudent" },
             ],
-
             columnDefs: [
                 {
                    render: function (data, type, row) {
@@ -122,21 +121,21 @@ function findSumConsultant(){
                        }
                        var fullName = prefix+' '+row["name"] + ' ' + row["surname"];
                            return fullName;
-                        },
+                   },
                    targets: 1,
                 },
+                {
+                    "defaultContent": "-",
+                    "targets": "_all"
+                }
             ],
-            columnDefs: [{
-                "defaultContent": "-",
-                "targets": "_all"
-              }],
             searching: false,
             "bDestroy": true
         });
         $('#table-sum-consultant tbody').on('click', 'tr', function () {
                 if(!$('#table-sum-consultant tbody tr td').hasClass("dataTables_empty")){
                    var data = tableSumConsultant.row( this ).data();
-                    window.location.href = "/poba/consultant/students/search/sum/consultant/"+data.name;
+                    window.location.href = "/poba/consultant/students/search/sum/consultant/"+data.name+"/"+data.surname;
                 }
             } );
 }
