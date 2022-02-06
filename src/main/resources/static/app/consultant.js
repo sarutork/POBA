@@ -1,5 +1,5 @@
 function findConsultantStudent() {
-   var tableTeaching =  $('#table-consultant-student').DataTable({
+   var tableConsultantStudent=  $('#table-consultant-student').DataTable({
         ajax: {
             type: "GET",
             url: "/poba/consultant/students/search",
@@ -48,7 +48,7 @@ function findConsultantStudent() {
     });
     $('#table-consultant-student tbody').on('click', 'tr', function () {
             if(!$('#table-consultant-student tbody tr td').hasClass("dataTables_empty")){
-               var data = tableTeaching.row( this ).data();
+               var data = tableConsultantStudent.row( this ).data();
                 window.location.href = "/poba/consultant/students/"+data.staffId;
             }
         } );
@@ -86,4 +86,57 @@ function editConsultantStudent(){
     $("#edit").addClass("d-none");
 
     $("#viewName").text("แก้ไข")
+}
+
+function findSumConsultant(){
+     var tableSumConsultant =  $('#table-sum-consultant').DataTable({
+            ajax: {
+                type: "GET",
+                url: "/poba/consultant/students/search/sum/consultant",
+                dataSrc: "",
+                data: function(d){
+                    d.name = $('#staffName').val();
+                    d.yearOfStudy = $('#yearOfStudy').val();
+                    d.studentsLevel = $('#studentsLevel').val();
+                    d.course = $('#course').val();
+                }
+            },
+            columns: [
+                { data:  null,"sortable": false,
+                         render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                         }},
+                { data: "name"},
+                { data: "yearOfStudy" },
+                { data: "studentsLevel" },
+                { data: "course" },
+                { data: "countStudent" },
+            ],
+
+            columnDefs: [
+                {
+                   render: function (data, type, row) {
+                       var prefix = row["prefix"];
+                       if(prefix == "อื่นๆ"){
+                            prefix = row["prefixOther"]
+                       }
+                       var fullName = prefix+' '+row["name"] + ' ' + row["surname"];
+                           return fullName;
+                        },
+                   targets: 1,
+                },
+            ],
+            columnDefs: [{
+                "defaultContent": "-",
+                "targets": "_all"
+              }],
+            searching: false,
+            "bDestroy": true
+        });
+        $('#table-sum-consultant tbody').on('click', 'tr', function () {
+                if(!$('#table-sum-consultant tbody tr td').hasClass("dataTables_empty")){
+                   var data = tableSumConsultant.row( this ).data();
+                    window.location.href = "/poba/consultant/students/search/sum/consultant/"+data.name;
+                }
+            } );
 }

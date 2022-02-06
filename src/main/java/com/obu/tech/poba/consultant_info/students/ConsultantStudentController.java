@@ -16,6 +16,10 @@ public class ConsultantStudentController {
 
     static final String VIEW_CONSULTANT_STUDENTS = "consultant-info/consultant-student";
     static final String VIEW_CONSULTANT_STUDENTS_FORM = "consultant-info/consultant-student-form";
+    static final String VIEW_CONSULTANT_STUDENTS_FORM_SUM_CST = "consultant-info/consultant-std-sum-cst";
+    static final String VIEW_CONSULTANT_STUDENTS_FORM_SUM_CST_DTL = "consultant-info/consultant-std-sum-cst-detail";
+    static final String VIEW_CONSULTANT_STUDENTS_FORM_SUM_YEARLY = "consultant-info/consultant-std-sum-yearly";
+
 
     @Autowired
     private ConsultantStudentService consultantStudentService;
@@ -31,6 +35,11 @@ public class ConsultantStudentController {
         return ResponseEntity.ok().body(consultantStudentService.findBySearchCriteria(consultantStudent));
     }
 
+    @GetMapping("/search/sum/consultant")
+    public ResponseEntity<List<ConsultantStudentReportDto>> searchSumConsultant(@ModelAttribute ConsultantStudent consultantStudent) {
+        return ResponseEntity.ok().body(consultantStudentService.findConsultantSummaryReport(consultantStudent));
+    }
+
     @GetMapping("/add")
     public ModelAndView add() {
         ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS_FORM);
@@ -40,6 +49,35 @@ public class ConsultantStudentController {
         view.addObject("consultantStudent", consultantStudent);
         return view;
     }
+
+    @GetMapping("/sum/consultant")
+    public ModelAndView sumConsultant() {
+        ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS_FORM_SUM_CST);
+        view.addObject("user", "Ekamon");
+        view.addObject("viewName", "สรุปข้อมูลรายที่ปรึกษา");
+        return view;
+    }
+
+    @GetMapping("/search/sum/consultant/{name}")
+    public ModelAndView sumConsultant(@PathVariable String name) {
+        System.out.println(name);
+        ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS_FORM_SUM_CST_DTL);
+        view.addObject("user", "Ekamon");
+        view.addObject("viewName", "เพิ่มข้อมูล");
+        return view;
+    }
+
+
+    @GetMapping("/sum/yearly")
+    public ModelAndView sumYearly() {
+        ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS_FORM_SUM_YEARLY);
+        view.addObject("user", "Ekamon");
+        view.addObject("viewName", "เพิ่มข้อมูล");
+        ConsultantStudent consultantStudent = new ConsultantStudent();
+        view.addObject("consultantStudent", consultantStudent);
+        return view;
+    }
+
 
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ModelAndView save(ConsultantStudent consultantStudent, BindingResult bindingResult) {
