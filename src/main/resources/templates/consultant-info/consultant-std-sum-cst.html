@@ -15,9 +15,13 @@
 
     <div class="px-3">
         <form id="consult-std-sum-cst" class="mb-4">
+            <input type="hidden" name="prefix" id="prefix"/>
+            <input type="hidden" name="surname" id="surname">
+            <input type="hidden" name="countStudent" id="countStudent">
+            <input type="hidden" name="department" id="department">
             <div class="row mb-2">
-                <label for="staffName" class="form-control-label col-sm-2">ที่ปรึกษา:</label>
-                <input type="text" class="form-control bg-white col-sm-3" id="staffName">
+                <label for="name" class="form-control-label col-sm-2">ที่ปรึกษา:</label>
+                <input type="text" class="form-control bg-white col-sm-3" id="name" name="name">
                 <label for="yearOfStudy" class="form-control-label col-sm-2">ปีที่เข้าศึกษา:</label>
                 <select type="text" class="form-control bg-white col-sm-3" id="yearOfStudy" name="yearOfStudy">
                     <option value="">กรุณาเลือก</option>

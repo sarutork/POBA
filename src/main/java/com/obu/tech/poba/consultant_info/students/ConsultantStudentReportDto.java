@@ -10,12 +10,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class ConsultantStudentReportDto {
-    public String prefix;
-    public String prefixOther;
-    public String name;
-    public String surname;
+    private String prefix;
+    private String prefixOther;
+    private String name;
+    private String surname;
     private String yearOfStudy;
     private String studentsLevel;
     private String course;
+    private String department;
     private String countStudent;
 }

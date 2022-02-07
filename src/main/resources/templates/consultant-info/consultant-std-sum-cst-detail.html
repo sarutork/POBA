@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<th:block layout:fragment="content">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="/poba/consultant/students">ข้อมูลที่ปรึกษาระดับปริญญา ตรี โท เอก</a></li>
+            <li class="breadcrumb-item"><a href="/poba/consultant/students/sum/consultant">สรุปข้อมูลรายที่ปรึกษา</a></li>
+            <li class="breadcrumb-item active"><span id="viewName" th:text="${viewName}"></span></li>
+        </ol>
+    </div>
+
+    <div class="container px-3">
+        <form id="form-consultant-student">
+            <div class="row col-sm-12 mb-2">
+                <label><b>ข้อมูลที่ปรึกษา</b></label>
+            </div>
+            <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="prefix" name="prefix"
+                       th:attr="value=${cstDetail.prefix != null}? ${cstDetail.prefix} : ''" disabled/>
+                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
+                       th:attr="value=${cstDetail.name != null}? |${cstDetail.name} ${cstDetail.surname}|: ''"
+                       disabled/>
+            </div>
+            <div class="row col-sm-12 mb-2">
+                <label><b>ข้อมูลนิสิต</b></label>
+            </div>
+            <div class="row mb-2">
+                <label for="countStudent" class="form-control-label col-sm-2">จำนวนนิสิต:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="countStudent" name="countStudent"
+                       th:attr="value=${cstDetail.countStudent != 0}? ${cstDetail.countStudent}: ''" disabled/>
+                <label for="yearOfStudy" class="form-control-label col-sm-2">ปีที่เข้าศึกษา:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="yearOfStudy" name="yearOfStudy"
+                       th:attr="value=${cstDetail.yearOfStudy != null}? ${cstDetail.yearOfStudy}: ''" disabled/>
+            </div>
+            <div class="row mb-2">
+                <label for="studentsLevel" class="form-control-label col-sm-2">ระดับการศึกษา:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="studentsLevel" name="studentsLevel"
+                       th:attr="value=${cstDetail.studentsLevel != null}? ${cstDetail.studentsLevel}: ''" disabled/>
+                <label for="course" class="form-control-label col-sm-2">หลักสูตร:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="course" name="course"
+                       th:attr="value=${cstDetail.course != null}? ${cstDetail.course}: ''" disabled/>
+
+            </div>
+            <div class="row mb-5">
+                <label for="department" class="form-control-label col-sm-2">ภาควิชา:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="department" name="department"
+                       th:attr="value=${cstDetail.department != null}? ${cstDetail.department} : ''" disabled/>
+            </div>
+            <div class="row col-sm-12 mb-2">
+                <label><b>รายการนิสิต</b></label>
+            </div>
+        </form>
+        <div class="table table-responsive mb-5">
+            <table id="table-student" class="display" width="100%">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>เลขประจำตัวนิสิต</th>
+                    <th>ชื่อ-นามสกุล</th>
+                    <th>สถานะการรับเข้า</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="6" class="dataTables_empty text-center bg-secondary">สรุปข้อมูลรายที่ปรึกษา</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            findStudentByConsultant();
+        });
+    </script>
+
+</th:block>
+</html>

@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -35,11 +36,6 @@ public class ConsultantStudentController {
         return ResponseEntity.ok().body(consultantStudentService.findBySearchCriteria(consultantStudent));
     }
 
-    @GetMapping("/search/sum/consultant")
-    public ResponseEntity<List<ConsultantStudentReportDto>> searchSumConsultant(@ModelAttribute ConsultantStudent consultantStudent) {
-        return ResponseEntity.ok().body(consultantStudentService.findConsultantSummaryReport(consultantStudent));
-    }
-
     @GetMapping("/add")
     public ModelAndView add() {
         ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS_FORM);
@@ -58,16 +54,27 @@ public class ConsultantStudentController {
         return view;
     }
 
-    @GetMapping("/search/sum/consultant/{name}/{surname}")
-    public ModelAndView sumConsultant(@PathVariable String name,@PathVariable String surname) {
-        System.out.println(name);
-        System.out.println(surname);
+    @GetMapping("/search/sum/consultant")
+    public ResponseEntity<List<ConsultantStudentReportDto>> searchSumConsultant(@ModelAttribute ConsultantStudentReportDto consultantStudentReportDto) {
+        return ResponseEntity.ok().body(consultantStudentService.findConsultantSummaryReport(consultantStudentReportDto));
+    }
+
+    @GetMapping("/search/sum/consultant/detail")
+    public ModelAndView sumConsultant(@ModelAttribute ConsultantStudentReportDto consultantStudentReportDto, HttpSession session) {
         ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS_FORM_SUM_CST_DTL);
         view.addObject("user", "Ekamon");
-        view.addObject("viewName", "เพิ่มข้อมูล");
+        view.addObject("viewName", "ดูข้อมูล");
+        view.addObject("cstDetail",consultantStudentReportDto);
+        session.setAttribute("cstDetail",consultantStudentReportDto);
+
         return view;
     }
 
+    @GetMapping("/search/student-by-consultant")
+    public ResponseEntity<List<StudentDto>> searchStudentByConsultant(HttpSession session) {
+        ConsultantStudentReportDto cst = (ConsultantStudentReportDto) session.getAttribute("cstDetail");
+        return ResponseEntity.ok().body(consultantStudentService.findStudentByConsultant(cst));
+    }
 
     @GetMapping("/sum/yearly")
     public ModelAndView sumYearly() {

@@ -29,12 +29,7 @@ public class ConsultantStudentService {
         );
     }
 
-   public List<ConsultantStudentReportDto> findConsultantSummaryReport(ConsultantStudent consultantStudent){
-        System.out.println("Name: "+consultantStudent.getName());
-        System.out.println("getYearOfStudy: "+consultantStudent.getYearOfStudy());
-        System.out.println("getStudentsLevel: "+consultantStudent.getStudentsLevel());
-        System.out.println("getCourse: "+consultantStudent.getCourse());
-
+   public List<ConsultantStudentReportDto> findConsultantSummaryReport(ConsultantStudentReportDto consultantStudent){
         List<Object[]> consultantSummaryList = consultantStudentRepository.findConsultantSummary(
                     "%"+consultantStudent.getName()+"%",
                     consultantStudent.getYearOfStudy(),
@@ -51,11 +46,36 @@ public class ConsultantStudentService {
                     result.setYearOfStudy(e[4].toString());
                     result.setStudentsLevel(e[5].toString());
                     result.setCourse(e[6].toString());
-                    result.setCountStudent(e[7].toString());
+                    result.setDepartment(e[7].toString());
+                    result.setCountStudent(e[8].toString());
                     consultantStudentReportDtos.add(result);
                 }
             }
          return consultantStudentReportDtos;
+    }
+
+    public List<StudentDto> findStudentByConsultant(ConsultantStudentReportDto consultantStudentReportDto){
+        List<Object[]> studentList = consultantStudentRepository.findStudentByConsultant(
+                consultantStudentReportDto.getName(),
+                consultantStudentReportDto.getSurname(),
+                consultantStudentReportDto.getYearOfStudy(),
+                consultantStudentReportDto.getStudentsLevel(),
+                consultantStudentReportDto.getCourse());
+
+        List<StudentDto> studentDtos = new ArrayList<>();
+        if (!studentList.isEmpty() && studentList.size() > 0){
+            for(final Object[] e : studentList){
+                final StudentDto result = new StudentDto();
+                result.setStudentsId(e[0].toString());
+                result.setStudentPrefix(e[1].toString());
+                result.setStudentPrefixOther(e[2].toString());
+                result.setStudentName(e[3].toString());
+                result.setStudentSurname(e[4].toString());
+                result.setAdmissionStatus(e[5].toString());
+                studentDtos.add(result);
+            }
+        }
+        return studentDtos;
     }
 
     public ConsultantStudent save(ConsultantStudent consultantStudent) {
