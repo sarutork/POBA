@@ -83,8 +83,6 @@ function calDiffDays(date1, date2){
 }
 
 function setTotalDayMonthYear(startingDate, endingDate) {
-    console.log("start: "+startingDate);
-    console.log("end: "+endingDate);
     var startDate = new Date(new Date(startingDate).toISOString().substr(0, 10));
     if (!endingDate) {
         endingDate = new Date().toISOString().substr(0, 10);    // need date in YYYY-MM-DD format
