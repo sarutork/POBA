@@ -24,7 +24,9 @@ public class StudyInfo {
     public LocalDate startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate endDate;
-    public int totalDate;
+    public int totalYear;
+    public int totalMonth;
+    public int totalDay;
     public String activityDetail;
     public String location;
     public String locationType;
