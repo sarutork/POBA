@@ -1,5 +1,6 @@
 package com.obu.tech.poba.consultant_info.students;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/consultant/students")
@@ -80,12 +84,70 @@ public class ConsultantStudentController {
     public ModelAndView sumYearly() {
         ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS_FORM_SUM_YEARLY);
         view.addObject("user", "Ekamon");
-        view.addObject("viewName", "เพิ่มข้อมูล");
+        view.addObject("viewName", "สรุปข้อมูลรายปี");
         ConsultantStudent consultantStudent = new ConsultantStudent();
         view.addObject("consultantStudent", consultantStudent);
         return view;
     }
+    @GetMapping("/search/yearly-report")
+    public ResponseEntity<List<ConsultantDto>> yearlyReport(@ModelAttribute ConsultantDto consultantDto) {
+        ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS_FORM_SUM_YEARLY);
+        view.addObject("user", "Ekamon");
+        view.addObject("viewName", "สรุปข้อมูลรายปี");
+        ConsultantStudent consultantStudent = new ConsultantStudent();
+        view.addObject("consultantStudent", consultantStudent);
+        int yearStart = Integer.parseInt(consultantDto.getYearStart());
+        int yearEnd = Integer.parseInt(consultantDto.getYearEnd());
 
+        List<ConsultantDto> consultantDtos = consultantStudentService.findConsultantByNameStdLevelAdmissionStatus(consultantDto);
+        List<ConsultantDto> yearlyReportList = new ArrayList<>();
+        for(ConsultantDto c : consultantDtos){
+            ConsultantDto cstDto = new ConsultantDto();
+            BeanUtils.copyProperties(c,cstDto);
+            int yearIndex=0;
+            for(int i = yearStart; i<=yearEnd; i++){
+                String studentCount = "";
+                studentCount = consultantStudentService.findConsultantSumStudentReport(c,i);
+                if(yearIndex == 0){
+                    cstDto.setSumYear1(studentCount);
+                }else if(yearIndex == 1){
+                    cstDto.setSumYear2(studentCount);
+                }else if(yearIndex == 2){
+                    cstDto.setSumYear3(studentCount);
+                }else if(yearIndex == 3){
+                    cstDto.setSumYear4(studentCount);
+                }else if(yearIndex == 4){
+                    cstDto.setSumYear5(studentCount);
+                }else if(yearIndex == 5){
+                    cstDto.setSumYear6(studentCount);
+                }else if(yearIndex == 6){
+                    cstDto.setSumYear7(studentCount);
+                }else if(yearIndex == 7){
+                    cstDto.setSumYear7(studentCount);
+                }else if(yearIndex == 8){
+                    cstDto.setSumYear9(studentCount);
+                }else if(yearIndex == 9){
+                    cstDto.setSumYear10(studentCount);
+                }
+                yearIndex++;
+            }
+            yearlyReportList.add(cstDto);
+        }
+
+        /*for(ConsultantDto c : consultantDtos){
+            ConsultantDto cstDto = new ConsultantDto();
+            BeanUtils.copyProperties(c,cstDto);
+            Map<Integer,Integer> yearlyStdCount = new HashMap<>();
+            for(int i = yearStart; i<=yearEnd; i++){
+                int studentCount = 0;
+                studentCount = Integer.parseInt(consultantStudentService.findConsultantSumStudentReport(c));
+                yearlyStdCount.put(i,studentCount);
+            }
+            cstDto.setYearlyStdCount(yearlyStdCount);
+            yearlyReportList.add(cstDto);
+        }*/
+        return ResponseEntity.ok().body(yearlyReportList);
+    }
 
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ModelAndView save(ConsultantStudent consultantStudent, BindingResult bindingResult) {

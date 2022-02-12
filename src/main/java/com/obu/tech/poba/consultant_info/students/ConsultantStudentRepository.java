@@ -36,5 +36,28 @@ public interface ConsultantStudentRepository extends JpaRepository<ConsultantStu
                                          @Param("studentsLevel") String studentsLevel,
                                          @Param("course") String course);
 
+    @Query("SELECT prefix, prefixOther, name, surname, studentsLevel,admissionStatus" +
+            " FROM ConsultantStudent AS c" +
+            " WHERE (:name is null or :name = '' or c.name LIKE :name" +
+            " or c.surname LIKE :name)" +
+            " and (:admissionStatus is null or :admissionStatus = ''  or c.admissionStatus LIKE :admissionStatus)" +
+            " and (:studentsLevel is null or :studentsLevel = '' or c.studentsLevel = :studentsLevel)" +
+            " GROUP BY prefix, prefix_other,name,surname, studentsLevel,admissionStatus")
+    List<Object[]> findConsultantByNameStdLevelAdmissionStatus(@Param("name") String name,
+                                                               @Param("admissionStatus") String admissionStatus,
+                                                               @Param("studentsLevel") String studentsLevel);
 
+    @Query("SELECT COUNT(*) as countStudent" +
+            " FROM ConsultantStudent AS c" +
+            " WHERE (c.name = :name" +
+            " and c.surname = :surname)" +
+            " and c.yearOfStudy = :yearOfStudy" +
+            " and c.admissionStatus = :admissionStatus" +
+            " and c.studentsLevel = :studentsLevel" +
+            " GROUP BY c.prefix,c.prefixOther,c.name,c.surname,c.yearOfStudy,c.admissionStatus,c.studentsLevel")
+    List<Object[]> findConsultantSumStudentReport(@Param("name") String name,
+                                         @Param("surname") String surname,
+                                         @Param("yearOfStudy") String yearOfStudy,
+                                         @Param("admissionStatus") String admissionStatus,
+                                         @Param("studentsLevel") String studentsLevel);
 }

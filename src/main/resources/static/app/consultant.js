@@ -187,3 +187,98 @@ function findStudentByConsultant(){
             "bDestroy": true
         });
 }
+
+function findYearlyReport(){
+    var yearStart = $('#yearStart').val();
+    var yearEnd = $('#yearEnd').val();
+
+    if(yearStart == "" || yearEnd == ""){
+        $("#msgAlert").text("กรุณาเลือกปีที่เข้าศึกษา");
+        $("#msgAlertDiv").removeClass("d-none");
+        $("#msgAlertDiv").addClass("d-block");
+        return;
+    }
+
+    var yearStartInt = parseInt(yearStart);
+    var yearEndInt = parseInt(yearEnd);
+
+    if(yearEndInt - yearStartInt < 0){
+        $("#msgAlert").text("กรุณาเลือกปีที่เข้าศึกษาเริ่มต้นน้อยกว่าปีที่เข้าศึกษาสิ้นสุด");
+        $("#msgAlertDiv").removeClass("d-none");
+        $("#msgAlertDiv").addClass("d-block");
+        return;
+    }else if(yearEndInt - yearStartInt > 9){
+        $("#msgAlert").text("เงื่อนไขในการค้นหาต้องไม่เกิน 10 ปี");
+        $("#msgAlertDiv").removeClass("d-none");
+        $("#msgAlertDiv").addClass("d-block");
+        return;
+    }
+
+    $("#msgAlertDiv").removeClass("d-block");
+    $("#msgAlertDiv").addClass("d-none");
+
+    var tableYearlyReport = $('#table-yearly-report').DataTable({
+            ajax: {
+                type: "GET",
+                url: "/poba/consultant/students/search/yearly-report",
+                dataSrc: "",
+                data: function(d){
+                    d.name = $('#name').val();
+                    d.yearStart = $('#yearStart').val();
+                    d.yearEnd = $('#yearEnd').val();
+                    d.admissionStatus = $('#admissionStatus').val();
+                    d.studentsLevel = $('#studentsLevel').val();
+                }
+            },
+            columns: [
+                { data:  null,"sortable": false,
+                         render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                         }},
+                { data: "name"},
+                { data: "admissionStatus" },
+                { data: "studentsLevel" },
+                { data: "sumYear1" },
+                { data: "sumYear2" },
+                { data: "sumYear3" },
+                { data: "sumYear4" },
+                { data: "sumYear5" },
+                { data: "sumYear6" },
+                { data: "sumYear7" },
+                { data: "sumYear8" },
+                { data: "sumYear9" },
+                { data: "sumYear10" },
+            ],
+            columnDefs: [
+                {
+                   render: function (data, type, row) {
+                       var prefix = row["prefix"];
+                       if(prefix == "อื่นๆ"){
+                            prefix = row["prefixOther"]
+                       }
+                       var fullName = prefix+' '+row["name"] + ' ' + row["surname"];
+                           return fullName;
+                   },
+                   targets: 1,
+                },
+                 {
+                   render: function (data, type, row) {
+                       let admissionStatus = row["admissionStatus"];
+
+                       if(admissionStatus != "" && admissionStatus != null){
+                         const adStatusArray = admissionStatus.split(":");
+                          return adStatusArray[1];
+                       }
+                       return admissionStatus;
+                   },
+                   targets: 2,
+                 },
+            ],
+            searching: false,
+            "bDestroy": true
+        });
+
+        for(var i = 0 ;i <= (yearEndInt - yearStartInt) ;i++ ){
+            $(tableYearlyReport.column(4+i).header()).text(""+(yearStartInt+i));
+        }
+}

@@ -78,6 +78,43 @@ public class ConsultantStudentService {
         return studentDtos;
     }
 
+    public List<ConsultantDto> findConsultantByNameStdLevelAdmissionStatus(ConsultantDto consultantDto){
+        List<Object[]> consultantList = consultantStudentRepository.findConsultantByNameStdLevelAdmissionStatus(
+                "%"+consultantDto.getName()+"%",
+                "%"+consultantDto.getAdmissionStatus()+"%",
+                consultantDto.getStudentsLevel());
+        List<ConsultantDto> consultantDtos = new ArrayList<>();
+        if (!consultantList.isEmpty() && consultantList.size() >0){
+            for(final Object[] e : consultantList){
+                final ConsultantDto result = new ConsultantDto();
+                result.setPrefix(e[0].toString());
+                result.setPrefixOther(e[1].toString());
+                result.setName(e[2].toString());
+                result.setSurname(e[3].toString());
+                result.setStudentsLevel(e[4].toString());
+                result.setAdmissionStatus(e[5].toString());
+                consultantDtos.add(result);
+            }
+        }
+        return consultantDtos;
+    }
+
+    public String findConsultantSumStudentReport(ConsultantDto consultantDto,int yearOfStudy){
+        List<Object[]> sumStudentReport = consultantStudentRepository.findConsultantSumStudentReport(
+                consultantDto.getName(),
+                consultantDto.getSurname(),
+                Integer.toString(yearOfStudy),
+                consultantDto.getAdmissionStatus(),
+                consultantDto.getStudentsLevel());
+        String studentCount="";
+        if (!sumStudentReport.isEmpty() && sumStudentReport.size() >0){
+            for(final Object[] e : sumStudentReport){
+               studentCount = e[0].toString();
+            }
+        }
+        return studentCount;
+    }
+
     public ConsultantStudent save(ConsultantStudent consultantStudent) {
         return consultantStudentRepository.saveAndFlush(consultantStudent);
     }
