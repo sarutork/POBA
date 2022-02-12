@@ -1,61 +1,82 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
-<th:block layout:fragment="content">
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="researcher-view">
 
     <div id="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
-            <li class="breadcrumb-item"><a href="/poba/personnel-info/researchers">ข้อมูลอาจารย์ / นักวิจัยชาวต่างชาติ</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/personnel-info/researchers')">ข้อมูลอาจารย์ / นักวิจัยชาวต่างชาติ</a></li>
             <li class="breadcrumb-item active"><span>ดูข้อมูล</span></li>
         </ol>
     </div>
 
     <div class="p-3 h-100">
 
-        <th:block layout:replace="~{fragments/alert}"/>
+        <th:block th:replace="~{fragments/alert}"/>
 
-        <div class="form-wrapper">
+        <div class="form-wrapper" th:object="${researcher}">
             <div class="form-fields">
                 <table id="researcher-detail" class="view-info">
                     <tbody>
                         <tr>
                             <th>ชื่อ-นามสกุล:</th>
-                            <td th:text="|${researcher.name} ${researcher.surname}|"></td>
+                            <td th:text="|*{prefix} *{name} *{surname}|"></td>
                         </tr>
                         <tr>
                             <th>สถานะ:</th>
-                            <td th:text="${researcher.status}"></td>
+                            <td th:text="*{status}"></td>
                         </tr>
                         <tr>
                             <th>ประเภท:</th>
-                            <td th:text="${researcher.type}"></td>
+                            <td th:text="*{type}"></td>
                         </tr>
                         <tr>
                             <th>ระยะเวลาในการปฏิบัติงาน / ว่างจ้าง:</th>
-                            <td th:text="|${researcher.workStartDate} — ${researcher.workEndDate}|"></td>
+                            <td th:text="|*{workStartDate} — *{workEndDate}|"></td>
+                        </tr>
+                        <tr>
+                            <th>อาจารย์ท่านที่ 1:</th>
+                            <td th:text="*{teacher1}"></td>
+                        </tr>
+                        <tr>
+                            <th>อาจารย์ท่านที่ 2:</th>
+                            <td th:text="*{teacher2}"></td>
+                        </tr>
+                        <tr>
+                            <th>ส่วนงานย่อย:</th>
+                            <td th:text="*{subSegment}"></td>
                         </tr>
                         <tr>
                             <th>หมายเหตุ:</th>
-                            <td th:text="${researcher.noteOfWork}"></td>
+                            <td th:text="*{noteOfWork}"></td>
                         </tr>
                         <tr>
-                            <th>เอกสารสัญญาจ้าง:</th>
-                            <td th:text="${researcher.docOfWork}"></td>
+                            <th style="vertical-align: top;">เอกสารสัญญาจ้าง:</th>
+                            <td>
+                                <th:block th:if="*{uploads}"
+                                          th:utext="*{#strings.arrayJoin(uploads.![filename], '<br><br>')}">
+                                </th:block>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
             <div class="form-buttons">
-                <a href="/poba/personnel-info/researchers" class="btn btn-poba mr-3">กลับ</a>
-                <a th:href="@{/personnel-info/researchers/__${researcher.staffId}__/edit}" class="btn btn-outline-poba">แก้ไข</a>
+                <a class="btn btn-poba mr-3" href="javascript:void(0)"
+                   onclick="loadView('/poba/personnel-info/researchers')">กลับ</a>
+                <a class="btn btn-outline-poba" href="javascript:void(0)"
+                   th:onclick="|loadView('/poba/personnel-info/researchers/*{staffId}/edit')|">แก้ไข</a>
             </div>
         </div>
 
     </div>
+
+    <script th:if="${timeout}">
+        window.setTimeout(function() {
+            loadView('/poba/personnel-info/researchers');
+        }, 3000);
+    </script>
 
 </th:block>
 </html>

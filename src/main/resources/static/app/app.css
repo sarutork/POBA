@@ -698,11 +698,16 @@ div .scroll {
 
 form *,
 .table *,
-.btn {
+.btn,
+.alert {
     font-size: 1rem !important;
 }
 
-.content-wrapper form *:not(.btn) {
+form label,
+form input,
+form select,
+form select *,
+form span {
     color: #000000 !important;
 }
 
@@ -836,6 +841,5 @@ table.view-info th, td {
 
 .alert {
     border: none;
-    font-size: inherit;
     min-height: 47px;
 }

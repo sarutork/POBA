@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
-<th:block layout:fragment="content">
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="researchers">
 
     <div id="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onlick="loadView('/poba/home')">หน้าหลัก</a></li>
             <li class="breadcrumb-item active"><span>ข้อมูลอาจารย์ / นักวิจัยชาวต่างชาติ</span></li>
         </ol>
     </div>
 
     <div class="px-3">
 
-        <th:block layout:replace="~{fragments/alert}"/>
+        <th:block th:replace="~{fragments/alert}"/>
 
         <form id="form-researcher" class="mb-5">
             <div class="d-flex flex-xl-row flex-column">
@@ -29,8 +26,8 @@
                     <input id="work-end-date" type="date" class="col-4 form-control">
                 </div>
                 <div class="pl-xl-3 d-inline-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findResearcherInfo();">ค้นหา</button>
-                    <a class="btn btn-poba" href="/poba/personnel-info/researchers/add">เพิ่มข้อมูล</a>
+                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findResearcherInfo()">ค้นหา</button>
+                    <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/personnel-info/researchers/add')">เพิ่มข้อมูล</a>
                 </div>
             </div>
         </form>
@@ -43,25 +40,22 @@
                     <th>ชื่อ-นามสกุล</th>
                     <th>สถานะ</th>
                     <th>ประเภท</th>
+                    <th>อาจารย์ท่านที่ 1</th>
+                    <th>อาจารย์ท่านที่ 2</th>
+                    <th>ส่วนงานย่อย</th>
                     <th>วันที่เริ่มต้น</th>
                     <th>วันที่สิ้นสุด</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td colspan="6" class="dataTables_empty text-center bg-secondary">อาจารย์ / นักวิจัยชาวต่างชาติ</td>
+                    <td colspan="9" class="dataTables_empty text-center bg-secondary">อาจารย์ / นักวิจัยชาวต่างชาติ</td>
                 </tr>
                 </tbody>
             </table>
         </div>
 
     </div>
-
-    <script>
-        $(document).ready(function() {
-
-        });
-    </script>
 
 </th:block>
 </html>

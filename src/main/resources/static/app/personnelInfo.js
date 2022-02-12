@@ -136,41 +136,46 @@ function submitEducationInfo(){
 }
 
 function findResearcherInfo() {
-   var tableResearcher =  $('#table-researcher').DataTable({
+    if ($.fn.DataTable.isDataTable('#table-researcher')) {
+        $('#table-researcher').DataTable().clear().destroy();
+    }
+    var tableResearcher = $('#table-researcher').DataTable({
         ajax: {
-            type: "GET",
-            url: "/poba/personnel-info/researchers/search",
-            dataSrc: "",
-            data: function(d){
+            type: 'GET',
+            url: '/poba/personnel-info/researchers/search',
+            dataSrc: '',
+            data: function(d) {
                 d.name = $('#name').val();
                 d.workStartDate = $('#work-start-date').val();
                 d.workEndDate = $('#work-end-date').val();
             }
         },
         columns: [
-            { data: "staffId" },
-            { data: "name"},
-            { data: "status" },
-            { data: "type" },
-            { data: "workStartDate" },
-            { data: "workEndDate" }
+            { data: 'staffId' },
+            { data: 'name' },
+            { data: 'status' },
+            { data: 'type' },
+            { data: 'teacher1' },
+            { data: 'teacher2' },
+            { data: 'subSegment' },
+            { data: 'workStartDate' },
+            { data: 'workEndDate' }
         ],
-        columnDefs: [
-            {
-               render: function (data, type, row) {
-                   var fullName = row["prefix"]+' '+row["name"] + ' ' + row["surname"];
-                       return fullName;
-                    },
-               targets: 1,
+        columnDefs: [{
+            render: function(data, type, row) {
+                var fullName = row['prefix'] + ' ' + row['name'] + ' ' + row['surname'];
+                return fullName;
             },
-        ],
+            targets: 1,
+        }],
         searching: false,
-        "bDestroy": true
+        'bDestroy': true
     });
-    $('#table-researcher tbody').on('click', 'tr', function () {
-            if(!$('#table-researcher tbody tr td').hasClass("dataTables_empty")){
-               var data = tableResearcher.row( this ).data();
-                window.location.href = "/poba/personnel-info/researchers/"+data.staffId;
-            }
-        } );
+    // TODO: Check onClick after search again
+    $('#table-researcher tbody').on('click', 'tr', function() {
+        if (!$('#table-researcher tbody tr td').hasClass("dataTables_empty")) {
+            var data = tableResearcher.row(this).data();
+            loadView('/poba/personnel-info/researchers/' + data.staffId);
+        }
+    });
 }

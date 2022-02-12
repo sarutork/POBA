@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Slf4j
@@ -20,15 +18,13 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
     public ModelAndView showNotFoundView(NotFoundException ex) {
-        if (isNotBlank(ex.getMessage())) log.debug(ex.getMessage());
+        if (isNotBlank(ex.getMessage())) log.error("[NotFoundException] " + ex.getMessage());
         return new ModelAndView("404");
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(InvalidInputException.class)
     public ModelAndView handleInvalidInput(InvalidInputException ex) {
-        ModelAndView view = ex.getRedirect();
-        List<String> errors = ex.getErrors();
-        if (!errors.isEmpty()) view.addObject("fieldErrors", errors);
-        return view;
+        return ex.getRedirect();
     }
 }

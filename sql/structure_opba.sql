@@ -326,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `published_join` (
 -- Dumping structure for table poba.researcher
 DROP TABLE IF EXISTS `researcher`;
 CREATE TABLE IF NOT EXISTS `researcher` (
-  `staff_id` int(11) NOT NULL AUTO_INCREMENT,
+  `staff_id` int NOT NULL AUTO_INCREMENT,
   `prefix` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
@@ -336,6 +336,11 @@ CREATE TABLE IF NOT EXISTS `researcher` (
   `work_end_date` date NOT NULL,
   `doc_of_work` varchar(255) DEFAULT NULL,
   `note_of_work` varchar(255) DEFAULT NULL,
+  `teacher_1` varchar(255) DEFAULT NULL,
+  `teacher_2` varchar(255) DEFAULT NULL,
+  `sub_segment` varchar(255) DEFAULT NULL,
+  `teacher1` varchar(255) DEFAULT NULL,
+  `teacher2` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`staff_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -544,6 +549,17 @@ CREATE TABLE IF NOT EXISTS `training` (
   `training_total_person` int(11) DEFAULT NULL,
   `training_level` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`staff_id`,`training_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping structure for table poba.upload
+DROP TABLE IF EXISTS `upload`;
+CREATE TABLE IF NOT EXISTS `upload` (
+  `upload_id` int NOT NULL AUTO_INCREMENT,
+  `upload_group` varchar(35) NOT NULL,
+  `reference_key` int NOT NULL,
+  `original_name` varchar(255) DEFAULT NULL,
+  `path` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`upload_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.

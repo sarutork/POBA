@@ -22,11 +22,13 @@ public class ResearcherServiceTest {
 
     @Test
     public void search() {
-        researcherService.search(new Researcher() {{
+        researcherService.search(
+                new Researcher() {{
                     setName("duy");
                     setWorkStartDate(null);
                     setWorkEndDate(LocalDate.now());
-                }}).forEach(System.out::println);
+                }}
+        ).forEach(System.out::println);
     }
 
     @Test
@@ -50,9 +52,8 @@ public class ResearcherServiceTest {
         researcher.setType("นักวิจัยหลังปริญญาเอก (Postdoctoral)");
         researcher.setWorkStartDate(today);
         researcher.setWorkEndDate(today.plus(12, ChronoUnit.MONTHS));
-        researcher.setDocOfWork(null);
         researcher.setNoteOfWork(null);
-        researcherService.save(researcher);
+        researcherService.add(researcher);
         System.out.println(researcher); // Generated staff_id
     }
 
@@ -62,7 +63,7 @@ public class ResearcherServiceTest {
         System.out.println("Before: " + before);
 
         before.setNoteOfWork("Test update");
-        researcherService.save(before);
+        researcherService.update("1", before);
 
         Researcher after = researcherService.findById("1");
         System.out.println("After: " + after);

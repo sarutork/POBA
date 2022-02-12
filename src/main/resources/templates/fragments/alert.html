@@ -2,6 +2,6 @@
      th:if="${responseMessage}"
      th:classappend="${success} ? alert-success : alert-danger"
      class="alert alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <span th:text="${responseMessage}"></span>
+    <a href="javascript:void(0)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <th:block th:text="${responseMessage}"></th:block>
 </div>

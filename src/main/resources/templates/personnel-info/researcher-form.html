@@ -1,28 +1,26 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
-<th:block layout:fragment="content">
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="researcher-form">
 
     <div id="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
-            <li class="breadcrumb-item"><a href="/poba/personnel-info/researchers">ข้อมูลอาจารย์ / นักวิจัยชาวต่างชาติ</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/personnel-info/researchers')">ข้อมูลอาจารย์ / นักวิจัยชาวต่างชาติ</a></li>
             <li class="breadcrumb-item active"><span th:text="${viewName}"></span></li>
         </ol>
     </div>
 
     <div class="p-3 h-100">
 
-        <th:block layout:replace="~{fragments/input-errors}"/>
-
-        <form id="form-researcher" class="form-wrapper" method="post"
+        <form id="form-upload" class="form-wrapper"
               th:object="${researcher}"
-              th:with="id=${researcher.staffId}"
-              th:action="@{/personnel-info/researchers/__${id ?: 'add'}__}">
+              th:action="@{/personnel-info/researchers/__*{staffId ?: 'add'}__}">
 
             <div class="form-fields">
+
+                <th:block th:replace="~{fragments/input-errors}"/>
+
+                <input type="hidden" th:field="*{staffId}"/>
 
                 <div class="row px-3 mb-3">
                     <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
@@ -47,7 +45,7 @@
 
                 <div class="row px-3 mb-3">
                     <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
-                           for="status">คำนำหน้า:</label>
+                           for="status">สถานะ:</label>
                     <div class="col-lg-3 col-sm-4 px-0 pb-sm-0 pb-3">
                         <select class="form-control" id="status" required th:field="*{status}">
                             <option value="" hidden>กรุณาเลือก</option>
@@ -56,7 +54,7 @@
                         </select>
                     </div>
                     <label class="col-lg-1 col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
-                           for="type">คำนำหน้า:</label>
+                           for="type">ประเภท:</label>
                     <div class="col-lg-3 col-sm-4 px-0">
                         <select class="form-control" id="type" required th:field="*{type}">
                             <option value="" hidden>กรุณาเลือก</option>
@@ -83,32 +81,73 @@
 
                 <div class="row px-3 mb-3">
                     <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
+                           for="teacher-1">อาจารย์ท่านที่ 1:</label>
+                    <div class="col-lg-5 col-md-8 col-sm-10 px-0">
+                        <input type="text" class="form-control" id="teacher-1" th:field="*{teacher1}"/>
+                    </div>
+                </div>
+
+                <div class="row px-3 mb-3">
+                    <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
+                           for="teacher-2">อาจารย์ท่านที่ 2:</label>
+                    <div class="col-lg-5 col-md-8 col-sm-10 px-0">
+                        <input type="text" class="form-control" id="teacher-2" th:field="*{teacher2}"/>
+                    </div>
+                </div>
+
+                <div class="row px-3 mb-3">
+                    <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
+                           for="sub-segment">ส่วนงานย่อย:</label>
+                    <div class="col-lg-5 col-md-8 col-sm-10 px-0">
+                        <input type="text" class="form-control" id="sub-segment" th:field="*{subSegment}"/>
+                    </div>
+                </div>
+
+                <div class="row px-3 mb-3">
+                    <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right">เอกสารสัญญาจ้าง:</label>
+                    <div class="col px-0">
+                        <label class="btn btn-outline-poba" for="input-file">เลือกไฟล์</label>
+                        <input type="file" id="input-file" multiple hidden/>
+                    </div>
+                </div>
+
+                <div class="row px-3 mb-3">
+                    <div class="offset-md-2 col-md-8 col-lg-6">
+                        <div id="file-divs" class="row">
+                            <th:block th:if="*{uploads}"
+                                      th:each="upload : *{uploads}">
+                                <div class="col-sm-6 mb-2">
+                                    <span class="file-name" th:text="${upload.filename}"></span>
+                                    <span class="file-remove close mdi mdi-close-circle" onclick="removeUploadedFile(this)"></span>
+                                    <input class="file-id" type="hidden" th:value="${upload.id}"/>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row px-3 mb-3">
+                    <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
                            for="note">หมายเหตุ:</label>
                     <div class="col-lg-5 col-md-8 col-sm-10 px-0">
                         <input type="text" class="form-control" id="note" th:field="*{noteOfWork}"/>
                     </div>
                 </div>
 
-                <div class="row px-3 mb-3">
-                    <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
-                           for="doc-of-work">เอกสารสัญญาจ้าง:</label>
-                    <div class="col px-0">
-                        <button class="btn btn-outline-poba" id="doc-of-work">เลือกไฟล์</button>
-                        <span th:field="*{docOfWork}"></span>
-                    </div>
-                </div>
-
             </div>
 
             <div class="form-buttons">
-                <button type="submit" class="btn btn-poba mr-3">บันทึก</button>
-                <a th:with="id=${researcher.staffId}"
-                   th:href="@{/personnel-info/researchers/__${id ?: ''}__}"
-                   class="btn btn-outline-poba">ยกเลิก</a>
+                <button type="submit" class="btn btn-poba mr-3" id="button-upload">บันทึก</button>
+                <a class="btn btn-outline-poba" href="javascript:void(0)"
+                   th:with="id=*{staffId ?: ''}"
+                   th:onclick="|loadView('@{/personnel-info/researchers/__${id}__}')|">ยกเลิก</a>
             </div>
 
         </form>
+
     </div>
+
+    <script th:src="@{/app/upload.js}"></script>
 
 </th:block>
 </html>
