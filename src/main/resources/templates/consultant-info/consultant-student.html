@@ -13,7 +13,7 @@
     </div>
 
     <div class="px-3">
-        <form id="form-teaching" class="form-inline justify-content-end flex-md-row flex-column">
+        <form class="form-inline justify-content-end flex-md-row flex-column">
             <div class="form-group mb-3">
                 <label for="staffName" class="mr-1">ค้นหาข้อมูล:</label>
                 <input type="text" class="form-control bg-white mr-3" id="staffName">
@@ -40,7 +40,10 @@
                 <button type="button" class="btn btn-outline-poba mr-3" onclick="findConsultantStudent();">ค้นหา</button>
                 <a href="/poba/consultant/students/add" class="btn btn-poba">เพิ่มข้อมูล</a>            </div>
         </form>
-
+        <div class="mb-3">
+            <a href="/poba/consultant/students/sum/yearly" class="btn btn-outline-poba" style="width: auto;">สรุปข้อมูลรายปี</a>
+            <a href="/poba/consultant/students/sum/consultant" class="btn btn-outline-poba" style="width: auto;">สรุปข้อมูลรายที่ปรึกษา</a>
+        </div>
         <div class="table table-responsive">
             <table id="table-consultant-student" class="display" width="100%">
                 <thead>

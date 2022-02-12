@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<th:block layout:fragment="content">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="/poba/consultant/students">ข้อมูลที่ปรึกษาระดับปริญญา ตรี โท เอก</a></li>
+            <li class="breadcrumb-item active"><span id="viewName" th:text="${viewName}"></span></li>
+        </ol>
+    </div>
+
+    <div id="msgAlertDiv" class ="alert alert-dismissible alert-danger d-none">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <span id="msgAlert"></span>
+    </div>
+    <div class="px-3">
+        <form id="consult-std-yearly-report" class="mb-4">
+
+            <div class="row mb-2">
+                <label for="yearStart" class="form-control-label col-sm-2">ปีที่เข้าศึกษา<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="form-control bg-white col-sm-2" id="yearStart" name="yearStart">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="2565">2565</option>
+                    <option value="2564">2564</option>
+                    <option value="2563">2563</option>
+                    <option value="2562">2562</option>
+                    <option value="2561">2561</option>
+                    <option value="2560">2560</option>
+                    <option value="2559">2559</option>
+                    <option value="2558">2558</option>
+                    <option value="2557">2557</option>
+                    <option value="2556">2556</option>
+                    <option value="2555">2555</option>
+                    <option value="2554">2554</option>
+                </select>
+                <label for="yearEnd" class="form-control-label ml-3">ถึง:</label>
+                <select type="text" class="form-control bg-white col-sm-2" id="yearEnd" name="yearEnd">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="2565">2565</option>
+                    <option value="2564">2564</option>
+                    <option value="2563">2563</option>
+                    <option value="2562">2562</option>
+                    <option value="2561">2561</option>
+                    <option value="2560">2560</option>
+                    <option value="2559">2559</option>
+                    <option value="2558">2558</option>
+                    <option value="2557">2557</option>
+                    <option value="2556">2556</option>
+                    <option value="2555">2555</option>
+                    <option value="2554">2554</option>
+                </select>
+                <label for="admissionStatus" class="form-control-label col-sm-2">สถานะการรับเข้า:</label>
+                <select type="text" class="form-control bg-white col-sm-2" id="admissionStatus" name="admissionStatus">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="โครงการจุฬาฯ-ชนบท">โครงการจุฬาฯ-ชนบท</option>
+                    <option value="โครงการปอเนอะ">โครงการปอเนอะ</option>
+                    <option value="โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)">โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)</option>
+                    <option value="Admission">Admission</option>
+                    <option value="นิสิตแลกเปลี่ยน">นิสิตแลกเปลี่ยน</option>
+                    <option value="สามัญเต็มเวลา">สามัญเต็มเวลา</option>
+                    <option value="ทดลองศึกษา">ทดลองศึกษา</option>
+                </select>
+            </div>
+            <div class="row mb-2">
+                <label for="name" class="form-control-label col-sm-2">ที่ปรึกษา:</label>
+                <input type="text" class="form-control bg-white col-sm-3 mr-3" id="name" name="name">
+                <label for="studentsLevel" class="form-control-label col-sm-3 ml-4">ระดับการศึกษา:</label>
+                <select type="text" class="form-control bg-white col-sm-2" id="studentsLevel" name="studentsLevel">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ปริญญาตรี">ปริญญาตรี</option>
+                    <option value="ปริญญาโท">ปริญญาโท</option>
+                    <option value="ปริญญาเอก">ปริญญาเอก</option>
+                </select>
+            </div>
+        </form>
+        <div class="row mb-5" style="justify-content: center;">
+            <button type="button" class="btn btn-outline-poba" onclick="findYearlyReport()">ค้นหา</button>
+        </div>
+        <div class="table table-responsive mb-5">
+            <table id="table-yearly-report" class="display" width="100%">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ชื่อ-นามสกุลที่ปรึกษา</th>
+                    <th>สถานะการรับเข้า</th>
+                    <th>ระดับการศึกษา</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="14" class="dataTables_empty text-center bg-secondary">สรุปข้อมูลรายปี</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row mb-5" style="justify-content: center;">
+            <a href="/poba/consultant/students" class="btn btn-poba">กลับ</a>
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function() {
+        });
+
+    </script>
+</th:block>
+</html>

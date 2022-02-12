@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -27,13 +25,13 @@ public class Teaching {
     public int currentCredit;
     public String teachType;
     public String teachDay;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public LocalDate studyStart;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public LocalDate studyEnd;
+    public String studyStart;
+    public String studyEnd;
     public String teachLocation;
+    public String teachLocationOther;
     public String teachRoom;
     public String prefix;
+    public String prefixOther;
     public String name;
     public String surname;
     public String teachStatus;
@@ -50,14 +48,15 @@ public class Teaching {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate midtermExamDate;
 
-    @Column(nullable = true)
-    public LocalTime midtermExamTime;
+    public String midtermExamTimeStart;
+
+    public String midtermExamTimeEnd;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate finalExamDate;
 
-    @Column(nullable = true)
-    public LocalTime finalExamTime;
+    public String finalExamTimeStart;
 
+    public String finalExamTimeEnd;
 
 }

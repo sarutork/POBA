@@ -32,8 +32,15 @@
                 <input type="text" class="form-control bg-white col-sm-6" id="endDate" name="endDate" th:value="${studyInfo.endDate}" readonly>
             </div>
             <div class="row">
-                <label for="totalDate" class="form-control-label col-sm-3">จำนวนวัน:</label>
-                <input type="text" class="form-control bg-white col-sm-6" id="totalDate" name="totalDate" th:value="${studyInfo.totalDate}" readonly>
+                <label for="totalYear" class="form-control-label col-sm-3">จำนวนปี:</label>
+                <input type="text" class="form-control bg-gray col-sm-1" id="totalYear" name="totalYear" readonly
+                       th:attr="value=${studyInfo.totalYear != null}? ${studyInfo.totalYear}: ''"/>
+                <label for="totalMonth" class="form-control-label col-sm-1">เดือน:</label>
+                <input type="text" class="form-control bg-gray col-sm-1" id="totalMonth" name="totalMonth" readonly
+                       th:attr="value=${studyInfo.totalMonth != null}? ${studyInfo.totalMonth}: ''"/>
+                <label for="totalDay" class="form-control-label col-sm-1">วัน:</label>
+                <input type="text" class="form-control bg-gray col-sm-1" id="totalDay" name="totalDay" readonly
+                       th:attr="value=${studyInfo.totalDay != null}? ${studyInfo.totalDay}: ''"/>
             </div>
             <div class="row">
                 <label for="activityDetail" class="form-control-label col-sm-3">รายละเอียดกิจกรรม:</label>

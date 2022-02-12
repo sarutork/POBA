@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<th:block layout:fragment="content">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="/poba/consultant/students">ข้อมูลที่ปรึกษาระดับปริญญา ตรี โท เอก</a></li>
+            <li class="breadcrumb-item active"><span id="viewName" th:text="${viewName}"></span></li>
+        </ol>
+    </div>
+
+    <div class="px-3">
+        <form id="consult-std-sum-cst" class="mb-4">
+            <input type="hidden" name="prefix" id="prefix"/>
+            <input type="hidden" name="surname" id="surname">
+            <input type="hidden" name="countStudent" id="countStudent">
+            <input type="hidden" name="department" id="department">
+            <div class="row mb-2">
+                <label for="name" class="form-control-label col-sm-2">ที่ปรึกษา:</label>
+                <input type="text" class="form-control bg-white col-sm-3" id="name" name="name">
+                <label for="yearOfStudy" class="form-control-label col-sm-2">ปีที่เข้าศึกษา:</label>
+                <select type="text" class="form-control bg-white col-sm-3" id="yearOfStudy" name="yearOfStudy">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="2565">2565</option>
+                    <option value="2564">2564</option>
+                    <option value="2563">2563</option>
+                </select>
+            </div>
+            <div class="row mb-2">
+                <label for="studentsLevel" class="form-control-label col-sm-2">ระดับการศึกษา:</label>
+                <select type="text" class="form-control bg-white col-sm-3" id="studentsLevel" name="studentsLevel">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ปริญญาตรี">ปริญญาตรี</option>
+                    <option value="ปริญญาโท">ปริญญาโท</option>
+                    <option value="ปริญญาเอก">ปริญญาเอก</option>
+                </select>
+                <label for="course" class="form-control-label col-sm-2">หลักสูตร:</label>
+                <select type="text" class="form-control bg-white col-sm-3" id="course" name="course">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ร.บ.">ร.บ.</option>
+                    <option value="ร.บ.(PGS)">ร.บ.(PGS)</option>
+                    <option value="ร.ม.การปกครอง">ร.ม.การปกครอง</option>
+                    <option value="ร.ม.การเมืองฯ">ร.ม.การเมืองฯ</option>
+                    <option value="ร.ม.ความสัมพันธ์ฯ (ในเวลา)">ร.ม.ความสัมพันธ์ฯ (ในเวลา)</option>
+                    <option value="ร.ม.ความสัมพันธ์ฯ (นอกเวลา)">ร.ม.ความสัมพันธ์ฯ (นอกเวลา)</option>
+                    <option value="ร.ม.ธรรมมาภิบาล">ร.ม.ธรรมมาภิบาล</option>
+                    <option value="ศศ.ม.สังคมฯ">ศศ.ม.สังคมฯ</option>
+                    <option value="ศศ.ม.อาชญาฯ">ศศ.ม.อาชญาฯ</option>
+                    <option value="ศศ.ด.อาชญาฯ">ศศ.ด.อาชญาฯ</option>
+                    <option value="ศศ.ด.สังคมฯ">ศศ.ด.สังคมฯ</option>
+                    <option value="รป.ม.(ในเวลา)">รป.ม.(ในเวลา)</option>
+                    <option value="รป.ม.(นอกเวลา)">รป.ม.(นอกเวลา)</option>
+                    <option value="ร.ด.">ร.ด.</option>
+                    <option value="ศศ.ม.การพัฒนาฯ">ศศ.ม.การพัฒนาฯ</option>
+                    <option value="ศศ.ด.การพัฒนาฯ">ศศ.ด.การพัฒนาฯ</option>
+                </select>
+            </div>
+        </form>
+        <div class="row mb-5" style="justify-content: center;">
+            <button type="button" class="btn btn-outline-poba" onclick="findSumConsultant()">ค้นหา</button>
+        </div>
+        <div class="table table-responsive mb-5">
+            <table id="table-sum-consultant" class="display" width="100%">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ชื่อ-นามสกุลที่ปรึกษา</th>
+                    <th>ปีที่เข้าศึกษา</th>
+                    <th>ระดับการศึกษา</th>
+                    <th>หลักสูตร</th>
+                    <th>จำนวนนิสิต</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="6" class="dataTables_empty text-center bg-secondary">สรุปข้อมูลรายที่ปรึกษา</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row mb-5" style="justify-content: center;">
+            <a href="/poba/consultant/students" class="btn btn-poba">กลับ</a>
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function() {
+        });
+
+    </script>
+</th:block>
+</html>

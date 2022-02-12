@@ -32,13 +32,28 @@
                     <option value="นาย" th:selected="${teaching.prefix == 'นาย'}? 'selected'">นาย</option>
                     <option value="นางสาว" th:selected="${teaching.prefix == 'นางสาว'}? 'selected'">นางสาว</option>
                     <option value="นาง" th:selected="${teaching.prefix == 'นาง'}? 'selected'">นาง</option>
+                    <option value="อ." th:selected="${teaching.prefix == 'อ.'}? 'selected'">อ.</option>
+                    <option value="อ.ดร." th:selected="${teaching.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
+                    <option value="ผศ." th:selected="${teaching.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
+                    <option value="ผศ.ดร." th:selected="${teaching.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
+                    <option value="รศ." th:selected="${teaching.prefix == 'รศ.'}? 'selected'">รศ.</option>
+                    <option value="รศ.ดร." th:selected="${teaching.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
+                    <option value="ศ." th:selected="${teaching.prefix == 'ศ.'}? 'selected'">ศ.</option>
+                    <option value="ศ.ดร." th:selected="${teaching.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
+                    <option value="อื่นๆ" th:selected="${teaching.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
                 </select>
+                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${teaching.prefixOther != null}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${teaching.prefixOther != null}? ${teaching.prefixOther}: ''"
+                       th:classappend="${teaching.prefix == 'อื่นๆ'}? 'd-block':'d-none'"
+                       th:disabled="${teaching.staffId != 0}"/>
                 <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
-                <input type="text" class="form-control bg-white col-sm-2" id="name" name="name"
+                <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
                        th:attr="value=${teaching.name != null}? |${teaching.name} ${teaching.surname}|: ''"/>
-
+            </div>
+            <div  class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="teachStatus">สถานะการสอน<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="teachStatus" name="teachStatus"required>
+                <select type="text" class="col-sm-4 form-control bg-white" id="teachStatus" name="teachStatus"required>
                     <option value="">กรุณาเลือก</option>
                     <option value="สอนหลัก" th:selected="${teaching.teachStatus == 'สอนหลัก'}? 'selected'">สอนหลัก</option>
                     <option value="สอนร่วม" th:selected="${teaching.teachStatus == 'สอนร่วม'}? 'selected'">สอนร่วม</option>
@@ -133,7 +148,7 @@
             </div>
             <div class="row mb-2">
                 <label for="teachDay" class="form-control-label col-sm-2">วัน:</label>
-                <select type="text" class="form-control bg-white col-sm-2" id="teachDay" name="teachDay">
+                <select type="text" class="form-control bg-white col-sm-4" id="teachDay" name="teachDay">
                     <option value="">กรุณาเลือก</option>
                     <option value="AR" th:selected="${teaching.teachDay == 'AR'}? 'selected'">AR</option>
                     <option value="TO BE ARRANGED" th:selected="${teaching.teachDay == 'TO BE ARRANGED'}? 'selected'">TO BE ARRANGED</option>
@@ -145,54 +160,12 @@
                     <option value="TU" th:selected="${teaching.teachDay == 'TU'}? 'selected'">TU</option>
                     <option value="WE" th:selected="${teaching.teachDay == 'WE'}? 'selected'">WE</option>
                 </select>
-                <input type="hidden" id="studyStart" name="studyStart"/>
-                <label for="studyStartHH" class="form-control-label col-sm-1">เวลาเรียนเริ่มต้น:</label>
-                <select type="text" class="form-control bg-white col-sm-1" id="studyStartHH" name="studyStartHH">
-                    <option value="">HH</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                </select>
-                <select type="text" class="form-control bg-white col-sm-1" id="studyStartMM" name="studyStartMM">
-                    <option value="">MM</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="40">40</option>
-                    <option value="50">50</option>
-                </select>
-                <select type="text" class="form-control bg-white col-sm-1" id="studyStartAM" name="studyStartAM">
-                    <option value="AM">AM</option>
-                    <option value="PM">PM</option>
-                </select>
-                <input type="hidden" id="studyEnd" name="studyEnd"/>
-                <label for="studyEndHH" class="form-control-label col-sm-1">เวลาเรียนสิ้นสุด:</label>
-                <select type="text" class="form-control bg-white col-sm-1" id="studyEndHH" name="studyEndHH">
-                    <option value="">HH</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                </select>
-                <select type="text" class="form-control bg-white col-sm-1" id="studyEndMM" name="studyEndMM">
-                    <option value="">MM</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="40">40</option>
-                    <option value="50">50</option>
-                </select>
-                <select type="text" class="form-control bg-white col-sm-1" id="studyEndAM" name="studyEndAM">
-                    <option value="AM">AM</option>
-                    <option value="PM">PM</option>
-                </select>
+                <label for="studyStart" class="form-control-label col-sm-1">เวลาเรียนเริ่มต้น:</label>
+                <input type="time" id="studyStart" name="studyStart" class="form-control col-sm-2"
+                       th:attr="value=${teaching.studyStart != null}? ${teaching.studyStart}: ''"/>
+                <label for="studyEnd" class="form-control-label col-sm-1">เวลาเรียนสิ้นสุด:</label>
+                <input type="time" id="studyEnd" name="studyEnd" class="form-control col-sm-2"
+                       th:attr="value=${teaching.studyEnd != null}? ${teaching.studyEnd}: ''"/>
             </div>
             <div class="row mb-2">
                 <label for="teachLocation" class="form-control-label col-sm-2">อาคาร:</label>
@@ -206,7 +179,11 @@
                     <option value="POL3" th:selected="${teaching.teachLocation == 'POL3'}? 'selected'">POL3</option>
                     <option value="อื่นๆ" th:selected="${teaching.teachLocation == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
                 </select>
-<!--                <input type="text" class="form-control bg-white col-sm-4" id="teachLocationAdd" name="teachLocationAdd" placeholder="โปรดระบุอาคารเพิ่มเติม"/>-->
+                <div id="teachLocationOtherTmp" class="col-sm-2" th:classappend="${teaching.teachLocationOther != null}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="teachLocationOther" name="teachLocationOther" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${teaching.teachLocationOther != null}? ${teaching.teachLocationOther}: ''"
+                       th:classappend="${teaching.teachLocation == 'อื่นๆ'}? 'd-block':'d-none'"
+                       th:disabled="${teaching.staffId != 0}"/>
             </div>
             <div class="row mb-2">
                 <label for="teachRoom" class="form-control-label col-sm-2">ห้อง:</label>
@@ -239,110 +216,24 @@
                 <label for="midtermExamDate" class="form-control-label col-sm-2">วันสอบกลางภาค:</label>
                 <input type="date" class="form-control bg-white col-sm-2" id="midtermExamDate" name="midtermExamDate"
                        th:attr="value=${teaching.midtermExamDate != null}? ${teaching.midtermExamDate} : ''"/>
-                <input type="hidden" id="midtermExamTime" name="midtermExamTime"/>
-                <label for="midtermExamTimeStartHH" class="form-control-label col-sm-1">เวลาสอบกลางภาคเริ่มต้น:</label>
-                <select type="text" class="form-control bg-white col-sm-1" id="midtermExamTimeStartHH" name="midtermExamTimeStartHH">
-                    <option value="">HH</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                </select>
-                <select type="text" class="form-control bg-white col-sm-1" id="midtermExamTimeStartMM" name="midtermExamTimeStartMM">
-                    <option value="">MM</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="40">40</option>
-                    <option value="50">50</option>
-                </select>
-                <select type="text" class="form-control bg-white col-sm-1" id="midtermExamTimeStartAM" name="midtermExamTimeStartAM">
-                    <option value="AM">AM</option>
-                    <option value="PM">PM</option>
-                </select>
-                </select>
-                <label for="midtermExamTimeEndHH" class="form-control-label col-sm-1">เวลาสอบกลางภาคสิ้นสุด:</label>
-                <select type="text" class="form-control bg-white col-sm-1" id="midtermExamTimeEndHH" name="midtermExamTimeEndHH">
-                    <option value="">HH</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                </select>
-                <select type="text" class="form-control bg-white col-sm-1" id="midtermExamTimeEndMM" name="midtermExamTimeEndMM">
-                    <option value="">MM</option>
-                    <option value="10">00</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="40">40</option>
-                    <option value="50">50</option>
-                </select>
-                <select type="text" class="form-control bg-white col-sm-1" id="midtermExamTimeEndAM" name="midtermExamTimeEndAM">
-                    <option value="AM">AM</option>
-                    <option value="PM">PM</option>
-                </select>
+                <label for="midtermExamTimeStart" class="form-control-label col-sm-2">เวลาสอบกลางภาคเริ่มต้น:</label>
+                <input type="time" id="midtermExamTimeStart" name="midtermExamTimeStart" class="form-control col-sm-2"
+                       th:attr="value=${teaching.midtermExamTimeStart != null}? ${teaching.midtermExamTimeStart}: ''"/>
+                <label for="midtermExamTimeEnd" class="form-control-label col-sm-2">เวลาสอบกลางภาคสิ้นสุด:</label>
+                <input type="time" id="midtermExamTimeEnd" name="midtermExamTimeEnd" class="form-control col-sm-2"
+                       th:attr="value=${teaching.midtermExamTimeEnd != null}? ${teaching.midtermExamTimeEnd}: ''"/>
             </div>
             <div class="row mb-2">
                 <label for="finalExamDate" class="form-control-label col-sm-2">วันสอบปลายภาค:</label>
                 <input type="date" class="form-control bg-white col-sm-2" id="finalExamDate" name="finalExamDate"
                        th:attr="value=${teaching.finalExamDate != null}? ${teaching.finalExamDate} : ''"/>
-                <input type="hidden" id="finalExamTime" name="finalExamTime"/>
-                <label for="finalExamTimeStartHH" class="form-control-label col-sm-1">เวลาสอบปลายภาคเริ่มต้น:</label>
-                <select type="text" class="form-control bg-white col-sm-1" id="finalExamTimeStartHH" name="finalExamTimeStartHH">
-                    <option value="">HH</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                </select>
-                <select type="text" class="form-control bg-white col-sm-1" id="finalExamTimeStartMM" name="finalExamTimeStartMM">
-                    <option value="">MM</option>
-                    <option value="10">00</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="40">40</option>
-                    <option value="50">50</option>
-                </select>
-                <select type="text" class="form-control bg-white col-sm-1" id="finalExamTimeStartAM" name="finalExamTimeStartAM">
-                    <option value="AM">AM</option>
-                    <option value="PM">PM</option>
-                </select>
-                </select>
-                <label for="finalExamTimeEndHH" class="form-control-label col-sm-1">เวลาสอบกลางภาคสิ้นสุด:</label>
-                <select type="text" class="form-control bg-white col-sm-1" id="finalExamTimeEndHH" name="finalExamTimeEndHH">
-                    <option value="">HH</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                </select>
-                <select type="text" class="form-control bg-white col-sm-1" id="finalExamTimeEndMM" name="finalExamTimeEndMM">
-                    <option value="">MM</option>
-                    <option value="10">00</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="40">40</option>
-                    <option value="50">50</option>
-                </select>
-                <select type="text" class="form-control bg-white col-sm-1" id="finalExamTimeEndAM" name="finalExamTimeEndAM">
-                    <option value="AM">AM</option>
-                    <option value="PM">PM</option>
-                </select>
+                <label for="finalExamTimeStart" class="form-control-label col-sm-2">เวลาสอบปลายภาคเริ่มต้น:</label>
+                <input type="time" id="finalExamTimeStart" name="finalExamTimeStart" class="form-control col-sm-2"
+                       th:attr="value=${teaching.finalExamTimeStart != null}? ${teaching.finalExamTimeStart}: ''"/>
+                <label for="finalExamTimeEnd" class="form-control-label col-sm-2">เวลาสอบกลางภาคสิ้นสุด:</label>
+                <input type="time" id="finalExamTimeEnd" name="finalExamTimeEnd" class="form-control col-sm-2"
+                       th:attr="value=${teaching.finalExamTimeEnd != null}? ${teaching.finalExamTimeEnd}: ''"/>
+
             </div>
         </form>
         <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${teaching.staffId == 0 ? 'd-block' : 'd-none'} ">
@@ -362,6 +253,42 @@
                 $("input").prop("disabled", true);
                 $("select").prop("disabled", true);
              }
+        });
+
+        $('#prefix').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#prefixOther").removeClass("d-none");
+                $("#prefixOther").addClass("d-block");
+
+                $("#prefixOtherTmp").removeClass("d-block");
+                $("#prefixOtherTmp").addClass("d-none");
+            }else{
+                $("#prefixOther").val("");
+                $("#prefixOther").removeClass("d-block");
+                $("#prefixOther").addClass("d-none");
+
+                $("#prefixOtherTmp").removeClass("d-none");
+                $("#prefixOtherTmp").addClass("d-block");
+            }
+        });
+
+        $('#teachLocation').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#teachLocationOther").removeClass("d-none");
+                $("#teachLocationOther").addClass("d-block");
+
+                $("#teachLocationOtherTmp").removeClass("d-block");
+                $("#teachLocationOtherTmp").addClass("d-none");
+            }else{
+                $("#teachLocationOther").val("");
+                $("#teachLocationOther").removeClass("d-block");
+                $("#teachLocationOther").addClass("d-none");
+
+                $("#teachLocationOtherTmp").removeClass("d-none");
+                $("#teachLocationOtherTmp").addClass("d-block");
+            }
         });
     </script>
 

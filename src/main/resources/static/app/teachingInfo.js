@@ -22,9 +22,13 @@ function findTeachingInfo() {
         columnDefs: [
             {
                render: function (data, type, row) {
-                   var fullName = row["prefix"]+' '+row["name"] + ' ' + row["surname"];
-                       return fullName;
-                    },
+                   var prefix = row["prefix"];
+                      if(prefix == "อื่นๆ"){
+                           prefix = row["prefixOther"]
+                      }
+                      var fullName = prefix+' '+row["name"] + ' ' + row["surname"];
+                          return fullName;
+                       },
                targets: 1,
             },
         ],
