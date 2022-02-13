@@ -5,9 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.Map;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +19,6 @@ public class ConsultantDto {
     private String yearOfStudy;
     private String yearStart;
     private String yearEnd;
-    //private Map<Integer, Integer> yearlyStdCount;
     private String sumYear1;
     private String sumYear2;
     private String sumYear3;

@@ -1,5 +1,6 @@
 package com.obu.tech.poba.consultant_info.students;
 
+import com.obu.tech.poba.personnel_info.research.Researcher;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,9 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/consultant/students")
@@ -133,19 +132,6 @@ public class ConsultantStudentController {
             }
             yearlyReportList.add(cstDto);
         }
-
-        /*for(ConsultantDto c : consultantDtos){
-            ConsultantDto cstDto = new ConsultantDto();
-            BeanUtils.copyProperties(c,cstDto);
-            Map<Integer,Integer> yearlyStdCount = new HashMap<>();
-            for(int i = yearStart; i<=yearEnd; i++){
-                int studentCount = 0;
-                studentCount = Integer.parseInt(consultantStudentService.findConsultantSumStudentReport(c));
-                yearlyStdCount.put(i,studentCount);
-            }
-            cstDto.setYearlyStdCount(yearlyStdCount);
-            yearlyReportList.add(cstDto);
-        }*/
         return ResponseEntity.ok().body(yearlyReportList);
     }
 
@@ -158,21 +144,16 @@ public class ConsultantStudentController {
             System.out.println("Error: "+bindingResult.getAllErrors());
             return view;
         }
-        String[] fullNameArr = consultantStudent.getName().split(" ");
-        consultantStudent.setName(fullNameArr[0].trim());
-        String surname ="";
-        for(int i=1 ;i< fullNameArr.length; i++) {
-            surname += fullNameArr[i] + " ";
-        }
-        consultantStudent.setSurname(surname.trim());
+        String fullName = consultantStudent.getName().replaceAll("\\s+", " ").trim();
+        int firstSpace = fullName.contains(" ") ? fullName.indexOf(" ") : fullName.length();
+        consultantStudent.setName(fullName.substring(0, firstSpace));
+        consultantStudent.setSurname(fullName.substring(firstSpace).trim());
 
-        String[] fullStudentNameArr = consultantStudent.getStudentName().split(" ");
-        consultantStudent.setStudentName(fullStudentNameArr[0].trim());
-        String studentSurname ="";
-        for(int i=1 ;i< fullNameArr.length; i++) {
-            studentSurname += fullStudentNameArr[i] + " ";
-        }
-        consultantStudent.setStudentSurname(studentSurname.trim());
+        String stdFullName = consultantStudent.getStudentName().replaceAll("\\s+", " ").trim();
+        int stdFirstSpace = stdFullName.contains(" ") ? stdFullName.indexOf(" ") : stdFullName.length();
+        consultantStudent.setStudentName(stdFullName.substring(0, stdFirstSpace));
+        consultantStudent.setStudentSurname(stdFullName.substring(stdFirstSpace).trim());
+
         //TODO: Handle error
         consultantStudentService.save(consultantStudent);
 

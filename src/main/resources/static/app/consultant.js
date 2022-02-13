@@ -236,8 +236,8 @@ function findYearlyReport(){
                             return meta.row + meta.settings._iDisplayStart + 1;
                          }},
                 { data: "name"},
-                { data: "admissionStatus" },
                 { data: "studentsLevel" },
+                { data: "admissionStatus" },
                 { data: "sumYear1" },
                 { data: "sumYear2" },
                 { data: "sumYear3" },
@@ -271,12 +271,16 @@ function findYearlyReport(){
                        }
                        return admissionStatus;
                    },
-                   targets: 2,
+                   targets: 3,
                  },
             ],
             searching: false,
             "bDestroy": true
         });
+
+        for(var i = 0 ;i < 10 ;i++ ){
+            $(tableYearlyReport.column(4+i).header()).text("-");
+        }
 
         for(var i = 0 ;i <= (yearEndInt - yearStartInt) ;i++ ){
             $(tableYearlyReport.column(4+i).header()).text(""+(yearStartInt+i));
