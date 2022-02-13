@@ -123,7 +123,7 @@ public class ConsultantStudentController {
                 }else if(yearIndex == 6){
                     cstDto.setSumYear7(studentCount);
                 }else if(yearIndex == 7){
-                    cstDto.setSumYear7(studentCount);
+                    cstDto.setSumYear8(studentCount);
                 }else if(yearIndex == 8){
                     cstDto.setSumYear9(studentCount);
                 }else if(yearIndex == 9){
