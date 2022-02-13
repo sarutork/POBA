@@ -339,8 +339,6 @@ CREATE TABLE IF NOT EXISTS `researcher` (
   `teacher_1` varchar(255) DEFAULT NULL,
   `teacher_2` varchar(255) DEFAULT NULL,
   `sub_segment` varchar(255) DEFAULT NULL,
-  `teacher1` varchar(255) DEFAULT NULL,
-  `teacher2` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`staff_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

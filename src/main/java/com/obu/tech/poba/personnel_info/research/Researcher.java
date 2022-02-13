@@ -50,10 +50,14 @@ public class Researcher {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate workEndDate;
 
-    private String noteOfWork;
+    @Column(name = "teacher_1")
     private String teacher1;
+
+    @Column(name = "teacher_2")
     private String teacher2;
+
     private String subSegment;
+    private String noteOfWork;
 
     // @OneToMany(fetch = FetchType.EAGER)
     // @JoinColumn(name = "reference_key", referencedColumnName = "staffId") // upload.reference_key = researcher.staff_id
