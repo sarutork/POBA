@@ -1,6 +1,5 @@
 package com.obu.tech.poba.teaching_info;
 
-import com.obu.tech.poba.personnel_info.education.StudyInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

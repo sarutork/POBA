@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="rewards">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onlick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item active"><span>ข้อมูลการรับรางวัล</span></li>
+        </ol>
+    </div>
+
+    <div class="px-3">
+
+        <th:block th:replace="~{fragments/alert}"/>
+
+        <form id="form-reward" class="mb-5">
+            <div class="d-flex flex-xl-row flex-column">
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                    <label for="name" class="col-5 text-sm-right col-form-label">ค้นหาข้อมูล:</label>
+                    <input id="name" type="text" class="col-7 form-control flex-xl-grow-1" placeholder="ค้นหาด้วยชื่อ">
+                </div>
+                <div class="row px-3 mb-xl-0 mb-3">
+                    <label for="rewardLevel" class="col-3 text-sm-right col-form-label">ระดับ:</label>
+                    <select type="text" class="col-9 form-control" id="rewardLevel">
+                        <option value="">กรุณาเลือก</option>
+                        <option value="ระดับชาติ">ระดับชาติ</option>
+                        <option value="ระดับนานาชาติ">ระดับนานาชาติ</option>
+                        <option value="ระดับภูมิภาค">ระดับภูมิภาค</option>
+                    </select>
+                </div>
+                <div class="row px-3 mb-xl-0 mb-3">
+                    <label for="rewardDate" class="col-5 text-sm-right col-form-label">วันที่รับรางวัล:</label>
+                    <input type="date" class="col-7 form-control" id="rewardDate"/>
+                </div>
+                <div class="pl-xl-3 d-inline-flex justify-content-end">
+                    <button type="button" class="btn btn-outline-poba mr-3" onclick="#">ค้นหา</button>
+                    <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('#')">เพิ่มข้อมูล</a>
+                </div>
+            </div>
+        </form>
+
+        <div class="table table-responsive">
+            <table id="table-reward" class="display" width="100%">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ชื่อ-นามสกุล</th>
+                    <th>ประเภทรางวัล</th>
+                    <th>ชื่อรางวัล</th>
+                    <th>ระดับ</th>
+                    <th>วันที่รับรางวัล</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="6" class="dataTables_empty text-center bg-secondary">ข้อมูลการรับรางวัล</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</th:block>
+</html>
