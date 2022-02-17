@@ -1,6 +1,7 @@
 package com.obu.tech.poba.reward_info;
 
 import com.obu.tech.poba.personnel_info.education.StudyInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -68,7 +69,7 @@ public class RewardController {
         view.addObject("viewName", "ดูข้อมูล");
         List<RewardDto> reward = rewardService.findRewardByStaffId(id);
 
-        String prefix = reward.get(0).getPrefixOther() == null? reward.get(0).getPrefix(): reward.get(0).getPrefixOther();
+        String prefix = StringUtils.isBlank(reward.get(0).getPrefixOther())? reward.get(0).getPrefix(): reward.get(0).getPrefixOther();
         reward.get(0).setPrefix(prefix);
         view.addObject("reward",reward.get(0));
         return view;
