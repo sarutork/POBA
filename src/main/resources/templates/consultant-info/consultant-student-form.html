@@ -57,7 +57,7 @@
                 <label for="studentsId" class="form-control-label col-sm-2">เลขประจำตัวนิสิต:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="studentsId" name="studentsId"
                        th:attr="value=${consultantStudent.studentsId != 0}? ${consultantStudent.studentsId}: ''"
-                       th:disabled="${consultantStudent.staffId != 0}"/>
+                       th:disabled="${consultantStudent.staffId != 0}" maxlength="10"/>
             </div>
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="studentPrefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
