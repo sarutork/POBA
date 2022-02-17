@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.obu.tech.poba.utils.search.SearchOperator.LIKE;
@@ -21,13 +23,10 @@ public class RewardService {
     RewardDetailRepository rewardDetailRepository;
 
     public List<RewardDto> findBySearchCriteria(RewardDto rewardDto){
-        System.out.println("Date: "+rewardDto.getRewardDate());
         List<Object[]> rewardList = rewardRepository.findReward(
                 "%"+rewardDto.getName()+"%",
                 rewardDto.getRewardLevel(),
-                ""+rewardDto.getRewardDate()
-                );
-        System.out.println("List size: "+rewardList.size());
+                rewardDto.getRewardDate());
 
         List<RewardDto> rewardDtos = new ArrayList<>();
         if (!rewardList.isEmpty() && rewardList.size() >0){
