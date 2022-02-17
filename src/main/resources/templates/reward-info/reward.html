@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<th:block th:fragment="rewards">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<th:block layout:fragment="content">
 
     <div id="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)" onlick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
             <li class="breadcrumb-item active"><span>ข้อมูลการรับรางวัล</span></li>
         </ol>
     </div>
 
     <div class="px-3">
-
-        <th:block th:replace="~{fragments/alert}"/>
 
         <form id="form-reward" class="mb-5">
             <div class="d-flex flex-xl-row flex-column">
@@ -33,8 +34,8 @@
                     <input type="date" class="col-7 form-control" id="rewardDate"/>
                 </div>
                 <div class="pl-xl-3 d-inline-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-poba mr-3" onclick="#">ค้นหา</button>
-                    <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('#')">เพิ่มข้อมูล</a>
+                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findRewardInfo()">ค้นหา</button>
+                    <a class="btn btn-poba" href="/poba/rewards/add" >เพิ่มข้อมูล</a>
                 </div>
             </div>
         </form>

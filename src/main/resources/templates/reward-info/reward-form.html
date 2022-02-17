@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<th:block layout:fragment="content">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="/poba/rewards">ข้อมูลการรับรางวัล</a></li>
+            <li class="breadcrumb-item active"><span th:text="${viewName}"></span></li>
+        </ol>
+    </div>
+
+    <div id="noti-msg" class="col-sm-12 mb-4" style="width: 100%;
+                  padding: 10px 0;
+                  text-align: center;
+                  background-color: rgb(107, 210, 125);
+                  display:none;"><h4 style="color:white">บันทึกสำเร็จ</h4></div>
+
+    <div class="container px-3">
+        <form id="form-reward">
+            <input type="hidden" id="staffId" name="staffId" th:value="${reward.staffId}"/>
+            <input type="hidden" id="rewardId" name="rewardId" th:value="${reward.rewardId}"/>
+            <div class="row mb-2">
+                <label class="col-sm-3 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="อ." th:selected="${reward.prefix == 'อ.'}? 'selected'">อ.</option>
+                    <option value="อ.ดร." th:selected="${reward.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
+                    <option value="ผศ." th:selected="${reward.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
+                    <option value="ผศ.ดร." th:selected="${reward.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
+                    <option value="รศ." th:selected="${reward.prefix == 'รศ.'}? 'selected'">รศ.</option>
+                    <option value="รศ.ดร." th:selected="${reward.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
+                    <option value="ศ." th:selected="${reward.prefix == 'ศ.'}? 'selected'">ศ.</option>
+                    <option value="ศ.ดร." th:selected="${reward.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
+                    <option value="อื่นๆ" th:selected="${reward.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
+                </select>
+                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${reward.prefixOther != null}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${reward.prefixOther != null}? ${reward.prefixOther}: ''"
+                       th:classappend="${reward.prefix == 'อื่นๆ'}? 'd-block':'d-none'"/>
+            </div>
+            <div class="row mb-2">
+                <label for="name" class="form-control-label col-sm-3">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
+                       th:attr="value=${reward.name != null}? |${reward.name} ${reward.surname}|: ''" required/>
+            </div>
+            <div class="row mb-2">
+                <label for="rewardType" class="form-control-label col-sm-3">ประเภทรางวัล:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="rewardType" name="rewardType">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="นักวิจัย" th:selected="${reward.rewardType == 'นักวิจัย'}? 'selected'">นักวิจัย</option>
+                    <option value="บุคคล" th:selected="${reward.rewardType == 'บุคคล'}? 'selected'">บุคคล</option>
+                    <option value="ผลงานวิจัย" th:selected="${reward.rewardType == 'ผลงานวิจัย'}? 'selected'">ผลงานวิจัย</option>
+                    <option value="ผลงานวิชาการ" th:selected="${reward.rewardType == 'ผลงานวิชาการ'}? 'selected'">ผลงานวิชาการ</option>
+                    <option value="ศูนย์เชี่ยวชาญ" th:selected="${reward.rewardType == 'ศูนย์เชี่ยวชาญ'}? 'selected'">ศูนย์เชี่ยวชาญ</option>
+                </select>
+            </div>
+            <div class="row mb-2">
+                <label for="rewardDate" class="form-control-label col-sm-3">วันที่รับรางวัล:</label>
+                <input type="date" class="form-control bg-white col-sm-2" id="rewardDate" name="rewardDate"
+                       th:attr="value=${reward.rewardDate != null}? ${reward.rewardDate}: ''"/>
+            </div>
+            <div class="row mb-2">
+                <label for="rewardName" class="form-control-label col-sm-3">ชื่อรางวัล:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="rewardName" name="rewardName"
+                       th:attr="value=${reward.rewardName != null}? ${reward.rewardName}: ''" />
+            </div>
+            <div class="row mb-2">
+                <label for="rewardTopic" class="form-control-label col-sm-3">ชื่อหัวข้อเรื่อง/บทความ/รางวัล:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="rewardTopic" name="rewardTopic"
+                       th:attr="value=${reward.rewardTopic != null}? ${reward.rewardTopic}: ''" />
+            </div>
+            <div class="row mb-2">
+                <label for="rewardInstitution" class="form-control-label col-sm-3">หน่วยงานที่ให้รางวัล:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="rewardInstitution" name="rewardInstitution"
+                       th:attr="value=${reward.rewardInstitution != null}? ${reward.rewardInstitution}: ''" />
+            </div>
+            <div class="row mb-2">
+                <label for="rewardLevel" class="form-control-label col-sm-3">ระดับกิจกรรม:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="rewardLevel" name="rewardLevel">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ระดับชาติ" th:selected="${reward.rewardLevel == 'ระดับชาติ'}? 'selected'">ระดับชาติ</option>
+                    <option value="ระดับนานาชาติ" th:selected="${reward.rewardLevel == 'ระดับนานาชาติ'}? 'selected'">ระดับนานาชาติ</option>
+                    <option value="ระดับภูมิภาค" th:selected="${reward.rewardLevel == 'ระดับภูมิภาค'}? 'selected'">ระดับภูมิภาค</option>
+                </select>
+            </div>
+            <div class="row justify-content-center mt-5">
+                <button type="button" class="btn btn-poba mr-3" onclick="submitRewardInfo()">บันทึก</button>
+                <a href="/poba/rewards"class="btn btn-outline-poba mr-3">ยกเลิก</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+
+        });
+         $('#prefix').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#prefixOther").removeClass("d-none");
+                $("#prefixOther").addClass("d-block");
+
+                $("#prefixOtherTmp").removeClass("d-block");
+                $("#prefixOtherTmp").addClass("d-none");
+            }else{
+                $("#prefixOther").val("");
+                $("#prefixOther").removeClass("d-block");
+                $("#prefixOther").addClass("d-none");
+
+                $("#prefixOtherTmp").removeClass("d-none");
+                $("#prefixOtherTmp").addClass("d-block");
+            }
+        });
+    </script>
+
+</th:block>
+</html>

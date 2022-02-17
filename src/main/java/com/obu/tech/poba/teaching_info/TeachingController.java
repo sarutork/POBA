@@ -28,7 +28,6 @@ public class TeachingController {
     }
     @GetMapping("/search")
     public ResponseEntity<List<Teaching>> search(@ModelAttribute Teaching teaching) {
-        System.out.println(">>>>>>>>>>>>>>Search");
         return ResponseEntity.ok().body(teachingService.findBySearchCriteria(teaching));
     }
 

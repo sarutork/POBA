@@ -346,9 +346,10 @@ CREATE TABLE IF NOT EXISTS `researcher` (
 -- Dumping structure for table poba.reward
 DROP TABLE IF EXISTS `reward`;
 CREATE TABLE IF NOT EXISTS `reward` (
-  `staff_id` int(11) NOT NULL,
+  `staff_id` int(11) NOT NULL AUTO_INCREMENT,
   `reward_id` int(11) NOT NULL,
   `prefix` varchar(255) NOT NULL,
+  `prefix_other` varchar(255),
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   PRIMARY KEY (`staff_id`,`reward_id`)
@@ -358,15 +359,14 @@ CREATE TABLE IF NOT EXISTS `reward` (
 -- Dumping structure for table poba.reward_detail
 DROP TABLE IF EXISTS `reward_detail`;
 CREATE TABLE IF NOT EXISTS `reward_detail` (
-  `staff_id` int(11) NOT NULL,
-  `reward_id` int(11) NOT NULL,
+  `reward_id` int(11) NOT NULL AUTO_INCREMENT,
   `reward_type` varchar(255) NOT NULL,
-  `reward_date` datetime NOT NULL,
+  `reward_date` date NOT NULL,
   `reward_name` varchar(255) NOT NULL,
   `reward_topic` varchar(255) NOT NULL,
   `reward_institution` varchar(255) NOT NULL,
   `reward_level` varchar(255) NOT NULL,
-  PRIMARY KEY (`staff_id`,`reward_id`)
+  PRIMARY KEY (`reward_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
