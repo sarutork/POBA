@@ -1,5 +1,6 @@
 package com.obu.tech.poba.teaching_info;
 
+import com.obu.tech.poba.utils.NameConverterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,9 @@ public class TeachingController {
 
     @Autowired
     private TeachingService teachingService;
+
+    @Autowired
+    private NameConverterUtils nameConverter;
 
     @GetMapping
     public ModelAndView overview() {
@@ -50,13 +54,10 @@ public class TeachingController {
             System.out.println("Error: "+bindingResult.getAllErrors());
             return view;
         }
-        String[] fullNameArr = teaching.getName().split(" ");
-        teaching.setName(fullNameArr[0].trim());
-        String surname ="";
-        for(int i=1 ;i< fullNameArr.length; i++) {
-            surname += fullNameArr[i] + " ";
-        }
-        teaching.setSurname(surname.trim());
+
+        String[] fullName = nameConverter.fullNameToNameNSurname(teaching.getName());
+        teaching.setName(fullName[0]);
+        teaching.setSurname(fullName[1]);
         //TODO: Handle error
         teachingService.save(teaching);
 

@@ -1,6 +1,6 @@
 package com.obu.tech.poba.reward_info;
 
-import com.obu.tech.poba.personnel_info.education.StudyInfo;
+import com.obu.tech.poba.utils.NameConverterUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,6 +21,9 @@ public class RewardController {
 
     @Autowired
     private RewardService rewardService;
+
+    @Autowired
+    private NameConverterUtils nameConverterUtils;
 
     @GetMapping
     public ModelAndView overview() {
@@ -52,6 +55,9 @@ public class RewardController {
             System.out.println("Error: "+bindingResult.getAllErrors());
             return view;
         }
+        String[] fullName = nameConverterUtils.fullNameToNameNSurname(rewardDto.getName());
+        rewardDto.setName(fullName[0]);
+        rewardDto.setSurname(fullName[1]);
 
         RewardDetail rewardDetail = rewardService.saveRewardDetail(rewardDto);
 

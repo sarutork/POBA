@@ -75,11 +75,6 @@ public class RewardService {
     }
 
     public Reward saveReward(RewardDto rewardDto) {
-        System.out.printf("teaching: "+rewardDto.getName());
-        String fullName = rewardDto.getName().replaceAll("\\s+", " ").trim();
-        int firstSpace = fullName.contains(" ") ? fullName.indexOf(" ") : fullName.length();
-        rewardDto.setName(fullName.substring(0, firstSpace));
-        rewardDto.setSurname(fullName.substring(firstSpace).trim());
 
         Reward reward = new Reward();
         reward.setStaffId(rewardDto.getStaffId());

@@ -1,6 +1,6 @@
 package com.obu.tech.poba.consultant_info.students;
 
-import com.obu.tech.poba.personnel_info.research.Researcher;
+import com.obu.tech.poba.utils.NameConverterUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -27,6 +27,9 @@ public class ConsultantStudentController {
 
     @Autowired
     private ConsultantStudentService consultantStudentService;
+
+    @Autowired
+    private NameConverterUtils nameConverterUtils;
 
     @GetMapping
     public ModelAndView overview() {
@@ -144,15 +147,13 @@ public class ConsultantStudentController {
             System.out.println("Error: "+bindingResult.getAllErrors());
             return view;
         }
-        String fullName = consultantStudent.getName().replaceAll("\\s+", " ").trim();
-        int firstSpace = fullName.contains(" ") ? fullName.indexOf(" ") : fullName.length();
-        consultantStudent.setName(fullName.substring(0, firstSpace));
-        consultantStudent.setSurname(fullName.substring(firstSpace).trim());
+        String[] fullName = nameConverterUtils.fullNameToNameNSurname(consultantStudent.getName());
+        consultantStudent.setName(fullName[0]);
+        consultantStudent.setSurname(fullName[1]);
 
-        String stdFullName = consultantStudent.getStudentName().replaceAll("\\s+", " ").trim();
-        int stdFirstSpace = stdFullName.contains(" ") ? stdFullName.indexOf(" ") : stdFullName.length();
-        consultantStudent.setStudentName(stdFullName.substring(0, stdFirstSpace));
-        consultantStudent.setStudentSurname(stdFullName.substring(stdFirstSpace).trim());
+        String[] stdFullName = nameConverterUtils.fullNameToNameNSurname(consultantStudent.getStudentName());
+        consultantStudent.setStudentName(stdFullName[0]);
+        consultantStudent.setStudentSurname(stdFullName[1]);
 
         //TODO: Handle error
         consultantStudentService.save(consultantStudent);
