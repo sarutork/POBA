@@ -287,9 +287,9 @@ CREATE TABLE IF NOT EXISTS `project_polsci` (
 -- Dumping structure for table poba.published_info
 DROP TABLE IF EXISTS `published_info`;
 CREATE TABLE IF NOT EXISTS `published_info` (
-  `staff_id` int(11) NOT NULL,
-  `published_id` int(11) NOT NULL,
+  `published_id` int(11) NOT NULL AUTO_INCREMENT,
   `prefix` varchar(255) NOT NULL,
+  `prefix_other` varchar(255),
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   `published_status` varchar(255) NOT NULL,
@@ -301,17 +301,17 @@ CREATE TABLE IF NOT EXISTS `published_info` (
   `published_year2` varchar(255) NOT NULL,
   `published_base` varchar(255) NOT NULL,
   `published_level` varchar(255) NOT NULL,
-  PRIMARY KEY (`staff_id`,`published_id`)
+  PRIMARY KEY (`published_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 -- Dumping structure for table poba.published_join
 DROP TABLE IF EXISTS `published_join`;
 CREATE TABLE IF NOT EXISTS `published_join` (
-  `staff_id` int(11) NOT NULL,
-  `published_id` int(11) NOT NULL,
-  `published_join_id` int(11) NOT NULL,
+  `published_join_id` int(11) NOT NULL AUTO_INCREMENT,
+  `published_id` int(11),
   `prefix` varchar(255) NOT NULL,
+  `prefix_other` varchar(255),
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   `published_fund` decimal(12,2) NOT NULL,
@@ -319,7 +319,7 @@ CREATE TABLE IF NOT EXISTS `published_join` (
   `published_q2` int(11) DEFAULT NULL,
   `published_q3` int(11) DEFAULT NULL,
   `published_q4` int(11) DEFAULT NULL,
-  PRIMARY KEY (`staff_id`,`published_id`,`published_join_id`)
+  PRIMARY KEY (`published_join_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
@@ -473,7 +473,7 @@ CREATE TABLE IF NOT EXISTS `teach_info` (
   `teachLocationOther` varchar(255),
   `teach_room` varchar(255) NOT NULL,
   `prefix` varchar(255) NOT NULL,
-  `prefixOther` varchar(255),
+  `prefix_other` varchar(255),
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   `teach_status` varchar(255) NOT NULL,

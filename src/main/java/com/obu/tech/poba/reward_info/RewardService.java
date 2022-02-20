@@ -1,19 +1,11 @@
 package com.obu.tech.poba.reward_info;
 
-import com.obu.tech.poba.consultant_info.students.ConsultantDto;
-import com.obu.tech.poba.teaching_info.Teaching;
-import com.obu.tech.poba.teaching_info.TeachingRepository;
-import com.obu.tech.poba.utils.search.SearchConditionBuilder;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import static com.obu.tech.poba.utils.search.SearchOperator.LIKE;
 
 @Service
 public class RewardService {
@@ -75,27 +67,13 @@ public class RewardService {
     }
 
     public Reward saveReward(RewardDto rewardDto) {
-
         Reward reward = new Reward();
-        reward.setStaffId(rewardDto.getStaffId());
-        reward.setRewardId(rewardDto.getRewardId());
-        reward.setPrefix(rewardDto.getPrefix());
-        reward.setPrefixOther(rewardDto.getPrefixOther());
-        reward.setName(rewardDto.getName());
-        reward.setSurname(rewardDto.getSurname());
-
+        BeanUtils.copyProperties(rewardDto,reward);
         return rewardRepository.saveAndFlush(reward);
     }
     public RewardDetail saveRewardDetail(RewardDto rewardDto) {
         RewardDetail rewardDtl = new RewardDetail();
-        rewardDtl.setRewardId(rewardDto.getRewardId());
-        rewardDtl.setRewardType(rewardDto.getRewardType());
-        rewardDtl.setRewardDate(rewardDto.getRewardDate());
-        rewardDtl.setRewardName(rewardDto.getRewardName());
-        rewardDtl.setRewardTopic(rewardDto.getRewardTopic());
-        rewardDtl.setRewardInstitution(rewardDto.getRewardInstitution());
-        rewardDtl.setRewardLevel(rewardDto.getRewardLevel());
-
+        BeanUtils.copyProperties(rewardDto,rewardDtl);
         return rewardDetailRepository.saveAndFlush(rewardDtl);
     }
 }
