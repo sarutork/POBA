@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<th:block layout:fragment="content">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item active"><span>ข้อมูลการเผยแพร่บทความ</span></li>
+        </ol>
+    </div>
+
+    <div class="px-3">
+        <form id="form-published" class="mb-5">
+            <div class="d-flex flex-xl-row flex-column">
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                    <label for="name" class="col-5 text-sm-right col-form-label">ค้นหาข้อมูล:</label>
+                    <input id="name" type="text" class="col-7 form-control flex-xl-grow-1" placeholder="ค้นหาด้วยชื่อ">
+                </div>
+                <div class="row px-3 mb-xl-0 mb-3">
+                    <label for="publishedLevel" class="col-3 text-sm-right col-form-label">ระดับ:</label>
+                    <select type="text" class="col-9 form-control" id="publishedLevel">
+                        <option value="">กรุณาเลือก</option>
+                        <option value="ระดับชาติ">ระดับชาติ</option>
+                        <option value="ระดับนานาชาติ">ระดับนานาชาติ</option>
+                        <option value="ระดับภูมิภาค">ระดับภูมิภาค</option>
+                    </select>
+                </div>
+                <div class="pl-xl-3 d-inline-flex justify-content-end">
+                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findPublished()">ค้นหา</button>
+                    <a class="btn btn-poba" href="/poba/published/add" >เพิ่มข้อมูล</a>
+                </div>
+            </div>
+        </form>
+
+        <div class="table table-responsive">
+            <table id="table-published" class="display" width="100%">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ข้อมูลอาจารย์</th>
+                    <th>สถานะผู้เขียน</th>
+                    <th>หัวข้อเรื่อง</th>
+                    <th>ระดับ</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="6" class="dataTables_empty text-center bg-secondary">ข้อมูลการเผยแพร่บทความ</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</th:block>
+</html>

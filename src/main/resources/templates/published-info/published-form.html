@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<th:block layout:fragment="content">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="/poba/published">ข้อมูลการเผยแพร่บทความ</a></li>
+            <li class="breadcrumb-item active"><span th:text="${viewName}"></span></li>
+        </ol>
+    </div>
+
+    <div id="noti-msg" class="col-sm-12 mb-4" style="width: 100%;
+                  padding: 10px 0;
+                  text-align: center;
+                  background-color: rgb(107, 210, 125);
+                  display:none;"><h4 style="color:white">บันทึกสำเร็จ</h4></div>
+
+    <div class="container px-3">
+        <form id="form-published">
+            <input type="hidden" id="publishedId" name="publishedId" th:value="${published.publishedId}"/>
+            <input type="hidden" id="publishedJoinId" name="publishedJoinId" th:value="${published.publishedJoinId}"/>
+            <div class="row col-sm-12 mb-2">
+                <label><b>ข้อมูลอาจารย์</b></label>
+            </div>
+            <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="อ." th:selected="${published.prefix == 'อ.'}? 'selected'">อ.</option>
+                    <option value="อ.ดร." th:selected="${published.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
+                    <option value="ผศ." th:selected="${published.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
+                    <option value="ผศ.ดร." th:selected="${published.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
+                    <option value="รศ." th:selected="${published.prefix == 'รศ.'}? 'selected'">รศ.</option>
+                    <option value="รศ.ดร." th:selected="${published.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
+                    <option value="ศ." th:selected="${published.prefix == 'ศ.'}? 'selected'">ศ.</option>
+                    <option value="ศ.ดร." th:selected="${published.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
+                    <option value="อื่นๆ" th:selected="${published.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
+                </select>
+                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${published.prefixOther != null}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${published.prefixOther != null}? ${published.prefixOther}: ''"
+                       th:classappend="${published.prefix == 'อื่นๆ'}? 'd-block':'d-none'"/>
+            </div>
+            <div class="row mb-2">
+                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
+                       th:attr="value=${published.name != null}? |${published.name} ${published.surname}|: ''" required/>
+                <label for="publishedStatus" class="form-control-label col-sm-2">สถานะผู้เขียน:</label>
+                <select type="text" class="col-sm-3 form-control bg-white" id="publishedStatus" name="publishedStatus">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="หลัก" th:selected="${published.publishedStatus == 'หลัก'}? 'selected'">หลัก</option>
+                    <option value="ร่วม" th:selected="${published.publishedStatus == 'ร่วม'}? 'selected'">ร่วม</option>
+                </select>
+            </div>
+            <div class="row col-sm-12 mb-2">
+                <label><b>ข้อมูลเผยแพร่</b></label>
+            </div>
+            <div class="row mb-2">
+                <label for="publishedTopic" class="form-control-label col-sm-2">ชื่อ-หัวข้อเรื่อง:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedTopic" name="publishedTopic"
+                       th:attr="value=${published.publishedTopic != null}? ${published.publishedTopic} : ''"/>
+                <label for="publishedJournal" class="form-control-label col-sm-2">ชื่อวารสาร:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedJournal" name="publishedJournal"
+                       th:attr="value=${published.publishedJournal != null}? ${published.publishedJournal} : ''"/>
+            </div>
+            <div class="row mb-2">
+                <label for="publishedYear" class="form-control-label col-sm-2">ปีที่:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedYear" name="publishedYear"
+                       th:attr="value=${published.publishedYear != null}? ${published.publishedYear} : ''"/>
+                <label for="publishedIssue" class="form-control-label col-sm-2">ฉบับ:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedIssue" name="publishedIssue"
+                       th:attr="value=${published.publishedIssue != null}? ${published.publishedIssue} : ''"/>
+            </div>
+            <div class="row mb-2">
+                <label for="publishedMonth" class="form-control-label col-sm-2">เดือน:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="publishedMonth" name="publishedMonth">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="มกราคม" th:selected="${published.publishedMonth == 'มกราคม'}? 'selected'">มกราคม</option>
+                    <option value="กุมภาพันธุ์" th:selected="${published.publishedMonth == 'กุมภาพันธุ์'}? 'selected'">กุมภาพันธุ์</option>
+                    <option value="มีนาคม" th:selected="${published.publishedMonth == 'มีนาคม'}? 'selected'">มีนาคม</option>
+                    <option value="เมษายน" th:selected="${published.publishedMonth == 'เมษายน'}? 'selected'">เมษายน</option>
+                    <option value="พฤษภาคม" th:selected="${published.publishedMonth == 'พฤษภาคม'}? 'selected'">พฤษภาคม</option>
+                    <option value="มิถุนายน" th:selected="${published.publishedMonth == 'มิถุนายน'}? 'selected'">มิถุนายน</option>
+                    <option value="กรกฎาคม" th:selected="${published.publishedMonth == 'กรกฎาคม'}? 'selected'">กรกฎาคม</option>
+                    <option value="สิงหาคม" th:selected="${published.publishedMonth == 'สิงหาคม'}? 'selected'">สิงหาคม</option>
+                    <option value="กันยายน" th:selected="${published.publishedMonth == 'กันยายน'}? 'selected'">กันยายน</option>
+                    <option value="ตุลาคม" th:selected="${published.publishedMonth == 'ตุลาคม'}? 'selected'">ตุลาคม</option>
+                    <option value="พฤศจิกายน" th:selected="${published.publishedMonth == 'พฤศจิกายน'}? 'selected'">พฤศจิกายน</option>
+                    <option value="ธันวาคม" th:selected="${published.publishedMonth == 'ธันวาคม'}? 'selected'">ธันวาคม</option>
+                </select>
+                <label for="publishedYear2" class="form-control-label col-sm-4">ปี:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="publishedYear2" name="publishedYear2">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="2565" th:selected="${published.publishedYear2 == '2565'}? 'selected'">2565</option>
+                    <option value="2564" th:selected="${published.publishedYear2 == '2564'}? 'selected'">2564</option>
+                    <option value="2563" th:selected="${published.publishedYear2 == '2563'}? 'selected'">2563</option>
+                </select>
+            </div>
+            <div class="row mb-2">
+                <label for="publishedBase" class="form-control-label col-sm-2">ฐาน:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedBase" name="publishedBase"
+                       th:attr="value=${published.publishedBase != null}? ${published.publishedBase} : ''"/>
+                <label for="publishedLevel" class="form-control-label col-sm-2">ระดับกิจกรรม:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="publishedLevel" name="publishedLevel">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ระดับชาติ" th:selected="${published.publishedLevel == 'ระดับชาติ'}? 'selected'">ระดับชาติ</option>
+                    <option value="ระดับนานาชาติ" th:selected="${published.publishedLevel == 'ระดับนานาชาติ'}? 'selected'">ระดับนานาชาติ</option>
+                    <option value="ระดับภูมิภาค" th:selected="${published.publishedLevel == 'ระดับภูมิภาค'}? 'selected'">ระดับภูมิภาค</option>
+                </select>
+            </div>
+            <div class="row col-sm-12 mb-2">
+                <label><b>ข้อมูลผู้เขียนร่วม</b></label>
+            </div>
+            <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="publishedJoinPrefix">คำนำหน้า:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="publishedJoinPrefix" name="publishedJoinPrefix"required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="อ." th:selected="${published.publishedJoinPrefix == 'อ.'}? 'selected'">อ.</option>
+                    <option value="อ.ดร." th:selected="${published.publishedJoinPrefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
+                    <option value="ผศ." th:selected="${published.publishedJoinPrefix == 'ผศ.'}? 'selected'">ผศ.</option>
+                    <option value="ผศ.ดร." th:selected="${published.publishedJoinPrefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
+                    <option value="รศ." th:selected="${published.publishedJoinPrefix == 'รศ.'}? 'selected'">รศ.</option>
+                    <option value="รศ.ดร." th:selected="${published.publishedJoinPrefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
+                    <option value="ศ." th:selected="${published.publishedJoinPrefix == 'ศ.'}? 'selected'">ศ.</option>
+                    <option value="ศ.ดร." th:selected="${published.publishedJoinPrefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
+                    <option value="อื่นๆ" th:selected="${published.publishedJoinPrefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
+                </select>
+                <div id="publishedJoinPrefixOtherTmp" class="col-sm-2" th:classappend="${published.publishedJoinPrefixOther != null}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="publishedJoinPrefixOther" name="publishedJoinPrefixOther" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${published.publishedJoinPrefixOther != null}? ${published.publishedJoinPrefixOther}: ''"
+                       th:classappend="${published.publishedJoinPrefix == 'อื่นๆ'}? 'd-block':'d-none'"/>
+                <label for="publishedJoinName" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedJoinName" name="publishedJoinName"
+                       th:attr="value=${published.publishedJoinName != null}? |${published.publishedJoinName} ${published.publishedJoinSurname}|: ''" required/>
+            </div>
+            <div class="row mb-2">
+                <label for="publishedFund" class="form-control-label col-sm-2">เงินสนับสนุน:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedFund" name="publishedFund"
+                       th:attr="value=${published.publishedFund != null}? ${published.publishedFund} : ''"/>
+            </div>
+            <div class="row col-sm-12 mb-2">
+                <label><b>จำนวนครั้งที่นำไปเผยแพร่</b></label>
+            </div>
+            <div class="row mb-2">
+                <label for="publishedQ1" class="form-control-label col-sm-2">ไตรมาส 1:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedQ1" name="publishedQ1"
+                       th:attr="value=${published.publishedQ1 != null}? ${published.publishedQ1} : ''"/>
+                <label for="publishedQ2" class="form-control-label col-sm-2">ไตรมาส 2:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedQ2" name="publishedQ2"
+                       th:attr="value=${published.publishedQ2 != null}? ${published.publishedQ2} : ''"/>
+            </div>
+            <div class="row mb-2">
+                <label for="publishedQ3" class="form-control-label col-sm-2">ไตรมาส 3:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedQ3" name="publishedQ3"
+                       th:attr="value=${published.publishedQ3 != null}? ${published.publishedQ3} : ''"/>
+                <label for="publishedQ4" class="form-control-label col-sm-2">ไตรมาส 4:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedQ4" name="publishedQ4"
+                       th:attr="value=${published.publishedQ4 != null}? ${published.publishedQ4} : ''"/>
+            </div>
+        </form>
+        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${published.publishedId == 0 ? 'd-block' : 'd-none'} ">
+            <button type="button" class="btn btn-poba mr-3" onclick="submitPublishedInfo()">บันทึก</button>
+            <a href="/poba/published" class="btn btn-outline-poba mr-3">ยกเลิก</a>
+        </div>
+        <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${published.publishedId != 0 ? 'd-block' : 'd-none'}">
+            <a href="/poba/published" class="btn btn-poba mr-3">ยกเลิก</a>
+            <button type="button" class="btn btn-outline-poba mr-3" onclick="editPublishedInfo()">แก้ไข</button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            var publishedId = $("#publishedId").val();
+             if(publishedId != '' && publishedId > 0){
+                $("input").prop("disabled", true);
+                $("select").prop("disabled", true);
+             }
+        });
+
+         $('#publishedJoinPrefix').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#publishedJoinPrefixOther").removeClass("d-none");
+                $("#publishedJoinPrefixOther").addClass("d-block");
+
+                $("#publishedJoinPrefixOtherTmp").removeClass("d-block");
+                $("#publishedJoinPrefixOtherTmp").addClass("d-none");
+            }else{
+                $("#publishedJoinPrefixOther").val("");
+                $("#publishedJoinPrefixOther").removeClass("d-block");
+                $("#publishedJoinPrefixOther").addClass("d-none");
+
+                $("#publishedJoinPrefixOtherTmp").removeClass("d-none");
+                $("#publishedJoinPrefixOtherTmp").addClass("d-block");
+            }
+        });
+
+        $('#prefix').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#prefixOther").removeClass("d-none");
+                $("#prefixOther").addClass("d-block");
+
+                $("#prefixOtherTmp").removeClass("d-block");
+                $("#prefixOtherTmp").addClass("d-none");
+            }else{
+                $("#prefixOther").val("");
+                $("#prefixOther").removeClass("d-block");
+                $("#prefixOther").addClass("d-none");
+
+                $("#prefixOtherTmp").removeClass("d-none");
+                $("#prefixOtherTmp").addClass("d-block");
+            }
+        });
+
+        $('input.number').keyup(function(event) {
+        });
+
+        $('input.amount').keyup(function(event) {
+          if(event.which >= 37 && event.which <= 40) return;
+
+          $(this).val(function(index, value) {
+            return value
+            .replace(/\D/g, "")
+            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+            ;
+          });
+        });
+
+    </script>
+
+</th:block>
+</html>

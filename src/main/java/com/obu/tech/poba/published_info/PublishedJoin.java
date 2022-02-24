@@ -21,8 +21,12 @@ public class PublishedJoin {
     private String name;
     private String surname;
     private Double publishedFund;
+    @Column(name = "published_q1")
     private int publishedQ1;
+    @Column(name = "published_q2")
     private int publishedQ2;
+    @Column(name = "published_q3")
     private int publishedQ3;
+    @Column(name = "published_q4")
     private int publishedQ4;
 }

@@ -1,15 +1,13 @@
 package com.obu.tech.poba.published_info;
 
-import com.obu.tech.poba.personnel_info.education.StudyInfo;
 import com.obu.tech.poba.utils.search.SearchConditionBuilder;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-
 import java.util.List;
-
 import static com.obu.tech.poba.utils.search.SearchOperator.*;
 
 @Service
@@ -24,9 +22,8 @@ public class PublishedService {
         return publishedRepository.findAll(new SearchConditionBuilder<Published>()
                 .ifNotNullThenAnd("name", LIKE, published.getName())
                 .ifNotNullThenOr("surname", LIKE, published.getName())
-                .ifNotNullThenAnd("publishedLevel", EQUAL, published.getPublishedLevel())
-                .build()
-        );
+                .ifNotNullThenAnd("publishedLevel", LIKE, published.getPublishedLevel())
+                .build());
     }
 
     public  Published findPublishedById(String id){
@@ -39,14 +36,8 @@ public class PublishedService {
         }
     }
 
-    public  PublishedJoin findPublishedJoinById(String id){
-        if (id.matches("\\d+")) {
-            return publishedJoinRepository.findById(Long.parseLong(id))
-                    .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
-        } else {
-            System.out.println("Invalid published_join_id: '" + id + "'");
-            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
-        }
+    public  List<PublishedJoin> findPublishedJoinById(Long id){
+        return publishedJoinRepository.findByPublishedId(id);
     }
 
     public Published savePublished(PublishedDto publishedDto){
@@ -62,6 +53,12 @@ public class PublishedService {
         publishedJoin.setPrefixOther(publishedDto.getPublishedJoinPrefixOther());
         publishedJoin.setName(publishedDto.getPublishedJoinName());
         publishedJoin.setSurname(publishedDto.getPublishedJoinSurname());
+//        Double fund = 0.00;
+//        if(!StringUtils.isBlank(publishedDto.getPublishedFund())){
+//           String fundStr = publishedDto.getPublishedFund().replace(",","");
+//           fund = Double.parseDouble(fundStr);
+//        }
+//        publishedJoin.setPublishedFund(fund);
         return publishedJoinRepository.saveAndFlush(publishedJoin);
     }
 
