@@ -19,6 +19,8 @@ public class Published {
     private String prefixOther;
     private String name;
     private String surname;
+    private String fullNamePublisher;
+    private String fullNameJoiner;
     private String publishedStatus;
     private String publishedTopic;
     private String publishedJournal;

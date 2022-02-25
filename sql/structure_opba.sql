@@ -292,6 +292,8 @@ CREATE TABLE IF NOT EXISTS `published_info` (
   `prefix_other` varchar(255),
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
+  `full_name_publisher` varchar(255) NOT NULL,
+  `full_name_joiner` varchar(255) NOT NULL,
   `published_status` varchar(255) NOT NULL,
   `published_topic` varchar(255) NOT NULL,
   `published_journal` varchar(255) NOT NULL,

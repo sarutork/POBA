@@ -14,6 +14,7 @@ function findPublished() {
             { data: "name"},
             { data: "publishedStatus" },
             { data: "publishedTopic" },
+            { data: "" },
             { data: "publishedLevel" },
         ],
         columnDefs: [
@@ -27,6 +28,17 @@ function findPublished() {
                        return fullName;
                     },
                targets: 1,
+            },
+            {
+               render: function (data, type, row) {
+                   var prefix = row["publishedJoinPrefix"];
+                   if(prefix == "อื่นๆ"){
+                        prefix = row["publishedJoinPrefixOther"]
+                   }
+                   var fullName = prefix+' '+row["publishedJoinName"] + ' ' + row["publishedJoinSurname"];
+                       return fullName;
+                    },
+               targets: 4,
             },
         ],
         searching: false,

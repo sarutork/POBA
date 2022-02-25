@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -32,8 +33,24 @@ public class PublishedController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Published>> search(@ModelAttribute Published published) {
-        return ResponseEntity.ok().body(publishedService.findBySearchCriteria(published));
+    public ResponseEntity<List<PublishedDto>> search(@ModelAttribute Published published) {
+            List<PublishedDto> publishedDtoList = new ArrayList<>();
+            List<Published> publishedList = publishedService.findBySearchCriteria(published);
+            publishedList.forEach( p -> {
+                List<PublishedJoin> publishedJoin = publishedService.findPublishedJoinById(p.getPublishedId());
+                PublishedDto publishedDto = new PublishedDto();
+                BeanUtils.copyProperties(p,publishedDto);
+                BeanUtils.copyProperties(publishedJoin.get(0),publishedDto,"prefix","prefixOther","name","surname");
+                publishedDto.setPublishedJoinPrefix(publishedJoin.get(0).getPrefix());
+                publishedDto.setPublishedJoinPrefixOther(publishedJoin.get(0).getPrefixOther());
+                publishedDto.setPublishedJoinName(publishedJoin.get(0).getName());
+                publishedDto.setPublishedJoinSurname(publishedJoin.get(0).getSurname());
+
+                publishedDtoList.add(publishedDto);
+
+            });
+
+        return ResponseEntity.ok().body(publishedDtoList);
     }
 
     @GetMapping(value = "/{id}")

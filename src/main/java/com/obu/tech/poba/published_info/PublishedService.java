@@ -20,8 +20,8 @@ public class PublishedService {
 
     public  List<Published> findBySearchCriteria(Published published){
         return publishedRepository.findAll(new SearchConditionBuilder<Published>()
-                .ifNotNullThenAnd("name", LIKE, published.getName())
-                .ifNotNullThenOr("surname", LIKE, published.getName())
+                .ifNotNullThenAnd("fullNamePublisher", LIKE, published.getName().replaceAll("\\s", ""))
+                .ifNotNullThenOr("fullNameJoiner", LIKE, published.getName().replaceAll("\\s", ""))
                 .ifNotNullThenAnd("publishedLevel", LIKE, published.getPublishedLevel())
                 .build());
     }
@@ -43,6 +43,18 @@ public class PublishedService {
     public Published savePublished(PublishedDto publishedDto){
         Published published = new Published();
         BeanUtils.copyProperties(publishedDto,published);
+        String prefix = published.getPrefix();
+        if("อื่นๆ".equals(prefix)){
+            prefix = published.getPrefixOther();
+        }
+        published.setFullNamePublisher(prefix+published.getName()+published.getSurname());
+
+        String prefixJoiner = publishedDto.getPublishedJoinPrefix();
+        if("อื่นๆ".equals(prefixJoiner)){
+            prefixJoiner = publishedDto.getPublishedJoinPrefixOther();
+        }
+        published.setFullNameJoiner(prefixJoiner+publishedDto.getPublishedJoinName()+publishedDto.getPublishedJoinSurname());
+
         return  publishedRepository.saveAndFlush(published);
     }
 
