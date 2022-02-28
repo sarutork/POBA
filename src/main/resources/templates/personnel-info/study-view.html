@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
-<th:block layout:fragment="content">
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="study-view">
 
     <div id="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
-            <li class="breadcrumb-item"><a href="/poba/personnel-info/education">ข้อมูลศึกษาต่อ / ไปแลกเปลี่ยน</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/personnel-info/study')">ข้อมูลศึกษาต่อ / ไปแลกเปลี่ยน</a></li>
             <li class="breadcrumb-item active"><span>ดูข้อมูล</span></li>
         </ol>
     </div>
 
     <div class="container px-3">
-        <form id="form-education-detail">
+        <th:block th:replace="~{fragments/alert}"/>
+
+        <form id="form-study-view">
             <div class="row">
                 <label for="name" class="form-control-label col-sm-3">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-6" id="name" name="name" th:value="|${studyInfo.prefix} ${studyInfo.name} ${studyInfo.surname}|" readonly>
@@ -65,16 +64,16 @@
                 <input type="text" class="form-control bg-white col-sm-6" id="fund" name="fund" th:value="${studyInfo.fund}" readonly>
             </div>
             <div class="row justify-content-center mt-5">
-                <a href="/poba/personnel-info/education" class="btn btn-poba mr-3">กลับ</a>
-                <a th:href="|/poba/personnel-info/education/${studyInfo.staffId}/edit|" class="btn btn-outline-poba">แก้ไข</a>
+                <a href="javascript:void(0)" onclick="loadView('/poba/personnel-info/study')" class="btn btn-poba mr-3">กลับ</a>
+                <a href="javascript:void(0)" th:onclick="|loadView('/poba/personnel-info/study/${studyInfo.staffId}/edit')|" class="btn btn-outline-poba">แก้ไข</a>
             </div>
         </form>
     </div>
 
-    <script>
-        $(document).ready(function() {
-
-        });
+    <script th:if="${timeout}">
+        window.setTimeout(function() {
+            loadView('/poba/personnel-info/study');
+        }, 3000);
     </script>
 
 </th:block>

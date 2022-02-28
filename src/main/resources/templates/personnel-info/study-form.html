@@ -1,26 +1,19 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
-<th:block layout:fragment="content">
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="study-form">
 
     <div id="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
-            <li class="breadcrumb-item"><a href="/poba/personnel-info/education">ข้อมูลศึกษาต่อ / ไปแลกเปลี่ยน</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/personnel-info/study')">ข้อมูลศึกษาต่อ / ไปแลกเปลี่ยน</a></li>
             <li class="breadcrumb-item active"><span th:text="${viewName}"></span></li>
         </ol>
     </div>
 
-    <div id="noti-msg" class="col-sm-12 mb-4" style="width: 100%;
-                  padding: 10px 0;
-                  text-align: center;
-                  background-color: rgb(107, 210, 125);
-                  display:none;"><h4 style="color:white">บันทึกสำเร็จ</h4></div>
-
     <div class="container px-3">
-        <form id="form-education">
+        <th:block th:replace="~{fragments/alert}"/>
+
+        <form id="form-study" class="form-wrapper">
             <input type="hidden" id="staffId" name="staffId" th:value="${studyInfo.staffId}"/>
             <div class="row mb-2">
                 <label class="col-sm-3 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
@@ -86,17 +79,11 @@
                        th:attr="value=${studyInfo.fund != null}? ${studyInfo.fund}: ''" required/>
             </div>
             <div class="row justify-content-center mt-5">
-                <button type="button" class="btn btn-poba mr-3" onclick="submitEducationInfo();">บันทึก</button>
-                <a href="/poba/personnel-info/education" class="btn btn-outline-poba mr-3">ยกเลิก</a>
+                <button type="button" class="btn btn-poba mr-3" onclick="submitStudyInfo();">บันทึก</button>
+                <a href="javascript:void(0)" onclick="loadView('/poba/personnel-info/study')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
             </div>
         </form>
     </div>
-
-    <script>
-        $(document).ready(function() {
-
-        });
-    </script>
 
 </th:block>
 </html>

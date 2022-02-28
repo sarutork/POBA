@@ -1,4 +1,4 @@
-package com.obu.tech.poba.personnel_info.education;
+package com.obu.tech.poba.personnel_info.study;
 
 import com.obu.tech.poba.utils.search.SearchConditionBuilder;
 import org.springframework.beans.factory.annotation.Autowired;

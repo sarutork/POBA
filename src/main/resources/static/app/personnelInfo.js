@@ -36,11 +36,11 @@ function findProfileInfo() {
         } );
 }
 
-function findEducationInfo() {
-   var tableEducation =  $('#table-education').DataTable({
+function findStudyInfo() {
+   var tableStudy =  $('#table-study').DataTable({
         ajax: {
             type: "GET",
-            url: "../../poba/api/personnel-info/education",
+            url: "/poba/personnel-info/study/search",
             dataSrc: "",
             data: function(d){
                 d.name = $('#staff-name').val();
@@ -68,10 +68,10 @@ function findEducationInfo() {
         searching: false,
         "bDestroy": true
     });
-    $('#table-education tbody').on('click', 'tr', function () {
-            if(!$('#table-education tbody tr td').hasClass("dataTables_empty")){
-               var data = tableEducation.row( this ).data();
-                window.location.href = "/poba/personnel-info/education/"+data.staffId;
+    $('#table-study tbody').on('click', 'tr', function () {
+            if(!$('#table-study tbody tr td').hasClass("dataTables_empty")){
+               var data = tableStudy.row( this ).data();
+                loadView('/poba/personnel-info/study/' + data.staffId);
             }
         } );
 }
@@ -144,7 +144,7 @@ function endDateChange(){
     }
 }
 
-function submitEducationInfo(){
+function submitStudyInfo(){
     var type = "POST";
     var staffId = $("#staffId").val();
     if (staffId != null &&  staffId != 0 ){
@@ -152,16 +152,13 @@ function submitEducationInfo(){
     }
     $.ajax({
          type: type,
-         url: "/poba/api/personnel-info/education/save",
-         data: $("#form-education").serialize(),
-         success: function() {
-                //$("#noti-msg").text("บันทึกสำเร็จ");
-                var x = document.getElementById("noti-msg");
-                    x.style.display = "block";
-                    window.scrollTo(0, 0);
-                setTimeout(function(){
-                    window.location.href = "/poba/personnel-info/education";
-                },2000);
+         url: "/poba/personnel-info/study/save",
+         data: $("#form-study").serialize(),
+         success: function(data) {
+            $('.content-wrapper').html(data);
+         },
+         error: function (error) {
+             $('.content-wrapper').html(error.responseText);
          }
     });
 }
