@@ -43,7 +43,11 @@ public class StudyInfoController {
     public ModelAndView showAddView() {return formAdd(new StudyInfo());}
 
     @GetMapping(value = "/{id}")
-    public ModelAndView showStudyInfo(@PathVariable String id){return view(studyInfoService.findById(id));}
+    public ModelAndView showStudyInfo(@PathVariable String id){
+        StudyInfo studyInfo = studyInfoService.findById(id);
+        studyInfo.setName(studyInfo.getName()+" "+studyInfo.getSurname());
+        return view(studyInfo);
+    }
 
     @GetMapping(value = "/{id}/edit")
     public ModelAndView showEditView(@PathVariable String id) {
