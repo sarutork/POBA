@@ -25,20 +25,20 @@ public class Researcher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long staffId;
 
-    @Pattern(regexp = "(Mr(s)?\\.|Miss)", message = "โปรดเลือก คำนำหน้า ที่ถูกต้อง")
+    @Pattern(regexp = "(Mr(s)?\\.|Miss)", message = "โปรดเลือก คำนำหน้า")
     private String prefix;
 
-    @Size(min = 1, max = 255, message = "โปรดป้อน ชื่อ (1 - 255)")
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-นามสกุล")
     private String name;
 
     private String surname;
 
     @Column(name = "r_status")
-    @Pattern(regexp = "(อาจารย์|นักวิจัย)", message = "โปรดเลือก สถานะ ที่ถูกต้อง")
+    @Pattern(regexp = "(อาจารย์|นักวิจัย)", message = "โปรดเลือก สถานะ")
     private String status;
 
     @Column(name = "r_type")
-    @Pattern(regexp = "(Part time|Full time|นักวิจัยหลังปริญญาเอก \\(Postdoctoral\\))", message = "โปรดเลือก ประเภท ที่ถูกต้อง")
+    @Pattern(regexp = "(Part time|Full time|นักวิจัยหลังปริญญาเอก \\(Postdoctoral\\))", message = "โปรดเลือก ประเภท")
     private String type;
 
     // TODO: Validate start & end days' format, end >= start

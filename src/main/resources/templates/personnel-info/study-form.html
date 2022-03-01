@@ -27,12 +27,13 @@
             <div class="row mb-2">
                 <label for="name" class="form-control-label col-sm-3">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
-                       th:attr="value=${studyInfo.name != null && studyInfo.name != ''}? ${studyInfo.name} : ''" required/>
+                       th:attr="value=${studyInfo.name != null && studyInfo.name != ''}? ${studyInfo.name} : ''"
+                maxlength="255" required/>
             </div>
             <div class="row mb-2">
                 <label for="travelOrder" class="form-control-label col-sm-3">คำสั่งเดินทาง<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="travelOrder" name="travelOrder"
-                       th:attr="value=${studyInfo.travelOrder != null}? ${studyInfo.travelOrder}: ''" required/>
+                       th:attr="value=${studyInfo.travelOrder != null}? ${studyInfo.travelOrder}: ''" maxlength="255" required/>
             </div>
             <div class="row mb-2">
                 <label for="startDate" class="form-control-label col-sm-3">วันที่ไป<span style="color:red !important;">*</span>:</label>
@@ -57,12 +58,12 @@
             <div class="row mb-2">
                 <label for="activityDetail" class="form-control-label col-sm-3">รายละเอียดกิจกรรม<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="activityDetail" name="activityDetail"
-                       th:attr="value=${studyInfo.activityDetail != null}? ${studyInfo.activityDetail}: ''" required/>
+                       th:attr="value=${studyInfo.activityDetail != null}? ${studyInfo.activityDetail}: ''" maxlength="255" required/>
             </div>
             <div class="row mb-2">
                 <label for="location" class="form-control-label col-sm-3">มหาวิทยาลัย/สถาบันที่ไป<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="location" name="location"
-                       th:attr="value=${studyInfo.location != null}? ${studyInfo.location}: ''" required/>
+                       th:attr="value=${studyInfo.location != null}? ${studyInfo.location}: ''" maxlength="255" required/>
                 <label for="locationType" class="form-control-label col-sm-2">ประเภท<span style="color:red !important;">*</span>:</label>
                 <select class="form-control bg-white col-sm-3" id="locationType" name="locationType" required>
                     <option value="">กรุณาเลือก</option>
@@ -73,10 +74,10 @@
             <div class="row mb-2">
                 <label for="country" class="form-control-label col-sm-3">ชื่อประเทศ<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="country" name="country"
-                       th:attr="value=${studyInfo.country != null}? ${studyInfo.country}: ''" required/>
+                       th:attr="value=${studyInfo.country != null}? ${studyInfo.country}: ''" maxlength="255" required/>
                 <label for="fund" class="form-control-label col-sm-2">แหล่งทุน<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-3" id="fund" name="fund"
-                       th:attr="value=${studyInfo.fund != null}? ${studyInfo.fund}: ''" required/>
+                       th:attr="value=${studyInfo.fund != null}? ${studyInfo.fund}: ''" maxlength="255" required/>
             </div>
             <div class="row justify-content-center mt-5">
                 <button type="button" class="btn btn-poba mr-3" onclick="submitStudyInfo();">บันทึก</button>

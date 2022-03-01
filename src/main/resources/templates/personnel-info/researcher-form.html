@@ -24,7 +24,7 @@
 
                 <div class="row px-3 mb-3">
                     <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
-                           for="prefix">คำนำหน้า:</label>
+                           for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
                     <div class="col-lg-3 col-sm-4 px-0">
                         <select class="form-control" id="prefix" required th:field="*{prefix}">
                             <option value="" hidden>กรุณาเลือก</option>
@@ -37,15 +37,15 @@
 
                 <div class="row px-3 mb-3">
                     <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
-                           for="name">ชื่อ-นามสกุล:</label>
+                           for="name">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                     <div class="col-lg-5 col-md-8 col-sm-10 px-0">
-                        <input type="text" class="form-control" id="name" th:field="*{name}"/>
+                        <input type="text" class="form-control" id="name" th:field="*{name}" maxlength="255" required/>
                     </div>
                 </div>
 
                 <div class="row px-3 mb-3">
                     <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
-                           for="status">สถานะ:</label>
+                           for="status">สถานะ<span style="color:red !important;">*</span>:</label>
                     <div class="col-lg-3 col-sm-4 px-0 pb-sm-0 pb-3">
                         <select class="form-control" id="status" required th:field="*{status}">
                             <option value="" hidden>กรุณาเลือก</option>
@@ -54,7 +54,7 @@
                         </select>
                     </div>
                     <label class="col-lg-1 col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
-                           for="type">ประเภท:</label>
+                           for="type">ประเภท<span style="color:red !important;">*</span>:</label>
                     <div class="col-lg-3 col-sm-4 px-0">
                         <select class="form-control" id="type" required th:field="*{type}">
                             <option value="" hidden>กรุณาเลือก</option>

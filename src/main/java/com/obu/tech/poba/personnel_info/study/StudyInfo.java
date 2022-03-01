@@ -21,11 +21,11 @@ public class StudyInfo {
     @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า")
     public String prefix;
 
-    @Size(min = 1, max = 255, message = "โปรดป้อน ชื่อ (1 - 255)")
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-นามสกุล")
     public String name;
     public String surname;
 
-    @Size(min = 1, max = 255, message = "โปรดป้อน คำสั่งเดินทาง")
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล คำสั่งเดินทาง")
     public String travelOrder;
 
     @NotNull(message = "โปรดเลือก วันที่เริ่มต้น")
@@ -40,18 +40,18 @@ public class StudyInfo {
     public int totalMonth;
     public int totalDay;
 
-    @Size(min = 1, max = 255, message = "โปรดป้อน รายละเอียดกิจกรรม (1 - 255)")
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล รายละเอียดกิจกรรม")
     public String activityDetail;
 
-    @Size(min = 1, max = 255, message = "โปรดป้อน มหาวิทยาลัย/สถาบันที่ไป (1 - 255)")
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล มหาวิทยาลัย/สถาบันที่ไป")
     public String location;
 
     @Size(min = 1, max = 255, message = "โปรดเลือก ประเภท")
     public String locationType;
 
-    @Size(min = 1, max = 255, message = "โปรดป้อน ชื่อประเทศ (1 - 255)")
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อประเทศ")
     public String country;
 
-    @Size(min = 1, max = 255, message = "โปรดป้อน แหล่งทุน  (1 - 255)")
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล แหล่งทุน")
     public String fund;
 }
