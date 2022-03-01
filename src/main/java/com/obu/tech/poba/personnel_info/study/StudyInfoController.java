@@ -4,6 +4,7 @@ import com.obu.tech.poba.personnel_info.research.Researcher;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -47,9 +48,9 @@ public class StudyInfoController {
     @GetMapping(value = "/{id}/edit")
     public ModelAndView showEditView(@PathVariable String id) {
         ModelAndView view = new ModelAndView(FRAGMENT_STUDY_FORM);
-        view.addObject("user", "Ekamon");
         view.addObject("viewName", "แก้ไขข้อมูล");
         StudyInfo studyInfo = studyInfoService.findById(id);
+        studyInfo.setName(studyInfo.getName()+" "+studyInfo.getSurname());
         view.addObject("studyInfo",studyInfo);
         return view;
     }
@@ -65,10 +66,14 @@ public class StudyInfoController {
             throw new InvalidInputException(formAdd(studyInfo), bindingResult);
         }
         try {
-            String[] fullName = nameConverterUtils.fullNameToNameNSurname(studyInfo.getName());
-            studyInfo.setName(fullName[0]);
-            studyInfo.setSurname(fullName[1]);
-            return viewSuccess(studyInfoService.save(studyInfo));
+            if(!StringUtils.isBlank(studyInfo.getName())) {
+                String[] fullName = nameConverterUtils.fullNameToNameNSurname(studyInfo.getName());
+                studyInfo.setName(fullName[0]);
+                studyInfo.setSurname(fullName[1]);
+            }
+            StudyInfo studyInfoRes = studyInfoService.save(studyInfo);
+            studyInfoRes.setName(studyInfoRes.getName()+" "+studyInfoRes.getSurname());
+            return viewSuccess(studyInfoRes);
         }catch (Exception e){
             e.printStackTrace();
             log.error("{}: {}", e.getClass().getSimpleName(), e.getMessage());

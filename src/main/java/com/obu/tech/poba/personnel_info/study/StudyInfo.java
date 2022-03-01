@@ -1,12 +1,11 @@
 package com.obu.tech.poba.personnel_info.study;
 
-import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Getter
@@ -29,11 +28,11 @@ public class StudyInfo {
     @Size(min = 1, max = 255, message = "โปรดป้อน คำสั่งเดินทาง")
     public String travelOrder;
 
-    @NotNull
+    @NotNull(message = "โปรดเลือก วันที่เริ่มต้น")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate startDate;
 
-    @NotNull
+    @NotNull(message = "โปรดเลือก วันที่สิ้นสุด")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate endDate;
 
@@ -41,18 +40,18 @@ public class StudyInfo {
     public int totalMonth;
     public int totalDay;
 
-    @Size(min = 1, max = 255, message = "โปรดป้อน รายละเอียดกิจกรรม")
+    @Size(min = 1, max = 255, message = "โปรดป้อน รายละเอียดกิจกรรม (1 - 255)")
     public String activityDetail;
 
-    @Size(min = 1, max = 255, message = "โปรดป้อน รายละเอียดกิจกรรม")
+    @Size(min = 1, max = 255, message = "โปรดป้อน มหาวิทยาลัย/สถาบันที่ไป (1 - 255)")
     public String location;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า")
+    @Size(min = 1, max = 255, message = "โปรดเลือก ประเภท")
     public String locationType;
 
-    @Size(min = 1, max = 255, message = "โปรดป้อน ชื่อประเทศ")
+    @Size(min = 1, max = 255, message = "โปรดป้อน ชื่อประเทศ (1 - 255)")
     public String country;
 
-    @Size(min = 1, max = 255, message = "โปรดป้อน แหล่งทุน")
+    @Size(min = 1, max = 255, message = "โปรดป้อน แหล่งทุน  (1 - 255)")
     public String fund;
 }

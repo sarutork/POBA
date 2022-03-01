@@ -11,7 +11,7 @@
     </div>
 
     <div class="container px-3">
-        <th:block th:replace="~{fragments/alert}"/>
+        <th:block th:replace="~{fragments/input-errors}"/>
 
         <form id="form-study" class="form-wrapper">
             <input type="hidden" id="staffId" name="staffId" th:value="${studyInfo.staffId}"/>
@@ -27,7 +27,7 @@
             <div class="row mb-2">
                 <label for="name" class="form-control-label col-sm-3">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
-                       th:attr="value=${studyInfo.name != null}? |${studyInfo.name} ${studyInfo.surname}|: ''" required/>
+                       th:attr="value=${studyInfo.name != null && studyInfo.name != ''}? ${studyInfo.name} : ''" required/>
             </div>
             <div class="row mb-2">
                 <label for="travelOrder" class="form-control-label col-sm-3">คำสั่งเดินทาง<span style="color:red !important;">*</span>:</label>
