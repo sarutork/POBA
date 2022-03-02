@@ -38,9 +38,9 @@ function findTeachingInfo() {
     $('#table-teaching tbody').on('click', 'tr', function () {
             if(!$('#table-teaching tbody tr td').hasClass("dataTables_empty")){
                var data = tableTeaching.row( this ).data();
-                window.location.href = "/poba/teaching/"+data.staffId;
+                loadView('/poba/teaching/'+data.staffId);
             }
-        } );
+    } );
 }
 
 function submitTeachingInfo(){
@@ -53,16 +53,15 @@ function submitTeachingInfo(){
          type: type,
          url: "/poba/teaching/save",
          data: $("#form-teaching").serialize(),
-         success: function() {
-                //$("#noti-msg").text("บันทึกสำเร็จ");
-                var x = document.getElementById("noti-msg");
-                    x.style.display = "block";
-
-                window.scrollTo(0, 0);
-
-                setTimeout(function(){
-                    window.location.href = "/poba/teaching";
-                },2000);
+         success: function(data) {
+            setTimeout(function(){
+                loadView('/poba/teaching');
+            },3000);
+            window.scrollTo(0, 0);
+            $('.content-wrapper').html(data);
+         },
+         error: function (error) {
+            $('.content-wrapper').html(error.responseText);
          }
     });
 }

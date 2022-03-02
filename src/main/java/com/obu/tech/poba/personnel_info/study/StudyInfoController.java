@@ -1,6 +1,5 @@
 package com.obu.tech.poba.personnel_info.study;
 
-import com.obu.tech.poba.personnel_info.research.Researcher;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
@@ -81,7 +80,8 @@ public class StudyInfoController {
         }catch (Exception e){
             e.printStackTrace();
             log.error("{}: {}", e.getClass().getSimpleName(), e.getMessage());
-            return new ModelAndView(FRAGMENT_STUDY).addObject("responseMessage", "ไม่สำเร็จ");        }
+            return new ModelAndView(FRAGMENT_STUDY).addObject("responseMessage", "ไม่สำเร็จ");
+        }
     }
 
     private ModelAndView formAdd(StudyInfo data) {

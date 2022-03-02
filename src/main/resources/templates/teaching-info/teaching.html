@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
-<th:block layout:fragment="content">
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="teaching">
 
     <div id="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
             <li class="breadcrumb-item active"><span>ข้อมูลการสอน</span></li>
         </ol>
     </div>
 
     <div class="px-3">
+        <th:block th:replace="~{fragments/alert}"/>
+
         <form id="form-teaching" class="form-inline justify-content-end flex-md-row flex-column">
             <div class="form-group mb-3">
                 <label for="staffName" class="mr-1">ค้นหาข้อมูล:</label>
@@ -41,7 +40,8 @@
             </div>
             <div class="form-group mb-3">
                 <button type="button" class="btn btn-outline-poba mr-3" onclick="findTeachingInfo();">ค้นหา</button>
-                <a href="/poba/teaching/add" class="btn btn-poba">เพิ่มข้อมูล</a>            </div>
+                <a href="javascript:void(0)" onclick="loadView('/poba/teaching/add')" class="btn btn-poba">เพิ่มข้อมูล</a>
+            </div>
         </form>
 
         <div class="table table-responsive">
@@ -65,12 +65,6 @@
         </div>
 
     </div>
-
-    <script>
-        $(document).ready(function() {
-        });
-
-    </script>
 
 </th:block>
 </html>

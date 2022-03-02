@@ -1,6 +1,9 @@
 package com.obu.tech.poba.teaching_info;
 
 import com.obu.tech.poba.utils.NameConverterUtils;
+import com.obu.tech.poba.utils.exceptions.InvalidInputException;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -9,13 +12,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/teaching")
 public class TeachingController {
-    static final String VIEW_TEACHING_INFO = "teaching-info/teaching";
-    static final String VIEW_TEACHING_FORM = "teaching-info/teaching-form";
+    static final String FRAGMENT_TEACHING_INFO = "teaching-info/teaching :: teaching";
+    static final String FRAGMENT_TEACHING_FORM = "teaching-info/teaching-form :: teaching-form";
 
 
     @Autowired
@@ -25,54 +30,65 @@ public class TeachingController {
     private NameConverterUtils nameConverter;
 
     @GetMapping
-    public ModelAndView overview() {
-        ModelAndView view = new ModelAndView(VIEW_TEACHING_INFO);
-        view.addObject("user", "Ekamon");
-        return view;
-    }
+    public ModelAndView showListView() {return new ModelAndView(FRAGMENT_TEACHING_INFO);}
+
     @GetMapping("/search")
     public ResponseEntity<List<Teaching>> search(@ModelAttribute Teaching teaching) {
         return ResponseEntity.ok().body(teachingService.findBySearchCriteria(teaching));
     }
 
     @GetMapping("/add")
-    public ModelAndView add() {
-        ModelAndView view = new ModelAndView(VIEW_TEACHING_FORM);
-        view.addObject("user", "Ekamon");
-        view.addObject("viewName", "เพิ่มข้อมูล");
-        Teaching teaching = new Teaching();
-        view.addObject("teaching", teaching);
-        return view;
-    }
+    public ModelAndView add() {return formAdd(new Teaching());}
 
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView save(Teaching teaching, BindingResult bindingResult) {
-        ModelAndView view = new ModelAndView(VIEW_TEACHING_INFO);
-        view.addObject("user", "Ekamon");
+    public ModelAndView save(@ModelAttribute("teaching") @Valid Teaching teaching, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            //TODO: Handle error
-            System.out.println("Error: "+bindingResult.getAllErrors());
-            return view;
+            throw new InvalidInputException(formAdd(teaching), bindingResult);
         }
+        try{
+            if(!StringUtils.isBlank(teaching.getName())) {
+                String[] fullName = nameConverter.fullNameToNameNSurname(teaching.getName());
+                teaching.setName(fullName[0]);
+                teaching.setSurname(fullName[1]);
+            }
 
-        String[] fullName = nameConverter.fullNameToNameNSurname(teaching.getName());
-        teaching.setName(fullName[0]);
-        teaching.setSurname(fullName[1]);
-        //TODO: Handle error
-        teachingService.save(teaching);
+            Teaching teachingRes = teachingService.save(teaching);
+            teachingRes.setName(teachingRes.getName()+" "+teachingRes.getSurname());
 
-        return view;
+            return viewSuccess(teachingRes);
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("{}: {}", e.getClass().getSimpleName(), e.getMessage());
+            return new ModelAndView(FRAGMENT_TEACHING_INFO).addObject("responseMessage", "ไม่สำเร็จ");
+        }
     }
 
     @GetMapping(value = "/{id}")
     public ModelAndView showTeachingInfo(@PathVariable String id){
-        System.out.println("View teaching info, id: " + id);
-        ModelAndView view = new ModelAndView(VIEW_TEACHING_FORM);
-        view.addObject("user", "Ekamon");
-        view.addObject("viewName", "ดูข้อมูล");
-
         Teaching teaching = teachingService.findById(id);
-        view.addObject("teaching",teaching);
-        return view;
+        teaching.setName(teaching.getName()+" "+teaching.getSurname());
+        return view(teaching);
+    }
+
+    private ModelAndView formAdd(Teaching data) {
+        return form(data).addObject("viewName", "เพิ่มข้อมูล");
+    }
+
+    private ModelAndView form(Teaching data) {
+        return new ModelAndView(FRAGMENT_TEACHING_FORM).addObject("teaching", data);
+    }
+
+    private ModelAndView viewSuccess(Teaching data) {
+        return view(data)
+                .addObject("viewName", "ดูข้อมูล")
+                .addObject("responseMessage", "บันทึกสำเร็จ")
+                .addObject("success", true) // success green, else red
+                .addObject("timeout", true) // redirect after delay
+                ;
+    }
+
+    private ModelAndView view(Teaching data) {
+        return new ModelAndView(FRAGMENT_TEACHING_FORM).addObject("viewName", "ดูข้อมูล")
+                                                       .addObject("teaching", data);
     }
 }
