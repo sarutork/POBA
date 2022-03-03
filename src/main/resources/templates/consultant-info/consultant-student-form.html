@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
-<th:block layout:fragment="content">
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="consultant-student-form">
 
     <div id="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
-            <li class="breadcrumb-item"><a href="/poba/consultant/students">ข้อมูลที่ปรึกษาระดับปริญญา ตรี โท เอก</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/consultant/students')">ข้อมูลที่ปรึกษาระดับปริญญา ตรี โท เอก</a></li>
             <li class="breadcrumb-item active"><span id="viewName" th:text="${viewName}"></span></li>
         </ol>
     </div>
@@ -20,6 +17,9 @@
                   display:none;"><h4 style="color:white">บันทึกสำเร็จ</h4></div>
 
     <div class="container px-3">
+        <th:block th:replace="~{fragments/input-errors}"/>
+        <th:block th:replace="~{fragments/alert}"/>
+
         <form id="form-consultant-student">
             <input type="hidden" id="staffId" name="staffId" th:value="${consultantStudent.staffId}"/>
             <div class="row col-sm-12 mb-2">

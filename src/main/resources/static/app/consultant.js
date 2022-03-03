@@ -135,17 +135,9 @@ function findSumConsultant(){
         $('#table-sum-consultant tbody').on('click', 'tr', function () {
                 if(!$('#table-sum-consultant tbody tr td').hasClass("dataTables_empty")){
                    var data = tableSumConsultant.row( this ).data();
-                    $("#prefix").val(data.prefix !=null ? data.prefix : data.prefixOther);
-                    $("#name").val(data.name);
-                    $("#surname").val(data.surname);
-                    $("#countStudent").val(data.countStudent);
-                    $("#department").val(data.department);
-                    $("#yearOfStudy").val(data.yearOfStudy);
-                    $("#studentsLevel").val(data.studentsLevel);
-                    $("#course").val(data.course);
 
-                    $("#consult-std-sum-cst").attr("action","/poba/consultant/students/search/sum/consultant/detail");
-                    $("#consult-std-sum-cst").submit();
+                    loadView('/poba/consultant/students/search/sum/consultant/detail/'+data.name+'/'+data.surname);
+
                 }
             } );
 }

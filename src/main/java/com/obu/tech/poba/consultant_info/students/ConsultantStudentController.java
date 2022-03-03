@@ -1,5 +1,6 @@
 package com.obu.tech.poba.consultant_info.students;
 
+import com.obu.tech.poba.teaching_info.Teaching;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +14,17 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/consultant/students")
 public class ConsultantStudentController {
 
-    static final String VIEW_CONSULTANT_STUDENTS = "consultant-info/consultant-student";
-    static final String VIEW_CONSULTANT_STUDENTS_FORM = "consultant-info/consultant-student-form";
-    static final String VIEW_CONSULTANT_STUDENTS_FORM_SUM_CST = "consultant-info/consultant-std-sum-cst";
-    static final String VIEW_CONSULTANT_STUDENTS_FORM_SUM_CST_DTL = "consultant-info/consultant-std-sum-cst-detail";
-    static final String VIEW_CONSULTANT_STUDENTS_FORM_SUM_YEARLY = "consultant-info/consultant-std-sum-yearly";
+    static final String FRAGMENT_CONSULTANT_STUDENTS = "consultant-info/consultant-student :: consultant-student";
+    static final String FRAGMENT_CONSULTANT_STUDENTS_FORM = "consultant-info/consultant-student-form :: consultant-student-form";
+    static final String FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_CST = "consultant-info/consultant-std-sum-cst :: consultant-std-sum-cst";
+    static final String  FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_CST_DTL = "consultant-info/consultant-std-sum-cst-detail :: consultant-std-sum-cst-detail";
+    static final String FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_YEARLY = "consultant-info/consultant-std-sum-yearly :: consultant-std-sum-yearly";
 
 
     @Autowired
@@ -32,47 +34,41 @@ public class ConsultantStudentController {
     private NameConverterUtils nameConverterUtils;
 
     @GetMapping
-    public ModelAndView overview() {
-        ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS);
-        view.addObject("user", "Ekamon");
-        return view;
-    }
+    public ModelAndView showListView() {return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS);}
+
     @GetMapping("/search")
     public ResponseEntity<List<ConsultantStudent>> search(@ModelAttribute ConsultantStudent consultantStudent) {
         return ResponseEntity.ok().body(consultantStudentService.findBySearchCriteria(consultantStudent));
     }
 
     @GetMapping("/add")
-    public ModelAndView add() {
-        ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS_FORM);
-        view.addObject("user", "Ekamon");
-        view.addObject("viewName", "เพิ่มข้อมูล");
-        ConsultantStudent consultantStudent = new ConsultantStudent();
-        view.addObject("consultantStudent", consultantStudent);
-        return view;
-    }
+    public ModelAndView add() {return formAdd(new ConsultantStudent());}
 
     @GetMapping("/sum/consultant")
     public ModelAndView sumConsultant() {
-        ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS_FORM_SUM_CST);
-        view.addObject("user", "Ekamon");
+        ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_CST);
         view.addObject("viewName", "สรุปข้อมูลรายที่ปรึกษา");
         return view;
     }
 
     @GetMapping("/search/sum/consultant")
-    public ResponseEntity<List<ConsultantStudentReportDto>> searchSumConsultant(@ModelAttribute ConsultantStudentReportDto consultantStudentReportDto) {
-        return ResponseEntity.ok().body(consultantStudentService.findConsultantSummaryReport(consultantStudentReportDto));
+    public ResponseEntity<List<ConsultantStudentReportDto>> searchSumConsultant(@ModelAttribute ConsultantStudentReportDto consultantStudentReportDto, HttpSession session) {
+        List<ConsultantStudentReportDto> ctsList = consultantStudentService.findConsultantSummaryReport(consultantStudentReportDto);
+        session.setAttribute("cstlist",ctsList);
+        return ResponseEntity.ok().body(ctsList);
     }
 
-    @GetMapping("/search/sum/consultant/detail")
-    public ModelAndView sumConsultant(@ModelAttribute ConsultantStudentReportDto consultantStudentReportDto, HttpSession session) {
-        ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS_FORM_SUM_CST_DTL);
-        view.addObject("user", "Ekamon");
-        view.addObject("viewName", "ดูข้อมูล");
-        view.addObject("cstDetail",consultantStudentReportDto);
-        session.setAttribute("cstDetail",consultantStudentReportDto);
+    @GetMapping("/search/sum/consultant/detail/{name}/{surname}")
+    public ModelAndView sumConsultant(@PathVariable("name") String name, @PathVariable("surname") String surname, HttpSession session) {
 
+        ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_CST_DTL);
+        List<ConsultantStudentReportDto> cstlist = (List<ConsultantStudentReportDto>) session.getAttribute("cstlist");
+        Optional<ConsultantStudentReportDto> consultantStudentReportDto = cstlist.stream()
+                .filter(o -> o.getName().equals(name) && o.getSurname().equals(surname)).findFirst();
+
+        view.addObject("viewName", "ดูข้อมูล");
+        view.addObject("cstDetail",consultantStudentReportDto.get());
+        session.setAttribute("cstDetail",consultantStudentReportDto.get());
         return view;
     }
 
@@ -84,19 +80,17 @@ public class ConsultantStudentController {
 
     @GetMapping("/sum/yearly")
     public ModelAndView sumYearly() {
-        ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS_FORM_SUM_YEARLY);
-        view.addObject("user", "Ekamon");
-        view.addObject("viewName", "สรุปข้อมูลรายปี");
+        ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_YEARLY);
         ConsultantStudent consultantStudent = new ConsultantStudent();
+        view.addObject("viewName", "สรุปข้อมูลรายปี");
         view.addObject("consultantStudent", consultantStudent);
         return view;
     }
     @GetMapping("/search/yearly-report")
     public ResponseEntity<List<ConsultantDto>> yearlyReport(@ModelAttribute ConsultantDto consultantDto) {
-        ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS_FORM_SUM_YEARLY);
-        view.addObject("user", "Ekamon");
-        view.addObject("viewName", "สรุปข้อมูลรายปี");
+        ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_YEARLY);
         ConsultantStudent consultantStudent = new ConsultantStudent();
+        view.addObject("viewName", "สรุปข้อมูลรายปี");
         view.addObject("consultantStudent", consultantStudent);
         int yearStart = Integer.parseInt(consultantDto.getYearStart());
         int yearEnd = Integer.parseInt(consultantDto.getYearEnd());
@@ -140,7 +134,7 @@ public class ConsultantStudentController {
 
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ModelAndView save(ConsultantStudent consultantStudent, BindingResult bindingResult) {
-        ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS);
+        ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS);
         view.addObject("user", "Ekamon");
         if (bindingResult.hasErrors()) {
             //TODO: Handle error
@@ -164,12 +158,34 @@ public class ConsultantStudentController {
     @GetMapping(value = "/{id}")
     public ModelAndView showTeachingInfo(@PathVariable String id){
         System.out.println("View teaching info, id: " + id);
-        ModelAndView view = new ModelAndView(VIEW_CONSULTANT_STUDENTS_FORM);
+        ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM);
         view.addObject("user", "Ekamon");
         view.addObject("viewName", "ดูข้อมูล");
 
         ConsultantStudent teaching = consultantStudentService.findById(id);
         view.addObject("consultantStudent",teaching);
         return view;
+    }
+
+    private ModelAndView formAdd(ConsultantStudent data) {
+        return form(data).addObject("viewName", "เพิ่มข้อมูล");
+    }
+
+    private ModelAndView form(ConsultantStudent data) {
+        return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM).addObject("consultantStudent", data);
+    }
+
+    private ModelAndView viewSuccess(ConsultantStudent data) {
+        return view(data)
+                .addObject("viewName", "ดูข้อมูล")
+                .addObject("responseMessage", "บันทึกสำเร็จ")
+                .addObject("success", true) // success green, else red
+                .addObject("timeout", true) // redirect after delay
+                ;
+    }
+
+    private ModelAndView view(ConsultantStudent data) {
+        return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM).addObject("viewName", "ดูข้อมูล")
+                .addObject("consultantStudent", data);
     }
 }

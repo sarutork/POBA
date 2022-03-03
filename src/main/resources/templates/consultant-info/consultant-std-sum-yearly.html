@@ -1,23 +1,22 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
-<th:block layout:fragment="content">
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="consultant-std-sum-yearly">
 
     <div id="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
-            <li class="breadcrumb-item"><a href="/poba/consultant/students">ข้อมูลที่ปรึกษาระดับปริญญา ตรี โท เอก</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/consultant/students')">ข้อมูลที่ปรึกษาระดับปริญญา ตรี โท เอก</a></li>
             <li class="breadcrumb-item active"><span id="viewName" th:text="${viewName}"></span></li>
         </ol>
     </div>
 
-    <div id="msgAlertDiv" class ="alert alert-dismissible alert-danger d-none">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <span id="msgAlert"></span>
-    </div>
+
     <div class="px-3">
+        <div id="msgAlertDiv" class ="alert alert-dismissible alert-danger d-none">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <span id="msgAlert"></span>
+        </div>
+        <th:block th:replace="~{fragments/alert}"/>
         <form id="consult-std-yearly-report" class="mb-4">
 
             <div class="row mb-2">
@@ -108,15 +107,9 @@
             </table>
         </div>
         <div class="row mb-5" style="justify-content: center;">
-            <a href="/poba/consultant/students" class="btn btn-poba">กลับ</a>
+            <a href="javascript:void(0)" onclick="loadView('/poba/consultant/students')" class="btn btn-poba">กลับ</a>
         </div>
 
     </div>
-
-    <script>
-        $(document).ready(function() {
-        });
-
-    </script>
 </th:block>
 </html>
