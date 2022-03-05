@@ -1,7 +1,9 @@
 package com.obu.tech.poba.consultant_info.students;
 
-import com.obu.tech.poba.teaching_info.Teaching;
 import com.obu.tech.poba.utils.NameConverterUtils;
+import com.obu.tech.poba.utils.exceptions.InvalidInputException;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -12,10 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Slf4j
 @Controller
 @RequestMapping("/consultant/students")
 public class ConsultantStudentController {
@@ -133,36 +136,45 @@ public class ConsultantStudentController {
     }
 
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView save(ConsultantStudent consultantStudent, BindingResult bindingResult) {
-        ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS);
-        view.addObject("user", "Ekamon");
+    public ModelAndView save(@ModelAttribute("consultantStudent") @Valid ConsultantStudent consultantStudent, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            //TODO: Handle error
-            System.out.println("Error: "+bindingResult.getAllErrors());
-            return view;
+            throw new InvalidInputException(formAdd(consultantStudent), bindingResult);
         }
-        String[] fullName = nameConverterUtils.fullNameToNameNSurname(consultantStudent.getName());
-        consultantStudent.setName(fullName[0]);
-        consultantStudent.setSurname(fullName[1]);
+        try {
+            if(!StringUtils.isBlank(consultantStudent.getName())) {
+                String[] fullName = nameConverterUtils.fullNameToNameNSurname(consultantStudent.getName());
+                consultantStudent.setName(fullName[0]);
+                consultantStudent.setSurname(fullName[1]);
+            }
 
-        String[] stdFullName = nameConverterUtils.fullNameToNameNSurname(consultantStudent.getStudentName());
-        consultantStudent.setStudentName(stdFullName[0]);
-        consultantStudent.setStudentSurname(stdFullName[1]);
+            if(!StringUtils.isBlank(consultantStudent.getStudentName())) {
+                String[] stdFullName = nameConverterUtils.fullNameToNameNSurname(consultantStudent.getStudentName());
+                consultantStudent.setStudentName(stdFullName[0]);
+                consultantStudent.setStudentSurname(stdFullName[1]);
+            }
 
-        //TODO: Handle error
-        consultantStudentService.save(consultantStudent);
+            ConsultantStudent consultantStudentRes = consultantStudentService.save(consultantStudent);
+            consultantStudentRes.setName(consultantStudentRes.getName()+" "+consultantStudentRes.getSurname());
+            consultantStudentRes.setStudentName(consultantStudentRes.getStudentName()+" "+consultantStudentRes.getStudentSurname());
 
-        return view;
+            return viewSuccess(consultantStudentRes);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("{}: {}", e.getClass().getSimpleName(), e.getMessage());
+            return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS).addObject("responseMessage", "ไม่สำเร็จ");
+
+        }
     }
 
     @GetMapping(value = "/{id}")
     public ModelAndView showTeachingInfo(@PathVariable String id){
-        System.out.println("View teaching info, id: " + id);
         ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM);
-        view.addObject("user", "Ekamon");
         view.addObject("viewName", "ดูข้อมูล");
 
         ConsultantStudent teaching = consultantStudentService.findById(id);
+        teaching.setName(teaching.getName()+" "+teaching.getSurname());
+        teaching.setStudentName(teaching.getStudentName()+" "+teaching.getStudentSurname());
         view.addObject("consultantStudent",teaching);
         return view;
     }

@@ -49,7 +49,7 @@ function findConsultantStudent() {
     $('#table-consultant-student tbody').on('click', 'tr', function () {
             if(!$('#table-consultant-student tbody tr td').hasClass("dataTables_empty")){
                var data = tableConsultantStudent.row( this ).data();
-                window.location.href = "/poba/consultant/students/"+data.staffId;
+                loadView('/poba/consultant/students/'+data.staffId);
             }
         } );
 }
@@ -64,13 +64,15 @@ function submitConsultantStudent(){
          type: type,
          url: "/poba/consultant/students/save",
          data: $("#form-consultant-student").serialize(),
-         success: function() {
-                //$("#noti-msg").text("บันทึกสำเร็จ");
-                var x = document.getElementById("noti-msg");
-                    x.style.display = "block";
-                setTimeout(function(){
-                    window.location.href = "/poba/consultant/students";
-                },2000);
+         success: function(data) {
+                 setTimeout(function(){
+                     loadView('/poba/consultant/students');
+             },3000);
+                 window.scrollTo(0, 0);
+                 $('.content-wrapper').html(data);
+            },
+                error: function (error) {
+                 $('.content-wrapper').html(error.responseText);
          }
     });
 }
