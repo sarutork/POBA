@@ -5,10 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Getter
@@ -24,7 +21,7 @@ public class Teaching {
     @Size(min = 1, max = 255, message = "โปรดเลือก ปีการศึกษา")
     public String studyYear;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก ภาคการศึกษา")
+    @NotBlank(message = "โปรดเลือก ภาคการศึกษา")
     public String semester;
 
     @Size(min = 1, max = 255, message = "โปรดเลือก ระบบ")

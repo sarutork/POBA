@@ -31,6 +31,14 @@ function findTeachingInfo() {
                        },
                targets: 1,
             },
+            {
+               render: function (data, type, row) {
+                   var semester = row["semester"];
+                   const semesterArray = semester.split(":");
+                   return semesterArray[1]
+                   },
+               targets: 3,
+            },
         ],
         searching: false,
         "bDestroy": true
@@ -44,6 +52,11 @@ function findTeachingInfo() {
 }
 
 function submitTeachingInfo(){
+   var semester = $("#semester").val();
+   const semesterArray = semester.split(":");
+   if (semesterArray[1] == "กรุณาเลือก"){
+        $("#semester").val("");
+   }
     var type = "POST";
     var staffId = $("#staffId").val();
     if (staffId != null &&  staffId != 0 ){
@@ -68,6 +81,8 @@ function submitTeachingInfo(){
 
 function editTeachingInfo(){
     $(":input").prop("disabled", false);
+
+    $("#studyType").trigger("change");
 
     $("#submit").removeClass("d-none");
     $("#submit").addClass("d-block");

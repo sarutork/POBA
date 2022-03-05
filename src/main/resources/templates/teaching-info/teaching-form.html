@@ -84,31 +84,34 @@
                 <label><b>ข้อมูลการสอน</b></label>
             </div>
             <div class="row mb-2">
-                <label for="studyYear" class="form-control-label col-sm-2">ปีการศึกษา<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="studyYear" name="studyYear" required>
-                    <option value="">กรุณาเลือก</option>
-                    <option value="2565" th:selected="${teaching.studyYear == '2565'}? 'selected'">2565</option>
-                    <option value="2564" th:selected="${teaching.studyYear == '2564'}? 'selected'">2564</option>
-                    <option value="2563" th:selected="${teaching.studyYear == '2563'}? 'selected'">2563</option>
-                </select>
-                <label for="semester" class="form-control-label col-sm-2">ภาคการศึกษา<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="semester" name="semester" required>
-                    <option value="">กรุณาเลือก</option>
-                    <option value="ภาคการศึกษาต้น" th:selected="${teaching.semester == 'ภาคการศึกษาต้น'}? 'selected'">ภาคการศึกษาต้น</option>
-                    <option value="ภาคการศึกษาปลาย" th:selected="${teaching.semester == 'ภาคการศึกษาปลาย'}? 'selected'">ภาคการศึกษาปลาย</option>
-                    <option value="ภาคฤดูร้อน" th:selected="${teaching.semester == 'ภาคฤดูร้อน'}? 'selected'">ภาคฤดูร้อน</option>
-                    <option value="ภาคการศึกษาที่ 1" th:selected="${teaching.semester == 'ภาคการศึกษาที่ 1'}? 'selected'">ภาคการศึกษาที่ 1</option>
-                    <option value="ภาคการศึกษาที่ 2" th:selected="${teaching.semester == 'ภาคการศึกษาที่ 2'}? 'selected'">ภาคการศึกษาที่ 2</option>
-                    <option value="ภาคการศึกษาที่ 3" th:selected="${teaching.semester == 'ภาคการศึกษาที่ 3'}? 'selected'">ภาคการศึกษาที่ 3</option>
-                </select>
-            </div>
-            <div class="row mb-2">
                 <label for="studyType" class="form-control-label col-sm-2">ระบบ<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="studyType" name="studyType" required>
                     <option value="">กรุณาเลือก</option>
                     <option value="ตรีภาค" th:selected="${teaching.studyType == 'ตรีภาค'}? 'selected'">ตรีภาค</option>
                     <option value="ทวิภาค" th:selected="${teaching.studyType == 'ทวิภาค'}? 'selected'">ทวิภาค</option>
                     <option value="ทวิภาค-นานาชาติ" th:selected="${teaching.studyType == 'ทวิภาค-นานาชาติ'}? 'selected'">ทวิภาค-นานาชาติ</option>
+                </select>
+
+                <label for="semester" class="form-control-label col-sm-2">ภาคการศึกษา<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="form-control bg-white col-sm-4" id="semester" name="semester" disabled required>
+                    <option value="ทวิภาค:กรุณาเลือก" th:selected="${teaching.semester == 'ทวิภาค:กรุณาเลือก'}? 'selected'">กรุณาเลือก</option>
+                    <option value="ทวิภาค:ภาคการศึกษาต้น" th:selected="${teaching.semester == 'ทวิภาค:ภาคการศึกษาต้น'}? 'selected'">ภาคการศึกษาต้น</option>
+                    <option value="ทวิภาค:ภาคการศึกษาปลาย" th:selected="${teaching.semester == 'ทวิภาค:ภาคการศึกษาปลาย'}? 'selected'">ภาคการศึกษาปลาย</option>
+                    <option value="ทวิภาค:ภาคฤดูร้อน" th:selected="${teaching.semester == 'ทวิภาค:ภาคฤดูร้อน'}? 'selected'">ภาคฤดูร้อน</option>
+
+                    <option value="ตรีภาค:กรุณาเลือก" th:selected="${teaching.semester == 'ตรีภาค:กรุณาเลือก'}? 'selected'">กรุณาเลือก</option>
+                    <option value="ตรีภาค:ภาคการศึกษาที่ 1" th:selected="${teaching.semester == 'ตรีภาค:ภาคการศึกษาที่ 1'}? 'selected'">ภาคการศึกษาที่ 1</option>
+                    <option value="ตรีภาค:ภาคการศึกษาที่ 2" th:selected="${teaching.semester == 'ตรีภาค:ภาคการศึกษาที่ 2'}? 'selected'">ภาคการศึกษาที่ 2</option>
+                    <option value="ตรีภาค:ภาคการศึกษาที่ 3" th:selected="${teaching.semester == 'ตรีภาค:ภาคการศึกษาที่ 3'}? 'selected'">ภาคการศึกษาที่ 3</option>
+                </select>
+            </div>
+            <div class="row mb-2">
+                <label for="studyYear" class="form-control-label col-sm-2">ปีการศึกษา<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="form-control bg-white col-sm-4" id="studyYear" name="studyYear" required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="2565" th:selected="${teaching.studyYear == '2565'}? 'selected'">2565</option>
+                    <option value="2564" th:selected="${teaching.studyYear == '2564'}? 'selected'">2564</option>
+                    <option value="2563" th:selected="${teaching.studyYear == '2563'}? 'selected'">2563</option>
                 </select>
                 <label for="subjectId" class="form-control-label col-sm-2">รหัสวิชา<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="subjectId" name="subjectId"
@@ -284,6 +287,22 @@
 
                 $("#teachLocationOtherTmp").removeClass("d-none");
                 $("#teachLocationOtherTmp").addClass("d-block");
+            }
+        });
+
+        var options = $("#semester").html();
+        $("#studyType").change(function(e) {
+            $("#semester").prop("disabled", false);
+            var text = $("#studyType :selected").text();
+            $("#semester").html(options);
+            if(text == "ตรีภาค"){
+                $('#semester :not([value^="ตรีภาค"])').remove();
+            }else if(text == "ทวิภาค"){
+                $('#semester :not([value^="ทวิภาค"])').remove();
+            }else if(text == "ทวิภาค-นานาชาติ"){
+                $('#semester :not([value^="ทวิภาค"])').remove();
+            }if(text == "กรุณาเลือก"){
+                $("#semester").prop("disabled", true);
             }
         });
     </script>
