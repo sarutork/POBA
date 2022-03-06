@@ -1,23 +1,21 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
-<th:block layout:fragment="content">
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="reward-view">
 
     <div id="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
-            <li class="breadcrumb-item"><a href="/poba/rewards">ข้อมูลการรับรางวัล</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/rewards')">ข้อมูลการรับรางวัล</a></li>
             <li class="breadcrumb-item active"><span>ดูข้อมูล</span></li>
         </ol>
     </div>
 
     <div class="container px-3">
+        <th:block th:replace="~{fragments/alert}"/>
         <form id="form-study-view">
             <div class="row">
                 <label for="name" class="form-control-label col-sm-3">ชื่อ-นามสกุล:</label>
-                <input type="text" class="form-control bg-white col-sm-6" id="name" name="name" th:value="|${reward.prefix} ${reward.name} ${reward.surname}|" readonly>
+                <input type="text" class="form-control bg-white col-sm-6" id="name" name="name" th:value="|${reward.prefix} ${reward.name}|" readonly>
             </div>
             <div class="row">
                 <label for="rewardType" class="form-control-label col-sm-3">ประเภทรางวัล:</label>
@@ -44,16 +42,16 @@
                 <input type="text" class="form-control bg-white col-sm-6" id="rewardLevel" name="rewardLevel" th:value="${reward.rewardLevel}" readonly>
             </div>
             <div class="row justify-content-center mt-5">
-                <a href="/poba/rewards" class="btn btn-poba mr-3">กลับ</a>
-                <a th:href="|/poba/rewards/${reward.staffId}/edit|" class="btn btn-outline-poba">แก้ไข</a>
+                <a href="javascript:void(0)" onclick="loadView('/poba/rewards')" class="btn btn-poba mr-3">กลับ</a>
+                <a href="javascript:void(0)" th:onclick="|loadView('/poba/rewards/${reward.staffId}/edit')|" class="btn btn-outline-poba">แก้ไข</a>
             </div>
         </form>
     </div>
 
-    <script>
-        $(document).ready(function() {
-
-        });
+    <script th:if="${timeout}">
+        window.setTimeout(function() {
+            loadView('/poba/rewards');
+        }, 3000);
     </script>
 
 </th:block>

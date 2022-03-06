@@ -38,7 +38,7 @@ function findRewardInfo() {
     $('#table-reward tbody').on('click', 'tr', function () {
             if(!$('#table-reward tbody tr td').hasClass("dataTables_empty")){
                var data = tableReward.row( this ).data();
-                window.location.href = "/poba/rewards/"+data.staffId;
+                 loadView('/poba/rewards/'+data.staffId);
             }
         } );
 }
@@ -53,16 +53,11 @@ function submitRewardInfo(){
          type: type,
          url: "/poba/rewards/save",
          data: $("#form-reward").serialize(),
-         success: function() {
-                //$("#noti-msg").text("บันทึกสำเร็จ");
-                var x = document.getElementById("noti-msg");
-                    x.style.display = "block";
-
-                window.scrollTo(0, 0);
-
-                setTimeout(function(){
-                    window.location.href = "/poba/rewards";
-                },2000);
+         success: function(data) {
+                $('.content-wrapper').html(data);
+            },
+         error: function (error) {
+            $('.content-wrapper').html(error.responseText);
          }
     });
 }
