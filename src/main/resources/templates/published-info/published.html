@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
-<th:block layout:fragment="content">
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="published">
 
     <div id="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
             <li class="breadcrumb-item active"><span>ข้อมูลการเผยแพร่บทความ</span></li>
         </ol>
     </div>
 
     <div class="px-3">
+        <th:block th:replace="~{fragments/alert}"/>
         <form id="form-published" class="mb-5">
             <div class="d-flex flex-xl-row flex-column">
                 <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
@@ -30,7 +28,7 @@
                 </div>
                 <div class="pl-xl-3 d-inline-flex justify-content-end">
                     <button type="button" class="btn btn-outline-poba mr-3" onclick="findPublished()">ค้นหา</button>
-                    <a class="btn btn-poba" href="/poba/published/add" >เพิ่มข้อมูล</a>
+                    <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/published/add')" >เพิ่มข้อมูล</a>
                 </div>
             </div>
         </form>

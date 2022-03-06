@@ -47,7 +47,7 @@ function findPublished() {
     $('#table-published tbody').on('click', 'tr', function () {
             if(!$('#table-published tbody tr td').hasClass("dataTables_empty")){
                var data = tablePublished.row( this ).data();
-                window.location.href = "/poba/published/"+data.publishedId;
+               loadView('/poba/published/'+data.publishedId);
             }
         } );
 }
@@ -61,16 +61,15 @@ function submitPublishedInfo(){
          type: type,
          url: "/poba/published/save",
          data: $("#form-published").serialize(),
-         success: function() {
-                //$("#noti-msg").text("บันทึกสำเร็จ");
-                var x = document.getElementById("noti-msg");
-                    x.style.display = "block";
-
-                window.scrollTo(0, 0);
-
-                setTimeout(function(){
-                    window.location.href = "/poba/published";
-                },2000);
+         success: function(data) {
+             setTimeout(function(){
+                 loadView('/poba/published');
+             },3000);
+             window.scrollTo(0, 0);
+             $('.content-wrapper').html(data);
+         },
+         error: function (error) {
+             $('.content-wrapper').html(error.responseText);
          }
     });
 }
