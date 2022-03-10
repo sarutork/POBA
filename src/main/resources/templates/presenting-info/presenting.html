@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="presenting">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item active"><span>ข้อมูลการเสนอผลงาน</span></li>
+        </ol>
+    </div>
+
+    <div class="px-3">
+        <th:block th:replace="~{fragments/alert}"/>
+
+        <form id="form-teaching" class="form-inline justify-content-end flex-md-row flex-column">
+            <div class="form-group mb-3">
+                <label for="name" class="mr-1">ค้นหาข้อมูล:</label>
+                <input type="text" class="form-control bg-white mr-3" id="name">
+            </div>
+            <div class="form-group mb-3">
+                <label for="presentLevel" class="mr-1">ระดับ:</label>
+                <select type="text" class="form-control bg-white mr-3" id="presentLevel" name="presentLevel">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ระดับชาติ">ระดับชาติ</option>
+                    <option value="ระดับนานาชาติ">ระดับนานาชาติ</option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <button type="button" class="btn btn-outline-poba mr-3" onclick="findPresentingInfo();">ค้นหา</button>
+                <a href="javascript:void(0)" onclick="loadView('/poba/presenting/add')" class="btn btn-poba">เพิ่มข้อมูล</a>
+            </div>
+        </form>
+
+        <div class="table table-responsive">
+            <table id="table-presenting" class="display" width="100%">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ข้อมูลอาจารย์</th>
+                    <th>หัวข้อเรื่อง</th>
+                    <th>ระดับ</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="4" class="dataTables_empty text-center bg-secondary">ข้อมูลการเสนอผลงาน</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</th:block>
+</html>

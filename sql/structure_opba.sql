@@ -187,9 +187,9 @@ CREATE TABLE IF NOT EXISTS `mgmt_position` (
 -- Dumping structure for table poba.present_work
 DROP TABLE IF EXISTS `present_work`;
 CREATE TABLE IF NOT EXISTS `present_work` (
-  `staff_id` int(11) NOT NULL,
-  `present_id` int(11) NOT NULL,
+  `present_id` int(11) NOT NULL AUTO_INCREMENT,
   `prefix` varchar(255) NOT NULL,
+  `prefix_other` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   `present_topic` varchar(255) NOT NULL,
@@ -197,9 +197,10 @@ CREATE TABLE IF NOT EXISTS `present_work` (
   `present_institution` varchar(255) NOT NULL,
   `present_fund` varchar(255) NOT NULL,
   `present_amount` int(11) NOT NULL,
-  `present_date` datetime NOT NULL,
+  `present_date_start` date NOT NULL,
+   `present_date_end` date NOT NULL,
   `present_level` varchar(255) NOT NULL,
-  PRIMARY KEY (`staff_id`,`present_id`)
+  PRIMARY KEY (`present_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
