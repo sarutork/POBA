@@ -500,26 +500,29 @@ CREATE TABLE IF NOT EXISTS `teach_info` (
 -- Dumping structure for table poba.textbook
 DROP TABLE IF EXISTS `textbook`;
 CREATE TABLE IF NOT EXISTS `textbook` (
-  `staff_id` int(11) NOT NULL,
-  `textbook_id` int(11) NOT NULL,
+  `textbook_id` int(11) NOT NULL AUTO_INCREMENT,
   `prefix` varchar(255) NOT NULL,
+  `prefix_other` varchar(255) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   `textbook_type` varchar(255) NOT NULL,
   `textbook_announce` varchar(255) NOT NULL,
+  `textbook_contract` varchar(255) NOT NULL,
   `textbook_topic` varchar(255) NOT NULL,
-  `textbook_fund` int(11) NOT NULL,
-  `textbook_amount` int(11) NOT NULL,
+  `textbook_fund` varchar(255) NOT NULL,
   `textbook_phase` int(11) NOT NULL,
-  `textbook_withdraw` varchar(255) NOT NULL,
-  `textbook_date` datetime NOT NULL,
-  `textbook_extend_date` datetime NOT NULL,
+  `textbook_amount` int(11) NOT NULL,
+  `textbook_amount_total` int(11) NOT NULL,
+  `textbook_withdraw` date NOT NULL,
+  `textbook_date_from` date NOT NULL,
+  `textbook_date_to` date NOT NULL,
+  `textbook_extend_date` date NOT NULL,
   `textbook_status` varchar(255) NOT NULL,
   `textbook_pb_type` varchar(255) NOT NULL,
   `textbook_issue` varchar(255) NOT NULL,
   `textbook_year` varchar(255) NOT NULL,
   `textbook_diff_text` varchar(255) NOT NULL,
-  `textbook_intitution` varchar(255) NOT NULL,
+  `textbook_institution` varchar(255) NOT NULL,
   `textbook_ref` varchar(255) NOT NULL,
   `textbook_TCI` varchar(255) NOT NULL,
   `textbook_level` varchar(255) NOT NULL,
@@ -527,7 +530,7 @@ CREATE TABLE IF NOT EXISTS `textbook` (
   `textbook_q2` varchar(255) DEFAULT NULL,
   `textbook_q3` varchar(255) DEFAULT NULL,
   `textbook_q4` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`staff_id`,`textbook_id`)
+  PRIMARY KEY (`textbook_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.

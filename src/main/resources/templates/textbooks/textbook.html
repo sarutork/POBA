@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="textbook">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item active"><span>ข้อมูลเขียนหนังสือ ตำรา งานวิจัย</span></li>
+        </ol>
+    </div>
+
+    <div class="px-3">
+
+        <th:block th:replace="~{fragments/alert}"/>
+
+        <form id="form-textbook" class="mb-5">
+            <div class="d-flex flex-xl-row flex-column">
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                    <label for="name" class="col-3 text-sm-right col-form-label">ค้นหาข้อมูล:</label>
+                    <input id="name" type="text" class="col-9 form-control flex-xl-grow-1" placeholder="ค้นหาด้วยชื่อ">
+                </div>
+                <div class="row px-3 mb-xl-0 mb-3">
+                    <label for="textbookLevel" class="col-2 text-sm-right col-form-label">ระดับ:</label>
+                    <select type="text" class="col-4 form-control" id="textbookLevel" name="textbookLevel">
+                        <option value="">กรุณาเลือก</option>
+                        <option value="ระดับชาติ">ระดับชาติ</option>
+                        <option value="ระดับนานาชาติ">ระดับนานาชาติ</option>
+                    </select>
+                    <label for="textbookType" class="col-2 text-sm-right col-form-label">ประเภท:</label>
+                    <select type="text" class="col-4 form-control" id="textbookType" name="textbookType">
+                        <option value="">กรุณาเลือก</option>
+                        <option value="ตำรา">ตำรา</option>
+                        <option value="งานแปลหนังสือ/ตำรา">งานแปลหนังสือ/ตำรา</option>
+                        <option value="วิจัย">วิจัย</option>
+                        <option value="หนังสือ">หนังสือ</option>
+                    </select>
+                </div>
+                <div class="pl-xl-3 d-inline-flex justify-content-end">
+                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findTextbookInfo()">ค้นหา</button>
+                    <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/textbook/add')">เพิ่มข้อมูล</a>
+                </div>
+            </div>
+        </form>
+
+        <div class="table table-responsive">
+            <table id="table-textbook" class="display" width="100%">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ข้อมูลอาจารย์</th>
+                    <th>ประเภทผลงาน</th>
+                    <th>หัวข้อเรื่อง</th>
+                    <th>ระดับ</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="5" class="dataTables_empty text-center bg-secondary">ข้อมูลเขียนหนังสือ ตำรา งานวิจัย</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</th:block>
+</html>
