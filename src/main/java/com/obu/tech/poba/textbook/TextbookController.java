@@ -6,11 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -106,11 +108,18 @@ public class TextbookController {
     }
 
     @RequestMapping(path = "/removePhase/{id}", method = { RequestMethod.POST}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView removePhase(@ModelAttribute TextbookDto textbookDto, @PathVariable int id) {
+    public ModelAndView removePhase(@ModelAttribute TextbookDto textbookDto, @PathVariable String id) {
 
         List<TextbookPhase> phases = textbookDto.getPhases();
 
-        phases.removeIf(p -> (p.getTextbookPhase()==id));
+        if (id.matches("\\d+")) {
+            phases.removeIf(p -> (p.getTextbookPhase()==Integer.parseInt(id)));
+        } else {
+            System.out.println("Invalid textbook_id: '" + id + "'");
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        }
+
+
 
         int i = 0;
         for(TextbookPhase phase : textbookDto.getPhases()){
