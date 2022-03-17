@@ -4,6 +4,7 @@ import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -36,24 +38,51 @@ public class TextbookController {
     }
 
     @GetMapping("/add")
-    public ModelAndView add() {return formAdd(new Textbook());}
+    public ModelAndView add() {
+        TextbookPhase phase = new TextbookPhase();
+        phase.setTextbookPhase(1);
+
+        List<TextbookPhase> phases = new ArrayList<>();
+        phases.add(phase);
+
+        TextbookDto textbookDto =  new TextbookDto();
+        textbookDto.setPhases(phases);
+
+        return formAdd(textbookDto);
+    }
 
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView save(@ModelAttribute("textbook") @Valid Textbook textbook, BindingResult bindingResult) {
+    public ModelAndView save(@ModelAttribute("textbookDto") @Valid TextbookDto textbookDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            throw new InvalidInputException(formAdd(textbook), bindingResult);
+            throw new InvalidInputException(formAdd(textbookDto), bindingResult);
         }
         try{
-            if(!StringUtils.isBlank(textbook.getName())) {
-                String[] fullName = nameConverter.fullNameToNameNSurname(textbook.getName());
-                textbook.setName(fullName[0]);
-                textbook.setSurname(fullName[1]);
+            if(!StringUtils.isBlank(textbookDto.getName())) {
+                String[] fullName = nameConverter.fullNameToNameNSurname(textbookDto.getName());
+                textbookDto.setName(fullName[0]);
+                textbookDto.setSurname(fullName[1]);
             }
 
-            Textbook textbookRes = textbookService.save(textbook);
-            textbookRes.setName(textbookRes.getName()+" "+textbookRes.getSurname());
+            Textbook textbook = new Textbook();
 
-            return viewSuccess(textbookRes);
+            BeanUtils.copyProperties(textbookDto,textbook);
+
+            int sumAmount = 0;
+            for(TextbookPhase phase: textbookDto.getPhases()){
+                sumAmount += phase.getTextbookAmount();
+            }
+            textbook.setTextbookAmountTotal(sumAmount);
+
+            Textbook textbookRes = textbookService.save(textbook);
+            textbookDto.setName(textbookRes.getName()+" "+textbookRes.getSurname());
+
+            long textbookId = textbookRes.getTextbookId();
+            List<TextbookPhase> phases = textbookDto.getPhases();
+            phases.forEach(p -> p.setTextbookId(textbookId));
+
+            List<TextbookPhase> textbookPhaseRes = textbookService.saveTextbookPhase(phases);
+
+            return viewSuccess(textbookDto);
         }catch (Exception e){
             e.printStackTrace();
             log.error("{}: {}", e.getClass().getSimpleName(), e.getMessage());
@@ -61,22 +90,62 @@ public class TextbookController {
         }
     }
 
-    @GetMapping(value = "/{id}")
-    public ModelAndView showPresentingInfo(@PathVariable String id){
-        Textbook textbook = textbookService.findById(id);
-        textbook.setName(textbook.getName()+" "+textbook.getSurname());
-        return view(textbook);
+    @RequestMapping(path = "/addPhase", method = { RequestMethod.POST}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ModelAndView addPhase(@ModelAttribute TextbookDto textbookDto) {
+
+        List<TextbookPhase> phases = textbookDto.getPhases();
+
+        TextbookPhase phase = new TextbookPhase();
+        phase.setTextbookPhase(phases.size()+1);
+
+        phases.add(phase);
+
+        textbookDto.setPhases(phases);
+
+        return formAdd(textbookDto);
     }
 
-    private ModelAndView formAdd(Textbook data) {
+    @RequestMapping(path = "/removePhase/{id}", method = { RequestMethod.POST}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ModelAndView removePhase(@ModelAttribute TextbookDto textbookDto, @PathVariable int id) {
+
+        List<TextbookPhase> phases = textbookDto.getPhases();
+
+        phases.removeIf(p -> (p.getTextbookPhase()==id));
+
+        int i = 0;
+        for(TextbookPhase phase : textbookDto.getPhases()){
+            phase.setTextbookPhase(++i);
+        }
+
+        textbookDto.setPhases(phases);
+
+        return formAdd(textbookDto);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ModelAndView showInfo(@PathVariable String id){
+        Textbook textbook = textbookService.findById(id);
+        textbook.setName(textbook.getName()+" "+textbook.getSurname());
+
+        List<TextbookPhase> phases = textbookService.findByTextbookId(id);
+
+        TextbookDto textbookDto = new TextbookDto();
+
+        BeanUtils.copyProperties(textbook,textbookDto);
+        textbookDto.setPhases(phases);
+
+        return view(textbookDto);
+    }
+
+    private ModelAndView formAdd(TextbookDto data) {
         return form(data).addObject("viewName", "เพิ่มข้อมูล");
     }
 
-    private ModelAndView form(Textbook data) {
+    private ModelAndView form(TextbookDto data) {
         return new ModelAndView(FRAGMENT_TEXTBOOK_FORM).addObject("textbook", data);
     }
 
-    private ModelAndView viewSuccess(Textbook data) {
+    private ModelAndView viewSuccess(TextbookDto data) {
         return view(data)
                 .addObject("viewName", "ดูข้อมูล")
                 .addObject("responseMessage", "บันทึกสำเร็จ")
@@ -85,7 +154,7 @@ public class TextbookController {
                 ;
     }
 
-    private ModelAndView view(Textbook data) {
+    private ModelAndView view(TextbookDto data) {
         return new ModelAndView(FRAGMENT_TEXTBOOK_FORM).addObject("viewName", "ดูข้อมูล")
                 .addObject("textbook", data);
     }

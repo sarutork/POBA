@@ -574,3 +574,14 @@ CREATE TABLE IF NOT EXISTS `upload` (
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+
+
+-- poba.textbook_phase definition
+CREATE TABLE `textbook_phase` (
+  `textbook_phase_id` int NOT NULL AUTO_INCREMENT,
+  `textbook_id` int NOT NULL,
+  `textbook_amount` int NOT NULL,
+  `textbook_phase` int NOT NULL,
+  `textbook_withdraw` date NOT NULL,
+  PRIMARY KEY (`textbook_phase_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

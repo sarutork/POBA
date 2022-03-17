@@ -12,8 +12,8 @@ import static com.obu.tech.poba.utils.search.SearchOperator.LIKE;
 
 @Service
 public class TextbookService {
-    @Autowired
-    TextbookRepository textbookRepository ;
+    @Autowired TextbookRepository textbookRepository ;
+    @Autowired TextbookPhaseRepository textbookPhaseRepository;
 
     List<Textbook> findBySearchCriteria(Textbook textbook){
         return textbookRepository.findAll(new SearchConditionBuilder<Textbook>()
@@ -36,6 +36,20 @@ public class TextbookService {
     }
 
     public Textbook save(Textbook textbook) {
+
         return textbookRepository.saveAndFlush(textbook);
+    }
+
+    public List<TextbookPhase> saveTextbookPhase(List<TextbookPhase> textbookPhase){
+        return  textbookPhaseRepository.saveAllAndFlush(textbookPhase);
+    }
+
+    public List<TextbookPhase> findByTextbookId(String id){
+        if (id.matches("\\d+")) {
+            return textbookPhaseRepository.findByTextbookId(Long.parseLong(id));
+        } else {
+            System.out.println("Invalid textbook_id: '" + id + "'");
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        }
     }
 }

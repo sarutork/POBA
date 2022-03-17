@@ -2,23 +2,18 @@ package com.obu.tech.poba.textbook;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
-@ToString
-@Entity
-@Table(name = "textbook", schema = "poba")
-public class Textbook {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TextbookDto {
     private long textbookId;
 
     @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า")
@@ -43,6 +38,9 @@ public class Textbook {
 
     @Size(min = 1, max = 255, message = "แหล่งเงินทุนวิจัย")
     private String textbookFund;
+
+    @NotNull(message="กรุณาตรวจสอบข้อมูล งวดที่")
+    private List<TextbookPhase> phases;
 
     private int textbookAmountTotal;
 

@@ -77,18 +77,20 @@
                        th:attr="value=${textbook.textbookFund != null}? ${textbook.textbookFund}: ''" maxlength="255" required/>
             </div>
 
-            <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookPhase">งวดที่<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-1" id="textbookPhase" name="textbookPhase"
-                       th:attr="value=${textbook.textbookPhase != null}? ${textbook.textbookPhase}: ''" required/>
+            <div  class="row mb-2" th:each="phase, itemStat : ${textbook.phases}">
+                <label class="col-sm-2 form-control-label" >งวดที่<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-1"
+                       th:name="|phases[${itemStat.index}].textbookPhase|" th:value="${phase.getTextbookPhase()}"required/>
                 <label class="col-sm-1 form-control-label" for="textbookAmount">จำนวนเงิน<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-2" id="textbookAmount" name="textbookAmount"
-                       th:attr="value=${textbook.textbookAmount != null}? ${textbook.textbookAmount}: ''" required/>
+                       th:name="|phases[${itemStat.index}].textbookAmount|" th:value="${phase.getTextbookAmount()}" required/>
                 <label class="col-sm-2 form-control-label" for="textbookWithdraw">ทำเรื่องเบิก/นำส่งเงิน<span style="color:red !important;">*</span>:</label>
                 <input type="date" class="form-control bg-white col-sm-2" id="textbookWithdraw" name="textbookWithdraw"
-                       th:attr="value=${textbook.textbookWithdraw != null}? ${textbook.textbookWithdraw}: ''" maxlength="255" required/>
+                       th:name="|phases[${itemStat.index}].textbookWithdraw|" th:value="${phase.getTextbookWithdraw()}" maxlength="255" required/>
 
-                <button type="button" class="btn btn-outline-poba ml-3" onclick="#">เพิ่ม</button>
+                <button th:if="${itemStat.index} == 0" type="button" class="btn btn-outline-poba ml-3" onclick="addPhase()">เพิ่ม</button>
+                <button th:if="${itemStat.index} != 0" type="button" class="btn btn-outline-poba ml-3" th:onclick="|removePhase(${phase.getTextbookPhase()})|">ลบ</button>
+
             </div>
 
             <div  class="row mb-2">

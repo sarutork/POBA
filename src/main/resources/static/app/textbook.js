@@ -45,8 +45,8 @@ function findTextbookInfo() {
 
 function submitTextbookInfo(){
     var type = "POST";
-    var staffId = $("#textbookId").val();
-    if (staffId != null &&  staffId != 0 ){
+    var textbookId = $("#textbookId").val();
+    if (textbookId != null &&  textbookId != 0 ){
         type = "PUT"
     }
     $.ajax({
@@ -58,6 +58,36 @@ function submitTextbookInfo(){
                 loadView('/poba/textbook');
             },3000);
             window.scrollTo(0, 0);
+            $('.content-wrapper').html(data);
+         },
+         error: function (error) {
+            $('.content-wrapper').html(error.responseText);
+         }
+    });
+}
+
+function addPhase(){
+    var type = "POST";
+    $.ajax({
+         type: type,
+         url: "/poba/textbook/addPhase",
+         data: $("#form-textbook").serialize(),
+         success: function(data) {
+            $('.content-wrapper').html(data);
+         },
+         error: function (error) {
+            $('.content-wrapper').html(error.responseText);
+         }
+    });
+}
+
+function removePhase(phase){
+    var type = "POST";
+    $.ajax({
+         type: type,
+         url: "/poba/textbook/removePhase/"+phase,
+         data: $("#form-textbook").serialize(),
+         success: function(data) {
             $('.content-wrapper').html(data);
          },
          error: function (error) {
