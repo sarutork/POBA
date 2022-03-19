@@ -37,19 +37,19 @@ CREATE TABLE IF NOT EXISTS `academic_conference` (
 -- Dumping structure for table poba.academic_service
 DROP TABLE IF EXISTS `academic_service`;
 CREATE TABLE IF NOT EXISTS `academic_service` (
-  `staff_id` int(11) NOT NULL,
-  `service_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL AUTO_INCREMENT,
   `prefix` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   `service_status` varchar(255) NOT NULL,
   `service_order` varchar(255) NOT NULL,
-  `service_date` datetime NOT NULL,
+  `service_date_from` date NOT NULL,
+  `service_date_to` date NOT NULL,
   `note_of_service` varchar(255) NOT NULL,
   `service_position` varchar(255) NOT NULL,
   `service_institution` varchar(255) NOT NULL,
   `service_level` varchar(255) NOT NULL,
-  PRIMARY KEY (`staff_id`,`service_id`)
+  PRIMARY KEY (`service_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.

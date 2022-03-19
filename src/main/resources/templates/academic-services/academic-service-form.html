@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="academic-service-form">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a  href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a  href="javascript:void(0)" onclick="loadView('/poba/academic-service')">ข้อมูลบริการวิชาการ</a></li>
+            <li class="breadcrumb-item active" ><span id="viewName" th:text="${viewName}"></span></li>
+        </ol>
+    </div>
+
+    <div class="container px-3">
+        <th:block th:replace="~{fragments/input-errors}"/>
+        <th:block th:replace="~{fragments/alert}"/>
+
+        <form id="form-academic-service" class="form-wrapper">
+            <input type="hidden" id="serviceId" name="serviceId" th:value="${service.serviceId}"/>
+            <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="นาย" th:selected="${service.prefix == 'นาย'}? 'selected'">นาย</option>
+                    <option value="นางสาว" th:selected="${service.prefix == 'นางสาว'}? 'selected'">นางสาว</option>
+                    <option value="นาง" th:selected="${service.prefix == 'นาง'}? 'selected'">นาง</option>
+                    <option value="อ." th:selected="${service.prefix == 'อ.'}? 'selected'">อ.</option>
+                    <option value="อ.ดร." th:selected="${service.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
+                    <option value="ผศ." th:selected="${service.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
+                    <option value="ผศ.ดร." th:selected="${service.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
+                    <option value="รศ." th:selected="${service.prefix == 'รศ.'}? 'selected'">รศ.</option>
+                    <option value="รศ.ดร." th:selected="${service.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
+                    <option value="ศ." th:selected="${service.prefix == 'ศ.'}? 'selected'">ศ.</option>
+                    <option value="ศ.ดร." th:selected="${service.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
+                    <option value="อื่นๆ" th:selected="${service.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
+                </select>
+
+                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${service.prefix == 'อื่นๆ'}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${service.prefixOther != null}? ${service.prefixOther}: ''"
+                       th:classappend="${service.prefix == 'อื่นๆ'}? 'd-block':'d-none'"
+                       th:disabled="${service.serviceId != 0}"/>
+
+                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
+                       th:attr="value=${service.name != null}? ${service.name}: ''" maxlength="255" required/>
+            </div>
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="serviceStatus">สถานะ<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="serviceStatus" name="serviceStatus"
+                       th:attr="value=${service.serviceStatus != null}? ${service.serviceStatus}: ''" maxlength="255" required/>
+                <label class="col-sm-2 form-control-label" for="serviceOrder">เลขที่คำสั่ง<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="serviceOrder" name="serviceOrder"
+                       th:attr="value=${service.serviceOrder != null}? ${service.serviceOrder}: ''" maxlength="255" required/>
+            </div>
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="serviceDateFrom">วันที่คำสั่ง<span style="color:red !important;">*</span>:</label>
+                <input type="date" class="form-control bg-white col-sm-2" id="serviceDateFrom" name="serviceDateFrom"
+                       th:attr="value=${service.serviceDateFrom != null}? ${service.serviceDateFrom}: ''" required/>
+                <label class="form-control-label ml-3" for="serviceDateTo">ถึง<span style="color:red !important;">*</span>:</label>
+                <input type="date" class="form-control bg-white col-sm-2" id="serviceDateTo" name="serviceDateTo"
+                       th:attr="value=${service.serviceDateTo != null}? ${service.serviceDateTo}: ''" required/>
+
+            </div>
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="noteOfService">หมายเหตุ<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="noteOfService" name="noteOfService"
+                       th:attr="value=${service.noteOfService != null}? ${service.noteOfService}: ''" maxlength="255" required/>
+                <label class="col-sm-2 form-control-label" for="servicePosition">ข้อมูลตำแหน่งบริหาร<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="servicePosition" name="servicePosition"
+                       th:attr="value=${service.servicePosition != null}? ${service.servicePosition}: ''" maxlength="255" required/>
+            </div>
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="serviceInstitution">ชื่อหน่วยงานที่เป็นกรรมการ/บริหาร<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="serviceInstitution" name="serviceInstitution"
+                       th:attr="value=${service.serviceInstitution != null}? ${service.serviceInstitution}: ''" maxlength="255" required/>
+                <label class="col-sm-2 form-control-label" for="serviceLevel">ระดับกิจกรรม<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-4 form-control" id="serviceLevel" name="serviceLevel">
+                    <option value="" >กรุณาเลือก</option>
+                    <option value="ระดับชาติ" th:selected="${service.serviceLevel == 'ระดับชาติ'}? 'selected'">ระดับชาติ</option>
+                    <option value="ระดับนานาชาติ" th:selected="${service.serviceLevel == 'ระดับนานาชาติ'}? 'selected'">ระดับนานาชาติ</option>
+                </select>
+            </div>
+        </form>
+        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${service.serviceId == 0 ? 'd-block' : 'd-none'} ">
+            <button type="button" class="btn btn-poba mr-3" onclick="submitAcademicService();">บันทึก</button>
+            <a href="javascript:void(0)" onclick="loadView('/poba/academic-service')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
+        </div>
+        <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${service.serviceId != 0 ? 'd-block' : 'd-none'}">
+            <a href="javascript:void(0)" onclick="loadView('/poba/academic-service')" class="btn btn-poba mr-3">ยกเลิก</a>
+            <button type="button" class="btn btn-outline-poba mr-3" onclick="editTextbookInfo();">แก้ไข</button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+             var serviceId = $("#serviceId").val();
+             if(serviceId != '' && serviceId > 0){
+                $("input").prop("disabled", true);
+                $("select").prop("disabled", true);
+             }
+        });
+
+        $('#prefix').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#prefixOther").removeClass("d-none");
+                $("#prefixOther").addClass("d-block");
+
+                $("#prefixOtherTmp").removeClass("d-block");
+                $("#prefixOtherTmp").addClass("d-none");
+            }else{
+                $("#prefixOther").val("");
+                $("#prefixOther").removeClass("d-block");
+                $("#prefixOther").addClass("d-none");
+
+                $("#prefixOtherTmp").removeClass("d-none");
+                $("#prefixOtherTmp").addClass("d-block");
+            }
+        });
+    </script>
+
+</th:block>
+</html>
