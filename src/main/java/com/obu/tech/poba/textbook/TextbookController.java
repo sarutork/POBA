@@ -92,8 +92,8 @@ public class TextbookController {
         }
     }
 
-    @RequestMapping(path = "/addPhase", method = { RequestMethod.POST}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView addPhase(@ModelAttribute TextbookDto textbookDto) {
+    @RequestMapping(path = "/addPhase",method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ModelAndView addPhase(@ModelAttribute("textbookDto") TextbookDto textbookDto) {
 
         List<TextbookPhase> phases = textbookDto.getPhases();
 
@@ -107,23 +107,34 @@ public class TextbookController {
         return formAdd(textbookDto);
     }
 
-    @RequestMapping(path = "/removePhase/{id}", method = { RequestMethod.POST}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView removePhase(@ModelAttribute TextbookDto textbookDto, @PathVariable String id) {
+    @RequestMapping(path = "/removePhase/{phase}", method = { RequestMethod.POST}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ModelAndView removePhase(@ModelAttribute("textbookDto") TextbookDto textbookDto, @PathVariable String phase) {
 
         List<TextbookPhase> phases = textbookDto.getPhases();
 
-        if (id.matches("\\d+")) {
-            phases.removeIf(p -> (p.getTextbookPhase()==Integer.parseInt(id)));
-        } else {
-            System.out.println("Invalid textbook_id: '" + id + "'");
+        int  phaseInt = 0;
+        if(phase.matches("\\d+")){
+            phaseInt = Integer.parseInt(phase);
+        }else{
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
 
+        int finalPhaseInt = phaseInt;
 
+        if(textbookDto.getTextbookId() == 0) {
+            phases.removeIf(p -> (p.getTextbookPhase() == finalPhaseInt));
+
+        }else{
+            TextbookPhase tbPhase = phases.stream()
+                    .filter(p -> p.getTextbookPhase() == finalPhaseInt)
+                    .findAny()
+                    .orElse(null);
+            phases = textbookService.removePhase(tbPhase.getTextbookPhaseId(),textbookDto.getTextbookId());
+        }
 
         int i = 0;
-        for(TextbookPhase phase : textbookDto.getPhases()){
-            phase.setTextbookPhase(++i);
+        for(TextbookPhase phaseE : textbookDto.getPhases()){
+            phaseE.setTextbookPhase(++i);
         }
 
         textbookDto.setPhases(phases);

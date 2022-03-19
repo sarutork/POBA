@@ -52,4 +52,9 @@ public class TextbookService {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
     }
+
+    public List<TextbookPhase> removePhase(long phaseId,long textbookId){
+        textbookPhaseRepository.deleteById(phaseId);
+        return textbookPhaseRepository.findByTextbookId(textbookId);
+    }
 }

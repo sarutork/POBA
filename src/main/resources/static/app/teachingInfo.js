@@ -82,6 +82,8 @@ function submitTeachingInfo(){
 function editTeachingInfo(){
     $(":input").prop("disabled", false);
 
+    $(".btn-phase").prop("disabled", false);
+
     $("#studyType").trigger("change");
 
     $("#submit").removeClass("d-none");
