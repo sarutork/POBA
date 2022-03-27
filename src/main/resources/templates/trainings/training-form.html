@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:fragment="textbook-form">
+<th:block th:fragment="training-form">
 
     <div id="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a  href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
-            <li class="breadcrumb-item"><a  href="javascript:void(0)" onclick="loadView('/poba/textbook')">ข้อมูลเขียนหนังสือ ตำรา งานวิจัย</a></li>
+            <li class="breadcrumb-item"><a  href="javascript:void(0)" onclick="loadView('/poba/training')">ข้อมูลจัดอบรม</a></li>
             <li class="breadcrumb-item active" ><span id="viewName" th:text="${viewName}"></span></li>
         </ol>
     </div>
@@ -14,8 +14,8 @@
         <th:block th:replace="~{fragments/input-errors}"/>
         <th:block th:replace="~{fragments/alert}"/>
 
-        <form id="form-textbook" class="form-wrapper">
-            <input type="hidden" id="textbookId" name="textbookId" th:value="${textbook.textbookId}"/>
+        <form id="form-training" class="form-wrapper">
+            <input type="hidden" id="trainingId" name="trainingId" th:value="${training.trainingId}"/>
             <div class="row col-sm-12 mb-2">
                 <label><b>ข้อมูลอาจารย์</b></label>
             </div>
@@ -23,189 +23,127 @@
                 <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="นาย" th:selected="${textbook.prefix == 'นาย'}? 'selected'">นาย</option>
-                    <option value="นางสาว" th:selected="${textbook.prefix == 'นางสาว'}? 'selected'">นางสาว</option>
-                    <option value="นาง" th:selected="${textbook.prefix == 'นาง'}? 'selected'">นาง</option>
-                    <option value="อ." th:selected="${textbook.prefix == 'อ.'}? 'selected'">อ.</option>
-                    <option value="อ.ดร." th:selected="${textbook.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
-                    <option value="ผศ." th:selected="${textbook.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
-                    <option value="ผศ.ดร." th:selected="${textbook.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
-                    <option value="รศ." th:selected="${textbook.prefix == 'รศ.'}? 'selected'">รศ.</option>
-                    <option value="รศ.ดร." th:selected="${textbook.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
-                    <option value="ศ." th:selected="${textbook.prefix == 'ศ.'}? 'selected'">ศ.</option>
-                    <option value="ศ.ดร." th:selected="${textbook.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
-                    <option value="อื่นๆ" th:selected="${textbook.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
+                    <option value="นาย" th:selected="${training.prefix == 'นาย'}? 'selected'">นาย</option>
+                    <option value="นางสาว" th:selected="${training.prefix == 'นางสาว'}? 'selected'">นางสาว</option>
+                    <option value="นาง" th:selected="${training.prefix == 'นาง'}? 'selected'">นาง</option>
+                    <option value="อ." th:selected="${training.prefix == 'อ.'}? 'selected'">อ.</option>
+                    <option value="อ.ดร." th:selected="${training.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
+                    <option value="ผศ." th:selected="${training.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
+                    <option value="ผศ.ดร." th:selected="${training.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
+                    <option value="รศ." th:selected="${training.prefix == 'รศ.'}? 'selected'">รศ.</option>
+                    <option value="รศ.ดร." th:selected="${training.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
+                    <option value="ศ." th:selected="${training.prefix == 'ศ.'}? 'selected'">ศ.</option>
+                    <option value="ศ.ดร." th:selected="${training.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
+                    <option value="อื่นๆ" th:selected="${training.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
                 </select>
 
-                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${textbook.prefix == 'อื่นๆ'}? 'd-none':'d-block'"></div>
+                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${training.prefix == 'อื่นๆ'}? 'd-none':'d-block'"></div>
                 <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
-                       th:attr="value=${textbook.prefixOther != null}? ${textbook.prefixOther}: ''"
-                       th:classappend="${textbook.prefix == 'อื่นๆ'}? 'd-block':'d-none'"
-                       th:disabled="${textbook.textbookId != 0}"/>
+                       th:attr="value=${training.prefixOther != null}? ${training.prefixOther}: ''"
+                       th:classappend="${training.prefix == 'อื่นๆ'}? 'd-block':'d-none'"
+                       th:disabled="${training.trainingId != 0}"/>
 
                 <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
-                       th:attr="value=${textbook.name != null}? ${textbook.name}: ''" maxlength="255" required/>
+                       th:attr="value=${training.name != null}? ${training.name}: ''" maxlength="255" required/>
             </div>
+
             <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookType">ประเภทผลงาน<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-4 form-control bg-white" id="textbookType" name="textbookType" required>
+                <label class="col-sm-2 form-control-label" for="trainingStatus">สถานะ<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-4 form-control" id="trainingStatus" name="trainingStatus" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="ตำรา" th:selected="${textbook.textbookType == 'ตำรา'}? 'selected'">ตำรา</option>
-                    <option value="งานแปลหนังสือ/ตำรา" th:selected="${textbook.textbookType == 'งานแปลหนังสือ/ตำรา'}? 'selected'">งานแปลหนังสือ/ตำรา</option>
-                    <option value="วิจัย" th:selected="${textbook.textbookType == 'วิจัย'}? 'selected'">วิจัย</option>
-                    <option value="หนังสือ" th:selected="${textbook.textbookType == 'หนังสือ'}? 'selected'">หนังสือ</option>
+                    <option value="ผู้รับผิดชอบ" th:selected="${training.trainingStatus == 'ผู้รับผิดชอบ'}? 'selected'">ผู้รับผิดชอบ</option>
+                    <option value="คณะทำงาน" th:selected="${training.trainingStatus == 'คณะทำงาน'}? 'selected'">คณะทำงาน</option>
                 </select>
-            </div>
-            <div class="row col-sm-12 mb-2">
-                <label><b>รายละเอียด หนังสือ / ตำรา / งานวิจัย</b></label>
-            </div>
-            <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookAnnounce">รหัสประกาศ/รหัสสัญญา<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookAnnounce" name="textbookAnnounce"
-                       th:attr="value=${textbook.textbookAnnounce != null}? ${textbook.textbookAnnounce}: ''" maxlength="255" required/>
-                <label class="col-sm-2 form-control-label" for="textbookContract">รหัสสัญญา<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookContract" name="textbookContract"
-                       th:attr="value=${textbook.textbookContract != null}? ${textbook.textbookContract}: ''" maxlength="255" required/>
+                <label class="col-sm-2 form-control-label" for="trainingName">ชื่อโครงการ<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="trainingName" name="trainingName"
+                       th:attr="value=${training.trainingName != null}? ${training.trainingName}: ''" maxlength="255" required/>
             </div>
             <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookTopic">ชื่อ/หัวข้อ<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookTopic" name="textbookTopic"
-                       th:attr="value=${textbook.textbookTopic != null}? ${textbook.textbookTopic}: ''" maxlength="255" required/>
-                <label class="col-sm-2 form-control-label" for="textbookFund">แหล่งเงินทุนวิจัย<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookFund" name="textbookFund"
-                       th:attr="value=${textbook.textbookFund != null}? ${textbook.textbookFund}: ''" maxlength="255" required/>
+                <label class="col-sm-2 form-control-label" for="trainingDateFrom">วันที่จัด<span style="color:red !important;">*</span>:</label>
+                <input type="date" class="form-control bg-white col-sm-2" id="trainingDateFrom" name="trainingDateFrom"
+                       th:attr="value=${training.trainingDateFrom != null}? ${training.trainingDateFrom}: ''" required/>
+                <input type="time" class="form-control bg-white col-sm-2" id="trainingTimeFrom" name="trainingTimeFrom"
+                       th:attr="value=${training.trainingTimeFrom != null}? ${training.trainingTimeFrom}: ''" required/>
+                <label class="form-control-label ml-3" for="trainingDateTo">ถึง<span style="color:red !important;">*</span>:</label>
+                <input type="date" class="form-control bg-white col-sm-2" id="trainingDateTo" name="trainingDateTo"
+                       th:attr="value=${training.trainingDateTo != null}? ${training.trainingDateTo}: ''" required/>
+                <input type="time" class="form-control bg-white col-sm-2" id="trainingTimeTo" name="trainingTimeTo"
+                       th:attr="value=${training.trainingTimeTo != null}? ${training.trainingTimeTo}: ''"required/>
             </div>
-
-            <div  class="row mb-2" th:each="phase, itemStat : ${textbook.phases}">
-                <input type="hidden" th:name="|phases[${itemStat.index}].textbookPhaseId|" th:value="${phase.getTextbookPhaseId()}"/>
-                <label class="col-sm-2 form-control-label" >งวดที่<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-1"
-                       th:name="|phases[${itemStat.index}].textbookPhase|" th:value="${phase.getTextbookPhase()}"required/>
-                <label class="col-sm-1 form-control-label" for="textbookAmount">จำนวนเงิน<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-2" id="textbookAmount" name="textbookAmount"
-                       th:name="|phases[${itemStat.index}].textbookAmount|" th:value="${phase.getTextbookAmount()}" required/>
-                <label class="col-sm-2 form-control-label" for="textbookWithdraw">ทำเรื่องเบิก/นำส่งเงิน<span style="color:red !important;">*</span>:</label>
-                <input type="date" class="form-control bg-white col-sm-2" id="textbookWithdraw" name="textbookWithdraw"
-                       th:name="|phases[${itemStat.index}].textbookWithdraw|" th:value="${phase.getTextbookWithdraw()}" maxlength="255" required/>
-
-                <button th:if="${itemStat.index} == 0" type="button" class="btn btn-outline-poba btn-phase ml-3" onclick="addPhase()">เพิ่ม</button>
-                <button th:if="${itemStat.index} != 0" type="button" class="btn btn-outline-poba btn-phase ml-3" th:onclick="|removePhase(${phase.getTextbookPhase()})|">ลบ</button>
-
-            </div>
-
             <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookAmountTotal">จำนวนเงินทั้งหมด<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookAmountTotal" name="textbookAmountTotal"
-                   th:attr="value=${textbook.textbookAmountTotal != null}? ${textbook.textbookAmountTotal}: ''" required/>
+                <label class="col-sm-2 form-control-label" for="trainingTotalDay">จำนวนวันให้บริการ<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="trainingTotalDay" name="trainingTotalDay"
+                       th:attr="value=${training.trainingTotalDay != null}? ${training.trainingTotalDay}: ''" required/>
+                <label class="form-control-label col-sm-2" for="trainingLocation">สถานที่จัดการอบรม<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="trainingLocation" name="trainingLocation"
+                       th:attr="value=${training.trainingLocation != null}? ${training.trainingLocation}: ''" maxlength="255" required/>
             </div>
-
             <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookDateFrom">ระยะเวลา<span style="color:red !important;">*</span>:</label>
-                <input type="date" class="form-control bg-white col-sm-2" id="textbookDateFrom" name="textbookDateFrom"
-                       th:attr="value=${textbook.textbookDateFrom != null}? ${textbook.textbookDateFrom}: ''" maxlength="255" required/>
-                <label class="form-control-label ml-3" for="textbookDateTo">ถึง<span style="color:red !important;">*</span>:</label>
-                <input type="date" class="form-control bg-white col-sm-2" id="textbookDateTo" name="textbookDateTo"
-                       th:attr="value=${textbook.textbookDateTo != null}? ${textbook.textbookDateTo}: ''" maxlength="255" required/>
-            </div>
-
-            <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookExtendDate">ขยายวัน เดือน ปี<span style="color:red !important;">*</span>:</label>
-                <input type="date" class="form-control bg-white col-sm-2" id="textbookExtendDate" name="textbookExtendDate"
-                       th:attr="value=${textbook.textbookExtendDate != null}? ${textbook.textbookExtendDate}: ''" maxlength="255" required/>
-            </div>
-
-            <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookStatus">สถานะ<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="textbookStatus" name="textbookStatus" required>
+                <label class="col-sm-2 form-control-label" for="trainingType">ลักษณะกิจกรรม<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-4 form-control" id="trainingType" name="trainingType" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="อยู่ระหว่างดำเนินการ" th:selected="${textbook.textbookStatus == 'อยู่ระหว่างดำเนินการ'}? 'selected'">อยู่ระหว่างดำเนินการ</option>
-                    <option value="ดำเนินการเสร็จสิ้น" th:selected="${textbook.textbookStatus == 'ดำเนินการเสร็จสิ้น'}? 'selected'">ดำเนินการเสร็จสิ้น</option>
-                    <option value="ปิดโครงการ" th:selected="${textbook.textbookStatus == 'ปิดโครงการ'}? 'selected'">ปิดโครงการ</option>
-                    <option value="ยกเลิกโครงการ" th:selected="${textbook.textbookStatus == 'ยกเลิกโครงการ'}? 'selected'">ยกเลิกโครงการ</option>
+                    <option value="ว่าจ้าง" th:selected="${training.trainingType == 'ว่าจ้าง'}? 'selected'">ว่าจ้าง</option>
+                    <option value="ให้เปล่า" th:selected="${training.trainingType == 'ให้เปล่า'}? 'selected'">ให้เปล่า</option>
                 </select>
-            </div>
-            <div class="row col-sm-12 mb-2">
-                <label><b>ข้อมูลการเผยแพร่</b></label>
-            </div>
-            <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookPbType">ประเภท<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookPbType" name="textbookPbType"
-                       th:attr="value=${textbook.textbookPbType != null}? ${textbook.textbookPbType}: ''" maxlength="255" required/>
-                <label class="col-sm-2 form-control-label" for="textbookIssue">ครั้งที่<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookIssue" name="textbookIssue"
-                       th:attr="value=${textbook.textbookIssue != null}? ${textbook.textbookIssue}: ''" maxlength="255" required/>
+                <label class="col-sm-2 form-control-label" for="trainingAnnounce">รหัสประกาศ/รหัสสัญญา<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="trainingAnnounce" name="trainingAnnounce"
+                       th:attr="value=${training.trainingAnnounce != null}? ${training.trainingAnnounce}: ''" maxlength="255" required/>
             </div>
 
             <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookYear">ปีที่<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="textbookYear" name="textbookYear" required>
-                    <option value="">กรุณาเลือก</option>
-                    <option value="2565" th:selected="${textbook.textbookYear == '2565'}? 'selected'">2565</option>
-                    <option value="2564" th:selected="${textbook.textbookYear == '2564'}? 'selected'">2564</option>
-                    <option value="2563" th:selected="${textbook.textbookYear == '2563'}? 'selected'">2563</option>
-                </select>
-                <label class="col-sm-4 form-control-label" for="textbookInstitution">สำนัก<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookInstitution" name="textbookInstitution"
-                       th:attr="value=${textbook.textbookInstitution != null}? ${textbook.textbookInstitution}: ''" maxlength="255" required/>
+                <label class="col-sm-2 form-control-label" for="trainingBudget">งบประมาณ<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="trainingBudget" name="trainingBudget"
+                       th:attr="value=${training.trainingBudget != null}? ${training.trainingBudget}: ''" required/>
+                <label class="form-control-label col-sm-2" for="trainingPhase">งวดที่<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="trainingPhase" name="trainingPhase"
+                       th:attr="value=${training.trainingPhase != null}? ${training.trainingPhase}: ''" required/>
             </div>
 
             <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookDiffText">ข้อแตกต่างการพิมพ์จากครั้งก่อน:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookDiffText" name="textbookDiffText"
-                       th:attr="value=${textbook.textbookDiffText != null}? ${textbook.textbookDiffText}: ''" maxlength="255"/>
-                <label class="col-sm-2 form-control-label" for="textbookRef">นำไปอ้างอิง<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookRef" name="textbookRef"
-                       th:attr="value=${textbook.textbookRef != null}? ${textbook.textbookRef}: ''" maxlength="255" required/>
+                <label class="col-sm-2 form-control-label" for="trainingAmount">จำนวนเงิน<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="trainingAmount" name="trainingAmount"
+                       th:attr="value=${training.trainingAmount != null}? ${training.trainingAmount}: ''" required/>
+                <label class="form-control-label col-sm-2" for="trainingJoin">หน่วยงานให้ทุน/ร่วมจัด<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="trainingJoin" name="trainingJoin"
+                       th:attr="value=${training.trainingJoin != null}? ${training.trainingJoin}: ''" maxlength="255" required/>
             </div>
             <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookTCI">ข้อมูล(TCI)<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookTCI" name="textbookTCI"
-                       th:attr="value=${textbook.textbookTCI != null}? ${textbook.textbookTCI}: ''" maxlength="255"/>
-                <label class="col-sm-2 form-control-label" for="textbookLevel">ระดับกิจกรรม<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-2 form-control" id="textbookLevel" name="textbookLevel" required>
+                <label class="col-sm-2 form-control-label" for="trainingThai">ผู้เข้าร่วม (คนไทย)<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="trainingThai" name="trainingThai"
+                       th:attr="value=${training.trainingThai != null}? ${training.trainingThai}: ''" required/>
+                <label class="form-control-label col-sm-2" for="trainingForeign">ผู้เข้าร่วม (ต่างชาติ)<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="trainingForeign" name="trainingForeign"
+                       th:attr="value=${training.trainingForeign != null}? ${training.trainingForeign}: ''" required/>
+            </div>
+
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="trainingTotalPerson">ผู้เข้าร่วม (รวม):</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="trainingTotalPerson" name="trainingTotalPerson"
+                       th:attr="value=${training.trainingTotalPerson != null}? ${training.trainingTotalPerson}: ''" />
+                <label class="col-sm-2 form-control-label" for="trainingLevel">ระดับกิจกรรม<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-4 form-control" id="trainingLevel" name="trainingLevel" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="ระดับชาติ" th:selected="${textbook.textbookLevel == 'ระดับชาติ'}? 'selected'">ระดับชาติ</option>
-                    <option value="ระดับนานาชาติ" th:selected="${textbook.textbookLevel == 'ระดับนานาชาติ'}? 'selected'">ระดับนานาชาติ</option>
+                    <option value="ระดับชาติ" th:selected="${training.trainingLevel == 'ระดับชาติ'}? 'selected'">ระดับชาติ</option>
+                    <option value="ระดับนานาชาติ" th:selected="${training.trainingLevel == 'ระดับนานาชาติ'}? 'selected'">ระดับนานาชาติ</option>
                 </select>
             </div>
 
-            <div class="row col-sm-12 mb-2">
-                <label><b>จำนวนครั้งที่ถูกนำไปอ้างอิง</b></label>
-            </div>
-
-            <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookQ1">ไตรมาส 1<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookQ1" name="textbookQ1"
-                       th:attr="value=${textbook.textbookQ1 != null}? ${textbook.textbookQ1}: ''" maxlength="255" required/>
-                <label class="col-sm-2 form-control-label" for="textbookQ2">ไตรมาส 2<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookQ2" name="textbookQ2"
-                       th:attr="value=${textbook.textbookQ2 != null}? ${textbook.textbookQ2}: ''" maxlength="255" required/>
-            </div>
-
-            <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookQ3">ไตรมาส 3<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookQ3" name="textbookQ3"
-                       th:attr="value=${textbook.textbookQ3 != null}? ${textbook.textbookQ3}: ''" maxlength="255" required/>
-                <label class="col-sm-2 form-control-label" for="textbookQ4">ไตรมาส 4<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookQ4" name="textbookQ4"
-                       th:attr="value=${textbook.textbookQ4 != null}? ${textbook.textbookQ4}: ''" maxlength="255" required/>
-            </div>
         </form>
-        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${textbook.textbookId == 0 ? 'd-block' : 'd-none'} ">
-            <button type="button" class="btn btn-poba mr-3" onclick="submitTextbookInfo();">บันทึก</button>
-            <a href="javascript:void(0)" onclick="loadView('/poba/textbook')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
+        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${training.trainingId == 0 ? 'd-block' : 'd-none'} ">
+            <button type="button" class="btn btn-poba mr-3" onclick="submitTrainingInfo();">บันทึก</button>
+            <a href="javascript:void(0)" onclick="loadView('/poba/training')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
         </div>
-        <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${textbook.textbookId != 0 ? 'd-block' : 'd-none'}">
-            <a href="javascript:void(0)" onclick="loadView('/poba/textbook')" class="btn btn-poba mr-3">ยกเลิก</a>
-            <button type="button" class="btn btn-outline-poba mr-3" onclick="editTextbookInfo();">แก้ไข</button>
+        <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${training.trainingId != 0 ? 'd-block' : 'd-none'}">
+            <a href="javascript:void(0)" onclick="loadView('/poba/training')" class="btn btn-poba mr-3">ยกเลิก</a>
+            <button type="button" class="btn btn-outline-poba mr-3" onclick="editTrainingInfo();">แก้ไข</button>
         </div>
     </div>
 
     <script>
         $(document).ready(function() {
-             var textbookId = $("#textbookId").val();
-             if(textbookId != '' && textbookId > 0){
+             var trainingId = $("#trainingId").val();
+             if(trainingId != '' && trainingId > 0){
                 $("input").prop("disabled", true);
                 $("select").prop("disabled", true);
                 $(".btn-phase").prop("disabled", true);

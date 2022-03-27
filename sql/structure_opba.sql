@@ -534,14 +534,16 @@ CREATE TABLE IF NOT EXISTS `textbook` (
 -- Dumping structure for table poba.training
 DROP TABLE IF EXISTS `training`;
 CREATE TABLE IF NOT EXISTS `training` (
-  `staff_id` int(11) NOT NULL,
-  `training_id` int(11) NOT NULL,
+  `training_id` int(11) NOT NULL AUTO_INCREMENT,
   `prefix` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `training_status` varchar(255) DEFAULT NULL,
   `training_name` varchar(255) DEFAULT NULL,
   `training_location` varchar(255) DEFAULT NULL,
-  `training_date` datetime DEFAULT NULL,
+  `training_date_from` date DEFAULT NULL,
+  `training_time_from` varchar(5) DEFAULT NULL,
+  `training_date_to` date DEFAULT NULL,
+  `training_time_to` varchar(5) DEFAULT NULL,
   `training_total_day` int(11) DEFAULT NULL,
   `training_type` varchar(255) DEFAULT NULL,
   `training_announce` varchar(255) DEFAULT NULL,
@@ -553,7 +555,7 @@ CREATE TABLE IF NOT EXISTS `training` (
   `training_foreign` int(11) DEFAULT NULL,
   `training_total_person` int(11) DEFAULT NULL,
   `training_level` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`staff_id`,`training_id`)
+  PRIMARY KEY (`training_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping structure for table poba.upload
