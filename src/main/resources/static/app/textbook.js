@@ -139,7 +139,6 @@ function calSum(){
     $( ".textbookAmount" ).each( function( i, el ) {
              var elem = $( el );
              sum += parseFloat(elem.val().replace(',', ''));
-             console.log(sum);
          });
     $("#textbookAmountTotal").val(new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB' }).format(sum).replace('฿', ''));
 }
