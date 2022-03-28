@@ -83,7 +83,7 @@
                 <input type="text" class="form-control bg-white col-sm-1"
                        th:name="|phases[${itemStat.index}].textbookPhase|" th:value="${phase.getTextbookPhase()}"required/>
                 <label class="col-sm-1 form-control-label" for="textbookAmount">จำนวนเงิน<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-2" id="textbookAmount" name="textbookAmount"
+                <input type="text" class="form-control bg-white col-sm-2 amount textbookAmount" id="textbookAmount" name="textbookAmount" th:onblur="NumberFormat()"
                        th:name="|phases[${itemStat.index}].textbookAmount|" th:value="${phase.getTextbookAmount()}" required/>
                 <label class="col-sm-2 form-control-label" for="textbookWithdraw">ทำเรื่องเบิก/นำส่งเงิน<span style="color:red !important;">*</span>:</label>
                 <input type="date" class="form-control bg-white col-sm-2" id="textbookWithdraw" name="textbookWithdraw"
@@ -96,8 +96,8 @@
 
             <div  class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="textbookAmountTotal">จำนวนเงินทั้งหมด<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookAmountTotal" name="textbookAmountTotal"
-                   th:attr="value=${textbook.textbookAmountTotal != null}? ${textbook.textbookAmountTotal}: ''" required/>
+                <input type="text" class="form-control bg-white col-sm-4 amount" id="textbookAmountTotal" name="textbookAmountTotal"
+                       th:field="${textbook.textbookAmountTotal}" readonly/>
             </div>
 
             <div  class="row mb-2">
@@ -210,6 +210,9 @@
                 $("select").prop("disabled", true);
                 $(".btn-phase").prop("disabled", true);
              }
+
+             NumberFormat();
+
         });
 
         $('#prefix').change(function(){

@@ -41,7 +41,7 @@ public class TextbookDto {
     @NotNull(message="กรุณาตรวจสอบข้อมูล งวดที่")
     private List<TextbookPhase> phases;
 
-    private int textbookAmountTotal;
+    private double textbookAmountTotal;
 
     @NotNull(message = "โปรดเลือก ระยะเวลาเริ่ม")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

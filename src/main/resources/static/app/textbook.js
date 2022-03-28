@@ -44,6 +44,9 @@ function findTextbookInfo() {
 }
 
 function submitTextbookInfo(){
+
+    removeComma();
+
     var type = "POST";
     var textbookId = $("#textbookId").val();
     if (textbookId != null &&  textbookId != 0 ){
@@ -67,6 +70,7 @@ function submitTextbookInfo(){
 }
 
 function addPhase(){
+    removeComma();
     var type = "POST";
     $.ajax({
          type: type,
@@ -74,6 +78,7 @@ function addPhase(){
          data: $("#form-textbook").serialize(),
          success: function(data) {
             $('.content-wrapper').html(data);
+            NumberFormat();
          },
          error: function (error) {
             $('.content-wrapper').html(error.responseText);
@@ -82,6 +87,7 @@ function addPhase(){
 }
 
 function removePhase(phase){
+    removeComma();
     var type = "POST";
     $.ajax({
          type: type,
@@ -89,6 +95,7 @@ function removePhase(phase){
          data: $("#form-textbook").serialize(),
          success: function(data) {
             $('.content-wrapper').html(data);
+            NumberFormat();
          },
          error: function (error) {
             $('.content-wrapper').html(error.responseText);
@@ -108,4 +115,31 @@ function editTextbookInfo(){
     $("#viewName").text("แก้ไข")
 
     window.scrollTo(0, 0);
+}
+
+function NumberFormat(){
+   $( ".amount" ).each( function( i, el ) {
+        var elem = $( el );
+        var num = elem.val().replace(',', '')
+        var numFormat = new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB' }).format(num).replace('฿', '');
+        elem.val(numFormat);
+   });
+
+   calSum();
+}
+
+function removeComma(){
+     $( ".amount" ).each( function( i, el ) {
+         var elem = $( el );
+         elem.val( elem.val().replace(',', ''));
+     });
+}
+function calSum(){
+    var sum = 0.00;
+    $( ".textbookAmount" ).each( function( i, el ) {
+             var elem = $( el );
+             sum += parseFloat(elem.val().replace(',', ''));
+             console.log(sum);
+         });
+    $("#textbookAmountTotal").val(new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB' }).format(sum).replace('฿', ''));
 }

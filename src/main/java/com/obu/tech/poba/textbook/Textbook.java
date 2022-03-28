@@ -42,7 +42,7 @@ public class Textbook {
     @Size(min = 1, max = 255, message = "แหล่งเงินทุนวิจัย")
     private String textbookFund;
 
-    private int textbookAmountTotal;
+    private double textbookAmountTotal;
 
     @NotNull(message = "โปรดเลือก ระยะเวลาเริ่ม")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

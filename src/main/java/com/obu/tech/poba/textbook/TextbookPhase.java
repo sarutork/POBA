@@ -24,7 +24,7 @@ public class TextbookPhase {
     private int textbookPhase;
 
     @PositiveOrZero(message="กรุณาตรวจสอบข้อมูล จำนวนเงิน")
-    private int textbookAmount;
+    private double textbookAmount;
 
     @NotNull(message = "โปรดเลือก ทำเรื่องเบิก/นำส่งเงิน")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
