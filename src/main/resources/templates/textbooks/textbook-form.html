@@ -13,7 +13,6 @@
     <div class="container px-3">
         <th:block th:replace="~{fragments/input-errors}"/>
         <th:block th:replace="~{fragments/alert}"/>
-
         <form id="form-textbook" class="form-wrapper">
             <input type="hidden" id="textbookId" name="textbookId" th:value="${textbook.textbookId}"/>
             <div class="row col-sm-12 mb-2">
@@ -41,7 +40,7 @@
                 <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
                        th:attr="value=${textbook.prefixOther != null}? ${textbook.prefixOther}: ''"
                        th:classappend="${textbook.prefix == 'อื่นๆ'}? 'd-block':'d-none'"
-                       th:disabled="${textbook.textbookId != 0}"/>
+                       />
 
                 <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
@@ -83,7 +82,7 @@
                 <input type="text" class="form-control bg-white col-sm-1"
                        th:name="|phases[${itemStat.index}].textbookPhase|" th:value="${phase.getTextbookPhase()}"required/>
                 <label class="col-sm-1 form-control-label" for="textbookAmount">จำนวนเงิน<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-2 amount textbookAmount" id="textbookAmount" name="textbookAmount" th:onblur="NumberFormat()"
+                <input type="text" class="form-control bg-white col-sm-2 amount textbookAmount" id="textbookAmount" name="textbookAmount" th:onblur="amtFormat()"
                        th:name="|phases[${itemStat.index}].textbookAmount|" th:value="${phase.getTextbookAmount()}" required/>
                 <label class="col-sm-2 form-control-label" for="textbookWithdraw">ทำเรื่องเบิก/นำส่งเงิน<span style="color:red !important;">*</span>:</label>
                 <input type="date" class="form-control bg-white col-sm-2" id="textbookWithdraw" name="textbookWithdraw"
@@ -192,11 +191,11 @@
                        th:attr="value=${textbook.textbookQ4 != null}? ${textbook.textbookQ4}: ''" maxlength="255" required/>
             </div>
         </form>
-        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${textbook.textbookId == 0 ? 'd-block' : 'd-none'} ">
+        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${viewName != 'ดูข้อมูล' ? 'd-block' : 'd-none'} ">
             <button type="button" class="btn btn-poba mr-3" onclick="submitTextbookInfo();">บันทึก</button>
             <a href="javascript:void(0)" onclick="loadView('/poba/textbook')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
         </div>
-        <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${textbook.textbookId != 0 ? 'd-block' : 'd-none'}">
+        <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${viewName == 'ดูข้อมูล' ? 'd-block' : 'd-none'}">
             <a href="javascript:void(0)" onclick="loadView('/poba/textbook')" class="btn btn-poba mr-3">ยกเลิก</a>
             <button type="button" class="btn btn-outline-poba mr-3" onclick="editTextbookInfo();">แก้ไข</button>
         </div>
@@ -204,15 +203,13 @@
 
     <script>
         $(document).ready(function() {
-             var textbookId = $("#textbookId").val();
-             if(textbookId != '' && textbookId > 0){
+             var viewName = $("#viewName").text();
+             if(viewName == "ดูข้อมูล"){
                 $("input").prop("disabled", true);
                 $("select").prop("disabled", true);
                 $(".btn-phase").prop("disabled", true);
              }
-
-             NumberFormat();
-
+             amtFormat();
         });
 
         $('#prefix').change(function(){

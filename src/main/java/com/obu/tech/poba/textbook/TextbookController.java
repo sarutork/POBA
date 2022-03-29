@@ -104,7 +104,7 @@ public class TextbookController {
 
         textbookDto.setPhases(phases);
 
-        return formAdd(textbookDto);
+        return formEdit(textbookDto);
     }
 
     @RequestMapping(path = "/removePhase/{phase}", method = { RequestMethod.POST}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
@@ -121,14 +121,14 @@ public class TextbookController {
 
         int finalPhaseInt = phaseInt;
 
-        if(textbookDto.getTextbookId() == 0) {
-            phases.removeIf(p -> (p.getTextbookPhase() == finalPhaseInt));
+        TextbookPhase tbPhase = phases.stream()
+                .filter(p -> p.getTextbookPhase() == finalPhaseInt)
+                .findAny()
+                .orElse(null);
 
+        if(tbPhase.getTextbookPhaseId() == 0) {
+            phases.removeIf(p -> (p.getTextbookPhase() == finalPhaseInt));
         }else{
-            TextbookPhase tbPhase = phases.stream()
-                    .filter(p -> p.getTextbookPhase() == finalPhaseInt)
-                    .findAny()
-                    .orElse(null);
             phases = textbookService.removePhase(tbPhase.getTextbookPhaseId(),textbookDto.getTextbookId());
         }
 
@@ -139,7 +139,7 @@ public class TextbookController {
 
         textbookDto.setPhases(phases);
 
-        return formAdd(textbookDto);
+        return formEdit(textbookDto);
     }
 
     @GetMapping(value = "/{id}")
@@ -159,6 +159,10 @@ public class TextbookController {
 
     private ModelAndView formAdd(TextbookDto data) {
         return form(data).addObject("viewName", "เพิ่มข้อมูล");
+    }
+
+    private ModelAndView formEdit(TextbookDto data) {
+        return form(data).addObject("viewName", "แก้ไข");
     }
 
     private ModelAndView form(TextbookDto data) {

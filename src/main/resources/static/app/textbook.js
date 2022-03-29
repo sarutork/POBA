@@ -78,7 +78,7 @@ function addPhase(){
          data: $("#form-textbook").serialize(),
          success: function(data) {
             $('.content-wrapper').html(data);
-            NumberFormat();
+            amtFormat();
          },
          error: function (error) {
             $('.content-wrapper').html(error.responseText);
@@ -95,7 +95,7 @@ function removePhase(phase){
          data: $("#form-textbook").serialize(),
          success: function(data) {
             $('.content-wrapper').html(data);
-            NumberFormat();
+            amtFormat();
          },
          error: function (error) {
             $('.content-wrapper').html(error.responseText);
@@ -117,23 +117,11 @@ function editTextbookInfo(){
     window.scrollTo(0, 0);
 }
 
-function NumberFormat(){
-   $( ".amount" ).each( function( i, el ) {
-        var elem = $( el );
-        var num = elem.val().replace(',', '')
-        var numFormat = new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB' }).format(num).replace('฿', '');
-        elem.val(numFormat);
-   });
-
-   calSum();
+function amtFormat(){
+    numberFormat();
+    calSum();
 }
 
-function removeComma(){
-     $( ".amount" ).each( function( i, el ) {
-         var elem = $( el );
-         elem.val( elem.val().replace(',', ''));
-     });
-}
 function calSum(){
     var sum = 0.00;
     $( ".textbookAmount" ).each( function( i, el ) {
