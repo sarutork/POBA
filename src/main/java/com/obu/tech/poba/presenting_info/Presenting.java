@@ -43,7 +43,7 @@ public class Presenting {
     private String presentFund;
 
     @PositiveOrZero(message="กรุณาตรวจสอบข้อมูล จำนวนเงิน")
-    private int presentAmount;
+    private Double presentAmount;
 
     @NotNull(message = "โปรดเลือก กำหนดการเริ่มต้น")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

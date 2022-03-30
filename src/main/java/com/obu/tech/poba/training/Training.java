@@ -61,13 +61,13 @@ public class Training {
     private String trainingAnnounce;
 
     @PositiveOrZero(message="กรุณาตรวจสอบข้อมูล งบประมาณ")
-    private int trainingBudget;
+    private double trainingBudget;
 
     @PositiveOrZero(message="กรุณาตรวจสอบข้อมูล งวดที่")
     private int trainingPhase;
 
     @PositiveOrZero(message="กรุณาตรวจสอบข้อมูล จำนวนเงิน")
-    private int trainingAmount;
+    private Double trainingAmount;
 
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล หน่วยงานให้ทุน/ร่วมจัด")
     private String trainingJoin;

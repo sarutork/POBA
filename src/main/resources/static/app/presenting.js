@@ -42,6 +42,8 @@ function findPresentingInfo() {
 }
 
 function submitPresentingInfo(){
+    removeComma();
+
     var type = "POST";
     var presentId = $("#presentId").val();
     if (presentId != null &&  presentId != 0 ){
@@ -55,6 +57,7 @@ function submitPresentingInfo(){
             setTimeout(function(){
                 loadView('/poba/presenting');
             },3000);
+            amtFormat();
             window.scrollTo(0, 0);
             $('.content-wrapper').html(data);
          },

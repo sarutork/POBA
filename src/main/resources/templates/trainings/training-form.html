@@ -93,8 +93,8 @@
 
             <div  class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="trainingBudget">งบประมาณ<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="trainingBudget" name="trainingBudget"
-                       th:attr="value=${training.trainingBudget != null}? ${training.trainingBudget}: ''" required/>
+                <input type="text" class="form-control bg-white col-sm-4 amount" id="trainingBudget" name="trainingBudget"
+                       th:attr="value=${training.trainingBudget != null}? ${training.trainingBudget}: ''" onblur="amtFormat()" required/>
                 <label class="form-control-label col-sm-2" for="trainingPhase">งวดที่<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="trainingPhase" name="trainingPhase"
                        th:attr="value=${training.trainingPhase != null}? ${training.trainingPhase}: ''" required/>
@@ -102,8 +102,8 @@
 
             <div  class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="trainingAmount">จำนวนเงิน<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="trainingAmount" name="trainingAmount"
-                       th:attr="value=${training.trainingAmount != null}? ${training.trainingAmount}: ''" required/>
+                <input type="text" class="form-control bg-white col-sm-4 amount" id="trainingAmount" name="trainingAmount"
+                       th:attr="value=${training.trainingAmount != null}? ${training.trainingAmount}: ''" onblur="amtFormat()" required/>
                 <label class="form-control-label col-sm-2" for="trainingJoin">หน่วยงานให้ทุน/ร่วมจัด<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="trainingJoin" name="trainingJoin"
                        th:attr="value=${training.trainingJoin != null}? ${training.trainingJoin}: ''" maxlength="255" required/>
@@ -148,6 +148,8 @@
                 $("select").prop("disabled", true);
                 $(".btn-phase").prop("disabled", true);
              }
+
+             amtFormat();
         });
 
         $('#prefix').change(function(){

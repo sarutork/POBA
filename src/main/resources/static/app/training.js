@@ -40,6 +40,7 @@ function findTraining() {
 }
 
 function submitTrainingInfo(){
+    removeComma();
     var type = "POST";
     var staffId = $("#trainingId").val();
     if (staffId != null &&  staffId != 0 ){
@@ -53,6 +54,7 @@ function submitTrainingInfo(){
                 setTimeout(function(){
                      loadView('/poba/training');
                  },3000);
+                 amtFormat();
                  window.scrollTo(0, 0);
                  $('.content-wrapper').html(data);
             },

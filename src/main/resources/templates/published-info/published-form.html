@@ -131,8 +131,8 @@
             </div>
             <div class="row mb-2">
                 <label for="publishedFund" class="form-control-label col-sm-2">เงินสนับสนุน<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="publishedFund" name="publishedFund"
-                       th:attr="value=${published.publishedFund != null}? ${published.publishedFund} : ''" required/>
+                <input type="text" class="form-control bg-white col-sm-4 amount" id="publishedFund" name="publishedFund"
+                       th:attr="value=${published.publishedFund != null}? ${published.publishedFund} : ''" onblur="amtFormat()" required/>
             </div>
             <div class="row col-sm-12 mb-2">
                 <label><b>จำนวนครั้งที่นำไปเผยแพร่</b></label>
@@ -171,6 +171,8 @@
                 $("input").prop("disabled", true);
                 $("select").prop("disabled", true);
              }
+
+             amtFormat();
         });
 
          $('#publishedJoinPrefix').change(function(){
@@ -207,20 +209,6 @@
                 $("#prefixOtherTmp").removeClass("d-none");
                 $("#prefixOtherTmp").addClass("d-block");
             }
-        });
-
-        $('input.number').keyup(function(event) {
-        });
-
-        $('input.amount').keyup(function(event) {
-          if(event.which >= 37 && event.which <= 40) return;
-
-          $(this).val(function(index, value) {
-            return value
-            .replace(/\D/g, "")
-            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-            ;
-          });
         });
 
     </script>

@@ -73,8 +73,8 @@
                 <input type="text" class="form-control bg-white col-sm-4" id="presentFund" name="presentFund"
                        th:attr="value=${presenting.presentFund != null}? ${presenting.presentFund} : ''" maxlength="255" required/>
                 <label for="presentAmount" class="form-control-label col-sm-2">จำนวนเงิน<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="presentAmount" name="presentAmount"
-                       th:attr="value=${presenting.presentAmount != null}? ${presenting.presentAmount} : ''" required/>
+                <input type="text" class="form-control bg-white col-sm-4 amount" id="presentAmount" name="presentAmount"
+                       th:attr="value=${presenting.presentAmount != null}? ${presenting.presentAmount} : ''" onblur="amtFormat()" required/>
             </div>
             <div class="row mb-2">
                 <label for="presentDateStart" class="form-control-label col-sm-2">กำหนดการ<span style="color:red !important;">*</span>:</label>
@@ -110,6 +110,8 @@
                 $("input").prop("disabled", true);
                 $("select").prop("disabled", true);
              }
+
+             amtFormat();
         });
 
         $('#prefix').change(function(){

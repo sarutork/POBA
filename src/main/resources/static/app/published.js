@@ -52,6 +52,8 @@ function findPublished() {
         } );
 }
 function submitPublishedInfo(){
+    removeComma();
+
     var type = "POST";
     var staffId = $("#publishedId").val();
     if (staffId != null &&  staffId != 0 ){
@@ -65,6 +67,7 @@ function submitPublishedInfo(){
              setTimeout(function(){
                  loadView('/poba/published');
              },3000);
+             amtFormat();
              window.scrollTo(0, 0);
              $('.content-wrapper').html(data);
          },
