@@ -207,21 +207,32 @@ CREATE TABLE IF NOT EXISTS `present_work` (
 -- Dumping structure for table poba.press_info
 DROP TABLE IF EXISTS `press_info`;
 CREATE TABLE IF NOT EXISTS `press_info` (
-  `staff_id` int(11) NOT NULL,
-  `press_id` int(11) NOT NULL,
+  `press_id` int(11) NOT NULL AUTO_INCREMENT,
   `prefix` varchar(255) NOT NULL,
+  `prefix_other` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
-  `press_date` datetime NOT NULL,
+  `press_name` varchar(255) NOT NULL,
+  `press_date` date NOT NULL,
   `press_topic` varchar(255) NOT NULL,
   `press_site_ref` varchar(255) NOT NULL,
   `press_print` varchar(255) NOT NULL,
   `press_tv` varchar(255) NOT NULL,
   `press_satellite` varchar(255) NOT NULL,
   `press_online` varchar(255) NOT NULL,
-  `press_person` varchar(255) NOT NULL,
-  `press_invite` varchar(255) NOT NULL,
-  PRIMARY KEY (`staff_id`,`press_id`)
+  `guest_prefix1` varchar(255) NOT NULL,
+  `guest_prefix_other1` varchar(255) NOT NULL,
+  `guest_name1` varchar(255) NOT NULL,
+  `guest_surname1` varchar(255) NOT NULL,
+  `guest_prefix2` varchar(255) NOT NULL,
+  `guest_prefix_other2` varchar(255) NOT NULL,
+  `guest_name2` varchar(255) NOT NULL,
+  `guest_surname2` varchar(255) NOT NULL,
+  `guest_prefix3` varchar(255) NOT NULL,
+  `guest_prefix_other3` varchar(255) NOT NULL,
+  `guest_name3` varchar(255) NOT NULL,
+  `guest_surname3` varchar(255) NOT NULL,
+  PRIMARY KEY (`press_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="press">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item active"><span>ข้อมูลการออกสื่อ</span></li>
+        </ol>
+    </div>
+
+    <div class="px-3">
+        <th:block th:replace="~{fragments/alert}"/>
+
+        <form id="form-press" class="form-inline justify-content-end flex-md-row flex-column">
+            <div class="form-group mb-3">
+                <label for="name" class="mr-1">ค้นหาข้อมูล:</label>
+                <input type="text" class="form-control bg-white mr-3" id="name">
+            </div>
+            <div class="form-group mb-3">
+                <label for="pressDate" class="mr-1">ระดับ:</label>
+                <input type="date" class="form-control bg-white mr-3" id="pressDate" name="pressDate"/>
+            </div>
+            <div class="form-group mb-3">
+                <button type="button" class="btn btn-outline-poba mr-3" onclick="findPressInfo();">ค้นหา</button>
+                <a href="javascript:void(0)" onclick="loadView('/poba/press/add')" class="btn btn-poba">เพิ่มข้อมูล</a>
+            </div>
+        </form>
+
+        <div class="table table-responsive">
+            <table id="table-press" class="display" width="100%">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ผู้เผยแพร่/ผู้ดำเนินรายการ</th>
+                    <th>วันที่เผยแพร่</th>
+                    <th>ชื่อผลงานความรู้ที่เผยแพร่</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="4" class="dataTables_empty text-center bg-secondary">ข้อมูลการออกสื่อ</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</th:block>
+</html>
