@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `board_resolution` (
 -- Dumping structure for table poba.consultant_students
 DROP TABLE IF EXISTS `consultant_students`;
 CREATE TABLE IF NOT EXISTS `consultant_students` (
-  `staff_id` int(11) NOT NULL,
+  `staff_id` int(11) NOT NULL AUTO_INCREMENT,
   `prefix` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `surname` varchar(255) DEFAULT NULL,
