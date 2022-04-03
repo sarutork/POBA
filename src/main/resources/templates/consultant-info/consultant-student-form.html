@@ -111,6 +111,10 @@
                     <option value="ปริญญาโท:ทดลองศึกษา" th:selected="${consultantStudent.admissionStatus == 'ปริญญาโท:ทดลองศึกษา'}? 'selected'">ทดลองศึกษา</option>
                     <option value="ปริญญาโท:นิสิตแลกเปลี่ยน" th:selected="${consultantStudent.admissionStatus == 'ปริญญาโท:นิสิตแลกเปลี่ยน'}? 'selected'">นิสิตแลกเปลี่ยน</option>
                     <option value="ปริญญาเอก:กรุณาเลือก">กรุณาเลือก</option>
+                    <option value="ปริญญาเอก:สามัญเต็มเวลา" th:selected="${consultantStudent.admissionStatus == 'ปริญญาเอก:สามัญเต็มเวลา'}? 'selected'">สามัญเต็มเวลา</option>
+                    <option value="ปริญญาเอก:ทดลองศึกษา" th:selected="${consultantStudent.admissionStatus == 'ปริญญาเอก:ทดลองศึกษา'}? 'selected'">ทดลองศึกษา</option>
+                    <option value="ปริญญาเอก:นิสิตแลกเปลี่ยน" th:selected="${consultantStudent.admissionStatus == 'ปริญญาเอก:นิสิตแลกเปลี่ยน'}? 'selected'">นิสิตแลกเปลี่ยน</option>
+
                 </select>
                 <label for="course" class="form-control-label col-sm-2">หลักสูตร<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="course" name="course"

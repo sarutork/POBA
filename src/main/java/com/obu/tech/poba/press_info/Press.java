@@ -61,19 +61,15 @@ public class Press {
     private String guestName1;
     private String guestSurname1;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า แขกรับเชิญ2")
     private String guestPrefix2;
     private String guestPrefixOther2;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-นามสกุล แขกรับเชิญ2")
     private String guestName2;
     private String guestSurname2;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า แขกรับเชิญ3")
     private String guestPrefix3;
     private String guestPrefixOther3;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-นามสกุล แขกรับเชิญ3")
     private String guestName3;
     private String guestSurname3;
 
