@@ -111,16 +111,18 @@
             <div  class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="trainingThai">ผู้เข้าร่วม (คนไทย)<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="trainingThai" name="trainingThai"
-                       th:attr="value=${training.trainingThai != null}? ${training.trainingThai}: ''" required/>
+                       th:attr="value=${training.trainingThai != null}? ${training.trainingThai}: ''"
+                       onblur="sumTrainee()" required/>
                 <label class="form-control-label col-sm-2" for="trainingForeign">ผู้เข้าร่วม (ต่างชาติ)<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="trainingForeign" name="trainingForeign"
-                       th:attr="value=${training.trainingForeign != null}? ${training.trainingForeign}: ''" required/>
+                       th:attr="value=${training.trainingForeign != null}? ${training.trainingForeign}: ''"
+                       onblur="sumTrainee()" required/>
             </div>
 
             <div  class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="trainingTotalPerson">ผู้เข้าร่วม (รวม):</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="trainingTotalPerson" name="trainingTotalPerson"
-                       th:attr="value=${training.trainingTotalPerson != null}? ${training.trainingTotalPerson}: ''" />
+                       th:attr="value=${training.trainingTotalPerson != null}? ${training.trainingTotalPerson}: ''" readonly/>
                 <label class="col-sm-2 form-control-label" for="trainingLevel">ระดับกิจกรรม<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="col-4 form-control" id="trainingLevel" name="trainingLevel" required>
                     <option value="">กรุณาเลือก</option>

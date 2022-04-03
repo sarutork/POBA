@@ -77,3 +77,9 @@ function editTrainingInfo(){
 
     window.scrollTo(0, 0);
 }
+
+function sumTrainee(){
+    var thaiTrainee = $("#trainingThai").val();
+    var foreignTrainee = $("#trainingForeign").val();
+    $("#trainingTotalPerson").val(parseInt(thaiTrainee) + parseInt(foreignTrainee));
+}
