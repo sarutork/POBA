@@ -1,167 +1,193 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
-<th:block layout:fragment="content">
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="profile-from">
 
     <div id="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
-            <li class="breadcrumb-item"><a href="/poba/personnel-info/profile">ข้อมูลประวัติบุคลากร</a></li>
-            <li class="breadcrumb-item active"><span th:text="${viewName}"></span></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/personnel-info/profile')">ข้อมูลประวัติบุคลากร</a></li>
+            <li class="breadcrumb-item active"><span id="viewName" th:text="${viewName}"></span></li>
         </ol>
     </div>
 
     <div class="pt-4 px-3">
 
-        <form id="form-history">
+        <form id="form-profile">
+            <th:block th:replace="~{fragments/input-errors}"/>
+            <th:block th:replace="~{fragments/alert}"/>
 
             <div class="row mb-3">
-                <label for="staff-id" class="col-sm-2 col-form-label text-md-right">Pers. No.:</label>
+                <label for="staffId" class="col-sm-2 col-form-label text-md-right">Pers. No.<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
-                    <input type="text" class="form-control" id="staff-id">
+                    <input type="text" class="form-control" id="staffId" name="staffId"
+                           th:attr="value=${profile.staffId != null}? ${profile.staffId}: ''" required>
                 </div>
             </div>
 
+            <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="นาย" th:selected="${profile.prefix == 'นาย'}? 'selected'">นาย</option>
+                    <option value="นางสาว" th:selected="${profile.prefix == 'นางสาว'}? 'selected'">นางสาว</option>
+                    <option value="นาง" th:selected="${profile.prefix == 'นาง'}? 'selected'">นาง</option>
+                    <option value="อ." th:selected="${profile.prefix == 'อ.'}? 'selected'">อ.</option>
+                    <option value="อ.ดร." th:selected="${profile.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
+                    <option value="ผศ." th:selected="${profile.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
+                    <option value="ผศ.ดร." th:selected="${profile.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
+                    <option value="รศ." th:selected="${profile.prefix == 'รศ.'}? 'selected'">รศ.</option>
+                    <option value="รศ.ดร." th:selected="${profile.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
+                    <option value="ศ." th:selected="${profile.prefix == 'ศ.'}? 'selected'">ศ.</option>
+                    <option value="ศ.ดร." th:selected="${profile.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
+                    <option value="อื่นๆ" th:selected="${profile.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
+                </select>
+
+                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${profile.prefix == 'อื่นๆ'}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${profile.prefixOther != null}? ${profile.prefixOther}: ''"
+                       th:classappend="${profile.prefix == 'อื่นๆ'}? 'd-block':'d-none'"
+                       th:disabled="${profile.staffId != 0}"/>
+
+                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
+                       th:attr="value=${profile.name != null}? ${profile.name}: ''" maxlength="255" required/>
+            </div>
+
             <div class="row mb-3">
-                <label for="name1" class="col-sm-2 col-form-label text-md-right">คำนำหน้า:</label>
-                <div class="col-lg-3
-                            col-md-3
-                            col-sm-3 pl-sm-0">
-                    <select class="form-control" id="name1" required>
-                        <option value="" hidden>กรุณาเลือก</option>
-                        <option value="นาย">นาย</option>
-                        <option value="นางสาว">นางสาว</option>
-                        <option value="นาง">นาง</option>
-                    </select>
-                </div>
-                <label for="name2" class="col-sm-3 col-form-label text-md-right">ชื่อ-นามสกุล:</label>
+                <label for="emailOrg" class="col-sm-2 col-form-label text-md-right">อีเมล จุฬาฯ<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-4
                             col-md-4
                             col-sm-4 pl-sm-0">
-                    <input type="text" class="form-control" id="name2">
+                    <input type="text" class="form-control" id="emailOrg" name="emailOrg"
+                           th:attr="value=${profile.emailOrg != null}? ${profile.emailOrg}: ''" maxlength="255" required>
                 </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="email-org" class="col-sm-2 col-form-label text-md-right">อีเมล จุฬาฯ:</label>
+                <label for="emailPersonal" class="col-sm-2 col-form-label text-md-right">อีเมล ส่วนตัว<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-4
                             col-md-4
                             col-sm-4 pl-sm-0">
-                    <input type="text" class="form-control" id="email-org">
+                    <input type="text" class="form-control" id="emailPersonal" name="emailPersonal"
+                           th:attr="value=${profile.emailPersonal != null}? ${profile.emailPersonal}: ''" maxlength="255" required>
                 </div>
-                <label for="email-private" class="col-sm-2 col-form-label text-md-right">อีเมล ส่วนตัว:</label>
+            </div>
+
+            <div class="row mb-3">
+                <label for="tel" class="col-sm-2 col-form-label text-md-right">เบอร์ห้องทำงาน<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-4
                             col-md-4
                             col-sm-4 pl-sm-0">
-                    <input type="text" class="form-control" id="email-private">
+                    <input type="text" class="form-control" id="tel" name="tel"
+                           th:attr="value=${profile.tel != null}? ${profile.tel}: ''" maxlength="255" required>
                 </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="tel" class="col-sm-2 col-form-label text-md-right">เบอร์ห้องทำงาน:</label>
+                <label for="mobile" class="col-sm-2 col-form-label text-md-right">เบอร์มือถือ<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-4
                             col-md-4
                             col-sm-4 pl-sm-0">
-                    <input type="text" class="form-control" id="tel">
-                </div>
-                <label for="mobile" class="col-sm-2 col-form-label text-md-right">เบอร์มือถือ:</label>
-                <div class="col-lg-4
-                            col-md-4
-                            col-sm-4 pl-sm-0">
-                    <input type="text" class="form-control" id="mobile">
+                    <input type="text" class="form-control" id="mobile" name="mobile"
+                           th:attr="value=${profile.mobile != null}? ${profile.mobile}: ''" maxlength="255" required>
                 </div>
             </div>
 
             <div class="row mb-3">
-                <label for="date1" class="col-sm-2 col-form-label text-md-right">วันที่เข้าจุฬา:</label>
+                <label for="startWorkDate" class="col-sm-2 col-form-label text-md-right">วันที่เข้าจุฬา<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
-                    <input type="date" class="form-control" id="date1">
+                    <input type="date" class="form-control" id="startWorkDate" name="startWorkDate"
+                           th:attr="value=${profile.startWorkDate != null}? ${profile.startWorkDate}: ''" required>
+
                 </div>
-                <label for="date2" class="col-sm-3 col-form-label text-md-right">วันที่นับอายุงาน:</label>
+                <label for="startCountWorkDate" class="col-sm-3 col-form-label text-md-right">วันที่นับอายุงาน<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
-                    <input type="date" class="form-control" id="date2">
+                    <input type="date" class="form-control" id="startCountWorkDate" name="startCountWorkDate"
+                           th:attr="value=${profile.startCountWorkDate != null}? ${profile.startCountWorkDate}: ''" required>
                 </div>
             </div>
 
             <div class="row mb-3">
-                <label for="date1" class="col-sm-2 col-form-label text-md-right">วันที่นับอายุงาน-สกอ:</label>
+                <label for="startCountWorkOHECDate" class="col-sm-2 col-form-label text-md-right">วันที่นับอายุงาน-สกอ<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
-                    <input type="date" class="form-control" id="date3">
+                    <input type="date" class="form-control" id="startCountWorkOHECDate" name="startCountWorkOHECDate"
+                           th:attr="value=${profile.startCountWorkOHECDate != null}? ${profile.startCountWorkOHECDate}: ''" required>
                 </div>
-                <label for="date2" class="col-sm-3 col-form-label text-md-right">วันที่นับถึง:</label>
+                <label for="toWorkDate" class="col-sm-3 col-form-label text-md-right">วันที่นับถึง<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
-                    <input type="date" class="form-control" id="date4">
+                    <input type="date" class="form-control" id="toWorkDate" name="toWorkDate"
+                           th:attr="value=${profile.toWorkDate != null}? ${profile.toWorkDate}: ''" required>
                 </div>
             </div>
 
             <div class="row mb-3">
-                <label for="text1" class="col-sm-2 col-form-label text-md-right">อายุงาน:</label>
+                <label for="totalWorkYear" class="col-sm-2 col-form-label text-md-right">อายุงาน:</label>
                 <div class="col-lg-2
                             col-md-2
                             col-sm-2 pl-sm-0">
-                    <input type="text" class="form-control" id="text1">
+                    <input type="text" class="form-control" id="totalWorkYear" name="totalWorkYear"
+                           th:attr="value=${profile.totalWorkYear != null}? ${profile.totalWorkYear}: ''" required>
                 </div>
                 <label class="mr-3"> ปี </label>
                 <div class="col-lg-2
                             col-md-2
                             col-sm-2 pl-sm-0">
-                    <input type="text" class="form-control" id="text2">
+                    <input type="text" class="form-control" id="totalWorkMonth" name="totalWorkMonth"
+                           th:attr="value=${profile.totalWorkMonth != null}? ${profile.totalWorkMonth}: ''" required>
                 </div>
                 <label class="mr-3"> เดือน </label>
                 <div class="col-lg-2
                             col-md-2
                             col-sm-2 pl-sm-0">
-                    <input type="text" class="form-control" id="text3">
+                    <input type="text" class="form-control" id="totalWorkDay" name="totalWorkDay"
+                           th:attr="value=${profile.totalWorkDay != null}? ${profile.totalWorkDay}: ''" required>
                 </div>
                 <label> วัน </label>
             </div>
 
             <div class="row mb-3">
-                <label for="text4" class="col-sm-2 col-form-label text-md-right">นับสกอ.:</label>
+                <label for="totalWorkOHEC" class="col-sm-2 col-form-label text-md-right">นับสกอ.:</label>
                 <div class="col-lg-4
                             col-md-4
                             col-sm-4 pl-sm-0">
-                    <input type="text" class="form-control" id="text4">
+                    <input type="text" class="form-control" id="totalWorkOHEC" name="totalWorkOHEC"
+                           th:attr="value=${profile.totalWorkOHEC != null}? ${profile.totalWorkOHEC}: ''" required>
                 </div>
-                <label for="t5" class="col-sm-2 col-form-label text-md-right">นับเต็มคน:</label>
+
+                <label for="total" class="col-sm-2 col-form-label text-md-right">นับเต็มคน:</label>
                 <div class="col-lg-4
                             col-md-4
                             col-sm-4 pl-sm-0">
-                    <input type="text" class="form-control" id="t5">
+                    <input type="text" class="form-control" id="total" name="total"
+                           th:attr="value=${profile.total != null}? ${profile.total}: ''" required>
                 </div>
             </div>
 
             <div class="row mb-3">
-                <label for="t6" class="col-sm-2 col-form-label text-md-right">ระดับการศึกษา สกอ.:</label>
+                <label for="ohecEducationLevel" class="col-sm-2 col-form-label text-md-right">ระดับการศึกษา สกอ.<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
-                    <select class="form-control" id="t6" required>
-                        <option value="" hidden>กรุณาเลือก</option>
-                        <option value="ปวช. / ปวส">ปวช. / ปวส</option>
-                        <option value="ปริญญาตรี">ปริญญาตรี</option>
-                        <option value="ปริญญาโท">ปริญญาโท</option>
-                        <option value="ปริญญาเอก">ปริญญาเอก</option>
+                    <select class="form-control" id="ohecEducationLevel" name="ohecEducationLevel" required>
+                        <option value="">กรุณาเลือก</option>
+                        <option value="ปวช. / ปวส" th:selected="${profile.ohecEducationLevel == 'ปวช. / ปวส'}? 'selected'">ปวช. / ปวส</option>
+                        <option value="ปริญญาตรี" th:selected="${profile.ohecEducationLevel == 'ปริญญาตรี'}? 'selected'">ปริญญาตรี</option>
+                        <option value="ปริญญาโท" th:selected="${profile.ohecEducationLevel == 'ปริญญาโท'}? 'selected'">ปริญญาโท</option>
+                        <option value="ปริญญาเอก" th:selected="${profile.ohecEducationLevel == 'ปริญญาเอก'}? 'selected'">ปริญญาเอก</option>
+
                     </select>
                 </div>
-                <label for="t6" class="col-sm-3 col-form-label text-md-right">โครงสร้าง สกอ.:</label>
+                <label for="ohecStructure" class="col-sm-3 col-form-label text-md-right">โครงสร้าง สกอ.<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
-                    <select class="form-control" id="t7" required>
-                        <option value="" hidden>กรุณาเลือก</option>
+                    <select class="form-control" id="ohecStructure" name="ohecStructure" required>
+                        <option value="ขอข้อมูล" th:selected="${profile.ohecStructure == 'ขอข้อมูล'}? 'selected'">ขอข้อมูล</option>
+                        <option value="">กรุณาเลือก</option>
                         <option value="xxx">xxx</option>
                         <option value="xxx">xxx</option>
                         <option value="xxx">xxx</option>
@@ -170,98 +196,100 @@
             </div>
 
             <div class="row mb-3">
-                <label for="t8" class="col-sm-2 col-form-label text-md-right">สาย:</label>
+                <label for="section" class="col-sm-2 col-form-label text-md-right">สาย<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
-                    <select class="form-control" id="t8" required>
-                        <option value="" hidden>กรุณาเลือก</option>
-                        <option value="ปฏิบัติการ">ปฏิบัติการ</option>
-                        <option value="วิชาการ">วิชาการ</option>
+                    <select class="form-control" id="section" name="section" required>
+                        <option value="">กรุณาเลือก</option>
+                        <option value="ปฏิบัติการ" th:selected="${profile.section == 'ปฏิบัติการ'}? 'selected'">ปฏิบัติการ</option>
+                        <option value="วิชาการ" th:selected="${profile.section == 'วิชาการ'}? 'selected'">วิชาการ</option>
                     </select>
                 </div>
-                <label for="t9" class="col-sm-3 col-form-label text-md-right">กลุ่มตำแหน่ง สกอ.:</label>
+                <label for="ohecPositionGroup" class="col-sm-3 col-form-label text-md-right">กลุ่มตำแหน่ง สกอ.<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
-                    <select class="form-control" id="t9" required>
-                        <option value="" hidden>กรุณาเลือก</option>
-                        <option value="ปฏิบัติการ">ปฏิบัติการ</option>
-                        <option value="วิชาการ - ขรก">วิชาการ - ขรก</option>
-                        <option value="วิชาการ - พนม">วิชาการ - พนม</option>
-                        <option value="วิชาการ – วิจัย">วิชาการ – วิจัย</option>
-                        <option value="วิชาการ - ลจ.ชั่วคราว-ตปท.">วิชาการ - ลจ.ชั่วคราว-ตปท.</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="t10" class="col-sm-2 col-form-label text-md-right">ตำแหน่งวิชาการ สกอ.:</label>
-                <div class="col-lg-3
-                            col-md-3
-                            col-sm-3 pl-sm-0">
-                    <select class="form-control" id="t10" required>
-                        <option value="" hidden>กรุณาเลือก</option>
-                        <option value="ผู้ช่วยศาสตราจารย์">ผู้ช่วยศาสตราจารย์</option>
-                        <option value="รองศาสตราจารย์">รองศาสตราจารย์</option>
-                        <option value="ศาสตราจารย์">ศาสตราจารย์</option>
-                    </select>
-                </div>
-                <label for="t11" class="col-sm-3 col-form-label text-md-right">ชื่อโครงสร้างระดับ1:</label>
-                <div class="col-lg-3
-                            col-md-3
-                            col-sm-3 pl-sm-0">
-                    <select class="form-control" id="t11" required>
-                        <option value="" hidden>กรุณาเลือก</option>
-                        <option value="คณะรัฐศาสตร์">คณะรัฐศาสตร์</option>
+                    <select class="form-control" id="ohecPositionGroup" name="ohecPositionGroup" required>
+                        <option value="">กรุณาเลือก</option>
+                        <option value="ปฏิบัติการ" th:selected="${profile.ohecPositionGroup == 'ปฏิบัติการ'}? 'selected'">ปฏิบัติการ</option>
+                        <option value="วิชาการ - ขรก" th:selected="${profile.ohecPositionGroup == 'วิชาการ - ขรก'}? 'selected'">วิชาการ - ขรก</option>
+                        <option value=" วิชาการ - พนม" th:selected="${profile.ohecPositionGroup == ' วิชาการ - พนม'}? 'selected'"> วิชาการ - พนม</option>
+                        <option value="วิชาการ – วิจัย" th:selected="${profile.ohecPositionGroup == 'วิชาการ – วิจัย'}? 'selected'">วิชาการ – วิจัย</option>
+                        <option value="วิชาการ - ลจ.ชั่วคราว-ตปท." th:selected="${profile.ohecPositionGroup == 'วิชาการ - ลจ.ชั่วคราว-ตปท.'}? 'selected'">วิชาการ - ลจ.ชั่วคราว-ตปท.</option>
                     </select>
                 </div>
             </div>
 
             <div class="row mb-3">
-                <label for="t12" class="col-sm-2 col-form-label text-md-right">ชื่อโครงสร้างระดับ2:</label>
+                <label for="ohecAcademicPosition" class="col-sm-2 col-form-label text-md-right">ตำแหน่งวิชาการ สกอ.<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
-                    <select class="form-control" id="t12" required>
-                        <option value="" hidden>กรุณาเลือก</option>
-                        <option value="ฝ่ายบริหาร รศ.">ฝ่ายบริหาร รศ.</option>
-                        <option value="ฝ่ายวิชาการ รศ.">ฝ่ายวิชาการ รศ.</option>
-                        <option value="ภาควิชาการปกครอง รศ.">ภาควิชาการปกครอง รศ.</option>
-                        <option value="ภาควิชาความสัมพันธ์ระหว่างประเทศ รศ.">ภาควิชาความสัมพันธ์ระหว่างประเทศ รศ.</option>
-                        <option value="ภาควิชาสังคมวิทยาและมานุษยวิทยา รศ.">ภาควิชาสังคมวิทยาและมานุษยวิทยา รศ.</option>
-                        <option value="ภาควิชารัฐประศาสนศาสตร์ รศ.">ภาควิชารัฐประศาสนศาสตร์ รศ.</option>
-                        <option value="ศูนย์สารสนเทศทางสังคมศาสตร์ รศ.">ศูนย์สารสนเทศทางสังคมศาสตร์ รศ.</option>
-                        <option value="ศูนย์คอมพิวเตอร์และเทคโนโลยีฯ รศ.">ศูนย์คอมพิวเตอร์และเทคโนโลยีฯ รศ.</option>
-                        <option value="สถาบันความมั่นคงและนานาชาติ รศ.">สถาบันความมั่นคงและนานาชาติ รศ.</option>
-                        <option value="สถาบันความมั่นคงและนานาชาติ รศ.">สถาบันความมั่นคงและนานาชาติ รศ.</option>
-                        <option value="ศูนย์ศึกษาการพัฒนาสังคม">ศูนย์ศึกษาการพัฒนาสังคม</option>
+                    <select class="form-control" id="ohecAcademicPosition" name="ohecAcademicPosition" required>
+                        <option value="" >กรุณาเลือก</option>
+                        <option value="อาจารย์" th:selected="${profile.ohecAcademicPosition == 'อาจารย์'}? 'selected'">อาจารย์</option>
+                        <option value="ผู้ช่วยศาสตราจารย์" th:selected="${profile.ohecAcademicPosition == 'ผู้ช่วยศาสตราจารย์'}? 'selected'">ผู้ช่วยศาสตราจารย์</option>
+                        <option value="รองศาสตราจารย์" th:selected="${profile.ohecAcademicPosition == 'รองศาสตราจารย์'}? 'selected'">รองศาสตราจารย์</option>
+                        <option value="ศาสตราจารย์" th:selected="${profile.ohecAcademicPosition == 'ศาสตราจารย์'}? 'selected'">ศาสตราจารย์</option>
                     </select>
                 </div>
-                <label for="t13" class="col-sm-3 col-form-label text-md-right">ชื่อโครงสร้างระดับ3:</label>
+                <label for="structureNameLevel1" class="col-sm-3 col-form-label text-md-right">ชื่อโครงสร้างระดับ1<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
-                    <select class="form-control" id="t13" required>
-                        <option value="" hidden>กรุณาเลือก</option>
-                        <option value="กลุ่มงานบริการการศึกษา รศ">กลุ่มงานบริการการศึกษา รศ</option>
-                        <option value="กลุ่มงานส่งเสริมและพัฒนากิจกรรมนิสิตฯ รศ.">กลุ่มงานส่งเสริมและพัฒนากิจกรรมนิสิตฯ รศ.</option>
-                        <option value="กลุ่มงานส่งเสริมการวิจัยและบริการวิชาการ รศ.">กลุ่มงานส่งเสริมการวิจัยและบริการวิชาการ รศ.</option>
-                        <option value="กลุ่มงานการศึกษาและกิจการนานาชาติ รศ.">กลุ่มงานการศึกษาและกิจการนานาชาติ รศ.</option>
-                        <option value="กลุ่มงานบริหารทั่วไป รศ.">กลุ่มงานบริหารทั่วไป รศ.</option>
-                        <option value="กลุ่มงานบริหารงบประมาณ แผนยุทธศาสตร์ฯ รศ.">กลุ่มงานบริหารงบประมาณ แผนยุทธศาสตร์ฯ รศ.</option>
-                        <option value="กลุ่มงานบริหารการคลังและพัสดุ รศ.">กลุ่มงานบริหารการคลังและพัสดุ รศ.</option>
-                        <option value="กลุ่มงานบริหารและพัฒนาทรัพยากรบุคคล รศ.">กลุ่มงานบริหารและพัฒนาทรัพยากรบุคคล รศ.</option>
+                    <select class="form-control" id="structureNameLevel1" name="structureNameLevel1" required>
+                        <option value="">กรุณาเลือก</option>
+                        <option value="คณะรัฐศาสตร์" th:selected="${profile.structureNameLevel1 == 'คณะรัฐศาสตร์'}? 'selected'">คณะรัฐศาสตร์</option>
                     </select>
                 </div>
             </div>
 
             <div class="row mb-3">
-                <label for="t14" class="col-sm-2 col-form-label text-md-right">ชื่อโครงสร้างระดับ4:</label>
+                <label for="structureNameLevel2" class="col-sm-2 col-form-label text-md-right">ชื่อโครงสร้างระดับ2<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
-                    <select class="form-control" id="t14" required>
+                    <select class="form-control" id="structureNameLevel2" name="structureNameLevel2" required>
+                        <option value="">กรุณาเลือก</option>
+                        <option value="ฝ่ายบริหาร รศ." th:selected="${profile.structureNameLevel2 == 'ฝ่ายบริหาร รศ.'}? 'selected'">ฝ่ายบริหาร รศ.</option>
+                        <option value="ฝ่ายวิชาการ รศ." th:selected="${profile.structureNameLevel2 == 'ฝ่ายวิชาการ รศ.'}? 'selected'">ฝ่ายวิชาการ รศ.</option>
+                        <option value="ภาควิชาการปกครอง รศ." th:selected="${profile.structureNameLevel2 == 'ภาควิชาการปกครอง รศ.'}? 'selected'">ภาควิชาการปกครอง รศ.</option>
+                        <option value="ภาควิชาความสัมพันธ์ระหว่างประเทศ รศ." th:selected="${profile.structureNameLevel2 == 'ภาควิชาความสัมพันธ์ระหว่างประเทศ รศ.'}? 'selected'">ภาควิชาความสัมพันธ์ระหว่างประเทศ รศ.</option>
+                        <option value="ภาควิชาสังคมวิทยาและมานุษยวิทยา รศ." th:selected="${profile.structureNameLevel2 == 'ภาควิชาสังคมวิทยาและมานุษยวิทยา รศ.'}? 'selected'">ภาควิชาสังคมวิทยาและมานุษยวิทยา รศ.</option>
+                        <option value="ภาควิชารัฐประศาสนศาสตร์ รศ." th:selected="${profile.structureNameLevel2 == 'ภาควิชารัฐประศาสนศาสตร์ รศ.'}? 'selected'">ภาควิชารัฐประศาสนศาสตร์ รศ.</option>
+                        <option value="ศูนย์สารสนเทศทางสังคมศาสตร์ รศ." th:selected="${profile.structureNameLevel2 == 'ศูนย์สารสนเทศทางสังคมศาสตร์ รศ.'}? 'selected'">ศูนย์สารสนเทศทางสังคมศาสตร์ รศ.</option>
+                        <option value="ศูนย์คอมพิวเตอร์และเทคโนโลยีฯ รศ." th:selected="${profile.structureNameLevel2 == 'ศูนย์คอมพิวเตอร์และเทคโนโลยีฯ รศ.'}? 'selected'">ศูนย์คอมพิวเตอร์และเทคโนโลยีฯ รศ.</option>
+                        <option value="สถาบันความมั่นคงและนานาชาติ รศ." th:selected="${profile.structureNameLevel2 == 'สถาบันความมั่นคงและนานาชาติ รศ.'}? 'selected'">สถาบันความมั่นคงและนานาชาติ รศ.</option>
+                        <option value="สถาบันความมั่นคงและนานาชาติ รศ." th:selected="${profile.structureNameLevel2 == 'สถาบันความมั่นคงและนานาชาติ รศ.'}? 'selected'">สถาบันความมั่นคงและนานาชาติ รศ.</option>
+                        <option value="ศูนย์ศึกษาการพัฒนาสังคม" th:selected="${profile.structureNameLevel2 == 'ศูนย์ศึกษาการพัฒนาสังคม'}? 'selected'">ศูนย์ศึกษาการพัฒนาสังคม</option>
+                    </select>
+                </div>
+                <label for="structureNameLevel3" class="col-sm-3 col-form-label text-md-right">ชื่อโครงสร้างระดับ3<span style="color:red !important;">*</span>:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <select class="form-control" id="structureNameLevel3" name="structureNameLevel3" required>
+                        <option value="">กรุณาเลือก</option>
+                        <option value="กลุ่มงานบริการการศึกษา รศ" th:selected="${profile.structureNameLevel3 == 'กลุ่มงานบริการการศึกษา รศ'}? 'selected'">กลุ่มงานบริการการศึกษา รศ</option>
+                        <option value="กลุ่มงานส่งเสริมและพัฒนากิจกรรมนิสิตฯ รศ." th:selected="${profile.structureNameLevel3 == 'กลุ่มงานส่งเสริมและพัฒนากิจกรรมนิสิตฯ รศ.'}? 'selected'">กลุ่มงานส่งเสริมและพัฒนากิจกรรมนิสิตฯ รศ.</option>
+                        <option value="กลุ่มงานส่งเสริมการวิจัยและบริการวิชาการ รศ." th:selected="${profile.structureNameLevel3 == 'กลุ่มงานส่งเสริมการวิจัยและบริการวิชาการ รศ.'}? 'selected'">กลุ่มงานส่งเสริมการวิจัยและบริการวิชาการ รศ.</option>
+                        <option value="กลุ่มงานการศึกษาและกิจการนานาชาติ รศ." th:selected="${profile.structureNameLevel3 == 'กลุ่มงานการศึกษาและกิจการนานาชาติ รศ.'}? 'selected'">กลุ่มงานการศึกษาและกิจการนานาชาติ รศ.</option>
+                        <option value="กลุ่มงานบริหารทั่วไป รศ." th:selected="${profile.structureNameLevel3 == 'กลุ่มงานบริหารทั่วไป รศ.'}? 'selected'">กลุ่มงานบริหารทั่วไป รศ.</option>
+                        <option value="กลุ่มงานบริหารงบประมาณ แผนยุทธศาสตร์ฯ รศ." th:selected="${profile.structureNameLevel3 == 'กลุ่มงานบริหารงบประมาณ แผนยุทธศาสตร์ฯ รศ.'}? 'selected'">กลุ่มงานบริหารงบประมาณ แผนยุทธศาสตร์ฯ รศ.</option>
+                        <option value="กลุ่มงานบริหารการคลังและพัสดุ รศ." th:selected="${profile.structureNameLevel3 == 'กลุ่มงานบริหารการคลังและพัสดุ รศ.'}? 'selected'">กลุ่มงานบริหารการคลังและพัสดุ รศ.</option>
+                        <option value="กลุ่มงานบริหารและพัฒนาทรัพยากรบุคคล รศ." th:selected="${profile.structureNameLevel3 == 'กลุ่มงานบริหารและพัฒนาทรัพยากรบุคคล รศ.'}? 'selected'">กลุ่มงานบริหารและพัฒนาทรัพยากรบุคคล รศ.</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="structureNameLevel4" class="col-sm-2 col-form-label text-md-right">ชื่อโครงสร้างระดับ4<span style="color:red !important;">*</span>:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <select class="form-control" id="structureNameLevel4" name="structureNameLevel4" required>
+                        <option value="ขอข้อมูล" th:selected="${profile.structureNameLevel4 == 'ขอข้อมูล'}? 'selected'">ขอข้อมูล</option>
                         <option value="" hidden>กรุณาเลือก</option>
                         <option value="xxx">xxx</option>
                         <option value="xxx">xxx</option>
@@ -269,69 +297,149 @@
 
                     </select>
                 </div>
-                <label for="t15" class="col-sm-3 col-form-label text-md-right">กลุ่มพนักงาน:</label>
+                <label for="staffGroup" class="col-sm-3 col-form-label text-md-right">กลุ่มพนักงาน<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
-                    <select class="form-control" id="t15" required>
-                        <option value="" hidden>กรุณาเลือก</option>
-                        <option value="พนม.อุดหนุน เต็มเวลา">พนม.อุดหนุน เต็มเวลา</option>
-                        <option value="พนม.รายได้ เต็มเวลา">พนม.รายได้ เต็มเวลา</option>
-                        <option value="ข้าราชการ">ข้าราชการ</option>
-                        <option value="ลูกจ้างประจำเงินงบฯ">ลูกจ้างประจำเงินงบฯ</option>
-                        <option value="ลูกจ้างประจำเงินนอก">ลูกจ้างประจำเงินนอก</option>
-                        <option value="ลูกจ้างชั่วคราวชาวต่างชาติ">ลูกจ้างชั่วคราวชาวต่างชาติ</option>
+                    <select class="form-control" id="staffGroup" name="staffGroup" required>
+                        <option value="">กรุณาเลือก</option>
+                        <option value="พนม.อุดหนุน เต็มเวลา" th:selected="${profile.staffGroup == 'พนม.อุดหนุน เต็มเวลา'}? 'selected'">พนม.อุดหนุน เต็มเวลา</option>
+                        <option value="พนม.รายได้ เต็มเวลา" th:selected="${profile.staffGroup == 'พนม.รายได้ เต็มเวลา'}? 'selected'">พนม.รายได้ เต็มเวลา</option>
+                        <option value="ข้าราชการ" th:selected="${profile.staffGroup == 'ข้าราชการ'}? 'selected'">ข้าราชการ</option>
+                        <option value="ลูกจ้างประจำเงินงบฯ" th:selected="${profile.staffGroup == 'ลูกจ้างประจำเงินงบฯ'}? 'selected'">ลูกจ้างประจำเงินงบฯ</option>
+                        <option value="ลูกจ้างประจำเงินนอก" th:selected="${profile.staffGroup == 'ลูกจ้างประจำเงินนอก'}? 'selected'">ลูกจ้างประจำเงินนอก</option>
+                        <option value="ลูกจ้างชั่วคราวชาวต่างชาติ" th:selected="${profile.staffGroup == 'ลูกจ้างชั่วคราวชาวต่างชาติ'}? 'selected'">ลูกจ้างชั่วคราวชาวต่างชาติ</option>
                     </select>
                 </div>
             </div>
 
             <div class="row mb-3">
-                <label for="text16" class="col-sm-2 col-form-label text-md-right">กลุ่มพนักงานย่อย:</label>
-                <div class="col-lg-4
-                            col-md-4
-                            col-sm-4 pl-sm-0">
-                    <input type="text" class="form-control" id="text16">
+                <label for="staffSubGroup" class="col-sm-2 col-form-label text-md-right">กลุ่มพนักงานย่อย<span style="color:red !important;">*</span>:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <select class="form-control" id="staffSubGroup" name="staffSubGroup" required>
+                        <option value="">กรุณาเลือก</option>
+                        <option value="A-1" th:selected="${profile.staffSubGroup == 'A-1'}? 'selected'">A-1</option>
+                        <option value="A-2" th:selected="${profile.staffSubGroup == 'A-2'}? 'selected'">A-2</option>
+                        <option value="A-3" th:selected="${profile.staffSubGroup == 'A-3'}? 'selected'">A-3</option>
+                        <option value="A-4" th:selected="${profile.staffSubGroup == 'A-4'}? 'selected'">A-4</option>
+                        <option value="A-5" th:selected="${profile.staffSubGroup == 'A-5'}? 'selected'">A-5</option>
+                        <option value="P5-A" th:selected="${profile.staffSubGroup == 'P5-A'}? 'selected'">P5-A</option>
+                        <option value="P5-B" th:selected="${profile.staffSubGroup == 'P5-B'}? 'selected'">P5-B</option>
+                        <option value="P6-A" th:selected="${profile.staffSubGroup == 'P6-A'}? 'selected'">P6-A</option>
+                        <option value="P6-B" th:selected="${profile.staffSubGroup == 'P6-B'}? 'selected'">P6-B</option>
+                        <option value="P7-A" th:selected="${profile.staffSubGroup == 'P7-A'}? 'selected'">P7-A</option>
+                        <option value="P7-B" th:selected="${profile.staffSubGroup == 'P7-B'}? 'selected'">P7-B</option>
+                        <option value="P7-C" th:selected="${profile.staffSubGroup == 'P7-C'}? 'selected'">P7-C</option>
+                        <option value="P8-A" th:selected="${profile.staffSubGroup == 'P8-A'}? 'selected'">P8-A</option>
+                        <option value="P8-B" th:selected="${profile.staffSubGroup == 'P8-B'}? 'selected'">P8-B</option>
+                        <option value="P9-A" th:selected="${profile.staffSubGroup == 'P9-A'}? 'selected'">P9-A</option>
+                        <option value="P9-B" th:selected="${profile.staffSubGroup == 'P9-B'}? 'selected'">P9-B</option>
+                        <option value="บ1" th:selected="${profile.staffSubGroup == 'บ1'}? 'selected'">บ1</option>
+                        <option value="บ2" th:selected="${profile.staffSubGroup == 'บ2'}? 'selected'">บ2</option>
+                    </select>
                 </div>
-                <label for="t17" class="col-sm-2 col-form-label text-md-right">ตำแหน่ง:</label>
-                <div class="col-lg-4
-                            col-md-4
-                            col-sm-4 pl-sm-0">
-                    <input type="text" class="form-control" id="t17">
+                <label for="position" class="col-sm-3 col-form-label text-md-right">ตำแหน่ง<span style="color:red !important;">*</span>:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <select class="form-control" id="position" name="position" required>
+                        <option value="">กรุณาเลือก</option>
+                        <option value="ปฏิบัติการ" th:selected="${profile.position == 'ปฏิบัติการ'}? 'selected'">ปฏิบัติการ</option>
+                        <option value="วิชาการ - ขรก" th:selected="${profile.position == 'วิชาการ - ขรก'}? 'selected'">วิชาการ - ขรก</option>
+                        <option value="วิชาการ - พนม" th:selected="${profile.position == 'วิชาการ - พนม'}? 'selected'">วิชาการ - พนม</option>
+                        <option value="วิชาการ – วิจัย" th:selected="${profile.position == 'วิชาการ – วิจัย'}? 'selected'">วิชาการ – วิจัย</option>
+                        <option value="วิชาการ - ลจ.ชั่วคราว-ตปท." th:selected="${profile.position == 'วิชาการ - ลจ.ชั่วคราว-ตปท.'}? 'selected'">วิชาการ - ลจ.ชั่วคราว-ตปท.</option>
+                    </select>
                 </div>
             </div>
 
             <div class="row mb-3">
-                <label for="text18" class="col-sm-2 col-form-label text-md-right">งาน:</label>
-                <div class="col-lg-4
-                            col-md-4
-                            col-sm-4 pl-sm-0">
-                    <input type="text" class="form-control" id="text18">
+                <label for="work" class="col-sm-2 col-form-label text-md-right">งาน<span style="color:red !important;">*</span>:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <select class="form-control" id="work" name="work" required>
+                        <option value="">กรุณาเลือก</option>
+                        <option value="อาจารย์" th:selected="${profile.work == 'อาจารย์'}? 'selected'">อาจารย์</option>
+                        <option value="ผู้ช่วยศาสตราจารย์" th:selected="${profile.work == 'ผู้ช่วยศาสตราจารย์'}? 'selected'">ผู้ช่วยศาสตราจารย์</option>
+                        <option value="รองศาสตราจารย์" th:selected="${profile.work == 'รองศาสตราจารย์'}? 'selected'">รองศาสตราจารย์</option>
+                        <option value="ศาสตราจารย์" th:selected="${profile.work == 'ศาสตราจารย์'}? 'selected'">ศาสตราจารย์</option>
+                        <option value="ผู้ปฏิบัติงานบริหารปฏิบัติงาน" th:selected="${profile.work == 'ผู้ปฏิบัติงานบริหารปฏิบัติงาน'}? 'selected'">ผู้ปฏิบัติงานบริหารปฏิบัติงาน</option>
+                        <option value="พนักงานทั่วไป" th:selected="${profile.work == 'พนักงานทั่วไป'}? 'selected'">พนักงานทั่วไป</option>
+                        <option value="พนักงานสถานที่" th:selected="${profile.work == 'พนักงานสถานที่'}? 'selected'">พนักงานสถานที่</option>
+                        <option value="นักวิจัยผู้ช่วย" th:selected="${profile.work == 'นักวิจัยผู้ช่วย'}? 'selected'">นักวิจัยผู้ช่วย</option>
+                        <option value="บรรณารักษ์" th:selected="${profile.work == 'บรรณารักษ์'}? 'selected'">บรรณารักษ์</option>
+                        <option value="จบช. (ไฟฟ้า)" th:selected="${profile.work == 'จบช. (ไฟฟ้า)'}? 'selected'">จบช. (ไฟฟ้า)</option>
+                        <option value="จบท. (ขับรถยนต์)" th:selected="${profile.work == 'จบท. (ขับรถยนต์)'}? 'selected'">จบท. (ขับรถยนต์)</option>
+                        <option value="จบท. (คนสวน)" th:selected="${profile.work == 'จบท. (คนสวน)'}? 'selected'">จบท. (คนสวน)</option>
+                        <option value="จบท. (นักการภารโรง)" th:selected="${profile.work == 'จบท. (นักการภารโรง)'}? 'selected'">จบท. (นักการภารโรง)</option>
+                        <option value="จบศ. (กิจการนิสิต)" th:selected="${profile.work == 'จบศ. (กิจการนิสิต)'}? 'selected'">จบศ. (กิจการนิสิต)</option>
+                        <option value="จบศ. (ประสานงานวิจัย)" th:selected="${profile.work == 'จบศ. (ประสานงานวิจัย)'}? 'selected'">จบศ. (ประสานงานวิจัย)</option>
+                        <option value="จบศ. (วิชาการศึกษา)" th:selected="${profile.work == 'จบศ. (วิชาการศึกษา)'}? 'selected'">จบศ. (วิชาการศึกษา)</option>
+                        <option value="จบส. (เอกสารสนเทศ)" th:selected="${profile.work == 'จบส. (เอกสารสนเทศ)'}? 'selected'">จบส. (เอกสารสนเทศ)</option>
+                        <option value="จบส. (ห้องสมุด)" th:selected="${profile.work == 'จบส. (ห้องสมุด)'}? 'selected'">จบส. (ห้องสมุด)</option>
+                        <option value="จวค. (นโยบายและแผน)" th:selected="${profile.work == 'จวค. (นโยบายและแผน)'}? 'selected'">จวค. (นโยบายและแผน)</option>
+                        <option value="จวค. (ระบบคอมพิวเตอร์)" th:selected="${profile.work == 'จวค. (ระบบคอมพิวเตอร์)'}? 'selected'">จวค. (ระบบคอมพิวเตอร์)</option>
+                        <option value="จสน. (การเงิน)" th:selected="${profile.work == 'จสน. (การเงิน)'}? 'selected'">จสน. (การเงิน)</option>
+                        <option value="จสน. (บริหารงานทั่วไป)" th:selected="${profile.work == 'จสน. (บริหารงานทั่วไป)'}? 'selected'">จสน. (บริหารงานทั่วไป)</option>
+                        <option value="จสน. (บัญชี)" th:selected="${profile.work == 'จสน. (บัญชี)'}? 'selected'">จสน. (บัญชี)</option>
+                        <option value="จสน. (บุคคล)" th:selected="${profile.work == 'จสน. (บุคคล)'}? 'selected'">จสน. (บุคคล)</option>
+                        <option value="จสน. (พัสดุ)" th:selected="${profile.work == 'จสน. (พัสดุ)'}? 'selected'">จสน. (พัสดุ)</option>
+                    </select>
                 </div>
-                <label for="t19" class="col-sm-2 col-form-label text-md-right">สัญญาการจ้างงาน:</label>
-                <div class="col-lg-4
-                            col-md-4
-                            col-sm-4 pl-sm-0">
-                    <input type="text" class="form-control" id="t19">
-                </div>
+                <label for="empContract" class="col-sm-3 col-form-label text-md-right">สัญญาการจ้างงาน<span style="color:red !important;">*</span>:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <input type="text" class="form-control" id="empContract" name="empContract"
+                           th:attr="value=${profile.empContract != null}? ${profile.empContract}: ''" maxlength="255" required>                </div>
             </div>
             <div class="row mb-3">
-                <label for="text20" class="col-sm-2 col-form-label text-md-right">ขอบเขตย่อยงานบุคคล:</label>
-                <div class="col-lg-4
-                            col-md-4
-                            col-sm-4 pl-sm-0">
-                    <input type="text" class="form-control" id="text20">
-                </div>
+                <label for="subSectionScopeOfWork" class="col-sm-2 col-form-label text-md-right">ขอบเขตย่อยงานบุคคล<span style="color:red !important;">*</span>:</label>
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
+                    <input type="text" class="form-control" id="subSectionScopeOfWork" name="subSectionScopeOfWork"
+                           th:attr="value=${profile.subSectionScopeOfWork != null}? ${profile.subSectionScopeOfWork}: ''" maxlength="255" required>                  </div>
             </div>
         </form>
-        <div class="row justify-content-center mt-5 mb-5">
-            <button type="button" class="btn btn-poba mr-3" onclick="">บันทึก</button>
-            <a href="/poba/personnel-info/profile" class="btn btn-outline-poba mr-3">ยกเลิก</a>
+        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${viewName != 'ดูข้อมูล' ? 'd-block' : 'd-none'} ">
+            <button type="button" class="btn btn-poba mr-3" onclick="submitProfileInfo()">บันทึก</button>
+            <a href="javascript:void(0)" onclick="loadView('/poba/personnel-info/profile')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
+        </div>
+        <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${viewName == 'ดูข้อมูล' ? 'd-block' : 'd-none'}">
+            <a href="javascript:void(0)" onclick="loadView('/poba/personnel-info/profile')" class="btn btn-poba mr-3">ยกเลิก</a>
+            <button type="button" class="btn btn-outline-poba mr-3" onclick="editProfileInfo();">แก้ไข</button>
         </div>
     </div>
 
     <script>
-        $(document).ready(function() {
+       $(document).ready(function() {
+             var viewName = $("#viewName").text();
+             if(viewName == "ดูข้อมูล"){
+                $("input").prop("disabled", true);
+                $("select").prop("disabled", true);
+             }
+        });
 
+        $('#prefix').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#prefixOther").removeClass("d-none");
+                $("#prefixOther").addClass("d-block");
+
+                $("#prefixOtherTmp").removeClass("d-block");
+                $("#prefixOtherTmp").addClass("d-none");
+            }else{
+                $("#prefixOther").val("");
+                $("#prefixOther").removeClass("d-block");
+                $("#prefixOther").addClass("d-none");
+
+                $("#prefixOtherTmp").removeClass("d-none");
+                $("#prefixOtherTmp").addClass("d-block");
+            }
         });
     </script>
 

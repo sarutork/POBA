@@ -3,8 +3,10 @@ package com.obu.tech.poba.personnel_info.profile;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -30,7 +32,7 @@ public class Profile {
     private String emailOrg;
 
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล อีเมล ส่วนตัว")
-    private String emailPrivate;
+    private String emailPersonal;
 
     @Size(min = 1, max = 10, message = "กรุณาตรวจสอบข้อมูล เบอร์ห้องทำงาน")
     private String tel;
@@ -38,13 +40,71 @@ public class Profile {
     @Size(min = 1, max = 10, message = "กรุณาตรวจสอบข้อมูล เบอร์มือถือ")
     private String mobile;
 
+    @NotNull(message = "โปรดเลือก วันที่เข้าจุฬา")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startWorkDate;
 
+    @NotNull(message = "โปรดเลือก วันที่นับอายุงาน")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startCountWorkDate;
 
+    @NotNull(message = "โปรดเลือก วันที่นับอายุงาน-สกอ")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startCountWorkOHECDate;
 
+    @NotNull(message = "โปรดเลือก วันที่นับถึง")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate toWorkDate;
 
+    private int totalWorkYear;
+    private int totalWorkMonth;
+    private int totalWorkDay;
 
+    private int totalWorkOHEC;
+    private int total;
+
+    @Size(min = 1, max = 255, message = "โปรดเลือก ระดับการศึกษา สกอ.")
+    private String ohecEducationLevel;
+
+    @Size(min = 1, max = 255, message = "โปรดเลือก โครงสร้าง สกอ.")
+    private String ohecStructure;
+
+    @Size(min = 1, max = 255, message = "โปรดเลือก สาย")
+    private String section;
+
+    @Size(min = 1, max = 255, message = "โปรดเลือก กลุ่มตำแหน่ง สกอ.")
+    private String ohecPositionGroup;
+
+    @Size(min = 1, max = 255, message = "โปรดเลือก ตำแหน่งวิชาการ สกอ.")
+    private String ohecAcademicPosition;
+
+    @Size(min = 1, max = 255, message = "โปรดเลือก ชื่อโครงสร้างระดับ1")
+    private String structureNameLevel1;
+
+    @Size(min = 1, max = 255, message = "โปรดเลือก ชื่อโครงสร้างระดับ2")
+    private String structureNameLevel2;
+
+    @Size(min = 1, max = 255, message = "โปรดเลือก ชื่อโครงสร้างระดับ3")
+    private String structureNameLevel3;
+
+    @Size(min = 1, max = 255, message = "โปรดเลือก ชื่อโครงสร้างระดับ4")
+    private String structureNameLevel4;
+
+    @Size(min = 1, max = 255, message = "โปรดเลือก กลุ่มพนักงาน")
+    private String staffGroup;
+
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล กลุ่มพนักงานย่อย")
+    private String staffSubGroup;
+
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ตำแหน่ง")
+    private String position;
+
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล งาน")
+    private String work;
+
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล สัญญาการจ้างงาน")
+    private String empContract;
+
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ขอบเขตย่อยงานบุคคล")
+    private String subSectionScopeOfWork;
 }

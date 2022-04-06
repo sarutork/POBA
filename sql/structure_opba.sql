@@ -238,18 +238,42 @@ CREATE TABLE IF NOT EXISTS `press_info` (
 -- Data exporting was unselected.
 -- Dumping structure for table poba.profile
 DROP TABLE IF EXISTS `profile`;
-CREATE TABLE IF NOT EXISTS `profile` (
-  `staff_id` int(11) NOT NULL,
+CREATE TABLE `profile` (
+  `staff_id` int NOT NULL AUTO_INCREMENT,
   `prefix` varchar(20) NOT NULL,
+  `prefix_other` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
-  `structure2` varchar(255) NOT NULL,
   `email_org` varchar(255) NOT NULL,
-  `email_private` varchar(255) NOT NULL,
+  `email_personal` varchar(255) NOT NULL,
   `tel` varchar(255) NOT NULL,
   `mobile` varchar(255) NOT NULL,
+  `start_work_date` date NOT NULL,
+  `start_count_work_date` date NOT NULL,
+  `start_count_workohecdate` date NOT NULL,
+  `to_work_date` date NOT NULL,
+  `total_work_year` int NOT NULL,
+  `total_work_month` int NOT NULL,
+  `total_work_day` int NOT NULL,
+  `total_workohec` int NOT NULL,
+  `total` int NOT NULL,
+  `ohec_education_level` varchar(255) NOT NULL,
+  `ohec_structure` varchar(255) NOT NULL,
+  `section` varchar(255) NOT NULL,
+  `ohec_position_group` varchar(255) NOT NULL,
+  `ohec_academic_position` varchar(255) NOT NULL,
+  `structure_name_level1` varchar(255) NOT NULL,
+  `structure_name_level2` varchar(255) NOT NULL,
+  `structure_name_level3` varchar(255) NOT NULL,
+  `structure_name_level4` varchar(255) NOT NULL,
+  `staff_group` varchar(255) NOT NULL,
+  `staff_sub_group` varchar(255) NOT NULL,
+  `position` varchar(255) NOT NULL,
+  `work` varchar(255) NOT NULL,
+  `emp_contract` varchar(255) NOT NULL,
+  `sub_section_scope_of_work` varchar(255) NOT NULL,
   PRIMARY KEY (`staff_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
 -- Data exporting was unselected.
 -- Dumping structure for table poba.project

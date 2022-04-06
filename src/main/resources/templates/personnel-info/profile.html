@@ -1,29 +1,24 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
-<th:block layout:fragment="content">
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="profile">
 
     <div id="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
             <li class="breadcrumb-item active"><span>ข้อมูลประวัติบุคลากร</span></li>
         </ol>
     </div>
 
     <div class="px-3">
 
-        <form id="form-researcher" class="mb-5">
-            <div class="d-flex flex-md-row flex-column justify-content-end">
-                <div class="row px-3 mb-md-0 mb-3">
-                    <label for="name" class="col-4 text-right col-form-label">ค้นหาข้อมูล:</label>
-                    <input id="name" type="text" class="col-8 form-control" placeholder="ค้นหาด้วยชื่อ">
-                </div>
-                <div class="pl-md-3 d-inline-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findProfileInfo()">ค้นหา</button>
-                    <a href="/poba/personnel-info/profile/add" class="btn btn-poba">เพิ่มข้อมูล</a>
-                </div>
+        <form id="form-researcher" class="form-inline justify-content-end flex-md-row flex-column">
+            <div class="form-group mb-3">
+                <label for="name" class="mr-1">ค้นหาข้อมูล:</label>
+                <input id="name" type="text" class="form-control bg-white mr-3" placeholder="ค้นหาด้วยชื่อ">
+            </div>
+            <div class="form-group mb-3">
+                <button type="button" class="btn btn-outline-poba mr-3" onclick="findProfileInfo()">ค้นหา</button>
+                <a href="javascript:void(0)" onclick="loadView('/poba/personnel-info/profile/add')" class="btn btn-poba">เพิ่มข้อมูล</a>
             </div>
         </form>
 
@@ -48,12 +43,5 @@
         </div>
 
     </div>
-
-    <script>
-        $(document).ready(function() {
-            initHistoryInfo();
-        });
-    </script>
-
 </th:block>
 </html>

@@ -11,7 +11,7 @@ function findProfileInfo() {
         columns: [
             { data: "staffId" },
             { data: "name"},
-            { data: "structure2" },
+            { data: "structureNameLevel2" },
             { data: "emailOrg" },
             { data: "tel" },
             { data: "mobile" }
@@ -19,9 +19,13 @@ function findProfileInfo() {
         columnDefs: [
             {
                render: function (data, type, row) {
-                   var fullName = row["prefix"]+' '+row["name"] + ' ' + row["surname"];
-                       return fullName;
-                    },
+                   var prefix = row["prefix"];
+                      if(prefix == "อื่นๆ"){
+                           prefix = row["prefixOther"]
+                      }
+                      var fullName = prefix+' '+row["name"] + ' ' + row["surname"];
+                          return fullName;
+               },
                targets: 1,
             },
         ],
@@ -31,9 +35,42 @@ function findProfileInfo() {
     $('#table-profile tbody').on('click', 'tr', function () {
             if(!$('#table-profile tbody tr td').hasClass("dataTables_empty")){
                var data = tableProfile.row( this ).data();
-                window.location.href = "/poba/personnel-info/profile/"+data.staffId;
+                loadView('/poba/personnel-info/profile/'+data.staffId);
             }
-        } );
+     } );
+}
+
+function submitProfileInfo(){
+    var type = "POST";
+    $.ajax({
+         type: type,
+         url: "/poba/personnel-info/profile/save",
+         data: $("#form-profile").serialize(),
+         success: function(data) {
+                setTimeout(function(){
+                     loadView('/poba/personnel-info/profile');
+                 },3000);
+                 window.scrollTo(0, 0);
+                 $('.content-wrapper').html(data);
+            },
+         error: function (error) {
+            $('.content-wrapper').html(error.responseText);
+         }
+    });
+}
+
+function editProfileInfo(){
+    $(":input").prop("disabled", false);
+
+    $("#submit").removeClass("d-none");
+    $("#submit").addClass("d-block");
+
+    $("#edit").removeClass("d-block");
+    $("#edit").addClass("d-none");
+
+    $("#viewName").text("แก้ไข")
+
+    window.scrollTo(0, 0);
 }
 
 function findStudyInfo() {
@@ -199,7 +236,6 @@ function findResearcherInfo() {
         searching: false,
         'bDestroy': true
     });
-    // TODO: Check onClick after search again
     $('#table-researcher tbody').on('click', 'tr', function() {
         if (!$('#table-researcher tbody tr td').hasClass("dataTables_empty")) {
             var data = tableResearcher.row(this).data();

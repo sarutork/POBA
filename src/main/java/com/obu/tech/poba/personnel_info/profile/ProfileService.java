@@ -1,10 +1,10 @@
 package com.obu.tech.poba.personnel_info.profile;
 
-import com.obu.tech.poba.teaching_info.Teaching;
-import com.obu.tech.poba.teaching_info.TeachingRepository;
 import com.obu.tech.poba.utils.search.SearchConditionBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
@@ -19,5 +19,18 @@ public class ProfileService {
                 .ifNotNullThenOr("surname", LIKE, profile.getName())
                 .build()
         );
+    }
+
+    public Profile save(Profile profile) {
+        return profileRepository.saveAndFlush(profile);
+    }
+
+    public Profile findById(String id) {
+        if (id.matches("\\d+")) {
+            return profileRepository.findById(Long.parseLong(id))
+                    .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
+        } else {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        }
     }
 }
