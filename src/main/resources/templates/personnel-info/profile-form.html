@@ -95,7 +95,8 @@
                             col-md-3
                             col-sm-3 pl-sm-0">
                     <input type="date" class="form-control" id="startWorkDate" name="startWorkDate"
-                           th:attr="value=${profile.startWorkDate != null}? ${profile.startWorkDate}: ''" required>
+                           th:attr="value=${profile.startWorkDate != null}? ${profile.startWorkDate}: ''"
+                           onchange="startWorkDateChange()" required>
 
                 </div>
                 <label for="startCountWorkDate" class="col-sm-3 col-form-label text-md-right">วันที่นับอายุงาน<span style="color:red !important;">*</span>:</label>
@@ -103,7 +104,8 @@
                             col-md-3
                             col-sm-3 pl-sm-0">
                     <input type="date" class="form-control" id="startCountWorkDate" name="startCountWorkDate"
-                           th:attr="value=${profile.startCountWorkDate != null}? ${profile.startCountWorkDate}: ''" required>
+                           th:attr="value=${profile.startCountWorkDate != null}? ${profile.startCountWorkDate}: ''"
+                           onchange="startCountWorkDateChange()" required>
                 </div>
             </div>
 
@@ -113,14 +115,16 @@
                             col-md-3
                             col-sm-3 pl-sm-0">
                     <input type="date" class="form-control" id="startCountWorkOHECDate" name="startCountWorkOHECDate"
-                           th:attr="value=${profile.startCountWorkOHECDate != null}? ${profile.startCountWorkOHECDate}: ''" required>
+                           th:attr="value=${profile.startCountWorkOHECDate != null}? ${profile.startCountWorkOHECDate}: ''"
+                           onchange="startCountWorkOHECDateChange()" required>
                 </div>
                 <label for="toWorkDate" class="col-sm-3 col-form-label text-md-right">วันที่นับถึง<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
                     <input type="date" class="form-control" id="toWorkDate" name="toWorkDate"
-                           th:attr="value=${profile.toWorkDate != null}? ${profile.toWorkDate}: ''" required>
+                           th:attr="value=${profile.toWorkDate != null}? ${profile.toWorkDate}: ''"
+                           onchange="toWorkDateChange()" required>
                 </div>
             </div>
 

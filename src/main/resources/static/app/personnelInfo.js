@@ -73,6 +73,60 @@ function editProfileInfo(){
     window.scrollTo(0, 0);
 }
 
+function startWorkDateChange(){
+    var startDate = $("#startWorkDate").val();
+    var endDate = $("#toWorkDate").val();
+
+    $("#toWorkDate").attr('min',startDate);
+    $("#startCountWorkDate").attr('min',startDate);
+    $("#startCountWorkOHECDate").attr('min',startDate);
+
+    if(startDate != null && endDate != null && startDate != "" && endDate != ""){
+             const date1 = new Date(startDate);
+             const date2 = new Date(endDate);
+             const diffTime = date2 - date1;
+             if (diffTime < 0 ){
+                $("#toWorkDate").val("");
+             }else{
+                $("#total").val(calDiffDays(date1, date2));
+             }
+    }
+}
+
+function startCountWorkDateChange(){
+    var startDate = $("#startCountWorkDate").val();
+    var endDate = $("#toWorkDate").val();
+    if(startDate != null && endDate != null && startDate != "" && endDate != ""){
+             const date1 = new Date(startDate);
+             const date2 = new Date(endDate);
+             const diffTime = date2 - date1;
+             if (diffTime < 0 ){
+                $("#toWorkDate").val("");
+             }else{
+               setTotalDayMonthYear(startDate,endDate,"totalWorkYear","totalWorkMonth","totalWorkDay");
+             }
+    }
+}
+function startCountWorkOHECDateChange(){
+    var startDate = $("#startCountWorkOHECDate").val();
+    var endDate = $("#toWorkDate").val();
+    if(startDate != null && endDate != null && startDate != "" && endDate != ""){
+             const date1 = new Date(startDate);
+             const date2 = new Date(endDate);
+             const diffTime = date2 - date1;
+             if (diffTime < 0 ){
+                $("#toWorkDate").val("");
+             }else{
+                $("#totalWorkOHEC").val(calDiffDays(date1, date2));
+             }
+    }
+}
+function toWorkDateChange(){
+    startWorkDateChange();
+    startCountWorkDateChange();
+    startCountWorkOHECDateChange();
+}
+
 function findStudyInfo() {
    var tableStudy =  $('#table-study').DataTable({
         ajax: {
@@ -119,7 +173,7 @@ function calDiffDays(date1, date2){
     return diffDays;
 }
 
-function setTotalDayMonthYear(startingDate, endingDate) {
+function setTotalDayMonthYear(startingDate, endingDate, setFieldYear, setFieldMonth, setFieldDay) {
     var startDate = new Date(new Date(startingDate).toISOString().substr(0, 10));
     if (!endingDate) {
         endingDate = new Date().toISOString().substr(0, 10);    // need date in YYYY-MM-DD format
@@ -150,12 +204,10 @@ function setTotalDayMonthYear(startingDate, endingDate) {
         }
         dayDiff += daysInMonth[startDate.getMonth()];
     }
-    $("#totalYear").val(yearDiff);
-    $("#totalMonth").val(monthDiff);
-    $("#totalDay").val(dayDiff);
-    //return yearDiff + 'Y ' + monthDiff + 'M ' + dayDiff + 'D';
+        $("#"+setFieldYear).val(yearDiff);
+        $("#"+setFieldMonth).val(monthDiff);
+        $("#"+setFieldDay).val(dayDiff);
 }
-
 
 function startDateChange(){
     var startDate = $("#startDate").val();
@@ -169,7 +221,7 @@ function startDateChange(){
              if (diffTime < 0 ){
                 $("#endDate").val("");
              }else{
-               setTotalDayMonthYear(startDate,endDate);
+               setTotalDayMonthYear(startDate,endDate,"totalYear","totalMonth","totalDay");
              }
     }
 }
@@ -177,7 +229,7 @@ function endDateChange(){
     var startDate = $("#startDate").val();
     var endDate = $("#endDate").val();
     if(startDate != null && endDate != null && startDate != "" && endDate != ""){
-        setTotalDayMonthYear(startDate,endDate);
+        setTotalDayMonthYear(startDate,endDate,"totalYear","totalMonth","totalDay");
     }
 }
 
