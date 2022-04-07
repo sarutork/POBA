@@ -134,21 +134,21 @@
                             col-md-2
                             col-sm-2 pl-sm-0">
                     <input type="text" class="form-control" id="totalWorkYear" name="totalWorkYear"
-                           th:attr="value=${profile.totalWorkYear != null}? ${profile.totalWorkYear}: ''" required>
+                           th:attr="value=${profile.totalWorkYear != null}? ${profile.totalWorkYear}: ''" readonly required>
                 </div>
                 <label class="mr-3"> ปี </label>
                 <div class="col-lg-2
                             col-md-2
                             col-sm-2 pl-sm-0">
                     <input type="text" class="form-control" id="totalWorkMonth" name="totalWorkMonth"
-                           th:attr="value=${profile.totalWorkMonth != null}? ${profile.totalWorkMonth}: ''" required>
+                           th:attr="value=${profile.totalWorkMonth != null}? ${profile.totalWorkMonth}: ''" readonly required>
                 </div>
                 <label class="mr-3"> เดือน </label>
                 <div class="col-lg-2
                             col-md-2
                             col-sm-2 pl-sm-0">
                     <input type="text" class="form-control" id="totalWorkDay" name="totalWorkDay"
-                           th:attr="value=${profile.totalWorkDay != null}? ${profile.totalWorkDay}: ''" required>
+                           th:attr="value=${profile.totalWorkDay != null}? ${profile.totalWorkDay}: ''"  readonly required>
                 </div>
                 <label> วัน </label>
             </div>
@@ -159,7 +159,7 @@
                             col-md-4
                             col-sm-4 pl-sm-0">
                     <input type="text" class="form-control" id="totalWorkOHEC" name="totalWorkOHEC"
-                           th:attr="value=${profile.totalWorkOHEC != null}? ${profile.totalWorkOHEC}: ''" required>
+                           th:attr="value=${profile.totalWorkOHEC != null}? ${profile.totalWorkOHEC}: ''" readonly required>
                 </div>
 
                 <label for="total" class="col-sm-2 col-form-label text-md-right">นับเต็มคน:</label>
@@ -167,7 +167,7 @@
                             col-md-4
                             col-sm-4 pl-sm-0">
                     <input type="text" class="form-control" id="total" name="total"
-                           th:attr="value=${profile.total != null}? ${profile.total}: ''" required>
+                           th:attr="value=${profile.total != null}? ${profile.total}: ''" readonly required>
                 </div>
             </div>
 
