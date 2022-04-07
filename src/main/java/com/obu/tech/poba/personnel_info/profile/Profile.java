@@ -7,6 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -19,6 +21,9 @@ public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long staffId;
+
+    @PositiveOrZero(message="กรุณาตรวจสอบข้อมูล Pers. No.")
+    private int persNo;
 
     @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า")
     private String prefix;

@@ -15,14 +15,14 @@
         <form id="form-profile">
             <th:block th:replace="~{fragments/input-errors}"/>
             <th:block th:replace="~{fragments/alert}"/>
-
+            <input type="hidden" id="staffId" name="staffId" th:value="${profile.staffId}"/>
             <div class="row mb-3">
-                <label for="staffId" class="col-sm-2 col-form-label text-md-right">Pers. No.<span style="color:red !important;">*</span>:</label>
+                <label for="persNo" class="col-sm-2 col-form-label text-md-right">Pers. No.<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
-                    <input type="text" class="form-control" id="staffId" name="staffId"
-                           th:attr="value=${profile.staffId != null}? ${profile.staffId}: ''" required>
+                    <input type="text" class="form-control" id="persNo" name="persNo"
+                           th:attr="value=${profile.persNo != null}? ${profile.persNo}: ''" required>
                 </div>
             </div>
 
@@ -190,11 +190,7 @@
                             col-md-3
                             col-sm-3 pl-sm-0">
                     <select class="form-control" id="ohecStructure" name="ohecStructure" required>
-                        <option value="ขอข้อมูล" th:selected="${profile.ohecStructure == 'ขอข้อมูล'}? 'selected'">ขอข้อมูล</option>
-                        <option value="">กรุณาเลือก</option>
-                        <option value="xxx">xxx</option>
-                        <option value="xxx">xxx</option>
-                        <option value="xxx">xxx</option>
+                        <option value="-" th:selected="${profile.ohecStructure == '-'}? 'selected'">-</option>
                     </select>
                 </div>
             </div>
@@ -293,12 +289,7 @@
                             col-md-3
                             col-sm-3 pl-sm-0">
                     <select class="form-control" id="structureNameLevel4" name="structureNameLevel4" required>
-                        <option value="ขอข้อมูล" th:selected="${profile.structureNameLevel4 == 'ขอข้อมูล'}? 'selected'">ขอข้อมูล</option>
-                        <option value="" hidden>กรุณาเลือก</option>
-                        <option value="xxx">xxx</option>
-                        <option value="xxx">xxx</option>
-                        <option value="xxx">xxx</option>
-
+                        <option value="-" th:selected="${profile.structureNameLevel4 == '-'}? 'selected'">-</option>
                     </select>
                 </div>
                 <label for="staffGroup" class="col-sm-3 col-form-label text-md-right">กลุ่มพนักงาน<span style="color:red !important;">*</span>:</label>

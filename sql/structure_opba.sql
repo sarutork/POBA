@@ -240,6 +240,7 @@ CREATE TABLE IF NOT EXISTS `press_info` (
 DROP TABLE IF EXISTS `profile`;
 CREATE TABLE `profile` (
   `staff_id` int NOT NULL AUTO_INCREMENT,
+  `persNo` int NOT NULL,
   `prefix` varchar(20) NOT NULL,
   `prefix_other` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
