@@ -87,6 +87,8 @@ function startWorkDateChange(){
              const diffTime = date2 - date1;
              if (diffTime < 0 ){
                 $("#toWorkDate").val("");
+                $("#startCountWorkDate").val("");
+                $("#startCountWorkOHECDate").val("");
              }else{
                 $("#total").val(calDiffDays(date1, date2));
              }
