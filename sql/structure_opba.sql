@@ -413,7 +413,7 @@ CREATE TABLE IF NOT EXISTS `reward_detail` (
 DROP TABLE IF EXISTS `students`;
 CREATE TABLE IF NOT EXISTS `students` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `students_id` int(11) NOT NULL,
+  `students_id` varchar(11) NOT NULL,
   `students_prefix` varchar(255) NOT NULL,
   `students_prefix_other` varchar(255) NOT NULL,
   `students_name` varchar(255) NOT NULL,
