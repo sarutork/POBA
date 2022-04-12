@@ -412,9 +412,10 @@ CREATE TABLE IF NOT EXISTS `reward_detail` (
 -- Dumping structure for table poba.students
 DROP TABLE IF EXISTS `students`;
 CREATE TABLE IF NOT EXISTS `students` (
-  `staff_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `students_id` int(11) NOT NULL,
   `students_prefix` varchar(255) NOT NULL,
+  `students_prefix_other` varchar(255) NOT NULL,
   `students_name` varchar(255) NOT NULL,
   `students_surname` varchar(255) NOT NULL,
   `students_year` varchar(255) NOT NULL,
@@ -422,18 +423,20 @@ CREATE TABLE IF NOT EXISTS `students` (
   `students_level` varchar(255) NOT NULL,
   `students_course` varchar(255) NOT NULL,
   `students_tel` int(11) NOT NULL,
-  `students_telemergency` int(11) NOT NULL,
-  `students_relation` varchar(255) NOT NULL,
-  `students_email` varchar(255) NOT NULL,
+  `students_telemergency` int(11) DEFAULT NULL,
+  `students_relation` varchar(255) DEFAULT NULL,
+  `students_relation_other` varchar(255) DEFAULT NULL,
+  `students_email` varchar(255) DEFAULT NULL,
   `prefix` varchar(255) NOT NULL,
+  `prefix_other` varchar(255),
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   `students_status` varchar(255) DEFAULT NULL,
   `students_success` varchar(255) NOT NULL,
   `students_outreason` varchar(255) DEFAULT NULL,
   `students_retryreason` varchar(255) DEFAULT NULL,
-  `students_update` datetime NOT NULL,
-  PRIMARY KEY (`staff_id`,`students_id`)
+  `students_update` date NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
