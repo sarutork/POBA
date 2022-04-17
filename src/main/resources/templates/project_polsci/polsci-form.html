@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="polsci-form">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a  href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a  href="javascript:void(0)" onclick="loadView('/poba/project')">ข้อมูลโครงการ/กิจกรรม</a></li>
+            <li class="breadcrumb-item active" ><span id="viewName" th:text="${viewName}"></span></li>
+        </ol>
+    </div>
+
+    <div class="container px-3">
+        <th:block th:replace="~{fragments/input-errors}"/>
+        <th:block th:replace="~{fragments/alert}"/>
+
+        <form id="form-polsci" class="form-wrapper">
+            <input type="hidden" id="polsciId" name="polsciId" th:value="${polsci.polsciId}"/>
+            <div class="row col-sm-12 mb-2">
+                <label><b>ข้อมูลอาจารย์</b></label>
+            </div>
+            <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="นาย" th:selected="${polsci.prefix == 'นาย'}? 'selected'">นาย</option>
+                    <option value="นางสาว" th:selected="${polsci.prefix == 'นางสาว'}? 'selected'">นางสาว</option>
+                    <option value="นาง" th:selected="${polsci.prefix == 'นาง'}? 'selected'">นาง</option>
+                    <option value="อ." th:selected="${polsci.prefix == 'อ.'}? 'selected'">อ.</option>
+                    <option value="อ.ดร." th:selected="${polsci.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
+                    <option value="ผศ." th:selected="${polsci.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
+                    <option value="ผศ.ดร." th:selected="${polsci.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
+                    <option value="รศ." th:selected="${polsci.prefix == 'รศ.'}? 'selected'">รศ.</option>
+                    <option value="รศ.ดร." th:selected="${polsci.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
+                    <option value="ศ." th:selected="${polsci.prefix == 'ศ.'}? 'selected'">ศ.</option>
+                    <option value="ศ.ดร." th:selected="${polsci.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
+                    <option value="อื่นๆ" th:selected="${polsci.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
+                </select>
+
+                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${polsci.prefix == 'อื่นๆ'}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${polsci.prefixOther != null}? ${polsci.prefixOther}: ''"
+                       th:classappend="${polsci.prefix == 'อื่นๆ'}? 'd-block':'d-none'"
+                />
+
+                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
+                       th:attr="value=${polsci.name != null}? ${polsci.name}: ''" maxlength="255" required/>
+            </div>
+            <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="polsciStaffType">สถานะ<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-4 form-control bg-white" id="polsciStaffType" name="polsciStaffType" required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="อาจารย์" th:selected="${polsci.polsciStaffType == 'อาจารย์'}? 'selected'">อาจารย์</option>
+                    <option value="เจ้าหน้าที่" th:selected="${polsci.polsciStaffType == 'เจ้าหน้าที่'}? 'selected'">เจ้าหน้าที่</option>
+                    <option value="นิสิต" th:selected="${polsci.polsciStaffType == 'นิสิต'}? 'selected'">นิสิต (ระบุ ชื่อสกุล เลขประจำตัวนิสิต)</option>
+                    <option value=" นิสิตเก่า" th:selected="${polsci.polsciStaffType == ' นิสิตเก่า'}? 'selected'"> นิสิตเก่า</option>
+                    <option value="ผู้เกษียณ" th:selected="${polsci.polsciStaffType == 'ผู้เกษียณ'}? 'selected'">ผู้เกษียณ</option>
+                    <option value="อื่นๆ" th:selected="${polsci.polsciStaffType == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
+                </select>
+                <input type="text" class="form-control bg-white col-sm-2" id="polsciStaffTypeOther" name="polsciStaffTypeOther" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${polsci.polsciStaffTypeOther != null}? ${polsci.polsciStaffTypeOther}: ''"
+                       th:classappend="${polsci.polsciStaffType == 'อื่นๆ'}? 'd-block':'d-none'"/>
+            </div>
+            <div class="row col-sm-12 mb-2">
+                <label><b>ข้อมูลโครงการ/กิจกรรม</b></label>
+            </div>
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="polsciYear">ปีการศึกษา<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-4 form-control bg-white" id="polsciYear" name="polsciYear" required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="2565" th:selected="${polsci.polsciYear == '2565'}? 'selected'">2565</option>
+                    <option value="2564" th:selected="${polsci.polsciYear == '2564'}? 'selected'">2564</option>
+                    <option value="2563" th:selected="${polsci.polsciYear == '2563'}? 'selected'">2563</option>
+                </select>
+
+                <label class="col-sm-2 form-control-label" for="polsciName">ชื่อโครงการ/กิจกรรม<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="polsciName" name="polsciName"
+                       th:attr="value=${polsci.polsciName != null}? ${polsci.polsciName}: ''" maxlength="255" required/>
+            </div>
+
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="polsciPreDateFrom">ระยะเวลาเตรียมกิจกรรม<span style="color:red !important;">*</span>:</label>
+                <input type="date" class="form-control bg-white col-sm-3" id="polsciPreDateFrom" name="polsciPreDateFrom"
+                       th:attr="value=${polsci.polsciPreDateFrom != null}? ${polsci.polsciPreDateFrom}: ''" required/>
+                <label class="ml-3 form-control-label" for="polsciPreDateTo">ถึง<span style="color:red !important;">*</span>:</label>
+                <input type="date" class="form-control bg-white col-sm-3" id="polsciPreDateTo" name="polsciPreDateTo"
+                       th:attr="value=${polsci.polsciPreDateTo != null}? ${polsci.polsciPreDateTo}: ''" required/>
+            </div>
+
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="polsciDateFrom">วันที่จัดกิจกรรม<span style="color:red !important;">*</span>:</label>
+                <input type="date" class="form-control bg-white col-sm-3" id="polsciDateFrom" name="polsciDateFrom"
+                       th:attr="value=${polsci.polsciDateFrom != null}? ${polsci.polsciDateFrom}: ''" required/>
+                <label class="ml-3 form-control-label" for="polsciDateTo">ถึง<span style="color:red !important;">*</span>:</label>
+                <input type="date" class="form-control bg-white col-sm-3" id="polsciDateTo" name="polsciDateTo"
+                       th:attr="value=${polsci.polsciDateTo != null}? ${polsci.polsciDateTo}: ''" required/>
+            </div>
+
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="polsciLocation">สถานที่จัดโครงการ<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="polsciLocation" name="polsciLocation"
+                       th:attr="value=${polsci.polsciLocation != null}? ${polsci.polsciLocation}: ''" required/>
+            </div>
+
+            <div class="row col-sm-12 mb-2">
+                <label><b>ตำแหน่งนักกิจกรรม</b></label>
+            </div>
+
+            <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="polsciStatus">สถานะ<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="polsciStatus" name="polsciStatus"required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ที่ปรึกษาโครงการ" th:selected="${polsci.polsciStatus == 'ที่ปรึกษาโครงการ'}? 'selected'">ที่ปรึกษาโครงการ</option>
+                    <option value="ที่ปรึกษา/เข้าร่วมโครงการ" th:selected="${polsci.polsciStatus == 'ที่ปรึกษา/เข้าร่วมโครงการ'}? 'selected'">ที่ปรึกษา/เข้าร่วมโครงการ</option>
+                    <option value="ผู้รับผิดชอบโครงการ" th:selected="${polsci.polsciStatus == 'ผู้รับผิดชอบโครงการ'}? 'selected'">ผู้รับผิดชอบโครงการ</option>
+                    <option value="ผู้ปฏิบัติงาน" th:selected="${polsci.polsciStatus == 'ผู้ปฏิบัติงาน'}? 'selected'">ผู้ปฏิบัติงาน</option>
+                    <option value="เข้าร่วมโครงการ" th:selected="${polsci.polsciStatus == 'เข้าร่วมโครงการ'}? 'selected'">เข้าร่วมโครงการ</option>
+                    <option value="สัมภาษณ์ทุน" th:selected="${polsci.polsciStatus == 'สัมภาษณ์ทุน'}? 'selected'">สัมภาษณ์ทุน</option>
+                    <option value="อื่นๆ" th:selected="${polsci.polsciStatus == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
+                </select>
+
+                <div id="polsciStatusOtherTmp" class="col-sm-2" th:classappend="${polsci.polsciStatus == 'อื่นๆ'}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="polsciStatusOther" name="polsciStatusOther" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${polsci.polsciStatusOther != null}? ${polsci.polsciStatusOther}: ''"
+                       th:classappend="${polsci.polsciStatus == 'อื่นๆ'}? 'd-block':'d-none'"/>
+
+                <label for="polsciPosition" class="form-control-label col-sm-2">หน้าที่รับผิดชอบ<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="polsciPosition" name="polsciPosition"
+                       th:attr="value=${polsci.polsciPosition != null}? ${polsci.polsciPosition}: ''" maxlength="255" required/>
+            </div>
+
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="polsciTotalOperation">จำนวนนิสิตปฏิบัติงาน<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="polsciTotalOperation" name="polsciTotalOperation"
+                       th:attr="value=${polsci.polsciTotalOperation != null}? ${polsci.polsciTotalOperation}: ''" required/>
+                <label class="col-sm-2 form-control-label" for="polsciTotalAttend">จำนวนนิสิตเข้าร่วม<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="polsciTotalAttend" name="polsciTotalAttend"
+                       th:attr="value=${polsci.polsciTotalAttend != null}? ${polsci.polsciTotalAttend}: ''" required/>
+            </div>
+
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="polsciTotalHour">ชั่วโมง (กิจกรรม)<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="polsciTotalHour" name="polsciTotalHour"
+                       th:attr="value=${polsci.polsciTotalHour != null}? ${polsci.polsciTotalHour}: ''" required/>
+                <label class="col-sm-2 form-control-label" for="polsciDocRef">เอกสารอ้างอิง/เผยแพร่<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="polsciDocRef" name="polsciDocRef"
+                       th:attr="value=${polsci.polsciDocRef != null}? ${polsci.polsciDocRef}: ''" maxlength="255" required/>
+            </div>
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="noteOfPolsci">หมายเหตุ<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="noteOfPolsci" name="noteOfPolsci"
+                       th:attr="value=${polsci.noteOfPolsci != null}? ${polsci.noteOfPolsci}: ''" maxlength="255" required/>
+            </div>
+        </form>
+        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${viewName != 'ดูข้อมูล' ? 'd-block' : 'd-none'} ">
+            <button type="button" class="btn btn-poba mr-3" onclick="submitPolsciInfo();">บันทึก</button>
+            <a href="javascript:void(0)" onclick="loadView('/poba/polsci')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
+        </div>
+        <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${viewName == 'ดูข้อมูล' ? 'd-block' : 'd-none'}">
+            <a href="javascript:void(0)" onclick="loadView('/poba/polsci')" class="btn btn-poba mr-3">ยกเลิก</a>
+            <button type="button" class="btn btn-outline-poba mr-3" onclick="editPolsciInfo();">แก้ไข</button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+             var viewName = $("#viewName").text();
+             if(viewName == "ดูข้อมูล"){
+                $("input").prop("disabled", true);
+                $("select").prop("disabled", true);
+                $(".btn-phase").prop("disabled", true);
+             }
+        });
+
+        $('#prefix').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#prefixOther").removeClass("d-none");
+                $("#prefixOther").addClass("d-block");
+
+                $("#prefixOtherTmp").removeClass("d-block");
+                $("#prefixOtherTmp").addClass("d-none");
+            }else{
+                $("#prefixOther").val("");
+                $("#prefixOther").removeClass("d-block");
+                $("#prefixOther").addClass("d-none");
+
+                $("#prefixOtherTmp").removeClass("d-none");
+                $("#prefixOtherTmp").addClass("d-block");
+            }
+        });
+
+        $('#polsciStaffType').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#polsciStaffTypeOther").removeClass("d-none");
+                $("#polsciStaffTypeOther").addClass("d-block");
+            }else{
+                $("#polsciStaffTypeOther").val("");
+                $("#polsciStaffTypeOther").removeClass("d-block");
+                $("#polsciStaffTypeOther").addClass("d-none");
+            }
+        });
+
+        $('#polsciStatus').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#polsciStatusOther").removeClass("d-none");
+                $("#polsciStatusOther").addClass("d-block");
+
+                $("#polsciStatusOtherTmp").removeClass("d-block");
+                $("#polsciStatusOtherTmp").addClass("d-none");
+            }else{
+                $("#polsciStatusOther").val("");
+                $("#polsciStatusOther").removeClass("d-block");
+                $("#polsciStatusOther").addClass("d-none");
+
+                $("#polsciStatusOtherTmp").removeClass("d-none");
+                $("#polsciStatusOtherTmp").addClass("d-block");
+            }
+        });
+    </script>
+
+</th:block>
+</html>

@@ -302,24 +302,29 @@ CREATE TABLE IF NOT EXISTS `project` (
 -- Dumping structure for table poba.project_polsci
 DROP TABLE IF EXISTS `project_polsci`;
 CREATE TABLE IF NOT EXISTS `project_polsci` (
-  `staff_id` int(11) NOT NULL,
-  `polsci_id` int(11) NOT NULL,
+  `polsci_id` int(11) NOT NULL AUTO_INCREMENT,
+  `prefix` varchar(20) NOT NULL,
+  `prefix_other` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   `polsci_staff_type` varchar(255) NOT NULL,
+  `polsci_staff_type_other` varchar(255),
   `polsci_year` varchar(255) NOT NULL,
   `polsci_name` varchar(255) NOT NULL,
-  `polsci_pre_date` datetime NOT NULL,
-  `polsci_date` datetime NOT NULL,
+  `polsci_pre_date_from` date NOT NULL,
+  `polsci_pre_date_to` date NOT NULL,
+  `polsci_date_from` date NOT NULL,
+  `polsci_date_to` date NOT NULL,
   `polsci_location` varchar(255) NOT NULL,
   `polsci_status` varchar(255) NOT NULL,
+  `polsci_status_other` varchar(255),
   `polsci_position` varchar(255) NOT NULL,
   `polsci_total_operation` int(11) NOT NULL,
   `polsci_total_attend` int(11) NOT NULL,
   `polsci_total_hour` int(11) NOT NULL,
   `polsci_doc_ref` varchar(255) NOT NULL,
-  `not_of_polsci` varchar(255) NOT NULL,
-  PRIMARY KEY (`staff_id`,`polsci_id`)
+  `note_of_polsci` varchar(255) NOT NULL,
+  PRIMARY KEY (`polsci_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.

@@ -50,7 +50,7 @@ public class ProjectController {
     }
 
     @GetMapping(value = "/{id}")
-    public ModelAndView showTeachingInfo(@PathVariable String id){
+    public ModelAndView showInfo(@PathVariable String id){
         return view(projectService.findById(id));
     }
 

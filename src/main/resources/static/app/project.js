@@ -1,5 +1,4 @@
 function findProjectInfo() {
-    console.log("Hello")
    var tableProject =  $('#table-project').DataTable({
         ajax: {
             type: "GET",
