@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="project">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item active"><span>ข้อมูลโครงการ/กิจกรรม</span></li>
+        </ol>
+    </div>
+
+    <div class="px-3">
+
+        <th:block th:replace="~{fragments/alert}"/>
+
+        <form id="form-project" class="mb-5">
+            <div class="d-flex flex-xl-row flex-column">
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                    <label for="projectName" class="col-3 text-sm-right col-form-label">ค้นหาข้อมูล:</label>
+                    <input id="projectName" type="text" class="col-9 form-control flex-xl-grow-1" placeholder="ค้นหาด้วยชื่อโครงการ/กิจกรรม">
+                </div>
+                <div class="row px-3 mb-xl-0 mb-3">
+                    <label for="projectYear" class="col-2 text-sm-right col-form-label">ปีการศึกษา:</label>
+                    <select type="text" class="col-4 form-control" id="projectYear" name="projectYear">
+                        <option value="">กรุณาเลือก</option>
+                        <option value="2565">2565</option>
+                        <option value="2564">2564</option>
+                        <option value="2563">2563</option>
+                    </select>
+                    <label for="projectDateFrom" class="col-2 text-sm-right col-form-label">วันที่จัดกิจกรรม:</label>
+                    <input type="date" class="col-4 form-control" id="projectDateFrom" name="projectDateFrom"/>
+                </div>
+                <div class="pl-xl-3 d-inline-flex justify-content-end">
+                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findProjectInfo()">ค้นหา</button>
+                    <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/project/add')">เพิ่มข้อมูล</a>
+                </div>
+            </div>
+        </form>
+
+        <div class="table table-responsive">
+            <table id="table-project" class="display" width="100%">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ปีการศึกษา</th>
+                    <th>ชื่อโครงการ/กิจกรรม</th>
+                    <th>ประเภทกิจกรรม</th>
+                    <th>วันที่จัดกิจกรรม</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="5" class="dataTables_empty text-center bg-secondary">ข้อมูลโครงการ/กิจกรรม</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</th:block>
+</html>

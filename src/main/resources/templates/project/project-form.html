@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="project-form">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a  href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a  href="javascript:void(0)" onclick="loadView('/poba/project')">ข้อมูลโครงการ/กิจกรรม</a></li>
+            <li class="breadcrumb-item active" ><span id="viewName" th:text="${viewName}"></span></li>
+        </ol>
+    </div>
+
+    <div class="container px-3">
+        <th:block th:replace="~{fragments/input-errors}"/>
+        <th:block th:replace="~{fragments/alert}"/>
+
+        <form id="form-project" class="form-wrapper">
+            <input type="hidden" id="projectId" name="projectId" th:value="${project.projectId}"/>
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="projectYear">ปีการศึกษา<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-4 form-control bg-white" id="projectYear" name="projectYear" required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="2565" th:selected="${project.projectYear == '2565'}? 'selected'">2565</option>
+                    <option value="2564" th:selected="${project.projectYear == '2564'}? 'selected'">2564</option>
+                    <option value="2563" th:selected="${project.projectYear == '2563'}? 'selected'">2563</option>
+                </select>
+
+                <label class="col-sm-2 form-control-label" for="projectName">ชื่อโครงการ/กิจกรรม<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="projectName" name="projectName"
+                       th:attr="value=${project.projectName != null}? ${project.projectName}: ''" maxlength="255" required/>
+            </div>
+
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="projectInstitution">หน่วยงานที่รับผิดชอบ<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="projectInstitution" name="projectInstitution"
+                       th:attr="value=${project.projectInstitution != null}? ${project.projectInstitution}: ''" maxlength="255" required/>
+                <label class="col-sm-2 form-control-label" for="projectType">ประเภทกิจกรรม<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-4 form-control bg-white" id="projectType" name="projectType" required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="กีฬาหรือส่งเสริมสุขภาพ" th:selected="${project.projectType == 'กีฬาหรือส่งเสริมสุขภาพ'}? 'selected'">กีฬาหรือส่งเสริมสุขภาพ</option>
+                    <option value="เตรียมความรู้สู่วิชาสังคมศาสตร์" th:selected="${project.projectType == 'เตรียมความรู้สู่วิชาสังคมศาสตร์'}? 'selected'">เตรียมความรู้สู่วิชาสังคมศาสตร์</option>
+                    <option value="ทักษะการวิเคราะห์เชิงตัวเลข การสื่อสารและการใช้เทคโนโลยีสารสนเทศ" th:selected="${project.projectType == 'ทักษะการวิเคราะห์เชิงตัวเลข การสื่อสารและการใช้เทคโนโลยีสารสนเทศ'}? 'selected'">ทักษะการวิเคราะห์เชิงตัวเลข การสื่อสารและการใช้เทคโนโลยีสารสนเทศ</option>
+                    <option value="ทักษะความสัมพันธ์ระหว่างบุคคลและความรับผิดชอบ" th:selected="${project.projectType == 'ทักษะความสัมพันธ์ระหว่างบุคคลและความรับผิดชอบ'}? 'selected'">ทักษะความสัมพันธ์ระหว่างบุคคลและความรับผิดชอบ</option>
+                    <option value="นันทนาการ" th:selected="${project.projectType == 'นันทนาการ'}? 'selected'">นันทนาการ</option>
+                    <option value="บำเพ็ญประโยชน์หรือรักษาสิ่งแวดล้อม" th:selected="${project.projectType == 'บำเพ็ญประโยชน์หรือรักษาสิ่งแวดล้อม'}? 'selected'">บำเพ็ญประโยชน์หรือรักษาสิ่งแวดล้อม</option>
+                    <option value="วิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงปะสงค์" th:selected="${project.projectType == 'วิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงปะสงค์'}? 'selected'">วิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงปะสงค์</option>
+                    <option value="ส่งเสริมศิลปะและวัฒนธรรม" th:selected="${project.projectType == 'ส่งเสริมศิลปะและวัฒนธรรม'}? 'selected'">ส่งเสริมศิลปะและวัฒนธรรม</option>
+                    <option value="ส่งเสริมคุณธรรมและจริยธรรม" th:selected="${project.projectType == 'ส่งเสริมคุณธรรมและจริยธรรม'}? 'selected'">ส่งเสริมคุณธรรมและจริยธรรม</option>
+                    <option value="สติปัญญาวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์" th:selected="${project.projectType == 'สติปัญญาวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์'}? 'selected'">สติปัญญาวิชาการที่ส่งเสริมคุณลักษณะบัณฑิตที่พึงประสงค์</option>
+                </select>
+            </div>
+
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="projectBudget">งบประมาณ (ตั้งงบ)<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4 amount" id="projectBudget" name="projectBudget"
+                       th:attr="value=${project.projectBudget != null}? ${project.projectBudget}: ''" onblur="amtFormat()" required/>
+                <label class="col-sm-2 form-control-label" for="projectBudgetApprove">งบประมาณ (อนุมัติ)<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4 amount" id="projectBudgetApprove" name="projectBudgetApprove"
+                       th:attr="value=${project.projectBudgetApprove != null}? ${project.projectBudgetApprove}: ''" onblur="amtFormat()" required/>
+            </div>
+
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="projectPersonTarget">จำนวนผู้เข้าร่วมกิจกรรม (เป้า)<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="projectPersonTarget" name="projectPersonTarget"
+                       th:attr="value=${project.projectPersonTarget != null}? ${project.projectPersonTarget}: ''" required/>
+                <label class="col-sm-2 form-control-label" for="projectPersonActual">จำนวนผู้เข้าร่วมกิจกรรม (เข้าร่วมจริง)<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="projectPersonActual" name="projectPersonActual"
+                       th:attr="value=${project.projectPersonActual != null}? ${project.projectPersonActual}: ''" required/>
+            </div>
+
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="projectPreDateFrom">ระยะเวลาเตรียมกิจกรรม<span style="color:red !important;">*</span>:</label>
+                <input type="date" class="form-control bg-white col-sm-3" id="projectPreDateFrom" name="projectPreDateFrom"
+                       th:attr="value=${project.projectPreDateFrom != null}? ${project.projectPreDateFrom}: ''" required/>
+                <label class="ml-3 form-control-label" for="projectPersonActual">ถึง<span style="color:red !important;">*</span>:</label>
+                <input type="date" class="form-control bg-white col-sm-3" id="projectPreDateTo" name="projectPreDateTo"
+                       th:attr="value=${project.projectPreDateTo != null}? ${project.projectPreDateTo}: ''" required/>
+            </div>
+
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="projectDateFrom">วันที่จัดกิจกรรม<span style="color:red !important;">*</span>:</label>
+                <input type="date" class="form-control bg-white col-sm-3" id="projectDateFrom" name="projectDateFrom"
+                       th:attr="value=${project.projectDateFrom != null}? ${project.projectDateFrom}: ''" required/>
+                <label class="ml-3 form-control-label" for="projectDateTo">ถึง<span style="color:red !important;">*</span>:</label>
+                <input type="date" class="form-control bg-white col-sm-3" id="projectDateTo" name="projectDateTo"
+                       th:attr="value=${project.projectDateTo != null}? ${project.projectDateTo}: ''" required/>
+            </div>
+
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="projectLocation">สถานที่จัดโครงการ<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="projectLocation" name="projectLocation"
+                       th:attr="value=${project.projectLocation != null}? ${project.projectLocation}: ''" required/>
+                <label class="col-sm-2 form-control-label" for="projectKind">ลักษณะกิจกรรม/โครงการ<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="projectKind" name="projectKind"
+                       th:attr="value=${project.projectKind != null}? ${project.projectKind}: ''" required/>
+            </div>
+
+        </form>
+        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${viewName != 'ดูข้อมูล' ? 'd-block' : 'd-none'} ">
+            <button type="button" class="btn btn-poba mr-3" onclick="submitProjectInfo();">บันทึก</button>
+            <a href="javascript:void(0)" onclick="loadView('/poba/project')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
+        </div>
+        <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${viewName == 'ดูข้อมูล' ? 'd-block' : 'd-none'}">
+            <a href="javascript:void(0)" onclick="loadView('/poba/project')" class="btn btn-poba mr-3">ยกเลิก</a>
+            <button type="button" class="btn btn-outline-poba mr-3" onclick="editProjectInfo();">แก้ไข</button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+             var viewName = $("#viewName").text();
+             if(viewName == "ดูข้อมูล"){
+                $("input").prop("disabled", true);
+                $("select").prop("disabled", true);
+                $(".btn-phase").prop("disabled", true);
+             }
+             amtFormat();
+        });
+    </script>
+
+</th:block>
+</html>

@@ -280,17 +280,19 @@ CREATE TABLE `profile` (
 -- Dumping structure for table poba.project
 DROP TABLE IF EXISTS `project`;
 CREATE TABLE IF NOT EXISTS `project` (
-  `project_id` int(11) NOT NULL,
+  `project_id` int(11) NOT NULL AUTO_INCREMENT,
   `project_year` varchar(255) DEFAULT NULL,
   `project_name` varchar(255) DEFAULT NULL,
   `project_institution` varchar(255) DEFAULT NULL,
   `project_type` varchar(255) DEFAULT NULL,
-  `project_budget` decimal(12,2) DEFAULT NULL,
-  `project_budget_approve` decimal(12,2) DEFAULT NULL,
-  `project_person_taget` varchar(255) DEFAULT NULL,
-  `project_person_real` varchar(255) DEFAULT NULL,
-  `project_pre_date` datetime DEFAULT NULL,
-  `project_date` datetime DEFAULT NULL,
+  `project_budget` double DEFAULT NULL,
+  `project_budget_approve` double DEFAULT NULL,
+  `project_person_target` int DEFAULT NULL,
+  `project_person_actual` int DEFAULT NULL,
+  `project_pre_date_from` date DEFAULT NULL,
+  `project_pre_date_to` date DEFAULT NULL,
+  `project_date_from` date DEFAULT NULL,
+  `project_date_to` date DEFAULT NULL,
   `project_location` varchar(255) DEFAULT NULL,
   `project_kind` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`project_id`)
@@ -623,3 +625,19 @@ CREATE TABLE `textbook_phase` (
   `textbook_withdraw` date NOT NULL,
   PRIMARY KEY (`textbook_phase_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE poba.p_years (
+	id INT auto_increment NOT NULL,
+	`year` varchar(4) NOT NULL
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+AUTO_INCREMENT=1;
+
+DROP TABLE IF EXISTS `p_years`;
+CREATE TABLE IF NOT EXISTS `p_years` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `year` varchar(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
