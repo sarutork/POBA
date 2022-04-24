@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="student">
-
     <div id="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
@@ -63,7 +62,31 @@
             </table>
         </div>
 
+<!--        <ul class="test">-->
+<!--            <li><label for="datepicker-th">พ.ศ.</label><input type="text" id="datepicker-th" name="date1" /></li>-->
+<!--            <li><label for="datepicker-th-2">พ.ศ. แบบมีให้เลือกปี/เดือน</label> <input type="text" id="datepicker-th-2" name="date0" /></li>-->
+<!--            <li><label for="datepicker-en">ค.ศ.</label><input type="text" id="datepicker-en" name="date2" /></li>-->
+<!--        </ul>-->
+
     </div>
+<!--    <script type="text/javascript">-->
+<!--		  $(function () {-->
+<!--		    var d = new Date();-->
+<!--		    var toDay = d.getDate() + '/'+ (d.getMonth() + 1) + '/'+ (d.getFullYear() + 543);-->
+
+<!--				// Datepicker-->
+<!--		    $("#datepicker-th").datepicker({ dateFormat: 'dd/mm/yy', isBuddhist: true, defaultDate: toDay, dayNames: ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'],-->
+<!--              dayNamesMin: ['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'],-->
+<!--              monthNames: ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'],-->
+<!--              monthNamesShort: ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.']});-->
+<!--			  $("#datepicker-th-2").datepicker({ changeMonth: true, changeYear: true,dateFormat: 'dd/mm/yy', isBuddhist: true, defaultDate: toDay,dayNames: ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์','เสาร์'],-->
+<!--              dayNamesMin: ['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'],-->
+<!--              monthNames: ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'],-->
+<!--              monthNamesShort: ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.']});-->
+<!--			  $("#datepicker-en").datepicker({ dateFormat: 'dd/mm/yy'});-->
+<!--			  $("#inline").datepicker({ dateFormat: 'dd/mm/yy', inline: true });-->
+<!--			});-->
+<!--		</script>-->
 
 </th:block>
 </html>

@@ -85,7 +85,6 @@
                 <label for="studentLevel" class="form-control-label col-sm-2">ระดับการศึกษา<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="studentLevel" name="studentLevel" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="ปริญญาตรี" th:selected="${thesis.studentLevel == 'ปริญญาตรี'}? 'selected'">ปริญญาตรี</option>
                     <option value="ปริญญาโท" th:selected="${thesis.studentLevel == 'ปริญญาโท'}? 'selected'">ปริญญาโท</option>
                     <option value="ปริญญาเอก" th:selected="${thesis.studentLevel == 'ปริญญาเอก'}? 'selected'">ปริญญาเอก</option>
                 </select>
@@ -161,7 +160,7 @@
             </div>
 
             <div class="row col-sm-12 mb-2">
-                <label><b>ข้อมูลเผยแพร่ข้อมูลตีพิมพ์วรสาร</b></label>
+                <label><b>ข้อมูลเผยแพร่ข้อมูลตีพิมพ์วารสาร</b></label>
             </div>
             <div class="row mb-2">
                 <label for="journalStyle" class="form-control-label col-sm-2">ลักษณะ<span style="color:red !important;">*</span>:</label>

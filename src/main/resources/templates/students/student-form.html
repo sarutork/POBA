@@ -45,7 +45,7 @@
             </div>
 
             <div class="row mb-2">
-                <label for="studentsYear" class="form-control-label col-sm-2">ปีที่เข้าศึกษา<span style="color:red !important;">*</span>:</label>
+                <label for="studentsYear" class="form-control-label col-sm-2">เข้าศึกษาปีการศึกษา<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="studentsYear" name="studentsYear"
                         th:disabled="${student.Id != 0}" required>
                     <option value="">กรุณาเลือก</option>
@@ -63,7 +63,7 @@
                 </select>
             </div>
             <div class="row mb-2">
-                <label for="studentsHow" class="form-control-label col-sm-2">สถานะการรับเข้า<span style="color:red !important;">*</span>:</label>
+                <label for="studentsHow" class="form-control-label col-sm-2">วิธีรับเข้า<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="studentsHow" name="studentsHow" disabled required>
                     <option value="ปริญญาตรี:กรุณาเลือก">กรุณาเลือก</option>
                     <option value="ปริญญาตรี:โครงการจุฬาฯ-ชนบท" th:selected="${student.studentsHow == 'ปริญญาตรี:โครงการจุฬาฯ-ชนบท'}? 'selected'">โครงการจุฬาฯ-ชนบท</option>
