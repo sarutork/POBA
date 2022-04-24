@@ -338,25 +338,6 @@ function findConsultantThesis() {
         } );
 }
 
-function submitThesisInfo(){
-    var type = "POST";
-    $.ajax({
-         type: type,
-         url: "/poba/consultant/thesis/save",
-         data: $("#form-consultant-thesis").serialize(),
-         success: function(data) {
-                 setTimeout(function(){
-                     loadView('/poba/consultant/thesis');
-             },3000);
-                 window.scrollTo(0, 0);
-                 $('.content-wrapper').html(data);
-            },
-                error: function (error) {
-                 $('.content-wrapper').html(error.responseText);
-         }
-    });
-}
-
 function editThesisInfo(){
     $(":input").prop("disabled", false);
     $("#studentsLevel").trigger("change");

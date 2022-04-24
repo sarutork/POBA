@@ -234,9 +234,28 @@
                 <input type="date" class="form-control bg-white col-sm-2" id="conferenceDateTo" name="conferenceDateTo"
                        th:attr="value=${acdConf.conferenceDateTo != null}? ${acdConf.conferenceDateTo}: ''" required/>
             </div>
-            <div class="row mb-2">
-                <label for="conferenceDateFrom" class="form-control-label col-sm-2">เอกสารประกอบ:</label>
-                <button type="button" class="btn btn-outline-poba mr-3" onclick="fileAttach()">เลือกไฟล์</button>
+
+            <div class="row px-3 mb-3">
+                <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right">เอกสารประกอบ:</label>
+                <div class="col px-0">
+                    <label class="btn btn-outline-poba" for="input-file">เลือกไฟล์</label>
+                    <input type="file" id="input-file" multiple hidden/>
+                </div>
+            </div>
+
+            <div class="row px-3 mb-3">
+                <div class="offset-md-2 col-md-8 col-lg-6">
+                    <div id="file-divs" class="row">
+                        <th:block th:if="*{acdConf.uploads}"
+                                  th:each="upload : *{acdConf.uploads}">
+                            <div class="col-sm-6 mb-2">
+                                <span class="file-name" th:text="${upload.filename}"></span>
+                                <span class="file-remove close mdi mdi-close-circle" onclick="removeUploadedFile(this)"></span>
+                                <input class="file-id" type="hidden" th:value="${upload.id}"/>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
             </div>
 
         </form>
@@ -294,6 +313,82 @@
                 $("#studentPrefixOtherTmp").addClass("d-block");
             }
         });
+
+        var uploaded = $('input.file-id').toArray().map(i => Number($(i).val()));
+        var selected = new DataTransfer();
+
+        function submitThesisInfo(){
+            event.preventDefault();
+            let form = $('#form-consultant-thesis')[0];
+            let formData = new FormData(form);
+            formData.append('filesToKeep', uploaded);
+            $.each(selected.files, function(i, file) {
+                formData.append('newFiles', file);
+            });
+
+            var type = "POST";
+            $.ajax({
+                 type: type,
+                 url: "/poba/consultant/thesis/save",
+                 enctype: 'multipart/form-data',
+                 data:formData,
+                 processData: false,
+                 contentType: false,
+                 cache: false,
+                 success: function(data) {
+                         setTimeout(function(){
+                             loadView('/poba/consultant/thesis');
+                     },3000);
+                         window.scrollTo(0, 0);
+                         $('.content-wrapper').html(data);
+                    },
+                        error: function (error) {
+                         $('.content-wrapper').html(error.responseText);
+                 }
+            });
+        }
+
+        $('#input-file').on('change', function() {
+            for (let i = 0; i < this.files.length; i++) {
+                let fileDiv = $('<div/>', { class: 'col-sm-6 mb-2' }),
+                    fileName = $('<span/>', { class: 'file-name', text: this.files.item(i).name }),
+                    fileRemove = $('<span/>', { class: 'file-remove close mdi mdi-close-circle' });
+                fileDiv.append(fileName).append(fileRemove);
+                $('#file-divs').append(fileDiv);
+            }
+            for (let file of this.files) {
+                selected.items.add(file);
+            }
+            this.files = selected.files;
+            $('span.file-remove').click(function() {
+                removeFile(this);
+            });
+        });
+
+        function removeFile(fileRemove) {
+            let name = $(fileRemove).prev('span.file-name').text();
+            for (let i = 0; i < selected.items.length; i++) {
+                if (name === selected.items[i].getAsFile().name) {
+                    selected.items.remove(i);
+                    continue;
+                }
+            }
+            $('#input-file')[0].files = selected.files;
+            $(fileRemove).parent().remove();
+        }
+
+        function removeUploadedFile(fileRemove) {
+            let id = $(fileRemove).next('input.file-id').val();
+            for (let i = 0; i < uploaded.length; i++) {
+                if (uploaded[i] == id) {
+                    uploaded.splice(i, 1);
+                    continue;
+                }
+            }
+            $(fileRemove).parent().remove();
+        }
+
+
     </script>
 
 </th:block>
