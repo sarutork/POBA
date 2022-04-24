@@ -60,10 +60,10 @@
                 <label><b>รายละเอียด หนังสือ / ตำรา / งานวิจัย</b></label>
             </div>
             <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookAnnounce">รหัสประกาศ/รหัสสัญญา<span style="color:red !important;">*</span>:</label>
+                <label class="col-sm-2 form-control-label" for="textbookAnnounce">รหัสประกาศ/รหัสสัญญา:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="textbookAnnounce" name="textbookAnnounce"
                        th:attr="value=${textbook.textbookAnnounce != null}? ${textbook.textbookAnnounce}: ''" maxlength="255" required/>
-                <label class="col-sm-2 form-control-label" for="textbookContract">รหัสสัญญา<span style="color:red !important;">*</span>:</label>
+                <label class="col-sm-2 form-control-label" for="textbookContract">รหัสสัญญา:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="textbookContract" name="textbookContract"
                        th:attr="value=${textbook.textbookContract != null}? ${textbook.textbookContract}: ''" maxlength="255" required/>
             </div>
@@ -109,7 +109,7 @@
             </div>
 
             <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookExtendDate">ขยายวัน เดือน ปี<span style="color:red !important;">*</span>:</label>
+                <label class="col-sm-2 form-control-label" for="textbookExtendDate">ขยายวัน เดือน ปี:</label>
                 <input type="date" class="form-control bg-white col-sm-2" id="textbookExtendDate" name="textbookExtendDate"
                        th:attr="value=${textbook.textbookExtendDate != null}? ${textbook.textbookExtendDate}: ''" maxlength="255" required/>
             </div>
@@ -153,7 +153,7 @@
                 <label class="col-sm-2 form-control-label" for="textbookDiffText">ข้อแตกต่างการพิมพ์จากครั้งก่อน:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="textbookDiffText" name="textbookDiffText"
                        th:attr="value=${textbook.textbookDiffText != null}? ${textbook.textbookDiffText}: ''" maxlength="255"/>
-                <label class="col-sm-2 form-control-label" for="textbookRef">นำไปอ้างอิง<span style="color:red !important;">*</span>:</label>
+                <label class="col-sm-2 form-control-label" for="textbookRef">นำไปอ้างอิง:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="textbookRef" name="textbookRef"
                        th:attr="value=${textbook.textbookRef != null}? ${textbook.textbookRef}: ''" maxlength="255" required/>
             </div>
@@ -167,28 +167,6 @@
                     <option value="ระดับชาติ" th:selected="${textbook.textbookLevel == 'ระดับชาติ'}? 'selected'">ระดับชาติ</option>
                     <option value="ระดับนานาชาติ" th:selected="${textbook.textbookLevel == 'ระดับนานาชาติ'}? 'selected'">ระดับนานาชาติ</option>
                 </select>
-            </div>
-
-            <div class="row col-sm-12 mb-2">
-                <label><b>จำนวนครั้งที่ถูกนำไปอ้างอิง</b></label>
-            </div>
-
-            <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookQ1">ไตรมาส 1<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookQ1" name="textbookQ1"
-                       th:attr="value=${textbook.textbookQ1 != null}? ${textbook.textbookQ1}: ''" maxlength="255" required/>
-                <label class="col-sm-2 form-control-label" for="textbookQ2">ไตรมาส 2<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookQ2" name="textbookQ2"
-                       th:attr="value=${textbook.textbookQ2 != null}? ${textbook.textbookQ2}: ''" maxlength="255" required/>
-            </div>
-
-            <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookQ3">ไตรมาส 3<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookQ3" name="textbookQ3"
-                       th:attr="value=${textbook.textbookQ3 != null}? ${textbook.textbookQ3}: ''" maxlength="255" required/>
-                <label class="col-sm-2 form-control-label" for="textbookQ4">ไตรมาส 4<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="textbookQ4" name="textbookQ4"
-                       th:attr="value=${textbook.textbookQ4 != null}? ${textbook.textbookQ4}: ''" maxlength="255" required/>
             </div>
         </form>
         <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${viewName != 'ดูข้อมูล' ? 'd-block' : 'd-none'} ">

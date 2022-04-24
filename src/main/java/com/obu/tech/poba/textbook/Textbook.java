@@ -30,10 +30,7 @@ public class Textbook {
     @Size(min = 1, max = 255, message = "โปรดเลือก ประเภทผลงาน")
     private String textbookType;
 
-    @Size(min = 1, max = 255, message = "รหัสประกาศ/รหัสสัญญา")
     private String textbookAnnounce;
-
-    @Size(min = 1, max = 255, message = "รหัสสัญญา")
     private String textbookContract;
 
     @Size(min = 1, max = 255, message = "ชื่อ/หัวข้อ")
@@ -52,7 +49,6 @@ public class Textbook {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate textbookDateTo;
 
-    @NotNull(message = "โปรดเลือก ขยายวัน เดือน ปี")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate textbookExtendDate;
 
@@ -73,7 +69,6 @@ public class Textbook {
 
     private String textbookDiffText;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล นำไปอ้างอิง")
     private String textbookRef;
 
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล TCI")
@@ -82,20 +77,4 @@ public class Textbook {
 
     @Size(min = 1, max = 255, message = "โปรดเลือก สถานะ")
     private String textbookLevel;
-
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ไตรมาส 1")
-    @Column(name = "textbook_q1")
-    private String textbookQ1;
-
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ไตรมาส 2")
-    @Column(name = "textbook_q2")
-    private String textbookQ2;
-
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ไตรมาส 3")
-    @Column(name = "textbook_q3")
-    private String textbookQ3;
-
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ไตรมาส 4")
-    @Column(name = "textbook_q4")
-    private String textbookQ4;
 }

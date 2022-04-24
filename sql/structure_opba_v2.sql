@@ -733,10 +733,6 @@ CREATE TABLE `textbook` (
   `textbook_ref` varchar(255) NOT NULL,
   `textbook_TCI` varchar(255) NOT NULL,
   `textbook_level` varchar(255) NOT NULL,
-  `textbook_q1` varchar(255) DEFAULT NULL,
-  `textbook_q2` varchar(255) DEFAULT NULL,
-  `textbook_q3` varchar(255) DEFAULT NULL,
-  `textbook_q4` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`textbook_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;

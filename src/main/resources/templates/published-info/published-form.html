@@ -53,23 +53,23 @@
                 <label><b>ข้อมูลเผยแพร่</b></label>
             </div>
             <div class="row mb-2">
-                <label for="publishedTopic" class="form-control-label col-sm-2">ชื่อ-หัวข้อเรื่อง<span style="color:red !important;">*</span>:</label>
+                <label for="publishedTopic" class="form-control-label col-sm-2">ชื่อเรื่อง<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedTopic" name="publishedTopic"
                        th:attr="value=${published.publishedTopic != null}? ${published.publishedTopic} : ''" maxlength="255" required/>
-                <label for="publishedJournal" class="form-control-label col-sm-2">ชื่อวารสาร<span style="color:red !important;">*</span>:</label>
+                <label for="publishedJournal" class="form-control-label col-sm-2">ชื่อวารสาร/ชื่อหนังสือ<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedJournal" name="publishedJournal"
                        th:attr="value=${published.publishedJournal != null}? ${published.publishedJournal} : ''" maxlength="255" required/>
             </div>
             <div class="row mb-2">
-                <label for="publishedYear" class="form-control-label col-sm-2">ปีที่<span style="color:red !important;">*</span>:</label>
+                <label for="publishedYear" class="form-control-label col-sm-2">ปีพิมพ์:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedYear" name="publishedYear"
                        th:attr="value=${published.publishedYear != null}? ${published.publishedYear} : ''" maxlength="255" required/>
-                <label for="publishedIssue" class="form-control-label col-sm-2">ฉบับ<span style="color:red !important;">*</span>:</label>
+                <label for="publishedIssue" class="form-control-label col-sm-2">ฉบับที่:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedIssue" name="publishedIssue"
                        th:attr="value=${published.publishedIssue != null}? ${published.publishedIssue} : ''" maxlength="255" required/>
             </div>
             <div class="row mb-2">
-                <label for="publishedMonth" class="form-control-label col-sm-2">เดือน<span style="color:red !important;">*</span>:</label>
+                <label for="publishedMonth" class="form-control-label col-sm-2">เดือน:</label>
                 <select type="text" class="col-sm-2 form-control bg-white" id="publishedMonth" name="publishedMonth" required>
                     <option value="">กรุณาเลือก</option>
                     <option value="มกราคม" th:selected="${published.publishedMonth == 'มกราคม'}? 'selected'">มกราคม</option>
@@ -108,7 +108,7 @@
                 <label><b>ข้อมูลผู้เขียนร่วม</b></label>
             </div>
             <div class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="publishedJoinPrefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
+                <label class="col-sm-2 form-control-label" for="publishedJoinPrefix">คำนำหน้า:</label>
                 <select type="text" class="col-sm-2 form-control bg-white" id="publishedJoinPrefix" name="publishedJoinPrefix"required>
                     <option value="">กรุณาเลือก</option>
                     <option value="อ." th:selected="${published.publishedJoinPrefix == 'อ.'}? 'selected'">อ.</option>
@@ -125,12 +125,17 @@
                 <input type="text" class="form-control bg-white col-sm-2" id="publishedJoinPrefixOther" name="publishedJoinPrefixOther" placeholder="อื่นๆ โปรดระบุ"
                        th:attr="value=${published.publishedJoinPrefixOther != null}? ${published.publishedJoinPrefixOther}: ''"
                        th:classappend="${published.publishedJoinPrefix == 'อื่นๆ'}? 'd-block':'d-none'"/>
-                <label for="publishedJoinName" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                <label for="publishedJoinName" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedJoinName" name="publishedJoinName"
                        th:attr="value=${published.publishedJoinName != null}? ${published.publishedJoinName} : ''" maxlength="255" required/>
             </div>
+
+            <div class="row col-sm-12 mb-2">
+                <label><b>เงินสนับสนุน</b></label>
+            </div>
+
             <div class="row mb-2">
-                <label for="publishedFund" class="form-control-label col-sm-2">เงินสนับสนุน<span style="color:red !important;">*</span>:</label>
+                <label for="publishedFund" class="form-control-label col-sm-2">จำนวนเงิน:</label>
                 <input type="text" class="form-control bg-white col-sm-4 amount" id="publishedFund" name="publishedFund"
                        th:attr="value=${published.publishedFund != null}? ${published.publishedFund} : ''" onblur="amtFormat()" required/>
             </div>
@@ -138,18 +143,18 @@
                 <label><b>จำนวนครั้งที่นำไปเผยแพร่</b></label>
             </div>
             <div class="row mb-2">
-                <label for="publishedQ1" class="form-control-label col-sm-2">ไตรมาส 1<span style="color:red !important;">*</span>:</label>
+                <label for="publishedQ1" class="form-control-label col-sm-2">ไตรมาส 1:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedQ1" name="publishedQ1"
                        th:attr="value=${published.publishedQ1 != null}? ${published.publishedQ1} : ''" maxlength="255" required/>
-                <label for="publishedQ2" class="form-control-label col-sm-2">ไตรมาส 2<span style="color:red !important;">*</span>:</label>
+                <label for="publishedQ2" class="form-control-label col-sm-2">ไตรมาส 2:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedQ2" name="publishedQ2"
                        th:attr="value=${published.publishedQ2 != null}? ${published.publishedQ2} : ''" maxlength="255" required/>
             </div>
             <div class="row mb-2">
-                <label for="publishedQ3" class="form-control-label col-sm-2">ไตรมาส 3<span style="color:red !important;">*</span>:</label>
+                <label for="publishedQ3" class="form-control-label col-sm-2">ไตรมาส 3:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedQ3" name="publishedQ3"
                        th:attr="value=${published.publishedQ3 != null}? ${published.publishedQ3} : ''" maxlength="255" required/>
-                <label for="publishedQ4" class="form-control-label col-sm-2">ไตรมาส 4<span style="color:red !important;">*</span>:</label>
+                <label for="publishedQ4" class="form-control-label col-sm-2">ไตรมาส 4:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedQ4" name="publishedQ4"
                        th:attr="value=${published.publishedQ4 != null}? ${published.publishedQ4} : ''" maxlength="255" required/>
             </div>

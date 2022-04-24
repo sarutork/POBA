@@ -57,7 +57,6 @@ public class Training {
     @Size(min = 1, max = 255, message = "โปรดเลือก ลักษณะกิจกรรม")
     private String trainingType;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล รหัสประกาศ/รหัสสัญญา")
     private String trainingAnnounce;
 
     @PositiveOrZero(message="กรุณาตรวจสอบข้อมูล งบประมาณ")
