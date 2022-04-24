@@ -168,7 +168,7 @@ public class ConsultantStudentController {
     }
 
     @GetMapping(value = "/{id}")
-    public ModelAndView showTeachingInfo(@PathVariable String id){
+    public ModelAndView showInfo(@PathVariable String id){
         ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM);
         view.addObject("viewName", "ดูข้อมูล");
 

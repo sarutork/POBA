@@ -20,17 +20,17 @@ USE `poba`;
 -- Dumping structure for table poba.academic_conference
 DROP TABLE IF EXISTS `academic_conference`;
 CREATE TABLE IF NOT EXISTS `academic_conference` (
-  `staff_id` int(11) NOT NULL,
+  `conference_id` int(11) NOT NULL AUTO_INCREMENT,
   `thesis_id` int(11) NOT NULL,
   `journal_id` int(11) NOT NULL,
-  `conference_id` int(11) NOT NULL,
   `conference_topic` varchar(255) NOT NULL,
   `conference_name` varchar(255) NOT NULL,
   `conference_institution` varchar(255) NOT NULL,
-  `conference_date` datetime NOT NULL,
+  `conference_date_from` date NOT NULL,
+  `conference_date_to` date NOT NULL,
   `conference_level` varchar(255) NOT NULL,
   `conference_doc` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`staff_id`,`thesis_id`,`journal_id`,`conference_id`)
+  PRIMARY KEY (`conference_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
@@ -71,10 +71,12 @@ DROP TABLE IF EXISTS `consultant_students`;
 CREATE TABLE IF NOT EXISTS `consultant_students` (
   `staff_id` int(11) NOT NULL AUTO_INCREMENT,
   `prefix` varchar(255) DEFAULT NULL,
+  `prefix_other` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `surname` varchar(255) DEFAULT NULL,
   `students_id` int(11) DEFAULT NULL,
   `student_prefix` varchar(255) DEFAULT NULL,
+  `student_prefix_other` varchar(255) DEFAULT NULL,
   `student_name` varchar(255) DEFAULT NULL,
   `student_surname` varchar(255) DEFAULT NULL,
   `year_of_study` varchar(255) DEFAULT NULL,
@@ -89,29 +91,29 @@ CREATE TABLE IF NOT EXISTS `consultant_students` (
 -- Dumping structure for table poba.consultant_thesis
 DROP TABLE IF EXISTS `consultant_thesis`;
 CREATE TABLE IF NOT EXISTS `consultant_thesis` (
-  `staff_id` int(11) NOT NULL,
-  `thesis_id` int(11) NOT NULL,
-  `teacher_id` int(11) DEFAULT NULL,
+  `thesis_id` int(11) NOT NULL AUTO_INCREMENT,
   `prefix` varchar(255) DEFAULT NULL,
+  `prefix_other` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `surname` varchar(255) DEFAULT NULL,
-  `thesis_type` varchar(255) DEFAULT NULL,
   `consultant_position` varchar(255) DEFAULT NULL,
-  `thesis_topic` varchar(255) DEFAULT NULL,
   `students_id` int(11) DEFAULT NULL,
-  `students_name` varchar(255) DEFAULT NULL,
-  `students_surname` varchar(255) DEFAULT NULL,
-  `course_id` int(11) DEFAULT NULL,
+  `student_prefix` varchar(255) DEFAULT NULL,
+  `student_prefix_other` varchar(255) DEFAULT NULL,
+  `student_name` varchar(255) DEFAULT NULL,
+  `student_surname` varchar(255) DEFAULT NULL,
+  `student_level` varchar(255) DEFAULT NULL,
   `course_name` varchar(255) DEFAULT NULL,
-  `students_level` varchar(255) DEFAULT NULL,
+  `thesis_type` varchar(255) DEFAULT NULL,
+  `thesis_topic` varchar(255) DEFAULT NULL,
   `thesis_consider` varchar(255) DEFAULT NULL,
-  `thesis_startdate` datetime DEFAULT NULL,
+  `thesis_startdate` date DEFAULT NULL,
+  `thesis_enddate` date DEFAULT NULL,
   `thesis_approve` varchar(255) DEFAULT NULL,
-  `thesis_enddate` datetime DEFAULT NULL,
   `thesis_success` varchar(255) DEFAULT NULL,
-  `thesis_success_date` datetime DEFAULT NULL,
-  `tesis_assessment` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`staff_id`,`thesis_id`)
+  `thesis_success_date` date DEFAULT NULL,
+  `thesis_assessment` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`thesis_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
@@ -126,9 +128,8 @@ CREATE TABLE IF NOT EXISTS `forget_pw` (
 -- Dumping structure for table poba.journal_info
 DROP TABLE IF EXISTS `journal_info`;
 CREATE TABLE IF NOT EXISTS `journal_info` (
-  `staff_id` int(11) NOT NULL,
+  `journal_id` int(11) NOT NULL AUTO_INCREMENT,
   `thesis_id` int(11) NOT NULL,
-  `journal_id` int(11) NOT NULL,
   `journal_style` varchar(255) NOT NULL,
   `journal_topic` varchar(255) NOT NULL,
   `journal_name` varchar(255) NOT NULL,
@@ -137,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `journal_info` (
   `journal_year` varchar(255) NOT NULL,
   `journal_database` varchar(255) NOT NULL,
   `journal_level` varchar(255) NOT NULL,
-  PRIMARY KEY (`staff_id`,`thesis_id`,`journal_id`)
+  PRIMARY KEY (`journal_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.

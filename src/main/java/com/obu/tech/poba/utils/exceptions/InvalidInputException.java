@@ -32,6 +32,22 @@ public class InvalidInputException extends RuntimeException {
         } else initialize();
     }
 
+    public InvalidInputException(ModelAndView redirect, BindingResult bindingResult1,
+                                 BindingResult bindingResult2, BindingResult bindingResult3) {
+        if (nonNull(redirect) && redirect.hasView()) {
+            this.redirect = redirect;
+            if (bindingResult1.hasErrors()) {
+                setErrors(bindingResult1);
+            }
+            if (bindingResult2.hasErrors()) {
+                setErrors(bindingResult2);
+            }
+            if (bindingResult3.hasErrors()) {
+                setErrors(bindingResult3);
+            }
+        } else initialize();
+    }
+
     private void setErrors(BindingResult bindingResult) {
         if (nonNull(bindingResult) && bindingResult.hasFieldErrors()) {
             for (FieldError e : bindingResult.getFieldErrors()) {

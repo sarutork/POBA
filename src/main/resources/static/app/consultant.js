@@ -280,3 +280,92 @@ function findYearlyReport(){
             $(tableYearlyReport.column(4+i).header()).text(""+(yearStartInt+i));
         }
 }
+
+//ConsultantThesis
+function findConsultantThesis() {
+   var tableConsultantThesis=  $('#table-consultant-thesis').DataTable({
+        ajax: {
+            type: "GET",
+            url: "/poba/consultant/thesis/search",
+            dataSrc: "",
+            data: function(d){
+                d.name = $('#name').val();
+                d.thesisType = $('#thesisType').val();
+                d.studentLevel = $('#studentLevel').val();
+            }
+        },
+        columns: [
+            { data: "thesisId" },
+            { data: "name"},
+            { data: "thesisType" },
+            { data: "studentName" },
+            { data: "studentLevel" },
+            { data: "thesisAssessment" },
+
+        ],
+        columnDefs: [
+            {
+               render: function (data, type, row) {
+                   var prefix = row["prefix"];
+                   if(prefix == "อื่นๆ"){
+                        prefix = row["prefixOther"]
+                   }
+                   var fullName = prefix+' '+row["name"] + ' ' + row["surname"];
+                       return fullName;
+                    },
+               targets: 1,
+            },
+            {
+               render: function (data, type, row) {
+                   var prefix = row["studentPrefix"];
+                      if(prefix == "อื่นๆ"){
+                           prefix = row["studentPrefixOther"]
+                      }
+                   var fullName = prefix+' '+row["studentName"] + ' ' + row["studentSurname"];
+                       return fullName;
+                    },
+               targets: 3,
+            },
+        ],
+        searching: false,
+        "bDestroy": true
+    });
+    $('#table-consultant-thesis tbody').on('click', 'tr', function () {
+            if(!$('#table-consultant-thesis tbody tr td').hasClass("dataTables_empty")){
+               var data = tableConsultantThesis.row( this ).data();
+                loadView('/poba/consultant/thesis/'+data.thesisId);
+            }
+        } );
+}
+
+function submitThesisInfo(){
+    var type = "POST";
+    $.ajax({
+         type: type,
+         url: "/poba/consultant/thesis/save",
+         data: $("#form-consultant-thesis").serialize(),
+         success: function(data) {
+                 setTimeout(function(){
+                     loadView('/poba/consultant/thesis');
+             },3000);
+                 window.scrollTo(0, 0);
+                 $('.content-wrapper').html(data);
+            },
+                error: function (error) {
+                 $('.content-wrapper').html(error.responseText);
+         }
+    });
+}
+
+function editThesisInfo(){
+    $(":input").prop("disabled", false);
+    $("#studentsLevel").trigger("change");
+
+    $("#submit").removeClass("d-none");
+    $("#submit").addClass("d-block");
+
+    $("#edit").removeClass("d-block");
+    $("#edit").addClass("d-none");
+
+    $("#viewName").text("แก้ไข")
+}
