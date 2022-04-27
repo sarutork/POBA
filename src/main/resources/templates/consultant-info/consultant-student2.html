@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:fragment="consultant-student">
+<th:block th:fragment="consultant-student2">
 
     <div id="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
-            <li class="breadcrumb-item active"><span>ข้อมูลที่ปรึกษาระดับปริญญา ตรี</span></li>
+            <li class="breadcrumb-item active"><span>ข้อมูลที่ปรึกษาระดับปริญญา โท เอก</span></li>
         </ol>
     </div>
 
@@ -29,17 +29,18 @@
                 <label for="studentsLevel" class="mr-1">ระดับการศึกษา:</label>
                 <select type="text" class="form-control bg-white mr-3" id="studentsLevel" name="studentsLevel">
                     <option value="">กรุณาเลือก</option>
-                    <option value="ปริญญาตรี">ปริญญาตรี</option>
+                    <option value="ปริญญาโท">ปริญญาโท</option>
+                    <option value="ปริญญาเอก">ปริญญาเอก</option>
                 </select>
             </div>
             <div class="form-group mb-3">
-                <button type="button" class="btn btn-outline-poba mr-3" onclick="findConsultantStudent();">ค้นหา</button>
-                <a href="javascript:void(0)" onclick="loadView('/poba/consultant/students/add')" class="btn btn-poba">เพิ่มข้อมูล</a>
+                <button type="button" class="btn btn-outline-poba mr-3" onclick="findConsultantStudent2();">ค้นหา</button>
+                <a href="javascript:void(0)" onclick="loadView('/poba/consultant/students2/add')" class="btn btn-poba">เพิ่มข้อมูล</a>
             </div>
         </form>
         <div class="mb-3">
-            <a href="javascript:void(0)" onclick="loadView('/poba/consultant/students/sum/yearly')" class="btn btn-outline-poba" style="width: auto;">สรุปข้อมูลรายปี</a>
-            <a href="javascript:void(0)" onclick="loadView('/poba/consultant/students/sum/consultant')" class="btn btn-outline-poba" style="width: auto;">สรุปข้อมูลรายที่ปรึกษา</a>
+            <a href="javascript:void(0)" onclick="loadView('/poba/consultant/students2/sum/yearly')" class="btn btn-outline-poba" style="width: auto;">สรุปข้อมูลรายปี</a>
+            <a href="javascript:void(0)" onclick="loadView('/poba/consultant/students2/sum/consultant')" class="btn btn-outline-poba" style="width: auto;">สรุปข้อมูลรายที่ปรึกษา</a>
         </div>
         <div class="table table-responsive">
             <table id="table-consultant-student" class="display" width="100%">
@@ -55,7 +56,7 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td colspan="6" class="dataTables_empty text-center bg-secondary">ข้อมูลที่ปรึกษาระดับปริญญา ตรี</td>
+                    <td colspan="6" class="dataTables_empty text-center bg-secondary">ข้อมูลที่ปรึกษาระดับปริญญา โท เอก</td>
                 </tr>
                 </tbody>
             </table>

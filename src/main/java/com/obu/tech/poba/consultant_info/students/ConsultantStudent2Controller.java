@@ -18,16 +18,17 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @Slf4j
 @Controller
-@RequestMapping("/consultant/students")
-public class ConsultantStudentController {
+@RequestMapping("/consultant/students2")
+public class ConsultantStudent2Controller {
 
-    static final String FRAGMENT_CONSULTANT_STUDENTS = "consultant-info/consultant-student :: consultant-student";
-    static final String FRAGMENT_CONSULTANT_STUDENTS_FORM = "consultant-info/consultant-student-form :: consultant-student-form";
-    static final String FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_CST = "consultant-info/consultant-std-sum-cst :: consultant-std-sum-cst";
-    static final String  FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_CST_DTL = "consultant-info/consultant-std-sum-cst-detail :: consultant-std-sum-cst-detail";
-    static final String FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_YEARLY = "consultant-info/consultant-std-sum-yearly :: consultant-std-sum-yearly";
+    static final String FRAGMENT_CONSULTANT_STUDENTS = "consultant-info/consultant-student2 :: consultant-student2";
+    static final String FRAGMENT_CONSULTANT_STUDENTS_FORM = "consultant-info/consultant-student-form2 :: consultant-student-form2";
+    static final String FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_CST = "consultant-info/consultant-std-sum-cst2 :: consultant-std-sum-cst2";
+    static final String  FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_CST_DTL = "consultant-info/consultant-std-sum-cst-detail2 :: consultant-std-sum-cst-detail2";
+    static final String FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_YEARLY = "consultant-info/consultant-std-sum-yearly2 :: consultant-std-sum-yearly2";
 
 
     @Autowired
@@ -41,7 +42,7 @@ public class ConsultantStudentController {
 
     @GetMapping("/search")
     public ResponseEntity<List<ConsultantStudent>> search(@ModelAttribute ConsultantStudent consultantStudent) {
-        return ResponseEntity.ok().body(consultantStudentService.findBySearchCriteria(consultantStudent,consultantStudentService.studentsLevel_1));
+        return ResponseEntity.ok().body(consultantStudentService.findBySearchCriteria(consultantStudent,consultantStudentService.studentsLevel_2));
     }
 
     @GetMapping("/add")
