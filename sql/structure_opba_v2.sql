@@ -205,14 +205,18 @@ CREATE TABLE `journal_info` (
 -- Table structure for table `login`
 --
 
+-- Data exporting was unselected.
+-- Dumping structure for table poba.login
 DROP TABLE IF EXISTS `login`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `login` (
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  PRIMARY KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+CREATE TABLE IF NOT EXISTS login (
+  user_id bigint NOT NULL AUTO_INCREMENT,
+  username varchar(255) NOT NULL,
+  password varchar(255) NOT NULL,
+  role varchar(255) NOT NULL,
+  reset_password varchar(1) NULL,
+  PRIMARY KEY (`user_id`),
+  CONSTRAINT constraint_username UNIQUE (username)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

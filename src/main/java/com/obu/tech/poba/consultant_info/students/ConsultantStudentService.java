@@ -1,6 +1,7 @@
 package com.obu.tech.poba.consultant_info.students;
 
 import com.obu.tech.poba.utils.search.SearchConditionBuilder;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,22 +12,47 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.obu.tech.poba.utils.search.SearchOperator.LIKE;
+import static com.obu.tech.poba.utils.search.SearchOperator.*;
 
 @Service
 public class ConsultantStudentService {
     @Autowired
     ConsultantStudentRepository consultantStudentRepository;
-   public List<ConsultantStudent> findBySearchCriteria(ConsultantStudent consultantStudent){
-        return consultantStudentRepository.findAll(new SearchConditionBuilder<ConsultantStudent>()
-                .ifNotNullThenAnd("name", LIKE, consultantStudent.getName())
-                .ifNotNullThenOr("surname", LIKE, consultantStudent.getName())
-                .ifNotNullThenOr("studentName", LIKE, consultantStudent.getName())
-                .ifNotNullThenOr("studentSurname", LIKE, consultantStudent.getName())
-                .ifNotNullThenAnd("yearOfStudy", LIKE, consultantStudent.getYearOfStudy())
-                .ifNotNullThenAnd("studentsLevel", LIKE, consultantStudent.getStudentsLevel())
-                .build()
-        );
+    public final String studentsLevel_1 = "ปริญญาตรี";
+    public final String studentsLevel_2 = "ปริญญาโทเอก";
+   public List<ConsultantStudent> findBySearchCriteria(ConsultantStudent consultantStudent,String studentsLevel){
+       if(StringUtils.isBlank(consultantStudent.getStudentsLevel()) && studentsLevel_1.equals(studentsLevel)){
+           return consultantStudentRepository.findAll(new SearchConditionBuilder<ConsultantStudent>()
+                   .ifNotNullThenAnd("name", LIKE, consultantStudent.getName())
+                   .ifNotNullThenOr("surname", LIKE, consultantStudent.getName())
+                   .ifNotNullThenOr("studentName", LIKE, consultantStudent.getName())
+                   .ifNotNullThenOr("studentSurname", LIKE, consultantStudent.getName())
+                   .ifNotNullThenAnd("yearOfStudy", LIKE, consultantStudent.getYearOfStudy())
+                   .ifNotNullThenAnd("studentsLevel", EQUAL, studentsLevel_1)
+                   .build()
+           );
+       }else if(StringUtils.isBlank(consultantStudent.getStudentsLevel()) && (studentsLevel_2.equals(studentsLevel))){
+           return consultantStudentRepository.findAll(new SearchConditionBuilder<ConsultantStudent>()
+                   .ifNotNullThenAnd("name", LIKE, consultantStudent.getName())
+                   .ifNotNullThenOr("surname", LIKE, consultantStudent.getName())
+                   .ifNotNullThenOr("studentName", LIKE, consultantStudent.getName())
+                   .ifNotNullThenOr("studentSurname", LIKE, consultantStudent.getName())
+                   .ifNotNullThenAnd("yearOfStudy", LIKE, consultantStudent.getYearOfStudy())
+                   .ifNotNullThenAnd("studentsLevel", NOT_EQUAL, studentsLevel_1)
+                   .build()
+           );
+       }else {
+           return consultantStudentRepository.findAll(new SearchConditionBuilder<ConsultantStudent>()
+                   .ifNotNullThenAnd("name", LIKE, consultantStudent.getName())
+                   .ifNotNullThenOr("surname", LIKE, consultantStudent.getName())
+                   .ifNotNullThenOr("studentName", LIKE, consultantStudent.getName())
+                   .ifNotNullThenOr("studentSurname", LIKE, consultantStudent.getName())
+                   .ifNotNullThenAnd("yearOfStudy", LIKE, consultantStudent.getYearOfStudy())
+                   .ifNotNullThenAnd("studentsLevel", LIKE, consultantStudent.getStudentsLevel())
+                   .build()
+           );
+       }
+
     }
 
    public List<ConsultantStudentReportDto> findConsultantSummaryReport(ConsultantStudentReportDto consultantStudent){

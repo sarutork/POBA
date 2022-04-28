@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:fragment="consultant-student-form">
+<th:block th:fragment="consultant-student-form2">
 
     <div id="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/consultant/students')">ข้อมูลที่ปรึกษาระดับปริญญา ตรี</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/consultant/students2')">ข้อมูลที่ปรึกษาระดับปริญญา โท เอก</a></li>
             <li class="breadcrumb-item active"><span id="viewName" th:text="${viewName}"></span></li>
         </ol>
     </div>
@@ -92,7 +92,8 @@
                 <select type="text" class="form-control bg-white col-sm-4" id="studentsLevel" name="studentsLevel"
                         th:disabled="${consultantStudent.staffId != 0}" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="ปริญญาตรี" th:selected="${consultantStudent.studentsLevel == 'ปริญญาตรี'}? 'selected'">ปริญญาตรี</option>
+                    <option value="ปริญญาโท" th:selected="${consultantStudent.studentsLevel == 'ปริญญาโท'}? 'selected'">ปริญญาโท</option>
+                    <option value="ปริญญาเอก" th:selected="${consultantStudent.studentsLevel == 'ปริญญาเอก'}? 'selected'">ปริญญาเอก</option>
                 </select>
             </div>
             <div class="row mb-2">
@@ -144,11 +145,11 @@
             </div>
         </form>
         <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${consultantStudent.staffId == 0 ? 'd-block' : 'd-none'} ">
-            <button type="button" class="btn btn-poba mr-3" onclick="submitConsultantStudent();">บันทึก</button>
-            <a href="javascript:void(0)" onclick="loadView('/poba/consultant/students')" class="btn btn-outline-poba ">ยกเลิก</a>
+            <button type="button" class="btn btn-poba mr-3" onclick="submitConsultantStudent2();">บันทึก</button>
+            <a href="javascript:void(0)" onclick="loadView('/poba/consultant/students2')" class="btn btn-outline-poba ">ยกเลิก</a>
         </div>
         <div id="edit" class="row mt-5 mb-5 text-align-center" th:classappend="${consultantStudent.staffId != 0 ? 'd-block' : 'd-none'}">
-            <a href="javascript:void(0)" onclick="loadView('/poba/consultant/students')" class="btn btn-poba mr-3">ยกเลิก</a>
+            <a href="javascript:void(0)" onclick="loadView('/poba/consultant/students2')" class="btn btn-poba mr-3">ยกเลิก</a>
             <button type="button" class="btn btn-outline-poba" onclick="editConsultantStudent();">แก้ไข</button>
         </div>
     </div>
