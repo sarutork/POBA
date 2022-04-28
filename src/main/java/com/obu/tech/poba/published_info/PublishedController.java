@@ -42,15 +42,15 @@ public class PublishedController {
             publishedList.forEach( p -> {
                 List<PublishedJoin> publishedJoin = publishedService.findPublishedJoinById(p.getPublishedId());
                 PublishedDto publishedDto = new PublishedDto();
-                BeanUtils.copyProperties(p,publishedDto);
-                BeanUtils.copyProperties(publishedJoin.get(0),publishedDto,"prefix","prefixOther","name","surname");
-                publishedDto.setPublishedJoinPrefix(publishedJoin.get(0).getPrefix());
-                publishedDto.setPublishedJoinPrefixOther(publishedJoin.get(0).getPrefixOther());
-                publishedDto.setPublishedJoinName(publishedJoin.get(0).getName());
-                publishedDto.setPublishedJoinSurname(publishedJoin.get(0).getSurname());
-
+                if(publishedJoin.size() > 0) {
+                    BeanUtils.copyProperties(p, publishedDto);
+                    BeanUtils.copyProperties(publishedJoin.get(0), publishedDto, "prefix", "prefixOther", "name", "surname");
+                    publishedDto.setPublishedJoinPrefix(publishedJoin.get(0).getPrefix());
+                    publishedDto.setPublishedJoinPrefixOther(publishedJoin.get(0).getPrefixOther());
+                    publishedDto.setPublishedJoinName(publishedJoin.get(0).getName());
+                    publishedDto.setPublishedJoinSurname(publishedJoin.get(0).getSurname());
+                }
                 publishedDtoList.add(publishedDto);
-
             });
 
         return ResponseEntity.ok().body(publishedDtoList);
