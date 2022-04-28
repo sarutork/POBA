@@ -50,4 +50,12 @@ public class WebController {
         request.getSession().setAttribute("poba-user",user.getUsername());
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+    @RequestMapping(value = "/forgot/password", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> forgotPassword(@RequestBody POBAUser user,
+                                          HttpServletRequest request) throws Exception {
+        if (request.getSession(false) != null) {
+            request.getSession().invalidate();
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 }

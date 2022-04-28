@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and().authorizeRequests().antMatchers("/login").permitAll()
         .and().authorizeRequests().antMatchers("/home").permitAll()
         .and().authorizeRequests().antMatchers("/actuator/*").permitAll()
+        .and().authorizeRequests().antMatchers("/forgot/password").permitAll()
         .anyRequest().authenticated()
         .and().exceptionHandling().authenticationEntryPoint(pobaAuthenticationEntryPoint)
         .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
