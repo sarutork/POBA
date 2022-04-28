@@ -540,6 +540,26 @@ div .scroll {
 .forget-lg-in.show {
     display: block;
 }
+.new-pwd-lg-in {
+    display: none;
+}
+
+.new-pwd-lg-in.show {
+    display: block;
+}
+.new-pwd-lg-err {
+    display: none;
+}
+
+.new-pwd-lg-err.show {
+    display: block;
+}
+.forgot-pwd {
+    display: none;
+}
+.forgot-pwd.show {
+    display: block;
+}
 
 #authen input {
     color: #000;

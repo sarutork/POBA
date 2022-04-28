@@ -1,5 +1,6 @@
 package com.obu.tech.poba;
 
+import com.obu.tech.poba.authenticate.POBAUser;
 import com.obu.tech.poba.authenticate.POBAUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,7 +27,8 @@ public class POBARequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
         try{
-            String username = (String)request.getSession().getAttribute("poba-user");
+            POBAUser user = (POBAUser)request.getSession().getAttribute("poba-user");
+            String username = (user != null ? user.getUsername():null);
             List<String> roles = pobaUserService.rules(username);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = this.pobaUserDetailsService.loadUserByUsername(username,roles);

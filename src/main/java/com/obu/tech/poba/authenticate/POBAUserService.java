@@ -33,4 +33,8 @@ public class POBAUserService {
                 .forEach(obj->roles.add("ROLE_".concat(obj[0].toString())));
         return roles;
     }
+
+    public POBAUser save(POBAUser pobaUser){
+        return pobaUserRepository.saveAndFlush(pobaUser);
+    }
 }

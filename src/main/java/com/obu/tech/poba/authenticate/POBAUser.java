@@ -12,6 +12,7 @@ import javax.persistence.*;
 public class POBAUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="user_id")
     private long Id;
-    private String username,password, role;
+    private String username,password, role,resetPassword;
 }
