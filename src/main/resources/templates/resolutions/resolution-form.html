@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="resolution-form">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/home')">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/resolution')">ข้อมูลมติกรรมการคณะ</a></li>
+            <li class="breadcrumb-item active"><span th:text="${viewName}"></span></li>
+        </ol>
+    </div>
+
+    <div class="container px-3">
+        <th:block th:replace="~{fragments/input-errors}"/>
+
+        <form id="form-resolution" class="form-wrapper">
+            <input type="hidden" id="bordId" name="bordId" th:value="${resolution.bordId}"/>
+            <div class="row mb-2">
+                <label for="bordNo1" class="form-control-label col-sm-3">การประชุมครั้งที่<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-1" id="bordNo1" name="bordNo1"
+                       th:attr="value=${resolution.bordNo1 != 0}? ${resolution.bordNo1} : ''" required/>
+                <label for="bordNo1" class="ml-2 mr-2">/</label>
+                <input type="text" class="form-control bg-white col-sm-2" id="bordNo2" name="bordNo2"
+                       th:attr="value=${resolution.bordNo2 != 0}? ${resolution.bordNo2} : ''" required/>
+            </div>
+            <div class="row mb-2">
+                <label for="bordDate" class="form-control-label col-sm-3">วัน เดือน ปี<span style="color:red !important;">*</span>:</label>
+                <input type="date" class="form-control bg-white col-sm-2" id="bordDate" name="bordDate"
+                       th:attr="value=${resolution.bordDate != null}? ${resolution.bordDate}: ''" required/>
+            </div>
+            <div class="row mb-2">
+                <label for="bordType" class="form-control-label col-sm-3">การประชุม<span style="color:red !important;">*</span>:</label>
+                <select class="form-control bg-white col-sm-4" id="bordType" name="bordType" required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ปกติ" th:selected="${resolution.bordType == 'ปกติ'}? 'selected'">ปกติ</option>
+                    <option value="มติเวียน" th:selected="${resolution.bordType == 'มติเวียน'}? 'selected'">มติเวียน</option>
+                </select>
+            </div>
+            <div class="row mb-2">
+                <label for="bordAttach" class="form-control-label col-sm-3">รายงานการประชุม<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="bordAttach" name="bordAttach"
+                       th:attr="value=${resolution.bordAttach != null}? ${resolution.bordAttach}: ''" maxlength="255" placeholder="ระบุลิงค์" required/>
+            </div>
+            <div class="row px-3 mb-3">
+                <div class="col-sm-3 offset-sm-3 px-0">
+                    <label class="btn btn-outline-poba" for="input-file">เลือกไฟล์</label>
+                    <input type="file" id="input-file" multiple hidden/>
+                </div>
+            </div>
+
+            <div class="row px-3 mb-3">
+                <div class="offset-md-3 col-md-8 col-lg-6">
+                    <div id="file-divs" class="row">
+                        <th:block th:if="*{resolution.uploads}"
+                                  th:each="upload : *{resolution.uploads}">
+                            <div class="col-sm-6 mb-2">
+                                <span class="file-name" th:text="${upload.filename}"></span>
+                                <span class="file-remove close mdi mdi-close-circle" onclick="removeUploadedFile(this)"></span>
+                                <input class="file-id" type="hidden" th:value="${upload.id}"/>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <label for="noteOfBoard" class="form-control-label col-sm-3">หมายเหตุ:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="noteOfBoard" name="noteOfBoard"
+                       th:attr="value=${resolution.noteOfBoard != null}? ${resolution.noteOfBoard}: ''" maxlength="255"/>
+            </div>
+            <div class="row justify-content-center mt-5">
+                <button type="button" class="btn btn-poba mr-3" onclick="submitResolutionInfo();">บันทึก</button>
+                <a href="javascript:void(0)" onclick="loadView('/poba/resolution')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        var uploaded = $('input.file-id').toArray().map(i => Number($(i).val()));
+        var selected = new DataTransfer();
+
+        function submitResolutionInfo(){
+            event.preventDefault();
+            let form = $('#form-resolution')[0];
+            let formData = new FormData(form);
+            formData.append('filesToKeep', uploaded);
+            $.each(selected.files, function(i, file) {
+                formData.append('newFiles', file);
+            });
+
+            var type = "POST";
+            $.ajax({
+                 type: type,
+                 url: "/poba/resolution/save",
+                 enctype: 'multipart/form-data',
+                 data:formData,
+                 processData: false,
+                 contentType: false,
+                 cache: false,
+                 success: function(data) {
+                         setTimeout(function(){
+                             loadView('/poba/resolution');
+                     },3000);
+                         window.scrollTo(0, 0);
+                         $('.content-wrapper').html(data);
+                    },
+                        error: function (error) {
+                         $('.content-wrapper').html(error.responseText);
+                 }
+            });
+        }
+
+        $('#input-file').on('change', function() {
+            for (let i = 0; i < this.files.length; i++) {
+                let fileDiv = $('<div/>', { class: 'col-sm-6 mb-2' }),
+                    fileName = $('<span/>', { class: 'file-name', text: this.files.item(i).name }),
+                    fileRemove = $('<span/>', { class: 'file-remove close mdi mdi-close-circle' });
+                fileDiv.append(fileName).append(fileRemove);
+                $('#file-divs').append(fileDiv);
+            }
+            for (let file of this.files) {
+                selected.items.add(file);
+            }
+            this.files = selected.files;
+            $('span.file-remove').click(function() {
+                removeFile(this);
+            });
+        });
+
+        function removeFile(fileRemove) {
+            let name = $(fileRemove).prev('span.file-name').text();
+            for (let i = 0; i < selected.items.length; i++) {
+                if (name === selected.items[i].getAsFile().name) {
+                    selected.items.remove(i);
+                    continue;
+                }
+            }
+            $('#input-file')[0].files = selected.files;
+            $(fileRemove).parent().remove();
+        }
+
+        function removeUploadedFile(fileRemove) {
+            let id = $(fileRemove).next('input.file-id').val();
+            for (let i = 0; i < uploaded.length; i++) {
+                if (uploaded[i] == id) {
+                    uploaded.splice(i, 1);
+                    continue;
+                }
+            }
+            $(fileRemove).parent().remove();
+        }
+    </script>
+
+</th:block>
+</html>

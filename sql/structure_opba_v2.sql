@@ -70,15 +70,18 @@ DROP TABLE IF EXISTS `board_resolution`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `board_resolution` (
-  `bord_id` int NOT NULL,
-  `bord_no` int DEFAULT NULL,
-  `bord_date` datetime DEFAULT NULL,
-  `bord_type` varchar(255) DEFAULT NULL,
+  `bord_id` bigint NOT NULL AUTO_INCREMENT,
+  `bord_no1` int NOT NULL,
+  `bord_no2` int NOT NULL,
   `bord_attach` varchar(255) DEFAULT NULL,
+  `bord_date` date NOT NULL,
+  `bord_type` varchar(255) DEFAULT NULL,
   `note_of_board` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`bord_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+-- poba.resolution definition
 
 --
 -- Table structure for table `consultant_student_report_dto`
