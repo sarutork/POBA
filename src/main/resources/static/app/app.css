@@ -533,6 +533,13 @@ div .scroll {
 .er-lg-in.error-show {
     display: block;
 }
+.forget-lg-in {
+    display: none;
+}
+
+.forget-lg-in.show {
+    display: block;
+}
 
 #authen input {
     color: #000;
