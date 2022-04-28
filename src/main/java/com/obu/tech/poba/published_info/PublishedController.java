@@ -65,11 +65,14 @@ public class PublishedController {
         List<PublishedJoin> publishedJoin = publishedService.findPublishedJoinById(published.getPublishedId());
 
         PublishedDto publishedDto = new PublishedDto();
+
         BeanUtils.copyProperties(published,publishedDto);
         BeanUtils.copyProperties(publishedJoin.get(0),publishedDto,"prefix","prefixOther","name","surname");
         publishedDto.setPublishedJoinPrefix(publishedJoin.get(0).getPrefix());
         publishedDto.setPublishedJoinPrefixOther(publishedJoin.get(0).getPrefixOther());
-        publishedDto.setPublishedJoinName(publishedJoin.get(0).getName() +" "+publishedJoin.get(0).getSurname());
+        if(StringUtils.isNotEmpty(publishedJoin.get(0).getName())){
+            publishedDto.setPublishedJoinName(publishedJoin.get(0).getName() + " " + publishedJoin.get(0).getSurname());
+        }
         publishedDto.setPublishedJoinSurname(publishedJoin.get(0).getSurname());
 
         publishedDto.setName(published.getName() +" "+published.getSurname());

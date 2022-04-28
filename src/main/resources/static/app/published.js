@@ -36,6 +36,10 @@ function findPublished() {
                         prefix = row["publishedJoinPrefixOther"]
                    }
                    var fullName = prefix+' '+row["publishedJoinName"] + ' ' + row["publishedJoinSurname"];
+
+                    if (!row["publishedJoinName"]){
+                        fullName = "-";
+                    }
                        return fullName;
                     },
                targets: 4,
