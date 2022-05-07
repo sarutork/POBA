@@ -1,6 +1,7 @@
 package com.obu.tech.poba.published_info;
 
 import com.obu.tech.poba.utils.NameConverterUtils;
+import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -26,6 +27,9 @@ public class PublishedController {
 
     @Autowired
     private NameConverterUtils nameConverterUtils;
+
+    @Autowired
+    private YearGeneratorUtils yearGeneratorUtils;
 
     @Autowired
     private PublishedService publishedService;
@@ -58,8 +62,12 @@ public class PublishedController {
 
     @GetMapping(value = "/{id}")
     public ModelAndView showTeachingInfo(@PathVariable String id){
-        ModelAndView view = new ModelAndView(FRAGMENT_PUBLISHED_FORM);
-        view.addObject("viewName", "ดูข้อมูล");
+        //ModelAndView view = new ModelAndView(FRAGMENT_PUBLISHED_FORM);
+        //view.addObject("viewName", "ดูข้อมูล");
+
+        //List<Integer> years = yearGeneratorUtils.genYears(10,10);
+        //view.addObject("years", years);
+
 
         Published published = publishedService.findPublishedById(id);
         List<PublishedJoin> publishedJoin = publishedService.findPublishedJoinById(published.getPublishedId());
@@ -77,8 +85,8 @@ public class PublishedController {
 
         publishedDto.setName(published.getName() +" "+published.getSurname());
 
-        view.addObject("published",publishedDto);
-        return view;
+        //view.addObject("published",publishedDto);
+        return view(publishedDto);
     }
 
     @GetMapping("/add")
@@ -127,7 +135,10 @@ public class PublishedController {
     }
 
     private ModelAndView form(PublishedDto data) {
-        return new ModelAndView(FRAGMENT_PUBLISHED_FORM).addObject("published", data);
+        List<Integer> years = yearGeneratorUtils.genYears();
+        return new ModelAndView(FRAGMENT_PUBLISHED_FORM)
+                .addObject("years", years)
+                .addObject("published", data);
     }
 
     private ModelAndView viewSuccess(PublishedDto data) {
@@ -140,7 +151,11 @@ public class PublishedController {
     }
 
     private ModelAndView view(PublishedDto data) {
+        List<Integer> years = yearGeneratorUtils.genYears();
+
         return new ModelAndView(FRAGMENT_PUBLISHED_FORM).addObject("viewName", "ดูข้อมูล")
+                .addObject("years", years)
                 .addObject("published", data);
+
     }
 }

@@ -102,13 +102,13 @@
                        th:classappend="${published.publishedMonth == 'อื่นๆ'}? 'd-block':'d-none'"/>
 
                 <label for="publishedYear2" class="form-control-label col-sm-2">ปี<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="publishedYear2" name="publishedYear2" required>
+                <select type="text" class="col-sm-2 form-control bg-white" th:field="${published.publishedYear2}" id="publishedYear2" name="publishedYear2" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="2565" th:selected="${published.publishedYear2 == '2565'}? 'selected'">2565</option>
-                    <option value="2564" th:selected="${published.publishedYear2 == '2564'}? 'selected'">2564</option>
-                    <option value="2563" th:selected="${published.publishedYear2 == '2563'}? 'selected'">2563</option>
+                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
                 </select>
             </div>
+
+
             <div class="row mb-2">
                 <label for="publishedBase" class="form-control-label col-sm-2">ฐาน<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedBase" name="publishedBase"
