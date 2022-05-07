@@ -33,6 +33,7 @@ public class PublishedDto {
 
     private String publishedYear;
     private String publishedIssue;
+    private String publishedPage;
     private String publishedMonth;
     private String monthOther;
 

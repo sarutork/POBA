@@ -69,6 +69,11 @@
                        th:attr="value=${published.publishedIssue != null}? ${published.publishedIssue} : ''" maxlength="255" required/>
             </div>
             <div class="row mb-2">
+                <label for="publishedPage" class="form-control-label col-sm-2">เลขหน้าที่ตีพิมพ์:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedPage" name="publishedPage"
+                       th:attr="value=${published.publishedPage != null}? ${published.publishedPage} : ''" maxlength="255" required/>
+            </div>
+            <div class="row mb-2">
                 <label for="publishedMonth" class="form-control-label col-sm-2">เดือน:</label>
                 <select type="text" class="col-sm-2 form-control bg-white" id="publishedMonth" name="publishedMonth" required>
                     <option value="">กรุณาเลือก</option>

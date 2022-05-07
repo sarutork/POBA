@@ -26,6 +26,7 @@ public class Published {
     private String publishedJournal;
     private String publishedYear;
     private String publishedIssue;
+    private String publishedPage;
     private String publishedMonth;
     private String monthOther;
     private String publishedYear2;

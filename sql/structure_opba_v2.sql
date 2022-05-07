@@ -831,3 +831,5 @@ CREATE TABLE `upload` (
 
 
 ALTER TABLE published_info ADD month_other  varchar(255);
+ALTER TABLE published_info ADD published_page  varchar(255);
+
