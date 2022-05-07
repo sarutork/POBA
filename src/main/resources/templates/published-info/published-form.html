@@ -53,6 +53,11 @@
                 <label><b>ข้อมูลเผยแพร่</b></label>
             </div>
             <div class="row mb-2">
+                <label for="publishedType" class="form-control-label col-sm-2">ประเภทผลงาน:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedType" name="publishedType"
+                       th:attr="value=${published.publishedType != null}? ${published.publishedType} : ''" maxlength="255" required/>
+            </div>
+            <div class="row mb-2">
                 <label for="publishedTopic" class="form-control-label col-sm-2">ชื่อเรื่อง<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedTopic" name="publishedTopic"
                        th:attr="value=${published.publishedTopic != null}? ${published.publishedTopic} : ''" maxlength="255" required/>
@@ -91,7 +96,7 @@
                     <option value="ธันวาคม" th:selected="${published.publishedMonth == 'ธันวาคม'}? 'selected'">ธันวาคม</option>
                     <option value="อื่นๆ" th:selected="${published.publishedMonth == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
                 </select>
-                <div id="monthOtherTmp" class="col-sm-2" th:classappend="${published.monthOther != null}? 'd-none':'d-block'"></div>
+                <div id="monthOtherTmp" class="col-sm-2" th:classappend="${published.publishedMonth == 'อื่นๆ'}? 'd-none':'d-block'"></div>
                 <input type="text" class="form-control bg-white col-sm-2" id="monthOther" name="monthOther" placeholder="อื่นๆ โปรดระบุ"
                        th:attr="value=${published.monthOther != null}? ${published.monthOther}: ''"
                        th:classappend="${published.publishedMonth == 'อื่นๆ'}? 'd-block':'d-none'"/>
@@ -151,7 +156,7 @@
                        th:attr="value=${published.publishedFund != null}? ${published.publishedFund} : ''" onblur="amtFormat()" required/>
             </div>
             <div class="row col-sm-12 mb-2">
-                <label><b>จำนวนครั้งที่นำไปเผยแพร่</b></label>
+                <label><b>จํานวนครั้งที่ถูกอ้างอิง</b></label>
             </div>
             <div class="row mb-2">
                 <label for="publishedQ1" class="form-control-label col-sm-2">ไตรมาส 1:</label>
@@ -187,6 +192,7 @@
                 $("input").prop("disabled", true);
                 $("select").prop("disabled", true);
              }
+
 
              amtFormat();
         });
