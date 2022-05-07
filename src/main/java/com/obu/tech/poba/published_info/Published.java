@@ -22,6 +22,7 @@ public class Published {
     private String fullNamePublisher;
     private String fullNameJoiner;
     private String publishedStatus;
+    private String publishedType;
     private String publishedTopic;
     private String publishedJournal;
     private String publishedYear;
