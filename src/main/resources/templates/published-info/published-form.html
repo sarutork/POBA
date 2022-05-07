@@ -84,8 +84,14 @@
                     <option value="ตุลาคม" th:selected="${published.publishedMonth == 'ตุลาคม'}? 'selected'">ตุลาคม</option>
                     <option value="พฤศจิกายน" th:selected="${published.publishedMonth == 'พฤศจิกายน'}? 'selected'">พฤศจิกายน</option>
                     <option value="ธันวาคม" th:selected="${published.publishedMonth == 'ธันวาคม'}? 'selected'">ธันวาคม</option>
+                    <option value="อื่นๆ" th:selected="${published.publishedMonth == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
                 </select>
-                <label for="publishedYear2" class="form-control-label col-sm-4">ปี<span style="color:red !important;">*</span>:</label>
+                <div id="monthOtherTmp" class="col-sm-2" th:classappend="${published.monthOther != null}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="monthOther" name="monthOther" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${published.monthOther != null}? ${published.monthOther}: ''"
+                       th:classappend="${published.publishedMonth == 'อื่นๆ'}? 'd-block':'d-none'"/>
+
+                <label for="publishedYear2" class="form-control-label col-sm-2">ปี<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="col-sm-2 form-control bg-white" id="publishedYear2" name="publishedYear2" required>
                     <option value="">กรุณาเลือก</option>
                     <option value="2565" th:selected="${published.publishedYear2 == '2565'}? 'selected'">2565</option>
@@ -213,6 +219,24 @@
 
                 $("#prefixOtherTmp").removeClass("d-none");
                 $("#prefixOtherTmp").addClass("d-block");
+            }
+        });
+
+        $('#publishedMonth').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#monthOther").removeClass("d-none");
+                $("#monthOther").addClass("d-block");
+
+                $("#monthOtherTmp").removeClass("d-block");
+                $("#monthOtherTmp").addClass("d-none");
+            }else{
+                $("#monthOther").val("");
+                $("#monthOther").removeClass("d-block");
+                $("#monthOther").addClass("d-none");
+
+                $("#monthOtherTmp").removeClass("d-none");
+                $("#monthOtherTmp").addClass("d-block");
             }
         });
 

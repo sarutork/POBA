@@ -27,6 +27,7 @@ public class Published {
     private String publishedYear;
     private String publishedIssue;
     private String publishedMonth;
+    private String monthOther;
     private String publishedYear2;
     private String publishedBase;
     private String publishedLevel;

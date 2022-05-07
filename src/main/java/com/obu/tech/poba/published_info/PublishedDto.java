@@ -34,6 +34,8 @@ public class PublishedDto {
     private String publishedYear;
     private String publishedIssue;
     private String publishedMonth;
+    private String monthOther;
+
 
     @Size(min = 1, max = 255, message = "โปรดเลือก ปี")
     private String publishedYear2;
