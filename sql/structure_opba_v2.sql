@@ -839,3 +839,8 @@ ALTER TABLE present_work ADD present_country varchar(255);
 ALTER TABLE present_work ADD present_fund2 varchar(255);
 ALTER TABLE present_work ADD present_amount2 double;
 
+--textbook
+ALTER TABLE textbook ADD textbook_extend_date2 date;
+ALTER TABLE textbook ADD textbook_extend_date3 date;
+
+

@@ -53,6 +53,12 @@ public class TextbookDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate textbookExtendDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate textbookExtendDate2;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate textbookExtendDate3;
+
     @Size(min = 1, max = 255, message = "โปรดเลือก สถานะ")
     private String textbookStatus;
 
