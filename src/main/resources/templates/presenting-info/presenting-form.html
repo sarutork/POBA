@@ -63,6 +63,9 @@
                 <label for="presentInstitution" class="form-control-label col-sm-2">หน่วยงานที่จัด<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="presentInstitution" name="presentInstitution"
                        th:attr="value=${presenting.presentInstitution != null}? ${presenting.presentInstitution} : ''" maxlength="255" required/>
+                <label for="presentCountry" class="form-control-label col-sm-2">เมือง/ประเทศ:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="presentCountry" name="presentCountry"
+                       th:attr="value=${presenting.presentCountry != null}? ${presenting.presentCountry} : ''" maxlength="255"/>
             </div>
 
             <div class="row col-sm-12 mb-2">
@@ -75,6 +78,14 @@
                 <label for="presentAmount" class="form-control-label col-sm-2">จำนวนเงิน<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4 amount" id="presentAmount" name="presentAmount"
                        th:attr="value=${presenting.presentAmount != null}? ${presenting.presentAmount} : ''" onblur="amtFormat()" required/>
+            </div>
+            <div class="row mb-2">
+                <label for="presentFund2" class="form-control-label col-sm-2">ชื่อแหล่งเงินทุน:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="presentFund2" name="presentFund2"
+                       th:attr="value=${presenting.presentFund2 != null}? ${presenting.presentFund2} : ''" maxlength="255" />
+                <label for="presentAmount2" class="form-control-label col-sm-2">จำนวนเงิน:</label>
+                <input type="text" class="form-control bg-white col-sm-4 amount" id="presentAmount2" name="presentAmount2"
+                       th:attr="value=${presenting.presentAmount2 != null}? ${presenting.presentAmount2} : ''" onblur="amtFormat()" />
             </div>
             <div class="row mb-2">
                 <label for="presentDateStart" class="form-control-label col-sm-2">กำหนดการ<span style="color:red !important;">*</span>:</label>

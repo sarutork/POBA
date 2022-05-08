@@ -829,7 +829,13 @@ CREATE TABLE `upload` (
 -- Dump completed on 2022-04-24 23:16:31
 
 
-
+--published_info
 ALTER TABLE published_info ADD month_other  varchar(255);
 ALTER TABLE published_info ADD published_page  varchar(255);
 ALTER TABLE published_info ADD published_Type varchar(255);
+
+--present_work
+ALTER TABLE present_work ADD present_country varchar(255);
+ALTER TABLE present_work ADD present_fund2 varchar(255);
+ALTER TABLE present_work ADD present_amount2 double;
+

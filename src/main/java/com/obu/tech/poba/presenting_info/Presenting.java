@@ -39,11 +39,16 @@ public class Presenting {
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล หน่วยงานที่จัด")
     private String presentInstitution;
 
+    private String presentCountry;
+
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อแหล่งเงินทุน")
     private String presentFund;
 
     @PositiveOrZero(message="กรุณาตรวจสอบข้อมูล จำนวนเงิน")
     private Double presentAmount;
+
+    private String presentFund2;
+    private Double presentAmount2;
 
     @NotNull(message = "โปรดเลือก กำหนดการเริ่มต้น")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
