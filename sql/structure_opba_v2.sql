@@ -843,4 +843,8 @@ ALTER TABLE present_work ADD present_amount2 double;
 ALTER TABLE textbook ADD textbook_extend_date2 date;
 ALTER TABLE textbook ADD textbook_extend_date3 date;
 
+--students
+ALTER TABLE students MODIFY COLUMN students_tel varchar(10);
+ALTER TABLE students MODIFY COLUMN students_telemergency varchar(10);
+
 

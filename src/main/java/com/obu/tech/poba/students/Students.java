@@ -43,10 +43,10 @@ public class Students {
   @Size(min = 1, max = 255, message = "โปรดเลือก หลักสูตร")
   private String studentsCourse;
 
-  @PositiveOrZero(message="กรุณาตรวจสอบข้อมูล หมายเลขโทรศัพท์")
-  private int studentsTel;
+  @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล หมายเลขโทรศัพท์")
+  private String studentsTel;
 
-  private int studentsTelemergency;
+  private String studentsTelemergency;
   private String studentsRelation;
   private String studentsRelationOther;
   private String studentsEmail;

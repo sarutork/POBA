@@ -46,12 +46,10 @@
 
             <div class="row mb-2">
                 <label for="studentsYear" class="form-control-label col-sm-2">เข้าศึกษาปีการศึกษา<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="studentsYear" name="studentsYear"
+                <select type="text" class="form-control bg-white col-sm-4" th:field="${student.studentsYear}" id="studentsYear" name="studentsYear"
                         th:disabled="${student.Id != 0}" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="2565" th:selected="${student.studentsYear == '2565'}? 'selected'">2565</option>
-                    <option value="2564" th:selected="${student.studentsYear == '2564'}? 'selected'">2564</option>
-                    <option value="2563" th:selected="${student.studentsYear == '2563'}? 'selected'">2563</option>
+                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
                 </select>
                 <label for="studentsLevel" class="form-control-label col-sm-2">ระดับการศึกษา<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="studentsLevel" name="studentsLevel"
@@ -110,7 +108,7 @@
                        th:attr="value=${student.studentsTel != null}? ${student.studentsTel}: ''" maxlength="10" required/>
                 <label for="studentsTelemergency" class="form-control-label col-sm-2">หมายเลขโทรศัพท์ (กรณีฉุกเฉิน):</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="studentsTelemergency" name="studentsTelemergency"
-                       th:attr="value=${student.studentsTelemergency != null}? ${student.studentsTelemergency}: ''" maxlength="11" />
+                       th:attr="value=${student.studentsTelemergency != null}? ${student.studentsTelemergency}: ''" maxlength="10" />
             </div>
 
             <div class="row mb-2">
@@ -179,6 +177,7 @@
                         th:disabled="${student.Id != 0}">
                     <option value="">กรุณาเลือก</option>
                     <option value="ปกติ" th:selected="${student.studentsStatus == 'ปกติ'}? 'selected'">ปกติ</option>
+                    <option value="สําเร็จการศึกษา" th:selected="${student.studentsStatus == 'สําเร็จการศึกษา'}? 'selected'">สําเร็จการศึกษา</option>
                     <option value="รักษาสถานภาพ" th:selected="${student.studentsStatus == 'รักษาสถานภาพ'}? 'selected'">รักษาสถานภาพ</option>
                     <option value="ลาพักการศึกษา" th:selected="${student.studentsStatus == 'ลาพักการศึกษา'}? 'selected'">ลาพักการศึกษา</option>
                     <option value="ลาออก" th:selected="${student.studentsStatus == 'ลาออก'}? 'selected'">ลาออก</option>
