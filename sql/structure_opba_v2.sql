@@ -832,7 +832,12 @@ CREATE TABLE `upload` (
 --published_info
 ALTER TABLE published_info ADD month_other  varchar(255);
 ALTER TABLE published_info ADD published_page  varchar(255);
-ALTER TABLE published_info ADD published_Type varchar(255);
+ALTER TABLE published_info ADD published_type varchar(255);
+
+ALTER TABLE published_join ADD fiscal_yearq1 varchar(255);
+ALTER TABLE published_join ADD fiscal_yearq2 varchar(255);
+ALTER TABLE published_join ADD fiscal_yearq3 varchar(255);
+ALTER TABLE published_join ADD fiscal_yearq4 varchar(255);
 
 --present_work
 ALTER TABLE present_work ADD present_country varchar(255);

@@ -59,4 +59,9 @@ public class PublishedDto {
     private int publishedQ2;
     private int publishedQ3;
     private int publishedQ4;
+    private String fiscalYearQ1;
+    private String fiscalYearQ2;
+    private String fiscalYearQ3;
+    private String fiscalYearQ4;
+
 }
