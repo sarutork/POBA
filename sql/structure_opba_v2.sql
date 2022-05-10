@@ -852,4 +852,30 @@ ALTER TABLE textbook ADD textbook_extend_date3 date;
 ALTER TABLE students MODIFY COLUMN students_tel varchar(10);
 ALTER TABLE students MODIFY COLUMN students_telemergency varchar(10);
 
+--training
+ALTER TABLE training ADD prefix2 varchar(255);
+ALTER TABLE training ADD prefix_other2 varchar(255);
+ALTER TABLE training ADD name2 varchar(255);
+ALTER TABLE training ADD surname2 varchar(255);
+
+ALTER TABLE training ADD prefix3 varchar(255);
+ALTER TABLE training ADD prefix_other3 varchar(255);
+ALTER TABLE training ADD name3 varchar(255);
+ALTER TABLE training ADD surname3 varchar(255);
+
+DROP TABLE IF EXISTS `training_phase`;
+CREATE TABLE `training_phase` (
+  `training_phase_id` int NOT NULL AUTO_INCREMENT,
+  `training_id` int NOT NULL,
+  `training_phase` int NOT NULL,
+  `training_amount` double NOT NULL,
+  `training_withdraw` date NOT NULL,
+  PRIMARY KEY (`training_phase_id`)
+);
+
+ALTER TABLE training ADD trainingAmountTotal double;
+ALTER TABLE training DROP COLUMN training_phase;
+ALTER TABLE training DROP COLUMN training_amount;
+
+
 
