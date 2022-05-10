@@ -2,22 +2,18 @@ package com.obu.tech.poba.training;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
-import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
-@ToString
-@Entity
-@Table(name = "training", schema = "poba")
-public class Training {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TrainingDto {
+
     private long trainingId;
 
     @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า")
@@ -71,6 +67,9 @@ public class Training {
 
     @PositiveOrZero(message="กรุณาตรวจสอบข้อมูล งบประมาณ")
     private double trainingBudget;
+
+    @NotNull(message="กรุณาตรวจสอบข้อมูล งวดที่")
+    private List<@Valid TrainingPhase> phases;
 
     private double trainingAmountTotal;
 

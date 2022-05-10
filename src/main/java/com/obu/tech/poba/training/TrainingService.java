@@ -14,6 +14,9 @@ import static com.obu.tech.poba.utils.search.SearchOperator.LIKE;
 public class TrainingService {
     @Autowired
     TrainingRepository trainingRepository;
+    @Autowired
+    TrainingPhaseRepository trainingPhaseRepository;
+
     List<Training> findBySearchCriteria(Training training){
         return trainingRepository.findAll(new SearchConditionBuilder<Training>()
                 .ifNotNullThenAnd("name", LIKE, training.getName())
@@ -34,5 +37,23 @@ public class TrainingService {
         } else {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
+    }
+
+    public List<TrainingPhase> savePhase(List<TrainingPhase> phases){
+        return  trainingPhaseRepository.saveAllAndFlush(phases);
+    }
+
+    public List<TrainingPhase> findByTrainingId(String id){
+        if (id.matches("\\d+")) {
+            return trainingPhaseRepository.findByTrainingId(Long.parseLong(id));
+        } else {
+            System.out.println("Invalid trainingId: '" + id + "'");
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public List<TrainingPhase> removePhase(long phaseId,long trainingId){
+        trainingPhaseRepository.deleteById(phaseId);
+        return trainingPhaseRepository.findByTrainingId(trainingId);
     }
 }

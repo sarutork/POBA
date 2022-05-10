@@ -83,3 +83,50 @@ function sumTrainee(){
     var foreignTrainee = $("#trainingForeign").val();
     $("#trainingTotalPerson").val(parseInt(thaiTrainee) + parseInt(foreignTrainee));
 }
+
+function addTrainingPhase(){
+    removeComma();
+    var type = "POST";
+    $.ajax({
+         type: type,
+         url: "/poba/training/addPhase",
+         data: $("#form-training").serialize(),
+         success: function(data) {
+            $('.content-wrapper').html(data);
+            trainingAmtFormat();
+         },
+         error: function (error) {
+            $('.content-wrapper').html(error.responseText);
+         }
+    });
+}
+
+function removeTrainingPhase(phase){
+    removeComma();
+    var type = "POST";
+    $.ajax({
+         type: type,
+         url: "/poba/training/removePhase/"+phase,
+         data: $("#form-training").serialize(),
+         success: function(data) {
+            $('.content-wrapper').html(data);
+            trainingAmtFormat();
+         },
+         error: function (error) {
+            $('.content-wrapper').html(error.responseText);
+         }
+    });
+}
+
+function trainingAmtFormat(){
+    numberFormat();
+    calTrainingSum();
+}
+function calTrainingSum(){
+    var sum = 0.00;
+    $( ".trainingAmount" ).each( function( i, el ) {
+             var elem = $( el );
+             sum += parseFloat(elem.val().replace(/,/g, ''));
+     });
+    $("#trainingAmountTotal").val(new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB' }).format(sum).replace('฿', ''));
+}

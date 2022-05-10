@@ -151,19 +151,34 @@
                 <label class="col-sm-2 form-control-label" for="trainingBudget">งบประมาณ<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4 amount" id="trainingBudget" name="trainingBudget"
                        th:attr="value=${training.trainingBudget != null}? ${training.trainingBudget}: ''" onblur="amtFormat()" required/>
-                <label class="form-control-label col-sm-2" for="trainingPhase">งวดที่<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="trainingPhase" name="trainingPhase"
-                       th:attr="value=${training.trainingPhase != null}? ${training.trainingPhase}: ''" required/>
-            </div>
-
-            <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="trainingAmount">จำนวนเงิน<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4 amount" id="trainingAmount" name="trainingAmount"
-                       th:attr="value=${training.trainingAmount != null}? ${training.trainingAmount}: ''" onblur="amtFormat()" required/>
                 <label class="form-control-label col-sm-2" for="trainingJoin">หน่วยงานให้ทุน/ร่วมจัด<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="trainingJoin" name="trainingJoin"
                        th:attr="value=${training.trainingJoin != null}? ${training.trainingJoin}: ''" maxlength="255" required/>
             </div>
+
+            <div  class="row mb-2" th:each="phase, itemStat : ${training.phases}">
+                <input type="hidden" th:name="|phases[${itemStat.index}].trainingPhaseId|" th:value="${phase.getTrainingPhaseId()}"/>
+                <label class="col-sm-2 form-control-label" >งวดที่<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-1"
+                       th:name="|phases[${itemStat.index}].trainingPhase|" th:value="${phase.getTrainingPhase()}"required/>
+                <label class="col-sm-1 form-control-label" for="trainingAmount">จำนวนเงิน<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-2 amount trainingAmount" id="trainingAmount" name="trainingAmount" th:onblur="trainingAmtFormat()"
+                       th:name="|phases[${itemStat.index}].trainingAmount|" th:value="${phase.getTrainingAmount()}" required/>
+                <label class="col-sm-2 form-control-label" for="trainingWithdraw">ทำเรื่องเบิก/นำส่งเงิน<span style="color:red !important;">*</span>:</label>
+                <input type="date" class="form-control bg-white col-sm-2" id="trainingWithdraw" name="trainingWithdraw"
+                       th:name="|phases[${itemStat.index}].trainingWithdraw|" th:value="${phase.getTrainingWithdraw()}" maxlength="255" required/>
+
+                <button th:if="${itemStat.index} == 0" type="button" class="btn btn-outline-poba btn-phase ml-3" onclick="addTrainingPhase()">เพิ่ม</button>
+                <button th:if="${itemStat.index} != 0" type="button" class="btn btn-outline-poba btn-phase ml-3" th:onclick="|removeTrainingPhase(${phase.getTrainingPhase()})|">ลบ</button>
+
+            </div>
+
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="trainingAmountTotal">จำนวนเงินทั้งหมด<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4 amount" id="trainingAmountTotal" name="trainingAmountTotal"
+                       th:field="${training.trainingAmountTotal}" readonly/>
+            </div>
+
             <div  class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="trainingThai">ผู้เข้าร่วม (คนไทย)<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="trainingThai" name="trainingThai"
@@ -188,11 +203,11 @@
             </div>
 
         </form>
-        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${training.trainingId == 0 ? 'd-block' : 'd-none'} ">
+        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${viewName != 'ดูข้อมูล' ? 'd-block' : 'd-none'} ">
             <button type="button" class="btn btn-poba mr-3" onclick="submitTrainingInfo();">บันทึก</button>
             <a href="javascript:void(0)" onclick="loadView('/poba/training')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
         </div>
-        <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${training.trainingId != 0 ? 'd-block' : 'd-none'}">
+        <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${viewName == 'ดูข้อมูล' ? 'd-block' : 'd-none'}">
             <a href="javascript:void(0)" onclick="loadView('/poba/training')" class="btn btn-poba mr-3">ยกเลิก</a>
             <button type="button" class="btn btn-outline-poba mr-3" onclick="editTrainingInfo();">แก้ไข</button>
         </div>
@@ -200,14 +215,14 @@
 
     <script>
         $(document).ready(function() {
-             var trainingId = $("#trainingId").val();
-             if(trainingId != '' && trainingId > 0){
+             var viewName = $("#viewName").text();
+             console.log(viewName);
+             if(viewName == "ดูข้อมูล"){
                 $("input").prop("disabled", true);
                 $("select").prop("disabled", true);
                 $(".btn-phase").prop("disabled", true);
              }
-
-             amtFormat();
+             trainingAmtFormat();
         });
 
         $('#prefix').change(function(){
