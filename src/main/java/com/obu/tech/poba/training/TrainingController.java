@@ -51,9 +51,25 @@ public class TrainingController {
                 training.setName(fullName[0]);
                 training.setSurname(fullName[1]);
             }
+            if(!StringUtils.isBlank(training.getName2())) {
+                String[] fullName = nameConverter.fullNameToNameNSurname(training.getName2());
+                training.setName2(fullName[0]);
+                training.setSurname2(fullName[1]);
+            }
+            if(!StringUtils.isBlank(training.getName3())) {
+                String[] fullName = nameConverter.fullNameToNameNSurname(training.getName3());
+                training.setName3(fullName[0]);
+                training.setSurname3(fullName[1]);
+            }
 
             Training trainingRes = trainingService.save(training);
             trainingRes.setName(trainingRes.getName()+" "+trainingRes.getSurname());
+            if(StringUtils.isNotEmpty(trainingRes.getName2())) {
+                trainingRes.setName2(trainingRes.getName2() + " " + trainingRes.getSurname2());
+            }
+            if(StringUtils.isNotEmpty(trainingRes.getName3())){
+                trainingRes.setName3(trainingRes.getName3()+" "+trainingRes.getSurname3());
+            }
 
             return viewSuccess(trainingRes);
         }catch (Exception e){
@@ -67,6 +83,12 @@ public class TrainingController {
     public ModelAndView showTeachingInfo(@PathVariable String id){
         Training training = trainingService.findById(id);
         training.setName(training.getName()+" "+training.getSurname());
+        if(StringUtils.isNotEmpty(training.getName2())) {
+            training.setName2(training.getName2() + " " + training.getSurname2());
+        }
+        if(StringUtils.isNotEmpty(training.getName3())) {
+            training.setName3(training.getName3() + " " + training.getSurname3());
+        }
         return view(training);
     }
 

@@ -48,6 +48,62 @@
                        th:attr="value=${training.name != null}? ${training.name}: ''" maxlength="255" required/>
             </div>
 
+            <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="prefix2">คำนำหน้า:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="prefix2" name="prefix2">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="นาย" th:selected="${training.prefix2 == 'นาย'}? 'selected'">นาย</option>
+                    <option value="นางสาว" th:selected="${training.prefix2 == 'นางสาว'}? 'selected'">นางสาว</option>
+                    <option value="นาง" th:selected="${training.prefix2 == 'นาง'}? 'selected'">นาง</option>
+                    <option value="อ." th:selected="${training.prefix2 == 'อ.'}? 'selected'">อ.</option>
+                    <option value="อ.ดร." th:selected="${training.prefix2 == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
+                    <option value="ผศ." th:selected="${training.prefix2 == 'ผศ.'}? 'selected'">ผศ.</option>
+                    <option value="ผศ.ดร." th:selected="${training.prefix2 == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
+                    <option value="รศ." th:selected="${training.prefix2 == 'รศ.'}? 'selected'">รศ.</option>
+                    <option value="รศ.ดร." th:selected="${training.prefix2 == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
+                    <option value="ศ." th:selected="${training.prefix2 == 'ศ.'}? 'selected'">ศ.</option>
+                    <option value="ศ.ดร." th:selected="${training.prefix2 == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
+                    <option value="อื่นๆ" th:selected="${training.prefix2 == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
+                </select>
+
+                <div id="prefixOtherTmp2" class="col-sm-2" th:classappend="${training.prefix2 == 'อื่นๆ'}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther2" name="prefixOther2" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${training.prefixOther2 != null}? ${training.prefixOther2}: ''"
+                       th:classappend="${training.prefix2 == 'อื่นๆ'}? 'd-block':'d-none'"/>
+
+                <label for="name2" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="name2" name="name2"
+                       th:attr="value=${training.name2 != null}? ${training.name2}: ''" maxlength="255"/>
+            </div>
+
+            <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="prefix3">คำนำหน้า:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="prefix3" name="prefix3">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="นาย" th:selected="${training.prefix3 == 'นาย'}? 'selected'">นาย</option>
+                    <option value="นางสาว" th:selected="${training.prefix3 == 'นางสาว'}? 'selected'">นางสาว</option>
+                    <option value="นาง" th:selected="${training.prefix3 == 'นาง'}? 'selected'">นาง</option>
+                    <option value="อ." th:selected="${training.prefix3 == 'อ.'}? 'selected'">อ.</option>
+                    <option value="อ.ดร." th:selected="${training.prefix3 == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
+                    <option value="ผศ." th:selected="${training.prefix3 == 'ผศ.'}? 'selected'">ผศ.</option>
+                    <option value="ผศ.ดร." th:selected="${training.prefix3 == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
+                    <option value="รศ." th:selected="${training.prefix3 == 'รศ.'}? 'selected'">รศ.</option>
+                    <option value="รศ.ดร." th:selected="${training.prefix3 == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
+                    <option value="ศ." th:selected="${training.prefix3 == 'ศ.'}? 'selected'">ศ.</option>
+                    <option value="ศ.ดร." th:selected="${training.prefix3 == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
+                    <option value="อื่นๆ" th:selected="${training.prefix3 == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
+                </select>
+
+                <div id="prefixOtherTmp3" class="col-sm-2" th:classappend="${training.prefix3 == 'อื่นๆ'}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther3" name="prefixOther3" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${training.prefixOther3 != null}? ${training.prefixOther3}: ''"
+                       th:classappend="${training.prefix3 == 'อื่นๆ'}? 'd-block':'d-none'"/>
+
+                <label for="name3" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="name3" name="name3"
+                       th:attr="value=${training.name3 != null}? ${training.name3}: ''" maxlength="255" />
+            </div>
+
             <div  class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="trainingStatus">สถานะ<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="col-4 form-control" id="trainingStatus" name="trainingStatus" required>
@@ -169,6 +225,42 @@
 
                 $("#prefixOtherTmp").removeClass("d-none");
                 $("#prefixOtherTmp").addClass("d-block");
+            }
+        });
+
+        $('#prefix2').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#prefixOther2").removeClass("d-none");
+                $("#prefixOther2").addClass("d-block");
+
+                $("#prefixOtherTmp2").removeClass("d-block");
+                $("#prefixOtherTmp2").addClass("d-none");
+            }else{
+                $("#prefixOther2").val("");
+                $("#prefixOther2").removeClass("d-block");
+                $("#prefixOther2").addClass("d-none");
+
+                $("#prefixOtherTmp2").removeClass("d-none");
+                $("#prefixOtherTmp2").addClass("d-block");
+            }
+        });
+
+        $('#prefix3').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#prefixOther3").removeClass("d-none");
+                $("#prefixOther3").addClass("d-block");
+
+                $("#prefixOtherTmp3").removeClass("d-block");
+                $("#prefixOtherTmp3").addClass("d-none");
+            }else{
+                $("#prefixOther3").val("");
+                $("#prefixOther3").removeClass("d-block");
+                $("#prefixOther3").addClass("d-none");
+
+                $("#prefixOtherTmp3").removeClass("d-none");
+                $("#prefixOtherTmp3").addClass("d-block");
             }
         });
     </script>
