@@ -31,14 +31,13 @@
                         <td th:text="*{bordType}"></td>
                     </tr>
                     <tr>
-                        <th rowspan="2">รายงานการประชุม:</th>
-                        <td th:text="*{bordAttach}"></td>
+                        <th th:rowspan="*{#lists.size(uploads)}+1">รายงานการประชุม:</th>
+                        <td><a th:href="*{bordAttach}" th:text="*{bordAttach}" target="_blank" rel="noopener"></a></td>
                     </tr>
-                    <tr>
-                        <td>
-                        <th:block th:if="*{uploads}"
-                                  th:utext="*{#strings.arrayJoin(uploads.![filename], '<br><br>')}">
-                        </th:block>
+                    <tr th:each="upload: *{uploads}">
+                        <td style="border-bottom: none !important;border-top: none !important;">
+                            <a th:href="|/poba/download/download-pdf/resolution/${upload.filename}|" target="_blank" rel="noopener"
+                               th:text="${upload.filename}"></a>
                         </td>
                     </tr>
                     <tr>
