@@ -36,7 +36,6 @@ public class Resolution {
     @Size(min = 1, max = 255, message = "โปรดเลือก การประชุม")
     private String bordType;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล รายงานการประชุม")
     private String bordAttach;
 
     private String noteOfBoard;

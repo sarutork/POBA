@@ -19,6 +19,7 @@ public class ResolutionService {
     public List<Resolution> findBySearchCriteria(String bordNo1,String bordNo2, LocalDate bordDateStart, LocalDate bordDateEnd){
         return resolutionRepository.findAll(new SearchConditionBuilder<Resolution>()
                 .ifNotNullThenAnd("bordNo1", EQUAL, bordNo1)
+                .ifNotNullThenOr("bordNo2",EQUAL,bordNo1)
                 .ifNotNullThenAnd("bordNo2", EQUAL, bordNo2)
                 .ifNotNullThenAnd("bordDate", DATE_AFTER_OR_EQUAL, bordDateStart)
                 .ifNotNullThenAnd("bordDate", DATE_BEFORE_OR_EQUAL, bordDateEnd)
