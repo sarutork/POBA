@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="ext-academic-services-form">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a  href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a  href="javascript:void(0)" onclick="loadView('/poba/external-academic-services')">ข้อมูลบริการวิชาการภายนอก</a></li>
+            <li class="breadcrumb-item active" ><span id="viewName" th:text="${viewName}"></span></li>
+        </ol>
+    </div>
+
+    <div class="container px-3">
+        <th:block th:replace="~{fragments/input-errors}"/>
+        <th:block th:replace="~{fragments/alert}"/>
+
+        <form id="form-ext-academic-services" class="form-wrapper">
+            <input type="hidden" id="id" name="id" th:value="${extService.Id}"/>
+            <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="นาย" th:selected="${extService.prefix == 'นาย'}? 'selected'">นาย</option>
+                    <option value="นางสาว" th:selected="${extService.prefix == 'นางสาว'}? 'selected'">นางสาว</option>
+                    <option value="นาง" th:selected="${extService.prefix == 'นาง'}? 'selected'">นาง</option>
+                    <option value="อ." th:selected="${extService.prefix == 'อ.'}? 'selected'">อ.</option>
+                    <option value="อ.ดร." th:selected="${extService.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
+                    <option value="ผศ." th:selected="${extService.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
+                    <option value="ผศ.ดร." th:selected="${extService.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
+                    <option value="รศ." th:selected="${extService.prefix == 'รศ.'}? 'selected'">รศ.</option>
+                    <option value="รศ.ดร." th:selected="${extService.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
+                    <option value="ศ." th:selected="${extService.prefix == 'ศ.'}? 'selected'">ศ.</option>
+                    <option value="ศ.ดร." th:selected="${extService.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
+                    <option value="อื่นๆ" th:selected="${extService.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
+                </select>
+
+                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${extService.prefix == 'อื่นๆ'}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${extService.prefixOther != null}? ${extService.prefixOther}: ''"
+                       th:classappend="${extService.prefix == 'อื่นๆ'}? 'd-block':'d-none'"
+                       th:disabled="${extService.id != 0}"/>
+
+                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
+                       th:attr="value=${extService.name != null}? ${extService.name}: ''" maxlength="255" required/>
+            </div>
+            <div class="row col-sm-12 mb-2">
+                <label><b>ข้อมูลบริการวิชาการภายนอก</b></label>
+            </div>
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="title">หัวข้อ:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="title" name="title"
+                       th:attr="value=${extService.title != null}? ${extService.title}: ''" maxlength="255"/>
+            </div>
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="type">ลักษณะบริการ:</label>
+                <select type="text" class="col-4 form-control" id="type" name="type">
+                    <option value="" >กรุณาเลือก</option>
+                    <option value="กรรมการ" th:selected="${extService.type == 'กรรมการ'}? 'selected'">กรรมการ</option>
+                    <option value="ประชุม" th:selected="${extService.type == 'ประชุม'}? 'selected'">ประชุม</option>
+                    <option value="ประเมิน" th:selected="${extService.type == 'ประเมิน'}? 'selected'">ประเมิน</option>
+                    <option value="วิทยากร/สอน/บรรยาย" th:selected="${extService.type == 'วิทยากร/สอน/บรรยาย'}? 'selected'">วิทยากร/สอน/บรรยาย</option>
+                    <option value="สัมภาษณ์" th:selected="${extService.type == 'สัมภาษณ์'}? 'selected'">สัมภาษณ์</option>
+                </select>
+                <label class="col-sm-2 form-control-label" for="typeOther">ลักษณะบริการ อื่นๆ:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="typeOther" name="typeOther"
+                       th:attr="value=${extService.typeOther != null}? ${extService.typeOther}: ''" maxlength="255" placeholder="ลักษณะบริการ อื่นๆ โปรดระบุ"/>
+            </div>
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="level">ระดับกิจกรรม:</label>
+                <select type="text" class="col-4 form-control" id="level" name="level">
+                    <option value="" >กรุณาเลือก</option>
+                    <option value="ระดับชาติ" th:selected="${extService.level == 'ระดับชาติ'}? 'selected'">ระดับชาติ</option>
+                    <option value="ระดับนานาชาติ" th:selected="${extService.level == 'ระดับนานาชาติ'}? 'selected'">ระดับนานาชาติ</option>
+                </select>
+                <label class="col-sm-2 form-control-label " for="institution">หน่วยงานที่เชิญ:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="institution" name="institution"
+                       th:attr="value=${extService.institution != null}? ${extService.institution}: ''" maxlength="255"/>
+            </div>
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="year">ปี:</label>
+                <input type="text" class="form-control bg-white col-sm-2" id="year" name="year"
+                       th:attr="value=${extService.year != null}? ${extService.year}: ''" maxlength="255"/>
+            </div>
+            <div class="row mb-2">
+                <label for="startDate" class="form-control-label col-sm-2">วันที่เชิญเริ่มต้น:</label>
+                <input type="date" class="form-control bg-white col-sm-2" id="startDate" name="startDate"
+                       th:attr="value=${extService.startDate != null}? ${extService.startDate} : ''"/>
+                <label for="startTime" class="form-control-label col-sm-2">เวลาเชิญเริ่มต้น:</label>
+                <input type="time" id="startTime" name="startTime" class="form-control col-sm-2"
+                       th:attr="value=${extService.startTime != null}? ${extService.startTime}: ''"/>
+            </div>
+            <div class="row mb-2">
+                <label for="endDate" class="form-control-label col-sm-2">วันที่เชิญสิ้นสุด:</label>
+                <input type="date" class="form-control bg-white col-sm-2" id="endDate" name="endDate"
+                       th:attr="value=${extService.endDate != null}? ${extService.endDate} : ''"/>
+                <label for="startTime" class="form-control-label col-sm-2">เวลาเชิญสิ้นสุด:</label>
+                <input type="time" id="endTime" name="endTime" class="form-control col-sm-2"
+                       th:attr="value=${extService.endTime != null}? ${extService.endTime}: ''"/>
+            </div>
+            <div  class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="location">สถานที่:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="location" name="location"
+                       th:attr="value=${extService.location != null}? ${extService.location}: ''" maxlength="255"/>
+                <label class="col-sm-2 form-control-label" for="numOfParticipants">จำนวนผู้เข้าร่วม:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="numOfParticipants" name="numOfParticipants"
+                       th:attr="value=${extService.numOfParticipants != 0}? ${extService.numOfParticipants}: ''"/>
+            </div>
+            <div class="row mb-2">
+                <label for="letterReceivedDate" class="form-control-label col-sm-2">วันที่รับจดหมาย:</label>
+                <input type="date" class="form-control bg-white col-sm-2" id="letterReceivedDate" name="letterReceivedDate"
+                       th:attr="value=${extService.letterReceivedDate != null}? ${extService.letterReceivedDate} : ''"/>
+                <label for="letterNo" class="form-control-label col-sm-2">เลขหนังสือ:</label>
+                <input type="text" id="letterNo" name="letterNo" class="form-control col-sm-2"
+                       th:attr="value=${extService.letterNo != null}? ${extService.letterNo}: ''"/>
+            </div>
+            <div class="row mb-2">
+                <label for="letterSentDate" class="form-control-label col-sm-2">วันที่ส่งจดหมาย:</label>
+                <input type="date" class="form-control bg-white col-sm-2" id="letterSentDate" name="letterSentDate"
+                       th:attr="value=${extService.letterSentDate != null}? ${extService.letterSentDate} : ''"/>
+                <label for="letterSendingNo" class="form-control-label col-sm-2">เลขที่ส่งออก:</label>
+                <input type="text" id="letterSendingNo" name="letterSendingNo" class="form-control col-sm-2"
+                       th:attr="value=${extService.letterSendingNo != null}? ${extService.letterSendingNo}: ''"/>
+            </div>
+            <div class="row mb-2">
+                <label for="coordinator" class="form-control-label col-sm-2">ผู้ประสานงาน:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="coordinator" name="coordinator"
+                       th:attr="value=${extService.coordinator != null}? ${extService.coordinator} : ''"/>
+                <label for="coordinatorTel" class="form-control-label col-sm-2">โทรศัพท์:</label>
+                <input type="text" id="coordinatorTel" name="coordinatorTel" class="form-control col-sm-4"
+                       th:attr="value=${extService.coordinatorTel != null}? ${extService.coordinatorTel}: ''"/>
+            </div>
+            <div class="row mb-2">
+                <label for="confirmationNo" class="form-control-label col-sm-2">เลขที่รับ วจ.:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="confirmationNo" name="confirmationNo"
+                       th:attr="value=${extService.confirmationNo != null}? ${extService.confirmationNo} : ''"/>
+                <label for="note" class="form-control-label col-sm-2">หมายเหตุ:</label>
+                <input type="text" id="note" name="note" class="form-control col-sm-4"
+                       th:attr="value=${extService.note != null}? ${extService.note}: ''"/>
+            </div>
+        </form>
+        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${extService.id == 0 ? 'd-block' : 'd-none'} ">
+            <button type="button" class="btn btn-poba mr-3" onclick="submitExtAcServices();">บันทึก</button>
+            <a href="javascript:void(0)" onclick="loadView('/poba/external-academic-services')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
+        </div>
+        <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${extService.id != 0 ? 'd-block' : 'd-none'}">
+            <a href="javascript:void(0)" onclick="loadView('/poba/external-academic-services')" class="btn btn-poba mr-3">ยกเลิก</a>
+            <button type="button" class="btn btn-outline-poba mr-3" onclick="editExtAcServices();">แก้ไข</button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+             var id = $("#id").val();
+             if(id != '' && id > 0){
+                $("input").prop("disabled", true);
+                $("select").prop("disabled", true);
+             }
+        });
+
+        $('#prefix').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#prefixOther").removeClass("d-none");
+                $("#prefixOther").addClass("d-block");
+
+                $("#prefixOtherTmp").removeClass("d-block");
+                $("#prefixOtherTmp").addClass("d-none");
+            }else{
+                $("#prefixOther").val("");
+                $("#prefixOther").removeClass("d-block");
+                $("#prefixOther").addClass("d-none");
+
+                $("#prefixOtherTmp").removeClass("d-none");
+                $("#prefixOtherTmp").addClass("d-block");
+            }
+        });
+    </script>
+
+</th:block>
+</html>

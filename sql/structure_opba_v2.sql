@@ -877,5 +877,33 @@ ALTER TABLE training ADD trainingAmountTotal double;
 ALTER TABLE training DROP COLUMN training_phase;
 ALTER TABLE training DROP COLUMN training_amount;
 
+CREATE TABLE IF NOT EXISTS `external_academic_services` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `prefix` varchar(255) NOT NULL,
+  `prefix_other` varchar(255),
+  `name` varchar(255) NOT NULL,
+  `surname` varchar(255) NOT NULL,
+  `title` varchar(255),
+  `type` varchar(255),
+  `type_other` varchar(255),
+  `level` varchar(255),
+  `institution` varchar(255),
+  `year` varchar(255),
+  `start_date` date,
+  `start_time` varchar(5),
+  `end_date` date,
+  `end_time` varchar(5),
+  `location` varchar(255),
+  `num_of_participants` int,
+  `letter_received_date` date,
+  `letter_no` varchar(255),
+  `letter_sent_date` date,
+  `letter_sending_no` varchar(255),
+  `coordinator` varchar(255),
+  `coordinator_tel` varchar(255),
+  `confirmation_no` varchar(255),
+  `note` varchar(255),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
