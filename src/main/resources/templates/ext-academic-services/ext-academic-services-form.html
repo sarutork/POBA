@@ -104,7 +104,7 @@
                        th:attr="value=${extService.location != null}? ${extService.location}: ''" maxlength="255"/>
                 <label class="col-sm-2 form-control-label" for="numOfParticipants">จำนวนผู้เข้าร่วม:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="numOfParticipants" name="numOfParticipants"
-                       th:attr="value=${extService.numOfParticipants != 0}? ${extService.numOfParticipants}: ''"/>
+                       th:attr="value= ${extService.numOfParticipants}"/>
             </div>
             <div class="row mb-2">
                 <label for="letterReceivedDate" class="form-control-label col-sm-2">วันที่รับจดหมาย:</label>
