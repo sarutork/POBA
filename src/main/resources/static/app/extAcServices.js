@@ -13,8 +13,8 @@ function findExtAcademicServices() {
             { data: "id" },
             { data: "name"},
             { data: "title" },
-            { data: "type" },
-            { data: "typeOther" },
+            { data: "level" },
+            { data: "institution" },
             { data: "year" },
         ],
         columnDefs: [
