@@ -14,6 +14,7 @@ function findExtAcademicServices() {
             { data: "name"},
             { data: "title" },
             { data: "type" },
+            { data: "typeOther" },
             { data: "year" },
         ],
         columnDefs: [
