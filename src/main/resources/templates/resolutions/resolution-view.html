@@ -36,7 +36,7 @@
                     </tr>
                     <tr th:each="upload: *{uploads}">
                         <td style="border-bottom: none !important;border-top: none !important;">
-                            <a th:href="|/poba/download/download-pdf/resolution/${upload.filename}|" target="_blank" rel="noopener"
+                            <a th:href="|/poba/download/download-pdf/resolution/${upload.id}_${upload.filename}|" target="_blank" rel="noopener"
                                th:text="${upload.filename}"></a>
                         </td>
                     </tr>
