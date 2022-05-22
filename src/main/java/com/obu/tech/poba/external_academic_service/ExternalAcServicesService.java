@@ -17,7 +17,7 @@ public class ExternalAcServicesService {
         return externalAcServicesRepository.findAll(new SearchConditionBuilder<ExternalAcServices>()
                 .ifNotNullThenAnd("name", LIKE, externalAcServices.getName())
                 .ifNotNullThenOr("surname", LIKE, externalAcServices.getName())
-                .ifNotNullThenAnd("year", LIKE, externalAcServices.getYear())
+                .ifNotNullThenAnd("level", LIKE, externalAcServices.getLevel())
                 .build()
         );
     }
