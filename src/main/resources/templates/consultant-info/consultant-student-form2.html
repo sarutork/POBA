@@ -119,8 +119,6 @@
                 <select type="text" class="form-control bg-white col-sm-4" id="course" name="course"
                         th:disabled="${consultantStudent.staffId != 0}" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="ร.บ." th:selected="${consultantStudent.course == 'ร.บ.'}? 'selected'">ร.บ.</option>
-                    <option value="ร.บ.(PGS)" th:selected="${consultantStudent.course == 'ร.บ.(PGS)'}? 'selected'">ร.บ.(PGS)</option>
                     <option value="ร.ม.การปกครอง" th:selected="${consultantStudent.course == 'ร.ม.การปกครอง'}? 'selected'">ร.ม.การปกครอง</option>
                     <option value="ร.ม.การเมืองฯ" th:selected="${consultantStudent.course == 'ร.ม.การเมืองฯ'}? 'selected'">ร.ม.การเมืองฯ</option>
                     <option value="ร.ม.ความสัมพันธ์ฯ (ในเวลา)" th:selected="${consultantStudent.course == 'ร.ม.ความสัมพันธ์ฯ (ในเวลา)'}? 'selected'">ร.ม.ความสัมพันธ์ฯ (ในเวลา)</option>

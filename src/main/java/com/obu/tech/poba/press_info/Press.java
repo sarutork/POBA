@@ -35,7 +35,7 @@ public class Press {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pressDate;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล หัวข้อรูปแบบเนื้อหาที่ปรากฎในสื่อ")
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล รูปแบบเนื้อหาที่ปรากฎในสื่อ")
     private String pressTopic;
 
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล เว็บไซต์อ้างอิง")
