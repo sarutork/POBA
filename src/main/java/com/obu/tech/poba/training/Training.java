@@ -74,7 +74,7 @@ public class Training {
 
     private double trainingAmountTotal;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล หน่วยงานให้ทุน/ร่วมจัด")
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ทุนจาก")
     private String trainingJoin;
 
     @PositiveOrZero(message="กรุณาตรวจสอบข้อมูล ผู้เข้าร่วม (คนไทย)")

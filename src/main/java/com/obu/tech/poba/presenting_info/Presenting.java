@@ -41,7 +41,7 @@ public class Presenting {
 
     private String presentCountry;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อแหล่งเงินทุน")
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล หน่วยงาน")
     private String presentFund;
 
     @PositiveOrZero(message="กรุณาตรวจสอบข้อมูล จำนวนเงิน")
