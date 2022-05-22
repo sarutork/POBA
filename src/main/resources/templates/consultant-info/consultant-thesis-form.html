@@ -216,11 +216,11 @@
                 <label for="conferenceInstitution" class="form-control-label col-sm-2">หน่วยงานที่จัด<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="conferenceInstitution" name="conferenceInstitution"
                        th:attr="value=${acdConf.conferenceInstitution != null}? ${acdConf.conferenceInstitution}: ''" required/>
-                <label for="conferenceLevel" class="form-control-label col-sm-2">ระดับ<span style="color:red !important;">*</span>:</label>
+                <label for="conferenceLevel" class="form-control-label col-sm-2">ระดับกิจกรรม<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="col-sm-2 form-control bg-white" id="conferenceLevel" name="conferenceLevel" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="ชาติ" th:selected="${acdConf.conferenceLevel == 'ชาติ'}? 'selected'">ชาติ</option>
-                    <option value="นานาชาติ" th:selected="${acdConf.conferenceLevel == 'นานาชาติ'}? 'selected'">นานาชาติ</option>
+                    <option value="ชาติ" th:selected="${acdConf.conferenceLevel == 'ชาติ'}? 'selected'">ระดับชาติ</option>
+                    <option value="นานาชาติ" th:selected="${acdConf.conferenceLevel == 'นานาชาติ'}? 'selected'">ระดับนานาชาติ</option>
                 </select>
             </div>
             <div class="row mb-2">

@@ -35,7 +35,7 @@ public class AcademicConference {
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล หน่วยงานที่จัด")
     private String conferenceInstitution;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก ระดับ")
+    @Size(min = 1, max = 255, message = "โปรดเลือก ระดับกิจกรรม")
     private String conferenceLevel;
 
     @NotNull(message = "โปรดเลือก วันที่เผยแพร่ข้อมูล เริ่ม")
