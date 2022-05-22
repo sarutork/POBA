@@ -125,6 +125,7 @@
                 <select type="text" class="col-sm-2 form-control bg-white" id="textbookStatus" name="textbookStatus" required>
                     <option value="">กรุณาเลือก</option>
                     <option value="อยู่ระหว่างดำเนินการ" th:selected="${textbook.textbookStatus == 'อยู่ระหว่างดำเนินการ'}? 'selected'">อยู่ระหว่างดำเนินการ</option>
+                    <option value="ค้างส่งงาน" th:selected="${textbook.textbookStatus == 'ค้างส่งงาน'}? 'selected'">ค้างส่งงาน</option>
                     <option value="ดำเนินการเสร็จสิ้น" th:selected="${textbook.textbookStatus == 'ดำเนินการเสร็จสิ้น'}? 'selected'">ดำเนินการเสร็จสิ้น</option>
                     <option value="ปิดโครงการ" th:selected="${textbook.textbookStatus == 'ปิดโครงการ'}? 'selected'">ปิดโครงการ</option>
                     <option value="ยกเลิกโครงการ" th:selected="${textbook.textbookStatus == 'ยกเลิกโครงการ'}? 'selected'">ยกเลิกโครงการ</option>
