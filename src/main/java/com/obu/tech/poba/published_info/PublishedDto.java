@@ -22,7 +22,6 @@ public class PublishedDto {
     private String name;
     private String surname;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก สถานะผู้เขียน")
     private String publishedStatus;
 
     private String publishedType;
@@ -40,13 +39,10 @@ public class PublishedDto {
     private String monthOther;
 
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก ปี")
+    @Size(min = 1, max = 255, message = "โปรดเลือก ปีพิมพ์")
     private String publishedYear2;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ฐาน")
     private String publishedBase;
-
-    @Size(min = 1, max = 255, message = "โปรดเลือก ระดับกิจกรรม")
     private String publishedLevel;
 
     private long publishedJoinId;

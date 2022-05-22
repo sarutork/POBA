@@ -5,7 +5,7 @@
     <div id="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/published')">ข้อมูลการเผยแพร่บทความ</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/published')">ข้อมูลการเผยแพร่ผลงานอาจารย์</a></li>
             <li class="breadcrumb-item active"><span th:text="${viewName}"></span></li>
         </ol>
     </div>
@@ -42,8 +42,8 @@
                 <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
                        th:attr="value=${published.name != null}? ${published.name} : ''" maxlength="255" required/>
-                <label for="publishedStatus" class="form-control-label col-sm-2">สถานะผู้เขียน<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-3 form-control bg-white" id="publishedStatus" name="publishedStatus" required>
+                <label for="publishedStatus" class="form-control-label col-sm-2">สถานะผู้เขียน:</label>
+                <select type="text" class="col-sm-3 form-control bg-white" id="publishedStatus" name="publishedStatus">
                     <option value="">กรุณาเลือก</option>
                     <option value="หลัก" th:selected="${published.publishedStatus == 'หลัก'}? 'selected'">หลัก</option>
                     <option value="ร่วม" th:selected="${published.publishedStatus == 'ร่วม'}? 'selected'">ร่วม</option>
@@ -66,10 +66,10 @@
                        th:attr="value=${published.publishedJournal != null}? ${published.publishedJournal} : ''" maxlength="255" required/>
             </div>
             <div class="row mb-2">
-                <label for="publishedYear" class="form-control-label col-sm-2">ปีพิมพ์:</label>
+                <label for="publishedYear" class="form-control-label col-sm-2">ปีที่ (Vol.):</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedYear" name="publishedYear"
                        th:attr="value=${published.publishedYear != null}? ${published.publishedYear} : ''" maxlength="255" required/>
-                <label for="publishedIssue" class="form-control-label col-sm-2">ฉบับที่:</label>
+                <label for="publishedIssue" class="form-control-label col-sm-2">ฉบับที่ (Issue):</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedIssue" name="publishedIssue"
                        th:attr="value=${published.publishedIssue != null}? ${published.publishedIssue} : ''" maxlength="255" required/>
             </div>
@@ -101,7 +101,7 @@
                        th:attr="value=${published.monthOther != null}? ${published.monthOther}: ''"
                        th:classappend="${published.publishedMonth == 'อื่นๆ'}? 'd-block':'d-none'"/>
 
-                <label for="publishedYear2" class="form-control-label col-sm-2">ปี<span style="color:red !important;">*</span>:</label>
+                <label for="publishedYear2" class="form-control-label col-sm-2">ปีพิมพ์<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="col-sm-2 form-control bg-white" th:field="${published.publishedYear2}" id="publishedYear2" name="publishedYear2" required>
                     <option value="">กรุณาเลือก</option>
                     <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
@@ -110,11 +110,11 @@
 
 
             <div class="row mb-2">
-                <label for="publishedBase" class="form-control-label col-sm-2">ฐาน<span style="color:red !important;">*</span>:</label>
+                <label for="publishedBase" class="form-control-label col-sm-2">ฐานข้อมูล:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedBase" name="publishedBase"
-                       th:attr="value=${published.publishedBase != null}? ${published.publishedBase} : ''" maxlength="255" required/>
-                <label for="publishedLevel" class="form-control-label col-sm-2">ระดับกิจกรรม<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="publishedLevel" name="publishedLevel" required>
+                       th:attr="value=${published.publishedBase != null}? ${published.publishedBase} : ''" maxlength="255"/>
+                <label for="publishedLevel" class="form-control-label col-sm-2">ระดับกิจกรรม:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="publishedLevel" name="publishedLevel">
                     <option value="">กรุณาเลือก</option>
                     <option value="ระดับชาติ" th:selected="${published.publishedLevel == 'ระดับชาติ'}? 'selected'">ระดับชาติ</option>
                     <option value="ระดับนานาชาติ" th:selected="${published.publishedLevel == 'ระดับนานาชาติ'}? 'selected'">ระดับนานาชาติ</option>
