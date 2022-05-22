@@ -72,7 +72,7 @@
                 <label><b>ข้อมูลแหล่งเงินทุน</b></label>
             </div>
             <div class="row mb-2">
-                <label for="presentFund" class="form-control-label col-sm-2">ชื่อแหล่งเงินทุน<span style="color:red !important;">*</span>:</label>
+                <label for="presentFund" class="form-control-label col-sm-2">หน่วยงาน<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="presentFund" name="presentFund"
                        th:attr="value=${presenting.presentFund != null}? ${presenting.presentFund} : ''" maxlength="255" required/>
                 <label for="presentAmount" class="form-control-label col-sm-2">จำนวนเงิน<span style="color:red !important;">*</span>:</label>
@@ -80,7 +80,7 @@
                        th:attr="value=${presenting.presentAmount != null}? ${presenting.presentAmount} : ''" onblur="amtFormat()" required/>
             </div>
             <div class="row mb-2">
-                <label for="presentFund2" class="form-control-label col-sm-2">ชื่อแหล่งเงินทุน:</label>
+                <label for="presentFund2" class="form-control-label col-sm-2">หน่วยงาน:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="presentFund2" name="presentFund2"
                        th:attr="value=${presenting.presentFund2 != null}? ${presenting.presentFund2} : ''" maxlength="255" />
                 <label for="presentAmount2" class="form-control-label col-sm-2">จำนวนเงิน:</label>
