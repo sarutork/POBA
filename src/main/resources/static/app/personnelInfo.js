@@ -76,23 +76,7 @@ function editProfileInfo(){
 function startWorkDateChange(){
     var startDate = $("#startWorkDate").val();
     var endDate = $("#toWorkDate").val();
-
     $("#toWorkDate").attr('min',startDate);
-    $("#startCountWorkDate").attr('min',startDate);
-    $("#startCountWorkOHECDate").attr('min',startDate);
-
-    if(startDate != null && endDate != null && startDate != "" && endDate != ""){
-             const date1 = new Date(startDate);
-             const date2 = new Date(endDate);
-             const diffTime = date2 - date1;
-             if (diffTime < 0 ){
-                $("#toWorkDate").val("");
-                $("#startCountWorkDate").val("");
-                $("#startCountWorkOHECDate").val("");
-             }else{
-                $("#total").val(calDiffDays(date1, date2));
-             }
-    }
 }
 
 function startCountWorkDateChange(){
@@ -109,24 +93,23 @@ function startCountWorkDateChange(){
              }
     }
 }
-function startCountWorkOHECDateChange(){
-    var startDate = $("#startCountWorkOHECDate").val();
-    var endDate = $("#toWorkDate").val();
-    if(startDate != null && endDate != null && startDate != "" && endDate != ""){
-             const date1 = new Date(startDate);
-             const date2 = new Date(endDate);
-             const diffTime = date2 - date1;
-             if (diffTime < 0 ){
-                $("#toWorkDate").val("");
-             }else{
-                $("#totalWorkOHEC").val(calDiffDays(date1, date2));
-             }
-    }
-}
+//function startCountWorkOHECDateChange(){
+//    var startDate = $("#startCountWorkOHECDate").val();
+//    var endDate = $("#toWorkDate").val();
+//    if(startDate != null && endDate != null && startDate != "" && endDate != ""){
+//             const date1 = new Date(startDate);
+//             const date2 = new Date(endDate);
+//             const diffTime = date2 - date1;
+//             if (diffTime < 0 ){
+//                $("#toWorkDate").val("");
+//             }else{
+//                $("#totalWorkOHEC").val(calDiffDays(date1, date2));
+//             }
+//    }
+//}
 function toWorkDateChange(){
     startWorkDateChange();
     startCountWorkDateChange();
-    startCountWorkOHECDateChange();
 }
 
 function findStudyInfo() {

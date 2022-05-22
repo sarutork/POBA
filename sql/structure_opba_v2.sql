@@ -907,3 +907,11 @@ CREATE TABLE IF NOT EXISTS `external_academic_services` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+-- profile
+ALTER TABLE profile DROP COLUMN start_count_workohecdate;
+ALTER TABLE profile DROP COLUMN total;
+ALTER TABLE profile MODIFY COLUMN ohec_academic_position VARCHAR(255) NULL;
+ALTER TABLE profile MODIFY COLUMN sub_section_scope_of_work VARCHAR(255) NULL;
+
+
+

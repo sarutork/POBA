@@ -53,11 +53,7 @@ public class Profile {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startCountWorkDate;
 
-    @NotNull(message = "โปรดเลือก วันที่นับอายุงาน-สกอ")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate startCountWorkOHECDate;
-
-    @NotNull(message = "โปรดเลือก วันที่นับถึง")
+    @NotNull(message = "โปรดเลือก วันที่เกษียณอายุ")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate toWorkDate;
 
@@ -66,7 +62,6 @@ public class Profile {
     private int totalWorkDay;
 
     private int totalWorkOHEC;
-    private int total;
 
     @Size(min = 1, max = 255, message = "โปรดเลือก ระดับการศึกษา สกอ.")
     private String ohecEducationLevel;
@@ -80,7 +75,6 @@ public class Profile {
     @Size(min = 1, max = 255, message = "โปรดเลือก กลุ่มตำแหน่ง สกอ.")
     private String ohecPositionGroup;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก ตำแหน่งวิชาการ สกอ.")
     private String ohecAcademicPosition;
 
     @Size(min = 1, max = 255, message = "โปรดเลือก ชื่อโครงสร้างระดับ1")
@@ -110,6 +104,5 @@ public class Profile {
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล สัญญาการจ้างงาน")
     private String empContract;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ขอบเขตย่อยงานบุคคล")
     private String subSectionScopeOfWork;
 }

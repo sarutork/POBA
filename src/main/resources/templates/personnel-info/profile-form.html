@@ -110,15 +110,7 @@
             </div>
 
             <div class="row mb-3">
-                <label for="startCountWorkOHECDate" class="col-sm-2 col-form-label text-md-right">วันที่นับอายุงาน-สกอ<span style="color:red !important;">*</span>:</label>
-                <div class="col-lg-3
-                            col-md-3
-                            col-sm-3 pl-sm-0">
-                    <input type="date" class="form-control" id="startCountWorkOHECDate" name="startCountWorkOHECDate"
-                           th:attr="value=${profile.startCountWorkOHECDate != null}? ${profile.startCountWorkOHECDate}: ''"
-                           onchange="startCountWorkOHECDateChange()" required>
-                </div>
-                <label for="toWorkDate" class="col-sm-3 col-form-label text-md-right">วันที่นับถึง<span style="color:red !important;">*</span>:</label>
+                <label for="toWorkDate" class="col-sm-2 col-form-label text-md-right">วันที่เกษียณอายุ<span style="color:red !important;">*</span>:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
@@ -155,19 +147,11 @@
 
             <div class="row mb-3">
                 <label for="totalWorkOHEC" class="col-sm-2 col-form-label text-md-right">นับสกอ.:</label>
-                <div class="col-lg-4
-                            col-md-4
-                            col-sm-4 pl-sm-0">
+                <div class="col-lg-3
+                            col-md-3
+                            col-sm-3 pl-sm-0">
                     <input type="text" class="form-control" id="totalWorkOHEC" name="totalWorkOHEC"
                            th:attr="value=${profile.totalWorkOHEC != null}? ${profile.totalWorkOHEC}: ''" readonly required>
-                </div>
-
-                <label for="total" class="col-sm-2 col-form-label text-md-right">นับเต็มคน:</label>
-                <div class="col-lg-4
-                            col-md-4
-                            col-sm-4 pl-sm-0">
-                    <input type="text" class="form-control" id="total" name="total"
-                           th:attr="value=${profile.total != null}? ${profile.total}: ''" readonly required>
                 </div>
             </div>
 
@@ -222,11 +206,11 @@
             </div>
 
             <div class="row mb-3">
-                <label for="ohecAcademicPosition" class="col-sm-2 col-form-label text-md-right">ตำแหน่งวิชาการ สกอ.<span style="color:red !important;">*</span>:</label>
+                <label for="ohecAcademicPosition" class="col-sm-2 col-form-label text-md-right">ตำแหน่งวิชาการ สกอ.:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
-                    <select class="form-control" id="ohecAcademicPosition" name="ohecAcademicPosition" required>
+                    <select class="form-control" id="ohecAcademicPosition" name="ohecAcademicPosition">
                         <option value="" >กรุณาเลือก</option>
                         <option value="อาจารย์" th:selected="${profile.ohecAcademicPosition == 'อาจารย์'}? 'selected'">อาจารย์</option>
                         <option value="ผู้ช่วยศาสตราจารย์" th:selected="${profile.ohecAcademicPosition == 'ผู้ช่วยศาสตราจารย์'}? 'selected'">ผู้ช่วยศาสตราจารย์</option>
@@ -392,12 +376,12 @@
                            th:attr="value=${profile.empContract != null}? ${profile.empContract}: ''" maxlength="255" required>                </div>
             </div>
             <div class="row mb-3">
-                <label for="subSectionScopeOfWork" class="col-sm-2 col-form-label text-md-right">ขอบเขตย่อยงานบุคคล<span style="color:red !important;">*</span>:</label>
+                <label for="subSectionScopeOfWork" class="col-sm-2 col-form-label text-md-right">ขอบเขตย่อยงานบุคคล:</label>
                 <div class="col-lg-3
                             col-md-3
                             col-sm-3 pl-sm-0">
                     <input type="text" class="form-control" id="subSectionScopeOfWork" name="subSectionScopeOfWork"
-                           th:attr="value=${profile.subSectionScopeOfWork != null}? ${profile.subSectionScopeOfWork}: ''" maxlength="255" required>                  </div>
+                           th:attr="value=${profile.subSectionScopeOfWork != null}? ${profile.subSectionScopeOfWork}: ''" maxlength="255">                  </div>
             </div>
         </form>
         <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${viewName != 'ดูข้อมูล' ? 'd-block' : 'd-none'} ">
