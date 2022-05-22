@@ -26,7 +26,7 @@
             <input type="hidden" id="conferenceId" name="conferenceId" th:value="${acdConf.conferenceId}"/>
 
             <div class="row col-sm-12 mb-2">
-                <label><b>ข้อมูลที่ปรึกษา</b></label>
+                <label><b>ข้อมูลกรรมการสอบ</b></label>
             </div>
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
@@ -91,8 +91,6 @@
                 <label for="courseName" class="form-control-label col-sm-2">หลักสูตร<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="courseName" name="courseName" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="ร.บ." th:selected="${thesis.courseName == 'ร.บ.'}? 'selected'">ร.บ.</option>
-                    <option value="ร.บ.(PGS)" th:selected="${thesis.courseName == 'ร.บ.(PGS)'}? 'selected'">ร.บ.(PGS)</option>
                     <option value="ร.ม.การปกครอง" th:selected="${thesis.courseName == 'ร.ม.การปกครอง'}? 'selected'">ร.ม.การปกครอง</option>
                     <option value="ร.ม.การเมืองฯ" th:selected="${thesis.courseName == 'ร.ม.การเมืองฯ'}? 'selected'">ร.ม.การเมืองฯ</option>
                     <option value="ร.ม.ความสัมพันธ์ฯ (ในเวลา)" th:selected="${thesis.courseName == 'ร.ม.ความสัมพันธ์ฯ (ในเวลา)'}? 'selected'">ร.ม.ความสัมพันธ์ฯ (ในเวลา)</option>
@@ -133,7 +131,7 @@
                        th:attr="value=${thesis.thesisStartdate != null}? ${thesis.thesisStartdate}: ''" required/>
             </div>
             <div class="row mb-2">
-                <label for="thesisApprove" class="form-control-label col-sm-2">ครั้งที่อนุมัติ<span style="color:red !important;">*</span>:</label>
+                <label for="thesisApprove" class="form-control-label col-sm-2">ครั้งที่รับทราบผลการสอบ<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="thesisApprove" name="thesisApprove"
                        th:attr="value=${thesis.thesisApprove != null}? ${thesis.thesisApprove}: ''" required/>
                 <label for="thesisEnddate" class="form-control-label col-sm-2">วันที่ปิดเล่ม<span style="color:red !important;">*</span>:</label>
@@ -160,7 +158,7 @@
             </div>
 
             <div class="row col-sm-12 mb-2">
-                <label><b>ข้อมูลเผยแพร่ข้อมูลตีพิมพ์วารสาร</b></label>
+                <label><b>ข้อมูลการเผยแพร่บทความ</b></label>
             </div>
             <div class="row mb-2">
                 <label for="journalStyle" class="form-control-label col-sm-2">ลักษณะ<span style="color:red !important;">*</span>:</label>

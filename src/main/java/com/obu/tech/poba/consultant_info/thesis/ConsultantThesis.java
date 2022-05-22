@@ -65,7 +65,7 @@ public class ConsultantThesis {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate thesisEnddate;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ครั้งที่อนุมัติ")
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ครั้งที่รับทราบผลการสอบ")
     private String thesisApprove;
 
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ครั้งที่อนุมัติผู้สำเร็จการศึกษา")
