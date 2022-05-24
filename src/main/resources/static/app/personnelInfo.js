@@ -77,6 +77,7 @@ function startWorkDateChange(){
     var startDate = $("#startWorkDate").val();
     var endDate = $("#toWorkDate").val();
     $("#toWorkDate").attr('min',startDate);
+    startCountWorkOHECDateChange();
 }
 
 function startCountWorkDateChange(){
@@ -92,21 +93,32 @@ function startCountWorkDateChange(){
                setTotalDayMonthYear(startDate,endDate,"totalWorkYear","totalWorkMonth","totalWorkDay");
              }
     }
+
+    startCountWorkOHECDateChange();
 }
-//function startCountWorkOHECDateChange(){
-//    var startDate = $("#startCountWorkOHECDate").val();
-//    var endDate = $("#toWorkDate").val();
-//    if(startDate != null && endDate != null && startDate != "" && endDate != ""){
-//             const date1 = new Date(startDate);
-//             const date2 = new Date(endDate);
-//             const diffTime = date2 - date1;
-//             if (diffTime < 0 ){
-//                $("#toWorkDate").val("");
-//             }else{
-//                $("#totalWorkOHEC").val(calDiffDays(date1, date2));
-//             }
-//    }
-//}
+
+function startCountWorkOHECDateChange(){
+    var startDate = $("#startWorkDate").val();
+    var endDate = $("#startCountWorkDate").val();
+    if(startDate != null && endDate != null && startDate != "" && endDate != ""){
+             const date1 = new Date(startDate);
+             const date2 = new Date(endDate);
+             const diffTime = date2 - date1;
+             if (diffTime < 0 ){
+                $("#toWorkDate").val("");
+             }else{
+                 let ohecCount = calDiffDays(date1, date2)/30;
+
+                 let totalOhec = 0;
+                 if(ohecCount > 5 && ohecCount <= 9){
+                    totalOhec = 0.5;
+                 }else if(ohecCount > 9){
+                    totalOhec = 1;
+                 }
+                $("#totalWorkOHEC").val(totalOhec);
+             }
+    }
+}
 function toWorkDateChange(){
     startWorkDateChange();
     startCountWorkDateChange();

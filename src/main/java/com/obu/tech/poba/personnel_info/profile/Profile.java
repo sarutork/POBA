@@ -61,7 +61,7 @@ public class Profile {
     private int totalWorkMonth;
     private int totalWorkDay;
 
-    private int totalWorkOHEC;
+    private double totalWorkOHEC;
 
     @Size(min = 1, max = 255, message = "โปรดเลือก ระดับการศึกษา สกอ.")
     private String ohecEducationLevel;

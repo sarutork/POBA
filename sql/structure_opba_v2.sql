@@ -833,6 +833,9 @@ CREATE TABLE `upload` (
 ALTER TABLE published_info ADD month_other  varchar(255);
 ALTER TABLE published_info ADD published_page  varchar(255);
 ALTER TABLE published_info ADD published_type varchar(255);
+ALTER TABLE published_info MODIFY COLUMN published_status VARCHAR(255) NULL;
+ALTER TABLE published_info MODIFY COLUMN published_base VARCHAR(255) NULL;
+ALTER TABLE published_info MODIFY COLUMN published_level VARCHAR(255) NULL;
 
 ALTER TABLE published_join ADD fiscal_yearq1 varchar(255);
 ALTER TABLE published_join ADD fiscal_yearq2 varchar(255);
@@ -912,6 +915,7 @@ ALTER TABLE profile DROP COLUMN start_count_workohecdate;
 ALTER TABLE profile DROP COLUMN total;
 ALTER TABLE profile MODIFY COLUMN ohec_academic_position VARCHAR(255) NULL;
 ALTER TABLE profile MODIFY COLUMN sub_section_scope_of_work VARCHAR(255) NULL;
+ALTER TABLE profile MODIFY COLUMN total_workohec double;
 
 
 
