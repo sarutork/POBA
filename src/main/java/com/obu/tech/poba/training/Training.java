@@ -28,18 +28,20 @@ public class Training {
     private String name;
     private String surname;
 
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล สถานะ")
+    private String trainingStatus;
+
     private String prefix2;
     private String prefixOther2;
     private String name2;
     private String surname2;
+    private String trainingStatus2;
 
     private String prefix3;
     private String prefixOther3;
     private String name3;
     private String surname3;
-
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล สถานะ")
-    private String trainingStatus;
+    private String trainingStatus3;
 
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อโครงการ")
     private String trainingName;

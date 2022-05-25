@@ -860,11 +860,14 @@ ALTER TABLE training ADD prefix2 varchar(255);
 ALTER TABLE training ADD prefix_other2 varchar(255);
 ALTER TABLE training ADD name2 varchar(255);
 ALTER TABLE training ADD surname2 varchar(255);
+ALTER TABLE training ADD training_status2 varchar(255);
+
 
 ALTER TABLE training ADD prefix3 varchar(255);
 ALTER TABLE training ADD prefix_other3 varchar(255);
 ALTER TABLE training ADD name3 varchar(255);
 ALTER TABLE training ADD surname3 varchar(255);
+ALTER TABLE training ADD training_status3 varchar(255);
 
 DROP TABLE IF EXISTS `training_phase`;
 CREATE TABLE `training_phase` (

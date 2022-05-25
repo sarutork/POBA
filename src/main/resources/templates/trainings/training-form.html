@@ -21,7 +21,7 @@
             </div>
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
+                <select type="text" class="col-sm-1 form-control bg-white" id="prefix" name="prefix"required>
                     <option value="">กรุณาเลือก</option>
                     <option value="นาย" th:selected="${training.prefix == 'นาย'}? 'selected'">นาย</option>
                     <option value="นางสาว" th:selected="${training.prefix == 'นางสาว'}? 'selected'">นางสาว</option>
@@ -43,14 +43,21 @@
                        th:classappend="${training.prefix == 'อื่นๆ'}? 'd-block':'d-none'"
                        th:disabled="${training.trainingId != 0}"/>
 
-                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
+                <label for="name" class="form-control-label ml-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-3" id="name" name="name"
                        th:attr="value=${training.name != null}? ${training.name}: ''" maxlength="255" required/>
+
+                <label class="ml-2 form-control-label" for="trainingStatus">สถานะ<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-2 form-control" id="trainingStatus" name="trainingStatus" required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ผู้รับผิดชอบ" th:selected="${training.trainingStatus == 'ผู้รับผิดชอบ'}? 'selected'">ผู้รับผิดชอบ</option>
+                    <option value="คณะทำงาน" th:selected="${training.trainingStatus == 'คณะทำงาน'}? 'selected'">คณะทำงาน</option>
+                </select>
             </div>
 
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="prefix2">คำนำหน้า:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="prefix2" name="prefix2">
+                <select type="text" class="col-sm-1 form-control bg-white" id="prefix2" name="prefix2">
                     <option value="">กรุณาเลือก</option>
                     <option value="นาย" th:selected="${training.prefix2 == 'นาย'}? 'selected'">นาย</option>
                     <option value="นางสาว" th:selected="${training.prefix2 == 'นางสาว'}? 'selected'">นางสาว</option>
@@ -71,14 +78,21 @@
                        th:attr="value=${training.prefixOther2 != null}? ${training.prefixOther2}: ''"
                        th:classappend="${training.prefix2 == 'อื่นๆ'}? 'd-block':'d-none'"/>
 
-                <label for="name2" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="name2" name="name2"
+                <label for="name2" class="form-control-label ml-2">ชื่อ-นามสกุล&nbsp;&nbsp;:</label>
+                <input type="text" class="form-control bg-white col-sm-3" id="name2" name="name2"
                        th:attr="value=${training.name2 != null}? ${training.name2}: ''" maxlength="255"/>
+
+                <label class="ml-2 form-control-label" for="trainingStatus2">สถานะ&nbsp;&nbsp;:</label>
+                <select type="text" class="col-2 form-control" id="trainingStatus2" name="trainingStatus2">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ผู้รับผิดชอบ" th:selected="${training.trainingStatus2 == 'ผู้รับผิดชอบ'}? 'selected'">ผู้รับผิดชอบ</option>
+                    <option value="คณะทำงาน" th:selected="${training.trainingStatus2 == 'คณะทำงาน'}? 'selected'">คณะทำงาน</option>
+                </select>
             </div>
 
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="prefix3">คำนำหน้า:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="prefix3" name="prefix3">
+                <select type="text" class="col-sm-1 form-control bg-white" id="prefix3" name="prefix3">
                     <option value="">กรุณาเลือก</option>
                     <option value="นาย" th:selected="${training.prefix3 == 'นาย'}? 'selected'">นาย</option>
                     <option value="นางสาว" th:selected="${training.prefix3 == 'นางสาว'}? 'selected'">นางสาว</option>
@@ -99,18 +113,19 @@
                        th:attr="value=${training.prefixOther3 != null}? ${training.prefixOther3}: ''"
                        th:classappend="${training.prefix3 == 'อื่นๆ'}? 'd-block':'d-none'"/>
 
-                <label for="name3" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="name3" name="name3"
+                <label for="name3" class="form-control-label ml-2">ชื่อ-นามสกุล&nbsp;&nbsp;:</label>
+                <input type="text" class="form-control bg-white col-sm-3" id="name3" name="name3"
                        th:attr="value=${training.name3 != null}? ${training.name3}: ''" maxlength="255" />
+
+                <label class="ml-2 form-control-label" for="trainingStatus3">สถานะ&nbsp;&nbsp;:</label>
+                <select type="text" class="col-2 form-control" id="trainingStatus3" name="trainingStatus3" required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ผู้รับผิดชอบ" th:selected="${training.trainingStatus3 == 'ผู้รับผิดชอบ'}? 'selected'">ผู้รับผิดชอบ</option>
+                    <option value="คณะทำงาน" th:selected="${training.trainingStatus3 == 'คณะทำงาน'}? 'selected'">คณะทำงาน</option>
+                </select>
             </div>
 
             <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="trainingStatus">สถานะ<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-4 form-control" id="trainingStatus" name="trainingStatus" required>
-                    <option value="">กรุณาเลือก</option>
-                    <option value="ผู้รับผิดชอบ" th:selected="${training.trainingStatus == 'ผู้รับผิดชอบ'}? 'selected'">ผู้รับผิดชอบ</option>
-                    <option value="คณะทำงาน" th:selected="${training.trainingStatus == 'คณะทำงาน'}? 'selected'">คณะทำงาน</option>
-                </select>
                 <label class="col-sm-2 form-control-label" for="trainingName">ชื่อโครงการ<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="trainingName" name="trainingName"
                        th:attr="value=${training.trainingName != null}? ${training.trainingName}: ''" maxlength="255" required/>
