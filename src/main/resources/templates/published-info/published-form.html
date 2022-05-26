@@ -159,30 +159,36 @@
                 <label><b>จํานวนครั้งที่ถูกอ้างอิง</b></label>
             </div>
             <div class="row mb-2">
-                <label for="publishedQ1" class="form-control-label col-sm-2">ไตรมาส 1:</label>
-                <input type="text" class="form-control bg-white col-sm-2" id="publishedQ1" name="publishedQ1"
-                       th:attr="value=${published.publishedQ1 != null}? ${published.publishedQ1} : ''" maxlength="255" required/>
-                <input type="text" class="form-control bg-white col-sm-2" id="fiscalYearQ1" name="fiscalYearQ1"
-                       th:attr="value=${published.fiscalYearQ1 != null}? ${published.fiscalYearQ1} : ''" maxlength="255" placeholder="ปีงบประมาณ"/>
+                <label for="fiscalYearQ1" class="form-control-label col-sm-2">ปีงบประมาณ:</label>
+                <input type="text" class="form-control bg-white col-sm-1" id="fiscalYearQ1" name="fiscalYearQ1"
+                       th:attr="value=${published.fiscalYearQ1 != null}? ${published.fiscalYearQ1} : ''" maxlength="255"/>
+                <label for="publishedQ1" class="form-control-label ml-3">ไตรมาส 1:</label>
+                <input type="text" class="form-control bg-white col-sm-2 mr-1" id="publishedQ1" name="publishedQ1"
+                       th:attr="value=${published.publishedQ1 != null}? ${published.publishedQ1} : ''" maxlength="255"/>
 
-                <label for="publishedQ2" class="form-control-label col-sm-2">ไตรมาส 2:</label>
+                <label for="fiscalYearQ2" class="form-control-label col-sm-2">ปีงบประมาณ:</label>
+                <input type="text" class="form-control bg-white col-sm-1" id="fiscalYearQ2" name="fiscalYearQ2"
+                       th:attr="value=${published.fiscalYearQ2 != null}? ${published.fiscalYearQ2} : ''" maxlength="255"/>
+                <label for="publishedQ2" class="form-control-label ml-3">ไตรมาส 2:</label>
                 <input type="text" class="form-control bg-white col-sm-2" id="publishedQ2" name="publishedQ2"
                        th:attr="value=${published.publishedQ2 != null}? ${published.publishedQ2} : ''" maxlength="255" required/>
-                <input type="text" class="form-control bg-white col-sm-2" id="fiscalYearQ2" name="fiscalYearQ2"
-                       th:attr="value=${published.fiscalYearQ2 != null}? ${published.fiscalYearQ2} : ''" maxlength="255" placeholder="ปีงบประมาณ"/>
             </div>
             <div class="row mb-2">
-                <label for="publishedQ3" class="form-control-label col-sm-2">ไตรมาส 3:</label>
-                <input type="text" class="form-control bg-white col-sm-2" id="publishedQ3" name="publishedQ3"
-                       th:attr="value=${published.publishedQ3 != null}? ${published.publishedQ3} : ''" maxlength="255" required/>
-                <input type="text" class="form-control bg-white col-sm-2" id="fiscalYearQ3" name="fiscalYearQ3"
-                       th:attr="value=${published.fiscalYearQ3 != null}? ${published.fiscalYearQ3} : ''" maxlength="255" placeholder="ปีงบประมาณ"/>
+                <label for="fiscalYearQ3" class="form-control-label col-sm-2">ปีงบประมาณ:</label>
+                <input type="text" class="form-control bg-white col-sm-1" id="fiscalYearQ3" name="fiscalYearQ3"
+                       th:attr="value=${published.fiscalYearQ3 != null}? ${published.fiscalYearQ3} : ''" maxlength="255" />
 
-                <label for="publishedQ4" class="form-control-label col-sm-2">ไตรมาส 4:</label>
+                <label for="publishedQ3" class="form-control-label ml-3">ไตรมาส 3:</label>
+                <input type="text" class="form-control bg-white col-sm-2 mr-1" id="publishedQ3" name="publishedQ3"
+                       th:attr="value=${published.publishedQ3 != null}? ${published.publishedQ3} : ''" maxlength="255" />
+
+                <label for="fiscalYearQ4" class="form-control-label col-sm-2">ปีงบประมาณ:</label>
+                <input type="text" class="form-control bg-white col-sm-1" id="fiscalYearQ4" name="fiscalYearQ4"
+                       th:attr="value=${published.fiscalYearQ4 != null}? ${published.fiscalYearQ4} : ''" maxlength="255"/>
+                <label for="publishedQ4" class="form-control-label ml-3">ไตรมาส 4:</label>
                 <input type="text" class="form-control bg-white col-sm-2" id="publishedQ4" name="publishedQ4"
-                       th:attr="value=${published.publishedQ4 != null}? ${published.publishedQ4} : ''" maxlength="255" required/>
-                <input type="text" class="form-control bg-white col-sm-2" id="fiscalYearQ4" name="fiscalYearQ4"
-                       th:attr="value=${published.fiscalYearQ4 != null}? ${published.fiscalYearQ4} : ''" maxlength="255" placeholder="ปีงบประมาณ"/>
+                       th:attr="value=${published.publishedQ4 != null}? ${published.publishedQ4} : ''" maxlength="255" />
+
             </div>
         </form>
         <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${published.publishedId == 0 ? 'd-block' : 'd-none'} ">
