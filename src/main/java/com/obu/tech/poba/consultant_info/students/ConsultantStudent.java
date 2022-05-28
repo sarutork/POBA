@@ -26,8 +26,8 @@ public class ConsultantStudent {
     public String name;
     public String surname;
 
-    @PositiveOrZero(message="กรุณาตรวจสอบข้อมูล เลขประจำตัวนิสิต")
-    public int studentsId;
+    @Size(min = 1, max = 10, message = "กรุณาตรวจสอบข้อมูล เลขประจำตัวนิสิต")
+    public String studentsId;
 
     @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้านิสิต")
     public String studentPrefix;

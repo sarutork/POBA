@@ -31,8 +31,8 @@ public class ConsultantThesis {
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ตำแหน่งอาจารย์ที่ปรึกษา")
     private String consultantPosition;
 
-    @PositiveOrZero(message="กรุณาตรวจสอบข้อมูล เลขประจำตัวนิสิต")
-    private int studentsId;
+    @Size(min = 1, max = 10, message = "กรุณาตรวจสอบข้อมูล เลขประจำตัวนิสิต")
+    public String studentsId;
 
     @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้านิสิต")
     private String studentPrefix;

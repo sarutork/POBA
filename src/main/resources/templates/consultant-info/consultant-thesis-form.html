@@ -62,7 +62,7 @@
             <div class="row mb-2">
                 <label for="studentsId" class="form-control-label col-sm-2">เลขประจำตัวนิสิต<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="studentsId" name="studentsId"
-                       th:attr="value=${thesis.studentsId != 0}? ${thesis.studentsId}: ''" maxlength="10" required/>
+                       th:attr="value=${thesis.studentsId != null}? ${thesis.studentsId}: ''" maxlength="10" required/>
             </div>
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="studentPrefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>

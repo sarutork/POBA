@@ -858,6 +858,14 @@ ALTER TABLE textbook ADD textbook_extend_date3 date;
 ALTER TABLE students MODIFY COLUMN students_tel varchar(10);
 ALTER TABLE students MODIFY COLUMN students_telemergency varchar(10);
 
+-- consultant_students
+ALTER TABLE consultant_students MODIFY COLUMN students_id varchar(10);
+
+-- consultant_thesis
+ALTER TABLE consultant_thesis MODIFY COLUMN students_id varchar(10);
+
+
+
 --training
 ALTER TABLE training ADD prefix2 varchar(255);
 ALTER TABLE training ADD prefix_other2 varchar(255);
