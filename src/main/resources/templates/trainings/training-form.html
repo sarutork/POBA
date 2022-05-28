@@ -156,6 +156,8 @@
                     <option value="">กรุณาเลือก</option>
                     <option value="ว่าจ้าง" th:selected="${training.trainingType == 'ว่าจ้าง'}? 'selected'">ว่าจ้าง</option>
                     <option value="ให้เปล่า" th:selected="${training.trainingType == 'ให้เปล่า'}? 'selected'">ให้เปล่า</option>
+                    <option value="เก็บค่าลงทะเบียน" th:selected="${training.trainingType == 'เก็บค่าลงทะเบียน'}? 'selected'">เก็บค่าลงทะเบียน</option>
+
                 </select>
                 <label class="col-sm-2 form-control-label" for="trainingAnnounce">รหัสประกาศ/รหัสสัญญา:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="trainingAnnounce" name="trainingAnnounce"

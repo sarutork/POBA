@@ -90,7 +90,6 @@
                 <label for="studentsLevel" class="form-control-label col-sm-2">ระดับการศึกษา<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="studentsLevel" name="studentsLevel"
                         th:disabled="${consultantStudent.staffId != 0}" required>
-                    <option value="">กรุณาเลือก</option>
                     <option value="ปริญญาตรี" th:selected="${consultantStudent.studentsLevel == 'ปริญญาตรี'}? 'selected'">ปริญญาตรี</option>
                 </select>
             </div>
