@@ -842,6 +842,9 @@ ALTER TABLE published_join ADD fiscal_yearq2 varchar(255);
 ALTER TABLE published_join ADD fiscal_yearq3 varchar(255);
 ALTER TABLE published_join ADD fiscal_yearq4 varchar(255);
 
+ALTER TABLE published_join ADD other_people bool DEFAULT false;
+
+
 --present_work
 ALTER TABLE present_work ADD present_country varchar(255);
 ALTER TABLE present_work ADD present_fund2 varchar(255);
@@ -919,6 +922,7 @@ ALTER TABLE profile DROP COLUMN total;
 ALTER TABLE profile MODIFY COLUMN ohec_academic_position VARCHAR(255) NULL;
 ALTER TABLE profile MODIFY COLUMN sub_section_scope_of_work VARCHAR(255) NULL;
 ALTER TABLE profile MODIFY COLUMN total_workohec double;
+
 
 
 

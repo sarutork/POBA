@@ -145,6 +145,12 @@
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedJoinName" name="publishedJoinName"
                        th:attr="value=${published.publishedJoinName != null}? ${published.publishedJoinName} : ''" maxlength="255" required/>
             </div>
+            <div class="row mb-2">
+                <label for="otherPeople" class="col-sm-2"></label>
+                <input type="checkbox"  id="otherPeople" name="otherPeople" th:checked="${published.otherPeople}"/>
+                <label for="otherPeople" class="ml-2" style="align-self: center;">และคนอื่นๆ (et al.)</label>
+
+            </div>
 
             <div class="row col-sm-12 mb-2">
                 <label><b>เงินสนับสนุน</b></label>

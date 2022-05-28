@@ -20,6 +20,7 @@ public class PublishedJoin {
     private String prefixOther;
     private String name;
     private String surname;
+    private boolean otherPeople;
     private Double publishedFund;
     @Column(name = "published_q1")
     private int publishedQ1;
