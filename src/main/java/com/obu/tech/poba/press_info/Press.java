@@ -28,36 +28,26 @@ public class Press {
     private String name;
     private String surname;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อผลงานความรู้ที่เผยแพร่")
     private String pressName;
 
-    @NotNull(message = "โปรดเลือก วันที่เผยแพร่")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pressDate;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล รูปแบบเนื้อหาที่ปรากฎในสื่อ")
     private String pressTopic;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล เว็บไซต์อ้างอิง")
     private String pressSiteRef;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล [ช่องทาง] สิ่งพิมพ์")
     private String pressPrint;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล [ช่องทาง] ทีวีดิจิทัล")
     private String pressTv;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล [ช่องทาง] cable/satellite")
     private String pressSatellite;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล [ช่องทาง] ออนไลน์")
     private String pressOnline;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า แขกรับเชิญ1")
     private String guestPrefix1;
     private String guestPrefixOther1;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-นามสกุล แขกรับเชิญ1")
     private String guestName1;
     private String guestSurname1;
 

@@ -68,9 +68,16 @@ public class PressController {
 
             Press pressRes = pressService.save(press);
             pressRes.setName(press.getName()+" "+pressRes.getSurname());
-            pressRes.setGuestName1(pressRes.getGuestName1()+" "+pressRes.getGuestSurname1());
-            pressRes.setGuestName2(pressRes.getGuestName2()+" "+pressRes.getGuestSurname2());
-            pressRes.setGuestName3(pressRes.getGuestName3()+" "+pressRes.getGuestSurname3());
+
+            if(!StringUtils.isBlank(pressRes.getGuestName1())) {
+                pressRes.setGuestName1(pressRes.getGuestName1() + " " + pressRes.getGuestSurname1());
+            }
+            if(!StringUtils.isBlank(pressRes.getGuestName2())) {
+                pressRes.setGuestName2(pressRes.getGuestName2() + " " + pressRes.getGuestSurname2());
+            }
+            if(!StringUtils.isBlank(pressRes.getGuestName3())) {
+                pressRes.setGuestName3(pressRes.getGuestName3() + " " + pressRes.getGuestSurname3());
+            }
 
             return viewSuccess(pressRes);
         }catch (Exception e){
@@ -84,9 +91,18 @@ public class PressController {
     public ModelAndView showPresentingInfo(@PathVariable String id){
         Press press = pressService.findById(id);
         press.setName(press.getName()+" "+press.getSurname());
-        press.setGuestName1(press.getGuestName1()+" "+press.getGuestSurname1());
-        press.setGuestName2(press.getGuestName2()+" "+press.getGuestSurname2());
-        press.setGuestName3(press.getGuestName3()+" "+press.getGuestSurname3());
+
+        if(!StringUtils.isBlank(press.getGuestName1())) {
+            press.setGuestName1(press.getGuestName1() + " " + press.getGuestSurname1());
+        }
+
+        if(!StringUtils.isBlank(press.getGuestName2())) {
+            press.setGuestName2(press.getGuestName2() + " " + press.getGuestSurname2());
+        }
+
+        if(!StringUtils.isBlank(press.getGuestName3())) {
+            press.setGuestName3(press.getGuestName3() + " " + press.getGuestSurname3());
+        }
 
         return view(press);
     }

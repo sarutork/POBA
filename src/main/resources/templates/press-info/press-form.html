@@ -46,39 +46,39 @@
             </div>
 
             <div class="row mb-2">
-                <label for="pressName" class="form-control-label col-sm-2">ชื่อผลงานความรู้ที่เผยแพร่<span style="color:red !important;">*</span>:</label>
+                <label for="pressName" class="form-control-label col-sm-2">ชื่อผลงานความรู้ที่เผยแพร่:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="pressName" name="pressName"
-                       th:attr="value=${press.pressName != null}? ${press.pressName} : ''" maxlength="255" required/>
-                <label for="pressDate" class="form-control-label col-sm-2">วันที่เผยแพร่<span style="color:red !important;">*</span>:</label>
+                       th:attr="value=${press.pressName != null}? ${press.pressName} : ''" maxlength="255"/>
+                <label for="pressDate" class="form-control-label col-sm-2">วันที่เผยแพร่:</label>
                 <input type="date" class="form-control bg-white col-sm-4" id="pressDate" name="pressDate"
-                       th:attr="value=${press.pressDate != null}? ${press.pressDate} : ''" required/>
+                       th:attr="value=${press.pressDate != null}? ${press.pressDate} : ''"/>
             </div>
 
             <div class="row mb-2">
-                <label for="pressTopic" class="form-control-label col-sm-2">รูปแบบเนื้อหาที่ปรากฎในสื่อ<span style="color:red !important;">*</span>:</label>
+                <label for="pressTopic" class="form-control-label col-sm-2">รูปแบบเนื้อหาที่ปรากฎในสื่อ:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="pressTopic" name="pressTopic"
-                       th:attr="value=${press.pressTopic != null}? ${press.pressTopic} : ''" maxlength="255" required/>
-                <label for="pressSiteRef" class="form-control-label col-sm-2">เว็บไซต์อ้างอิง<span style="color:red !important;">*</span>:</label>
+                       th:attr="value=${press.pressTopic != null}? ${press.pressTopic} : ''" maxlength="255"/>
+                <label for="pressSiteRef" class="form-control-label col-sm-2">เว็บไซต์อ้างอิง:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="pressSiteRef" name="pressSiteRef"
-                       th:attr="value=${press.pressSiteRef != null}? ${press.pressSiteRef} : ''" maxlength="255" required/>
+                       th:attr="value=${press.pressSiteRef != null}? ${press.pressSiteRef} : ''" maxlength="255"/>
             </div>
 
             <div class="row mb-2">
-                <label for="pressPrint" class="form-control-label col-sm-2">[ช่องทาง] สิ่งพิมพ์<span style="color:red !important;">*</span>:</label>
+                <label for="pressPrint" class="form-control-label col-sm-2">[ช่องทาง] สิ่งพิมพ์:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="pressPrint" name="pressPrint"
-                       th:attr="value=${press.pressPrint != null}? ${press.pressPrint} : ''" maxlength="255" required/>
-                <label for="pressTv" class="form-control-label col-sm-2">[ช่องทาง] ทีวีดิจิทัล<span style="color:red !important;">*</span>:</label>
+                       th:attr="value=${press.pressPrint != null}? ${press.pressPrint} : ''" maxlength="255"/>
+                <label for="pressTv" class="form-control-label col-sm-2">[ช่องทาง] ทีวีดิจิทัล:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="pressTv" name="pressTv"
-                       th:attr="value=${press.pressTv != null}? ${press.pressTv} : ''" maxlength="255" required/>
+                       th:attr="value=${press.pressTv != null}? ${press.pressTv} : ''" maxlength="255"/>
             </div>
 
             <div class="row mb-2">
-                <label for="pressSatellite" class="form-control-label col-sm-2">[ช่องทาง] cable/satellite<span style="color:red !important;">*</span>:</label>
+                <label for="pressSatellite" class="form-control-label col-sm-2">[ช่องทาง] cable/satellite:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="pressSatellite" name="pressSatellite"
-                       th:attr="value=${press.pressSatellite != null}? ${press.pressSatellite} : ''" maxlength="255" required/>
-                <label for="pressOnline" class="form-control-label col-sm-2">[ช่องทาง] ออนไลน์<span style="color:red !important;">*</span>:</label>
+                       th:attr="value=${press.pressSatellite != null}? ${press.pressSatellite} : ''" maxlength="255"/>
+                <label for="pressOnline" class="form-control-label col-sm-2">[ช่องทาง] ออนไลน์:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="pressOnline" name="pressOnline"
-                       th:attr="value=${press.pressOnline != null}? ${press.pressOnline} : ''" maxlength="255" required/>
+                       th:attr="value=${press.pressOnline != null}? ${press.pressOnline} : ''" maxlength="255"/>
             </div>
 
             <div class="row col-sm-12 mb-2">
@@ -86,8 +86,8 @@
             </div>
 
             <div class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="guestPrefix1">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="guestPrefix1" name="guestPrefix1"required>
+                <label class="col-sm-2 form-control-label" for="guestPrefix1">คำนำหน้า:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="guestPrefix1" name="guestPrefix1">
                     <option value="">กรุณาเลือก</option>
                     <option value="นาย" th:selected="${press.guestPrefix1 == 'นาย'}? 'selected'">นาย</option>
                     <option value="นางสาว" th:selected="${press.guestPrefix1 == 'นางสาว'}? 'selected'">นางสาว</option>
@@ -109,14 +109,14 @@
                        th:classappend="${press.guestPrefix1 == 'อื่นๆ'}? 'd-block':'d-none'"
                        th:disabled="${press.pressId != 0}"/>
 
-                <label for="guestName1" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                <label for="guestName1" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="guestName1" name="guestName1"
-                       th:attr="value=${press.guestName1 != null}? ${press.guestName1}: ''" maxlength="255" required/>
+                       th:attr="value=${press.guestName1 != null && press.guestName1 != 'null'}? ${press.guestName1}: ''" maxlength="255"/>
             </div>
 
             <div class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="guestPrefix2">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="guestPrefix2" name="guestPrefix2"required>
+                <label class="col-sm-2 form-control-label" for="guestPrefix2">คำนำหน้า:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="guestPrefix2" name="guestPrefix2">
                     <option value="">กรุณาเลือก</option>
                     <option value="นาย" th:selected="${press.guestPrefix2 == 'นาย'}? 'selected'">นาย</option>
                     <option value="นางสาว" th:selected="${press.guestPrefix2 == 'นางสาว'}? 'selected'">นางสาว</option>
@@ -138,14 +138,14 @@
                        th:classappend="${press.guestPrefix2 == 'อื่นๆ'}? 'd-block':'d-none'"
                        th:disabled="${press.pressId != 0}"/>
 
-                <label for="guestName2" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                <label for="guestName2" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="guestName2" name="guestName2"
-                       th:attr="value=${press.guestName2 != null}? ${press.guestName2}: ''" maxlength="255" required/>
+                       th:attr="value=${press.guestName2 != null && press.guestName2 != 'null'}? ${press.guestName2}: ''" maxlength="255"/>
             </div>
 
             <div class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="guestPrefix3">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="guestPrefix3" name="guestPrefix3"required>
+                <label class="col-sm-2 form-control-label" for="guestPrefix3">คำนำหน้า:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="guestPrefix3" name="guestPrefix3">
                     <option value="">กรุณาเลือก</option>
                     <option value="นาย" th:selected="${press.guestPrefix3 == 'นาย'}? 'selected'">นาย</option>
                     <option value="นางสาว" th:selected="${press.guestPrefix3 == 'นางสาว'}? 'selected'">นางสาว</option>
@@ -167,9 +167,9 @@
                        th:classappend="${press.guestPrefix3 == 'อื่นๆ'}? 'd-block':'d-none'"
                        th:disabled="${press.pressId != 0}"/>
 
-                <label for="guestName3" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                <label for="guestName3" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="guestName3" name="guestName3"
-                       th:attr="value=${press.guestName3 != null}? ${press.guestName3}: ''" maxlength="255" required/>
+                       th:attr="value=${press.guestName3 != null && press.guestName3 != 'null'}? ${press.guestName3}: ''" maxlength="255"/>
             </div>
 
         </form>
