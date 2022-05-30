@@ -1,6 +1,7 @@
 package com.obu.tech.poba.consultant_info.students;
 
 import com.obu.tech.poba.utils.NameConverterUtils;
+import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -36,8 +37,15 @@ public class ConsultantStudentController {
     @Autowired
     private NameConverterUtils nameConverterUtils;
 
+
+    @Autowired
+    private YearGeneratorUtils yearGeneratorUtils;
+
     @GetMapping
-    public ModelAndView showListView() {return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS);}
+    public ModelAndView showListView() {
+        List<Integer> years = yearGeneratorUtils.genYears();
+        return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS).addObject("years", years);
+    }
 
     @GetMapping("/search")
     public ResponseEntity<List<ConsultantStudent>> search(@ModelAttribute ConsultantStudent consultantStudent) {
@@ -169,14 +177,10 @@ public class ConsultantStudentController {
 
     @GetMapping(value = "/{id}")
     public ModelAndView showInfo(@PathVariable String id){
-        ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM);
-        view.addObject("viewName", "ดูข้อมูล");
-
         ConsultantStudent teaching = consultantStudentService.findById(id);
         teaching.setName(teaching.getName()+" "+teaching.getSurname());
         teaching.setStudentName(teaching.getStudentName()+" "+teaching.getStudentSurname());
-        view.addObject("consultantStudent",teaching);
-        return view;
+        return view(teaching);
     }
 
     private ModelAndView formAdd(ConsultantStudent data) {
@@ -184,7 +188,11 @@ public class ConsultantStudentController {
     }
 
     private ModelAndView form(ConsultantStudent data) {
-        return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM).addObject("consultantStudent", data);
+        List<Integer> years = yearGeneratorUtils.genYears();
+
+        return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM)
+                .addObject("years", years)
+                .addObject("consultantStudent", data);
     }
 
     private ModelAndView viewSuccess(ConsultantStudent data) {
@@ -197,7 +205,10 @@ public class ConsultantStudentController {
     }
 
     private ModelAndView view(ConsultantStudent data) {
+        List<Integer> years = yearGeneratorUtils.genYears();
+
         return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM).addObject("viewName", "ดูข้อมูล")
+                .addObject("years", years)
                 .addObject("consultantStudent", data);
     }
 }

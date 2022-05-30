@@ -80,12 +80,9 @@
             </div>
             <div class="row mb-2">
                 <label for="yearOfStudy" class="form-control-label col-sm-2">ปีที่เข้าศึกษา<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="yearOfStudy" name="yearOfStudy"
-                        th:disabled="${consultantStudent.staffId != 0}" required>
+                <select type="text" class="form-control bg-white col-sm-4" th:field="${consultantStudent.yearOfStudy}" id="yearOfStudy" name="yearOfStudy" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="2565" th:selected="${consultantStudent.yearOfStudy == '2565'}? 'selected'">2565</option>
-                    <option value="2564" th:selected="${consultantStudent.yearOfStudy == '2564'}? 'selected'">2564</option>
-                    <option value="2563" th:selected="${consultantStudent.yearOfStudy == '2563'}? 'selected'">2563</option>
+                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
                 </select>
                 <label for="studentsLevel" class="form-control-label col-sm-2">ระดับการศึกษา<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="studentsLevel" name="studentsLevel"
@@ -95,22 +92,13 @@
             </div>
             <div class="row mb-2">
                 <label for="admissionStatus" class="form-control-label col-sm-2">สถานะการรับเข้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="admissionStatus" name="admissionStatus" disabled required>
+                <select type="text" class="form-control bg-white col-sm-4" id="admissionStatus" name="admissionStatus" required>
                     <option value="ปริญญาตรี:กรุณาเลือก">กรุณาเลือก</option>
                     <option value="ปริญญาตรี:โครงการจุฬาฯ-ชนบท" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:โครงการจุฬาฯ-ชนบท'}? 'selected'">โครงการจุฬาฯ-ชนบท</option>
                     <option value="ปริญญาตรี:โครงการปอเนอะ" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:โครงการปอเนอะ'}? 'selected'">โครงการปอเนอะ</option>
                     <option value="ปริญญาตรี:โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)'}? 'selected'">โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)</option>
                     <option value="ปริญญาตรี:Admission" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:Admission'}? 'selected'">Admission</option>
                     <option value="ปริญญาตรี:นิสิตแลกเปลี่ยน" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:นิสิตแลกเปลี่ยน'}? 'selected'">นิสิตแลกเปลี่ยน</option>
-                    <option value="ปริญญาโท:กรุณาเลือก">กรุณาเลือก</option>
-                    <option value="ปริญญาโท:สามัญเต็มเวลา" th:selected="${consultantStudent.admissionStatus == 'ปริญญาโท:สามัญเต็มเวลา'}? 'selected'">สามัญเต็มเวลา</option>
-                    <option value="ปริญญาโท:ทดลองศึกษา" th:selected="${consultantStudent.admissionStatus == 'ปริญญาโท:ทดลองศึกษา'}? 'selected'">ทดลองศึกษา</option>
-                    <option value="ปริญญาโท:นิสิตแลกเปลี่ยน" th:selected="${consultantStudent.admissionStatus == 'ปริญญาโท:นิสิตแลกเปลี่ยน'}? 'selected'">นิสิตแลกเปลี่ยน</option>
-                    <option value="ปริญญาเอก:กรุณาเลือก">กรุณาเลือก</option>
-                    <option value="ปริญญาเอก:สามัญเต็มเวลา" th:selected="${consultantStudent.admissionStatus == 'ปริญญาเอก:สามัญเต็มเวลา'}? 'selected'">สามัญเต็มเวลา</option>
-                    <option value="ปริญญาเอก:ทดลองศึกษา" th:selected="${consultantStudent.admissionStatus == 'ปริญญาเอก:ทดลองศึกษา'}? 'selected'">ทดลองศึกษา</option>
-                    <option value="ปริญญาเอก:นิสิตแลกเปลี่ยน" th:selected="${consultantStudent.admissionStatus == 'ปริญญาเอก:นิสิตแลกเปลี่ยน'}? 'selected'">นิสิตแลกเปลี่ยน</option>
-
                 </select>
                 <label for="course" class="form-control-label col-sm-2">หลักสูตร<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="course" name="course"
@@ -175,22 +163,6 @@
 
                 $("#studentPrefixOtherTmp").removeClass("d-none");
                 $("#studentPrefixOtherTmp").addClass("d-block");
-            }
-        });
-
-        var options = $("#admissionStatus").html();
-        $("#studentsLevel").change(function(e) {
-            $("#admissionStatus").prop("disabled", false);
-            var text = $("#studentsLevel :selected").text();
-            $("#admissionStatus").html(options);
-            if(text == "ปริญญาตรี"){
-                $('#admissionStatus :not([value^="ปริญญาตรี"])').remove();
-            }else if(text == "ปริญญาโท"){
-                $('#admissionStatus :not([value^="ปริญญาโท"])').remove();
-            }else if(text == "ปริญญาเอก"){
-                $('#admissionStatus :not([value^="ปริญญาเอก"])').remove();
-            }if(text == "กรุณาเลือก"){
-                $("#admissionStatus").prop("disabled", true);
             }
         });
     </script>
