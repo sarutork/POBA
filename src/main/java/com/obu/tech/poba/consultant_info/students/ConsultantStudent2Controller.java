@@ -1,6 +1,7 @@
 package com.obu.tech.poba.consultant_info.students;
 
 import com.obu.tech.poba.utils.NameConverterUtils;
+import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -37,8 +38,13 @@ public class ConsultantStudent2Controller {
     @Autowired
     private NameConverterUtils nameConverterUtils;
 
+    @Autowired
+    private YearGeneratorUtils yearGeneratorUtils;
+
     @GetMapping
-    public ModelAndView showListView() {return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS);}
+    public ModelAndView showListView() {
+        List<Integer> years = yearGeneratorUtils.genYears();
+        return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS).addObject("years", years);}
 
     @GetMapping("/search")
     public ResponseEntity<List<ConsultantStudent>> search(@ModelAttribute ConsultantStudent consultantStudent) {
@@ -52,6 +58,10 @@ public class ConsultantStudent2Controller {
     public ModelAndView sumConsultant() {
         ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_CST);
         view.addObject("viewName", "สรุปข้อมูลรายที่ปรึกษา");
+
+        List<Integer> years = yearGeneratorUtils.genYears();
+        view.addObject("years", years);
+
         return view;
     }
 
@@ -70,9 +80,13 @@ public class ConsultantStudent2Controller {
         Optional<ConsultantStudentReportDto> consultantStudentReportDto = cstlist.stream()
                 .filter(o -> o.getName().equals(name) && o.getSurname().equals(surname)).findFirst();
 
+        List<Integer> years = yearGeneratorUtils.genYears();
+        view.addObject("years", years);
+
         view.addObject("viewName", "ดูข้อมูล");
         view.addObject("cstDetail",consultantStudentReportDto.get());
         session.setAttribute("cstDetail",consultantStudentReportDto.get());
+
         return view;
     }
 
@@ -88,6 +102,10 @@ public class ConsultantStudent2Controller {
         ConsultantStudent consultantStudent = new ConsultantStudent();
         view.addObject("viewName", "สรุปข้อมูลรายปี");
         view.addObject("consultantStudent", consultantStudent);
+
+        List<Integer> years = yearGeneratorUtils.genYears();
+        view.addObject("years", years);
+
         return view;
     }
     @GetMapping("/search/yearly-report")
@@ -96,6 +114,10 @@ public class ConsultantStudent2Controller {
         ConsultantStudent consultantStudent = new ConsultantStudent();
         view.addObject("viewName", "สรุปข้อมูลรายปี");
         view.addObject("consultantStudent", consultantStudent);
+
+        List<Integer> years = yearGeneratorUtils.genYears();
+        view.addObject("years", years);
+
         int yearStart = Integer.parseInt(consultantDto.getYearStart());
         int yearEnd = Integer.parseInt(consultantDto.getYearEnd());
 
@@ -170,14 +192,10 @@ public class ConsultantStudent2Controller {
 
     @GetMapping(value = "/{id}")
     public ModelAndView showInfo(@PathVariable String id){
-        ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM);
-        view.addObject("viewName", "ดูข้อมูล");
-
         ConsultantStudent teaching = consultantStudentService.findById(id);
         teaching.setName(teaching.getName()+" "+teaching.getSurname());
         teaching.setStudentName(teaching.getStudentName()+" "+teaching.getStudentSurname());
-        view.addObject("consultantStudent",teaching);
-        return view;
+        return view(teaching);
     }
 
     private ModelAndView formAdd(ConsultantStudent data) {
@@ -185,7 +203,11 @@ public class ConsultantStudent2Controller {
     }
 
     private ModelAndView form(ConsultantStudent data) {
-        return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM).addObject("consultantStudent", data);
+        List<Integer> years = yearGeneratorUtils.genYears();
+
+        return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM)
+                .addObject("years", years)
+                .addObject("consultantStudent", data);
     }
 
     private ModelAndView viewSuccess(ConsultantStudent data) {
@@ -198,7 +220,10 @@ public class ConsultantStudent2Controller {
     }
 
     private ModelAndView view(ConsultantStudent data) {
+        List<Integer> years = yearGeneratorUtils.genYears();
+
         return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM).addObject("viewName", "ดูข้อมูล")
+                .addObject("years", years)
                 .addObject("consultantStudent", data);
     }
 }

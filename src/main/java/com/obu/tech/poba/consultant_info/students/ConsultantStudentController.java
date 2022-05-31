@@ -37,7 +37,6 @@ public class ConsultantStudentController {
     @Autowired
     private NameConverterUtils nameConverterUtils;
 
-
     @Autowired
     private YearGeneratorUtils yearGeneratorUtils;
 
@@ -59,6 +58,9 @@ public class ConsultantStudentController {
     public ModelAndView sumConsultant() {
         ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_CST);
         view.addObject("viewName", "สรุปข้อมูลรายที่ปรึกษา");
+
+        List<Integer> years = yearGeneratorUtils.genYears();
+        view.addObject("years", years);
         return view;
     }
 
@@ -95,6 +97,8 @@ public class ConsultantStudentController {
         ConsultantStudent consultantStudent = new ConsultantStudent();
         view.addObject("viewName", "สรุปข้อมูลรายปี");
         view.addObject("consultantStudent", consultantStudent);
+        List<Integer> years = yearGeneratorUtils.genYears();
+        view.addObject("years", years);
         return view;
     }
     @GetMapping("/search/yearly-report")
@@ -103,6 +107,10 @@ public class ConsultantStudentController {
         ConsultantStudent consultantStudent = new ConsultantStudent();
         view.addObject("viewName", "สรุปข้อมูลรายปี");
         view.addObject("consultantStudent", consultantStudent);
+
+        List<Integer> years = yearGeneratorUtils.genYears();
+        view.addObject("years", years);
+
         int yearStart = Integer.parseInt(consultantDto.getYearStart());
         int yearEnd = Integer.parseInt(consultantDto.getYearEnd());
 

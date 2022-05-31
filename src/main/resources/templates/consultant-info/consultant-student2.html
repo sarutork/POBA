@@ -20,9 +20,7 @@
                 <label for="yearOfStudy" class="mr-1">ปีที่เข้าศึกษา:</label>
                 <select type="text" class="form-control bg-white mr-3" id="yearOfStudy" name="yearOfStudy">
                     <option value="">กรุณาเลือก</option>
-                    <option value="2565">2565</option>
-                    <option value="2564">2564</option>
-                    <option value="2563">2563</option>
+                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
                 </select>
             </div>
             <div class="form-group mb-3">

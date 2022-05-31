@@ -173,23 +173,16 @@
                 <input type="text" class="form-control bg-white col-sm-4" id="journalName" name="journalName"
                        th:attr="value=${journal.journalName != null}? ${journal.journalName}: ''" required/>
                 <label for="journalPublicYear" class="form-control-label col-sm-2">ปีที่ตีพิมพ์<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="journalPublicYear" name="journalPublicYear" required>
-                    <option value="">กรุณาเลือก</option>
-                    <option value="2565" th:selected="${journal.journalPublicYear == '2565'}? 'selected'">2565</option>
-                    <option value="2564" th:selected="${journal.journalPublicYear == '2564'}? 'selected'">2564</option>
-                    <option value="2563" th:selected="${journal.journalPublicYear == '2563'}? 'selected'">2563</option>
-                </select>
+                <input type="text" class="col-sm-2 form-control bg-white" th:field="${journal.journalPublicYear}" id="journalPublicYear" name="journalPublicYear" maxlength="255" required>
             </div>
             <div class="row mb-2">
                 <label for="journalIssue" class="form-control-label col-sm-2">ฉบับ<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="journalIssue" name="journalIssue"
                        th:attr="value=${journal.journalIssue != null}? ${journal.journalIssue}: ''" required/>
                 <label for="journalYear" class="form-control-label col-sm-2">พ.ศ.<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="journalYear" name="journalYear" required>
+                <select type="text" class="col-sm-2 form-control bg-white" th:field="${journal.journalYear}" id="journalYear" name="journalYear" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="2565" th:selected="${journal.journalYear == '2565'}? 'selected'">2565</option>
-                    <option value="2564" th:selected="${journal.journalYear == '2564'}? 'selected'">2564</option>
-                    <option value="2563" th:selected="${journal.journalYear == '2563'}? 'selected'">2563</option>
+                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
                 </select>
             </div>
             <div class="row mb-2">

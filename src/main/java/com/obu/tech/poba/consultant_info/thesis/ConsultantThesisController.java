@@ -1,6 +1,7 @@
 package com.obu.tech.poba.consultant_info.thesis;
 
 import com.obu.tech.poba.utils.NameConverterUtils;
+import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import com.obu.tech.poba.utils.upload.Upload;
 import com.obu.tech.poba.utils.upload.UploadService;
@@ -40,6 +41,9 @@ public class ConsultantThesisController {
 
     @Autowired
     NameConverterUtils nameConverter;
+
+    @Autowired
+    private YearGeneratorUtils yearGeneratorUtils;
 
     @Value("${poba.upload.thesis}")
     private String UPLOAD_THESIS_PATH;
@@ -112,7 +116,6 @@ public class ConsultantThesisController {
             AcademicConference acdConfRes = academicConfService.save(acdConf);
 
             if(acdConfId == 0) {
-                System.out.println(acdConf.getNewFiles().length);
                 List<Upload> uploads = uploadService.upload(
                         acdConf.getNewFiles(),
                         UPLOAD_GROUP_THESIS,
@@ -155,10 +158,12 @@ public class ConsultantThesisController {
     }
 
     private ModelAndView form(ConsultantThesis thesis, Journal journal, AcademicConference acdConf) {
+        List<Integer> years = yearGeneratorUtils.genYears();
         return new ModelAndView(FRAGMENT_CONSULTANT_THESIS_FORM)
                 .addObject("thesis", thesis)
                 .addObject("journal",journal)
-                .addObject("acdConf",acdConf);
+                .addObject("acdConf",acdConf)
+                .addObject("years", years);
     }
 
     private ModelAndView viewSuccess(ConsultantThesis thesis, Journal journal, AcademicConference acdConf) {
@@ -171,10 +176,12 @@ public class ConsultantThesisController {
     }
 
     private ModelAndView view(ConsultantThesis thesis, Journal journal, AcademicConference acdConf) {
+        List<Integer> years = yearGeneratorUtils.genYears();
         return new ModelAndView(FRAGMENT_CONSULTANT_THESIS_FORM).addObject("viewName", "ดูข้อมูล")
                 .addObject("thesis", thesis)
                 .addObject("journal",journal)
-                .addObject("acdConf",acdConf);
+                .addObject("acdConf",acdConf)
+                .addObject("years", years);
     }
 
 

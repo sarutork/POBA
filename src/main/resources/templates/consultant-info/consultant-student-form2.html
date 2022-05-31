@@ -81,12 +81,9 @@
             </div>
             <div class="row mb-2">
                 <label for="yearOfStudy" class="form-control-label col-sm-2">ปีที่เข้าศึกษา<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="yearOfStudy" name="yearOfStudy"
-                        th:disabled="${consultantStudent.staffId != 0}" required>
+                <select type="text" class="form-control bg-white col-sm-4" th:field="${consultantStudent.yearOfStudy}"id="yearOfStudy" name="yearOfStudy" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="2565" th:selected="${consultantStudent.yearOfStudy == '2565'}? 'selected'">2565</option>
-                    <option value="2564" th:selected="${consultantStudent.yearOfStudy == '2564'}? 'selected'">2564</option>
-                    <option value="2563" th:selected="${consultantStudent.yearOfStudy == '2563'}? 'selected'">2563</option>
+                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
                 </select>
                 <label for="studentsLevel" class="form-control-label col-sm-2">ระดับการศึกษา<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="studentsLevel" name="studentsLevel"
