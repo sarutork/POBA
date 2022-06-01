@@ -161,37 +161,64 @@
                 <label><b>ข้อมูลการเผยแพร่บทความ</b></label>
             </div>
             <div class="row mb-2">
-                <label for="journalStyle" class="form-control-label col-sm-2">ลักษณะ<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="journalStyle" name="journalStyle"
-                       th:attr="value=${journal.journalStyle != null}? ${journal.journalStyle}: ''" required/>
-                <label for="journalTopic" class="form-control-label col-sm-2">หัวข้อ<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-3" id="journalTopic" name="journalTopic"
-                       th:attr="value=${journal.journalTopic != null}? ${journal.journalTopic}: ''" required/>
+                <label for="publishedTopic" class="form-control-label col-sm-2">ชื่อเรื่อง<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedTopic" name="publishedTopic"
+                       th:attr="value=${journal.publishedTopic != null}? ${journal.publishedTopic} : ''" maxlength="255" required/>
+                <label for="publishedJournal" class="form-control-label col-sm-2">ชื่อวารสาร/ชื่อหนังสือ<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedJournal" name="publishedJournal"
+                       th:attr="value=${journal.publishedJournal != null}? ${journal.publishedJournal} : ''" maxlength="255" required/>
             </div>
             <div class="row mb-2">
-                <label for="journalName" class="form-control-label col-sm-2">ชื่อวารสาร<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="journalName" name="journalName"
-                       th:attr="value=${journal.journalName != null}? ${journal.journalName}: ''" required/>
-                <label for="journalPublicYear" class="form-control-label col-sm-2">ปีที่ตีพิมพ์<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="col-sm-2 form-control bg-white" th:field="${journal.journalPublicYear}" id="journalPublicYear" name="journalPublicYear" maxlength="255" required>
+                <label for="publishedYear" class="form-control-label col-sm-2">ปีที่ (Vol.):</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedYear" name="publishedYear"
+                       th:attr="value=${journal.publishedYear != null}? ${journal.publishedYear} : ''" maxlength="255" required/>
+                <label for="publishedIssue" class="form-control-label col-sm-2">ฉบับที่ (Issue):</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedIssue" name="publishedIssue"
+                       th:attr="value=${journal.publishedIssue != null}? ${journal.publishedIssue} : ''" maxlength="255" required/>
             </div>
             <div class="row mb-2">
-                <label for="journalIssue" class="form-control-label col-sm-2">ฉบับ<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="journalIssue" name="journalIssue"
-                       th:attr="value=${journal.journalIssue != null}? ${journal.journalIssue}: ''" required/>
-                <label for="journalYear" class="form-control-label col-sm-2">พ.ศ.<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" th:field="${journal.journalYear}" id="journalYear" name="journalYear" required>
+                <label for="publishedPage" class="form-control-label col-sm-2">เลขหน้าที่ตีพิมพ์:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedPage" name="publishedPage"
+                       th:attr="value=${journal.publishedPage != null}? ${journal.publishedPage} : ''" maxlength="255" required/>
+            </div>
+            <div class="row mb-2">
+                <label for="publishedMonth" class="form-control-label col-sm-2">เดือน:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="publishedMonth" name="publishedMonth" required>
                     <option value="">กรุณาเลือก</option>
-                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
+                    <option value="มกราคม" th:selected="${journal.publishedMonth == 'มกราคม'}? 'selected'">มกราคม</option>
+                    <option value="กุมภาพันธุ์" th:selected="${journal.publishedMonth == 'กุมภาพันธุ์'}? 'selected'">กุมภาพันธุ์</option>
+                    <option value="มีนาคม" th:selected="${journal.publishedMonth == 'มีนาคม'}? 'selected'">มีนาคม</option>
+                    <option value="เมษายน" th:selected="${journal.publishedMonth == 'เมษายน'}? 'selected'">เมษายน</option>
+                    <option value="พฤษภาคม" th:selected="${journal.publishedMonth == 'พฤษภาคม'}? 'selected'">พฤษภาคม</option>
+                    <option value="มิถุนายน" th:selected="${journal.publishedMonth == 'มิถุนายน'}? 'selected'">มิถุนายน</option>
+                    <option value="กรกฎาคม" th:selected="${journal.publishedMonth == 'กรกฎาคม'}? 'selected'">กรกฎาคม</option>
+                    <option value="สิงหาคม" th:selected="${journal.publishedMonth == 'สิงหาคม'}? 'selected'">สิงหาคม</option>
+                    <option value="กันยายน" th:selected="${journal.publishedMonth == 'กันยายน'}? 'selected'">กันยายน</option>
+                    <option value="ตุลาคม" th:selected="${journal.publishedMonth == 'ตุลาคม'}? 'selected'">ตุลาคม</option>
+                    <option value="พฤศจิกายน" th:selected="${journal.publishedMonth == 'พฤศจิกายน'}? 'selected'">พฤศจิกายน</option>
+                    <option value="ธันวาคม" th:selected="${journal.publishedMonth == 'ธันวาคม'}? 'selected'">ธันวาคม</option>
+                    <option value="อื่นๆ" th:selected="${journal.publishedMonth == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
                 </select>
+                <div id="monthOtherTmp" class="col-sm-2" th:classappend="${journal.publishedMonth == 'อื่นๆ'}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="monthOther" name="monthOther" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${journal.monthOther != null}? ${journal.monthOther}: ''"
+                       th:classappend="${journal.publishedMonth == 'อื่นๆ'}? 'd-block':'d-none'"/>
+
+                <label for="publishedYear2" class="form-control-label col-sm-2">ปีพิมพ์<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="col-sm-2 form-control bg-white" th:field="${journal.publishedYear2}" id="publishedYear2" name="publishedYear2" required/>
             </div>
+
+
             <div class="row mb-2">
-                <label for="journalDatabase" class="form-control-label col-sm-2">ฐานข้อมูล<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="journalDatabase" name="journalDatabase"
-                       th:attr="value=${journal.journalDatabase != null}? ${journal.journalDatabase}: ''" required/>
-                <label for="journalLevel" class="form-control-label col-sm-2">ระดับ<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="journalLevel" name="journalLevel"
-                       th:attr="value=${journal.journalLevel != null}? ${journal.journalLevel}: ''" required/>
+                <label for="publishedBase" class="form-control-label col-sm-2">ฐานข้อมูล:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedBase" name="publishedBase"
+                       th:attr="value=${journal.publishedBase != null}? ${journal.publishedBase} : ''" maxlength="255"/>
+                <label for="publishedLevel" class="form-control-label col-sm-2">ระดับกิจกรรม:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="publishedLevel" name="publishedLevel">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ระดับชาติ" th:selected="${journal.publishedLevel == 'ระดับชาติ'}? 'selected'">ระดับชาติ</option>
+                    <option value="ระดับนานาชาติ" th:selected="${journal.publishedLevel == 'ระดับนานาชาติ'}? 'selected'">ระดับนานาชาติ</option>
+                </select>
             </div>
 
             <div class="row col-sm-12 mb-2">
@@ -377,6 +404,24 @@
             }
             $(fileRemove).parent().remove();
         }
+
+        $('#publishedMonth').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#monthOther").removeClass("d-none");
+                $("#monthOther").addClass("d-block");
+
+                $("#monthOtherTmp").removeClass("d-block");
+                $("#monthOtherTmp").addClass("d-none");
+            }else{
+                $("#monthOther").val("");
+                $("#monthOther").removeClass("d-block");
+                $("#monthOther").addClass("d-none");
+
+                $("#monthOtherTmp").removeClass("d-none");
+                $("#monthOtherTmp").addClass("d-block");
+            }
+        });
 
 
     </script>

@@ -18,28 +18,23 @@ public class Journal {
     private long journalId;
     private long thesisId;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ลักษณะ")
-    private String journalStyle;
-
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล หัวข้อ")
-    private String journalTopic;
+    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-หัวข้อเรื่อง")
+    private String publishedTopic;
 
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อวารสาร")
-    private String journalName;
+    private String publishedJournal;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก ปีที่ตีพิมพ์")
-    private String journalPublicYear;
+    private String publishedYear;
+    private String publishedIssue;
+    private String publishedPage;
+    private String publishedMonth;
+    private String monthOther;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ฉบับ")
-    private String journalIssue;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก พ.ศ.")
-    private String journalYear;
+    @Size(min = 1, max = 255, message = "โปรดเลือก ปีพิมพ์")
+    private String publishedYear2;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ฐานข้อมูล")
-    private String journalDatabase;
-
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ระดับ")
-    private String journalLevel;
+    private String publishedBase;
+    private String publishedLevel;
 
 }

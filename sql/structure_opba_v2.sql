@@ -937,5 +937,49 @@ ALTER TABLE profile MODIFY COLUMN sub_section_scope_of_work VARCHAR(255) NULL;
 ALTER TABLE profile MODIFY COLUMN total_workohec double;
 
 
+DROP TABLE IF EXISTS `published_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `published_info` (
+  `published_id` int NOT NULL AUTO_INCREMENT,
+  `prefix` varchar(255) NOT NULL,
+  `prefix_other` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `surname` varchar(255) NOT NULL,
+  `full_name_publisher` varchar(255) NOT NULL,
+  `full_name_joiner` varchar(255) NOT NULL,
+  `published_status` varchar(255) DEFAULT NULL,
+  `published_topic` varchar(255) NOT NULL,
+  `published_journal` varchar(255) NOT NULL,
+  `published_year` varchar(255) DEFAULT NULL,
+  `published_issue` varchar(255) DEFAULT NULL,
+  `published_month` varchar(255) DEFAULT NULL,
+  `published_year2` varchar(255) NOT NULL,
+  `published_base` varchar(255) DEFAULT NULL,
+  `published_level` varchar(255) DEFAULT NULL,
+  `published_month_other` varchar(255) DEFAULT NULL,
+  `month_other` varchar(255) DEFAULT NULL,
+  `published_page` varchar(255) DEFAULT NULL,
+  `published_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `published_status_other` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`published_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
 
 
+
+DROP TABLE IF EXISTS `journal_info`;
+CREATE TABLE `journal_info` (
+  `journal_id` int NOT NULL AUTO_INCREMENT,
+  `thesis_id` int NOT NULL,
+  `published_topic` varchar(255) NOT NULL,
+  `published_journal` varchar(255) NOT NULL,
+  `published_year` varchar(255) DEFAULT NULL,
+  `published_issue` varchar(255) DEFAULT NULL,
+  `published_page` varchar(255) DEFAULT NULL,
+  `published_month` varchar(255) DEFAULT NULL,
+  `published_month_other` varchar(255) DEFAULT NULL,
+  `published_year2` varchar(255) NOT NULL,
+  `published_base` varchar(255) DEFAULT NULL,
+  `published_level` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`journal_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
