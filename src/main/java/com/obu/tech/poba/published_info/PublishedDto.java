@@ -24,6 +24,8 @@ public class PublishedDto {
 
     private String publishedStatus;
 
+    private String publishedStatusOther;
+
     private String publishedType;
 
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-หัวข้อเรื่อง")

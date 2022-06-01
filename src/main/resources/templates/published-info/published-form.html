@@ -42,12 +42,15 @@
                 <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
                        th:attr="value=${published.name != null}? ${published.name} : ''" maxlength="255" required/>
-                <label for="publishedStatus" class="form-control-label col-sm-2">สถานะผู้เขียน:</label>
-                <select type="text" class="col-sm-3 form-control bg-white" id="publishedStatus" name="publishedStatus">
+                <label for="publishedStatus" class="form-control-label col-sm-1">สถานะผู้เขียน:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="publishedStatus" name="publishedStatus">
                     <option value="">กรุณาเลือก</option>
                     <option value="หลัก" th:selected="${published.publishedStatus == 'หลัก'}? 'selected'">หลัก</option>
                     <option value="ร่วม" th:selected="${published.publishedStatus == 'ร่วม'}? 'selected'">ร่วม</option>
+                    <option value="อื่นๆ" th:selected="${published.publishedStatus == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
                 </select>
+                <label for="publishedStatus" class="form-control-label col-sm-1">สถานะผู้เขียน อื่นๆ:</label>
+                <input type="text" class="col-sm-2 form-control bg-white" th:field="${published.publishedStatusOther}"id="publishedStatusOther" name="publishedStatusOther"/>
             </div>
             <div class="row col-sm-12 mb-2">
                 <label><b>ข้อมูลเผยแพร่</b></label>

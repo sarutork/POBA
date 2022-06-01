@@ -833,9 +833,12 @@ CREATE TABLE `upload` (
 ALTER TABLE published_info ADD month_other  varchar(255);
 ALTER TABLE published_info ADD published_page  varchar(255);
 ALTER TABLE published_info ADD published_type varchar(255);
+ALTER TABLE published_info ADD published_status_other varchar(255);
+
 ALTER TABLE published_info MODIFY COLUMN published_status VARCHAR(255) NULL;
 ALTER TABLE published_info MODIFY COLUMN published_base VARCHAR(255) NULL;
 ALTER TABLE published_info MODIFY COLUMN published_level VARCHAR(255) NULL;
+
 
 ALTER TABLE published_join ADD fiscal_yearq1 varchar(255);
 ALTER TABLE published_join ADD fiscal_yearq2 varchar(255);
@@ -843,6 +846,8 @@ ALTER TABLE published_join ADD fiscal_yearq3 varchar(255);
 ALTER TABLE published_join ADD fiscal_yearq4 varchar(255);
 
 ALTER TABLE published_join ADD other_people bool DEFAULT false;
+
+
 
 
 --present_work
