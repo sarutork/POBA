@@ -49,6 +49,6 @@ public class ConsultantStudent {
     @Size(min = 1, max = 255, message = "โปรดเลือก หลักสูตร")
     public String course;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ภาควิชา")
+    @Size(min = 1, max = 255, message = "โปรดเลือก ภาควิชา")
     public String department;
 }

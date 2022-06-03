@@ -110,9 +110,14 @@
             </div>
             <div class="row mb-2">
                 <label for="department" class="form-control-label col-sm-2">ภาควิชา<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="department" name="department"
-                       th:attr="value=${consultantStudent.department != null}? ${consultantStudent.department} : ''"
-                       th:disabled="${consultantStudent.staffId != 0}" required/>
+                <select type="text" class="form-control bg-white col-sm-4" id="department" name="department" required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ไม่สังกัดภาควิชา" th:selected="${consultantStudent.department  == 'ไม่สังกัดภาควิชา'}? 'selected'">ไม่สังกัดภาควิชา</option>
+                    <option value="การปกครอง" th:selected="${consultantStudent.department == 'การปกครอง'}? 'selected'">การปกครอง</option>
+                    <option value="ความสัมพันธ์ระหว่างประเทศ" th:selected="${consultantStudent.department == 'ความสัมพันธ์ระหว่างประเทศ'}? 'selected'">ความสัมพันธ์ระหว่างประเทศ</option>
+                    <option value="สังคมวิทยาและมานุษยวิทยา" th:selected="${consultantStudent.department == 'สังคมวิทยาและมานุษยวิทยา'}? 'selected'">สังคมวิทยาและมานุษยวิทยา</option>
+                    <option value="รัฐประศาสนศาสตร์" th:selected="${consultantStudent.department == 'รัฐประศาสนศาสตร์'}? 'selected'">รัฐประศาสนศาสตร์</option>
+                </select>
             </div>
         </form>
         <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${consultantStudent.staffId == 0 ? 'd-block' : 'd-none'} ">

@@ -28,7 +28,7 @@ public class ConsultantThesis {
     private String name;
     private String surname;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ตำแหน่งอาจารย์ที่ปรึกษา")
+    @Size(min = 1, max = 255, message = "โปรดเลือก ตำแหน่งอาจารย์ที่ปรึกษา")
     private String consultantPosition;
 
     @Size(min = 1, max = 10, message = "กรุณาตรวจสอบข้อมูล เลขประจำตัวนิสิต")
