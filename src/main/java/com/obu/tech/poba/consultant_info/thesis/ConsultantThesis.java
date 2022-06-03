@@ -48,33 +48,16 @@ public class ConsultantThesis {
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล หลักสูตร")
     private String courseName;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ประเภท")
     private String thesisType;
-
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล หัวข้อ")
     private String thesisTopic;
-
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ครั้งที่พิจารณาอนุมัติ")
     private String thesisConsider;
-
-    @NotNull(message = "โปรดเลือก วันที่เปิดเล่ม")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate thesisStartdate;
-
-    @NotNull(message = "โปรดเลือก วันที่ปิดเล่ม")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate thesisEnddate;
-
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ครั้งที่รับทราบผลการสอบ")
     private String thesisApprove;
-
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ครั้งที่อนุมัติผู้สำเร็จการศึกษา")
     private String thesisSuccess;
-
-    @NotNull(message = "โปรดเลือก วันที่อนุมัติผู้สำเร็จการศึกษา")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate thesisSuccessDate;
-
-    @Size(min = 1, max = 255, message = "โปรดเลือก ผลประเมิน")
     private String thesisAssessment;
 }
