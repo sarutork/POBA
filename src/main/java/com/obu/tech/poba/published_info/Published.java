@@ -24,6 +24,7 @@ public class Published {
     private String publishedStatus;
     private String publishedStatusOther;
     private String publishedType;
+    private String publishedTypeOther;
     private String publishedTopic;
     private String publishedJournal;
     private String publishedYear;

@@ -57,8 +57,15 @@
             </div>
             <div class="row mb-2">
                 <label for="publishedType" class="form-control-label col-sm-2">ประเภทผลงาน:</label>
-                <input type="text" class="form-control bg-white col-sm-4" id="publishedType" name="publishedType"
-                       th:attr="value=${published.publishedType != null}? ${published.publishedType} : ''" maxlength="255" required/>
+                <select type="text" class="form-control bg-white col-sm-2" id="publishedType" name="publishedType" maxlength="255" required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="บทความ" th:selected="${published.publishedType == 'บทความ'}? 'selected'">บทความ</option>
+                    <option value="หนังสือ" th:selected="${published.publishedType == 'หนังสือ'}? 'selected'">หนังสือ</option>
+                    <option value="บทในหนังสือ" th:selected="${published.publishedType == 'บทในหนังสือ'}? 'selected'">บทในหนังสือ</option>
+                    <option value="อื่นๆ" th:selected="${published.publishedType == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
+                </select>
+                <label for="publishedType" class="form-control-label col-sm-2">ประเภทผลงานอื่นๆ:</label>
+                <input type="text" class="form-control bg-white col-sm-2" th:field="${published.publishedTypeOther}" id="publishedTypeOther" name="publishedTypeOther" maxlength="255" required/>
             </div>
             <div class="row mb-2">
                 <label for="publishedTopic" class="form-control-label col-sm-2">ชื่อเรื่อง<span style="color:red !important;">*</span>:</label>

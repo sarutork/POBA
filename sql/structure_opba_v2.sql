@@ -961,6 +961,7 @@ CREATE TABLE `published_info` (
   `month_other` varchar(255) DEFAULT NULL,
   `published_page` varchar(255) DEFAULT NULL,
   `published_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `published_type_other` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `published_status_other` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`published_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
