@@ -34,7 +34,10 @@ public class StudentsController {
     private YearGeneratorUtils yearGeneratorUtils;
 
     @GetMapping
-    public ModelAndView showListView() {return new ModelAndView(FRAGMENT_STUDENT);}
+    public ModelAndView showListView() {
+        List<Integer> years = yearGeneratorUtils.genYears();
+        return new ModelAndView(FRAGMENT_STUDENT).addObject("years", years);
+    }
 
     @GetMapping("/search")
     public ResponseEntity<List<Students>> search(@ModelAttribute Students students) {

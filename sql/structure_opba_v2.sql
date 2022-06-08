@@ -829,7 +829,7 @@ CREATE TABLE `upload` (
 -- Dump completed on 2022-04-24 23:16:31
 
 
---published_info
+-- published_info
 ALTER TABLE published_info ADD month_other  varchar(255);
 ALTER TABLE published_info ADD published_page  varchar(255);
 ALTER TABLE published_info ADD published_type varchar(255);
@@ -850,16 +850,16 @@ ALTER TABLE published_join ADD other_people bool DEFAULT false;
 
 
 
---present_work
+-- present_work
 ALTER TABLE present_work ADD present_country varchar(255);
 ALTER TABLE present_work ADD present_fund2 varchar(255);
 ALTER TABLE present_work ADD present_amount2 double;
 
---textbook
+-- textbook
 ALTER TABLE textbook ADD textbook_extend_date2 date;
 ALTER TABLE textbook ADD textbook_extend_date3 date;
 
---students
+-- students
 ALTER TABLE students MODIFY COLUMN students_tel varchar(10);
 ALTER TABLE students MODIFY COLUMN students_telemergency varchar(10);
 
@@ -871,7 +871,7 @@ ALTER TABLE consultant_thesis MODIFY COLUMN students_id varchar(10);
 
 
 
---training
+-- training
 ALTER TABLE training ADD prefix2 varchar(255);
 ALTER TABLE training ADD prefix_other2 varchar(255);
 ALTER TABLE training ADD name2 varchar(255);
