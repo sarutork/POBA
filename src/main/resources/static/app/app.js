@@ -1,6 +1,8 @@
 function loadView(url) {
     $.get(url, function(data) {
         $('.content-wrapper').html(data);
+    }).fail(function() {
+      window.location = "login";
     });
 }
 
