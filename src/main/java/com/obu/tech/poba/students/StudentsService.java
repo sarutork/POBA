@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.obu.tech.poba.utils.search.SearchOperator.EQUAL;
 import static com.obu.tech.poba.utils.search.SearchOperator.LIKE;
 
 @Service
@@ -55,5 +56,14 @@ public class StudentsService {
             maps.add(map);
         });
         return maps;
+    }
+
+    public List<Students> findByNameOrId(String searchTxt){
+        return studentsRepository.findAll(new SearchConditionBuilder<Students>()
+                .ifNotNullThenAnd("studentsName", LIKE, searchTxt)
+                .ifNotNullThenOr("studentsSurname", LIKE, searchTxt)
+                .ifNotNullThenOr("studentsId", LIKE,searchTxt)
+                .build()
+        );
     }
 }

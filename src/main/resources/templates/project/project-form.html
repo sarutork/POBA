@@ -95,6 +95,67 @@
                        th:attr="value=${project.projectKind != null}? ${project.projectKind}: ''" required/>
             </div>
 
+            <div id="searchParticipant" class="row mt-4 mb-2 ml-1" th:classappend="${viewName != 'ดูข้อมูล' ? 'd-block' : 'd-none'} ">
+                <button type="button" class="btn btn-poba mr-3" data-toggle="modal" data-target="#participantModal">เพิ่มผู้เข้าร่วม</button>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="participantModal" tabindex="-1" role="dialog" aria-labelledby="participantModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalLabel">เพิ่มผู้เข้าร่วมกิจกรรม</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                                <input id="searchTxt" type="text" class="col-8 mr-2 form-control flex-xl-grow-1" placeholder="ค้นหาด้วยเลขประจำตัว/ชื่อ">
+                                <button type="button" class="btn btn-info" onclick="findParticipant()">ค้นหา</button>
+                            </div>
+                        </div>
+                        <div class="table table-responsive">
+                            <table id="table-participant-modal" class="display" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>เลขประจำตัว</th>
+                                    <th>ชื่อ-นามสกุล</th>
+                                    <th>สถานะเข้าร่วมกิจกรรม</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td colspan="4" class="dataTables_empty text-center bg-secondary">ผู้เข้าร่วมกิจกรรม</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-poba" data-dismiss="modal">ยกเลิก</button>
+                            <button type="button" class="btn btn-poba" data-dismiss="modal" onclick="addParticipant()">เพิ่ม</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table table-responsive">
+                <table id="table-participant" class="display" width="100%">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>เลขประจำตัว</th>
+                        <th>ชื่อ-นามสกุล</th>
+                        <th>สถานะเข้าร่วมกิจกรรม</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <button type="button" class="btn btn-outline-poba" onclick="removeParticipant()">ลบผู้เข้าร่วม</button>
+
         </form>
         <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${viewName != 'ดูข้อมูล' ? 'd-block' : 'd-none'} ">
             <button type="button" class="btn btn-poba mr-3" onclick="submitProjectInfo();">บันทึก</button>
@@ -116,6 +177,7 @@
              }
              amtFormat();
         });
+
     </script>
 
 </th:block>

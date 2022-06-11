@@ -984,3 +984,13 @@ CREATE TABLE `journal_info` (
   `published_level` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`journal_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+
+DROP TABLE IF EXISTS `participant`;
+CREATE TABLE `participant` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `projectId` int NOT NULL,
+  `participantId` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;

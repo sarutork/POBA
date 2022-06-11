@@ -1,5 +1,7 @@
 package com.obu.tech.poba.project;
 
+import com.obu.tech.poba.students.Students;
+import com.obu.tech.poba.students.StudentsService;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +25,20 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private StudentsService studentsService;
+
     @GetMapping
     public ModelAndView showListView() {return new ModelAndView(FRAGMENT_PROJECT);}
 
     @GetMapping("/search")
     public ResponseEntity<List<Project>> search(@ModelAttribute Project project) {
         return ResponseEntity.ok().body(projectService.findBySearchCriteria(project));
+    }
+
+    @GetMapping("/search-participant")
+    public ResponseEntity<List<Students>> searchParticipant(String searchTxt) {
+        return ResponseEntity.ok().body(studentsService.findByNameOrId(searchTxt));
     }
 
     @GetMapping("/add")
@@ -59,7 +69,8 @@ public class ProjectController {
     }
 
     private ModelAndView form(Project data) {
-        return new ModelAndView(FRAGMENT_PROJECT_FORM).addObject("project", data);
+        return new ModelAndView(FRAGMENT_PROJECT_FORM)
+                .addObject("project", data);
     }
 
     private ModelAndView viewSuccess(Project data) {
