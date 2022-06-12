@@ -14,6 +14,10 @@ import static com.obu.tech.poba.utils.search.SearchOperator.LIKE;
 public class ProjectService {
     @Autowired
     ProjectRepository projectRepository;
+
+    @Autowired
+    ParticipantRepository participantRepository;
+
     List<Project> findBySearchCriteria(Project project){
         return projectRepository.findAll(new SearchConditionBuilder<Project>()
                 .ifNotNullThenAnd("projectName", LIKE, project.getProjectName())
@@ -32,6 +36,19 @@ public class ProjectService {
             return projectRepository.findById(Long.parseLong(id))
                     .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
         } else {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public List<Participant> saveParticipant(List<Participant> participants){
+        return  participantRepository.saveAllAndFlush(participants);
+    }
+
+    public List<Participant> findByProjectId(String id) {
+        if (id.matches("\\d+")) {
+            return participantRepository.findByProjectId(Long.parseLong(id));
+        } else {
+            System.out.println("Invalid project_id: '" + id + "'");
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
     }

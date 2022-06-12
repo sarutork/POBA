@@ -988,9 +988,9 @@ CREATE TABLE `journal_info` (
 DROP TABLE IF EXISTS `participant`;
 CREATE TABLE `participant` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `projectId` int NOT NULL,
-  `participantId` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
+  `project_id` int,
+  `participant_id` varchar(255),
+  `name` varchar(255),
+  `status` varchar(255),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;

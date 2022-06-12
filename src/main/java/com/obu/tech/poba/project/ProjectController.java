@@ -2,17 +2,22 @@ package com.obu.tech.poba.project;
 
 import com.obu.tech.poba.students.Students;
 import com.obu.tech.poba.students.StudentsService;
+import com.obu.tech.poba.training.TrainingDto;
+import com.obu.tech.poba.training.TrainingPhase;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -37,21 +42,52 @@ public class ProjectController {
     }
 
     @GetMapping("/search-participant")
-    public ResponseEntity<List<Students>> searchParticipant(String searchTxt) {
-        return ResponseEntity.ok().body(studentsService.findByNameOrId(searchTxt));
+    public ResponseEntity<List<Participant>> searchParticipant(String searchTxt) {
+        List<Students> students = studentsService.findByNameOrId(searchTxt);
+        List<Participant> participants = new ArrayList<>();
+        for (Students s: students) {
+            Participant p = new Participant();
+
+            p.setParticipantId(s.getStudentsId());
+
+            String prefix = s.getPrefix();
+            if(prefix !=null && "อื่นๆ".equals(s.getPrefix())){
+                prefix = s.getPrefixOther();
+            }
+            p.setName(prefix+" "+s.getName()+" "+s.getSurname());
+
+            participants.add(p);
+        }
+        return ResponseEntity.ok().body(participants);
     }
 
     @GetMapping("/add")
-    public ModelAndView add() {return formAdd(new Project());}
+    public ModelAndView add() {
+        ProjectDto projectDto = new ProjectDto();
+        return formAdd(projectDto);
+
+    }
 
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView save(@ModelAttribute("project") @Valid Project project, BindingResult bindingResult) {
+    public ModelAndView save(@ModelAttribute("projectDto") @Valid ProjectDto projectDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            throw new InvalidInputException(formAdd(project), bindingResult);
+            throw new InvalidInputException(formAdd(projectDto), bindingResult);
         }
+
         try{
+            Project project = new Project();
+            BeanUtils.copyProperties(projectDto, project);
             Project projectRes = projectService.save(project);
-            return viewSuccess(projectRes);
+
+            if(projectDto.getParticipants().size() !=0) {
+                long projectId = projectRes.getProjectId();
+                List<Participant> participants = projectDto.getParticipants();
+                participants.forEach(p -> p.setProjectId(projectId));
+                projectService.saveParticipant(participants);
+
+            }
+
+            return viewSuccess(projectDto);
         }catch (Exception e){
             e.printStackTrace();
             log.error("{}: {}", e.getClass().getSimpleName(), e.getMessage());
@@ -61,19 +97,27 @@ public class ProjectController {
 
     @GetMapping(value = "/{id}")
     public ModelAndView showInfo(@PathVariable String id){
-        return view(projectService.findById(id));
+        Project project = projectService.findById(id);
+        List<Participant> participants = projectService.findByProjectId(id);
+
+        ProjectDto projectDto = new ProjectDto();
+        BeanUtils.copyProperties(project,projectDto);
+        if(participants.size() != 0){
+            projectDto.setParticipants(participants);
+        }
+        return view(projectDto);
     }
 
-    private ModelAndView formAdd(Project data) {
+    private ModelAndView formAdd(ProjectDto data) {
         return form(data).addObject("viewName", "เพิ่มข้อมูล");
     }
 
-    private ModelAndView form(Project data) {
+    private ModelAndView form(ProjectDto data) {
         return new ModelAndView(FRAGMENT_PROJECT_FORM)
                 .addObject("project", data);
     }
 
-    private ModelAndView viewSuccess(Project data) {
+    private ModelAndView viewSuccess(ProjectDto data) {
         return view(data)
                 .addObject("viewName", "ดูข้อมูล")
                 .addObject("responseMessage", "บันทึกสำเร็จ")
@@ -82,7 +126,7 @@ public class ProjectController {
                 ;
     }
 
-    private ModelAndView view(Project data) {
+    private ModelAndView view(ProjectDto data) {
         return new ModelAndView(FRAGMENT_PROJECT_FORM).addObject("viewName", "ดูข้อมูล")
                 .addObject("project", data);
     }

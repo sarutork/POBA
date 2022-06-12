@@ -30,14 +30,6 @@ function findProjectInfo() {
 
 function submitProjectInfo(){
 
-    var table = $('#table-participant').DataTable();
-
-    var plainArray = table.column(1).data().toArray();
-
-    for (const element of plainArray) { // You can use `let` instead of `const` if you like
-        console.log(element);
-    }
-
     removeComma();
 
     var type = "POST";
@@ -78,8 +70,18 @@ function amtFormat(){
 }
 
 function findParticipant() {
-  var searchTxt = $('#searchTxt').val();
 
+  $("#table-participant").on("draw.dt", function () {
+      $(this).find(".dataTables_empty").parents('tbody').empty();
+  }).DataTable();
+
+  var index = $('#table-participant').dataTable().fnGetData().length;
+  //var index = $('#table-participant tr').length;;
+  var indexId = index;
+  var indexName = index;
+  var indexStatus = index;
+
+  var searchTxt = $('#searchTxt').val();
   var tableParticipantModal =  $('#table-participant-modal').DataTable({
         ajax: {
             type: "GET",
@@ -89,8 +91,8 @@ function findParticipant() {
         },
         columns: [
             { data: null},
-            { data: "studentsId"},
-            { data: "studentsName" },
+            { data: null},
+            { data: null },
             { data: null}
         ],
         columnDefs: [
@@ -101,25 +103,25 @@ function findParticipant() {
                         targets: 0,
                     },
                     {
+                        render: function (data, type, row) {
+                           var participantId = row["participantId"];
+                           var inputStr = '<input type="text" name="participants['+(indexId++)+'].participantId" value="'+participantId+'" style="border: none;"  readonly/>';
+
+                           return inputStr;
+                        },
+                        targets: 1,
+                    },
+                    {
                        render: function (data, type, row) {
-                           var prefix = row["studentsPrefix"];
-                              if(prefix == "อื่นๆ"){
-                                   prefix = row["studentsPrefixOther"]
-                              }
-                              var fullName = prefix+' '+row["studentsName"] + ' ' + row["studentsSurname"];
-                                  return fullName;
+                              var fullName = row["name"];
+                              var inputStr = '<input type="text" name="participants['+(indexName++)+'].name" value="'+fullName+'" style="border: none;"  readonly/>';
+                                  return inputStr;
                                },
                        targets: 2,
                     },
                     {
                         render: function (data, type, row) {
-//                            let str1 = '<select type="text" class="form-control">';
-//                            let str2 = '<option value="">กรุณาเลือก</option>';
-//                            let str3 = '<option value="X">X</option>';
-//                            let str4 = '<option value="Y">Y</option>';
-//                            let str5 = '</select>';
-
-                            var str1 = "<select type='text' class='form-control'>";
+                            var str1 = "<select type='text' class='form-control' name='participants["+(indexStatus++)+"].status'>";
                             var str2 = "<option value=''>กรุณาเลือก</option>";
                             var str3 = "<option value='X'>X</option>";
                             var str4 = "<option value='Y'>Y</option>";

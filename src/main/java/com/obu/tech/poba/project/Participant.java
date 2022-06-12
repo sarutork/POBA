@@ -1,8 +1,6 @@
 package com.obu.tech.poba.project;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
