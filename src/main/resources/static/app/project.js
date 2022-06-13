@@ -60,7 +60,10 @@ function editProjectInfo(){
     $("#edit").removeClass("d-block");
     $("#edit").addClass("d-none");
 
-    $("#viewName").text("แก้ไข")
+    $("#viewName").text("แก้ไข");
+
+    $(".btn-add").prop("disabled", false);
+    $(".btn-del").prop("disabled", false);
 
     window.scrollTo(0, 0);
 }
@@ -151,6 +154,9 @@ function addParticipant(){
 }
 
 function removeParticipant(){
-    var getSelectedRows = $("#table-participant input:checked").parents("tr").remove().draw();
+    //var length = $("#table-participant input:checked").parents("tr");
+
+    $("#table-participant input:checked").parents("tr").remove();
+
 
 }

@@ -96,7 +96,7 @@
             </div>
 
             <div id="searchParticipant" class="row mt-4 mb-2 ml-1">
-                <button type="button" class="btn btn-poba mr-3" data-toggle="modal" data-target="#participantModal">เพิ่มผู้เข้าร่วม</button>
+                <button type="button" class="btn btn-poba btn-add mr-3" data-toggle="modal" data-target="#participantModal">เพิ่มผู้เข้าร่วม</button>
             </div>
 
             <div class="table table-responsive">
@@ -132,7 +132,7 @@
                     </tbody>
                 </table>
             </div>
-            <button type="button" class="btn btn-outline-poba" onclick="removeParticipant()">ลบผู้เข้าร่วม</button>
+            <button type="button" class="btn btn-outline-poba btn-del" onclick="removeParticipant()">ลบผู้เข้าร่วม</button>
 
         </form>
         <!-- Modal -->
@@ -192,7 +192,8 @@
              if(viewName == "ดูข้อมูล"){
                 $("input").prop("disabled", true);
                 $("select").prop("disabled", true);
-                $(".btn-phase").prop("disabled", true);
+                $(".btn-add").prop("disabled", true);
+                $(".btn-del").prop("disabled", true);
              }
              amtFormat();
         });

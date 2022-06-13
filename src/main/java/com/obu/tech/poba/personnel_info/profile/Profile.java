@@ -22,8 +22,8 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long staffId;
 
-    @PositiveOrZero(message="กรุณาตรวจสอบข้อมูล Pers. No.")
-    private int persNo;
+    @Size(min = 1, max = 11, message="กรุณาตรวจสอบข้อมูล Pers. No.")
+    private String persNo;
 
     @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า")
     private String prefix;

@@ -1,9 +1,9 @@
 package com.obu.tech.poba.project;
 
+import com.obu.tech.poba.personnel_info.profile.Profile;
+import com.obu.tech.poba.personnel_info.profile.ProfileService;
 import com.obu.tech.poba.students.Students;
 import com.obu.tech.poba.students.StudentsService;
-import com.obu.tech.poba.training.TrainingDto;
-import com.obu.tech.poba.training.TrainingPhase;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -34,6 +34,9 @@ public class ProjectController {
     @Autowired
     private StudentsService studentsService;
 
+    @Autowired
+    private ProfileService profileService;
+
     @GetMapping
     public ModelAndView showListView() {return new ModelAndView(FRAGMENT_PROJECT);}
 
@@ -60,6 +63,21 @@ public class ProjectController {
             participants.add(p);
         }
 
+        List<Profile> profiles = profileService.findByNameOrId(searchTxt);
+
+        for (Profile pr: profiles) {
+            Participant p = new Participant();
+
+            p.setParticipantId(pr.getPersNo());
+
+            String prefix = pr.getPrefix();
+            if(prefix !=null && "อื่นๆ".equals(pr.getPrefix())){
+                prefix = pr.getPrefixOther();
+            }
+            p.setName(prefix+" "+pr.getName()+" "+pr.getSurname());
+
+            participants.add(p);
+        }
 
         return ResponseEntity.ok().body(participants);
     }

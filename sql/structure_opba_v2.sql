@@ -343,7 +343,7 @@ DROP TABLE IF EXISTS `profile`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `profile` (
   `staff_id` int NOT NULL AUTO_INCREMENT,
-  `pers_no` int NOT NULL,
+  `pers_no` varchar(11) NOT NULL,
   `prefix` varchar(20) NOT NULL,
   `prefix_other` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,

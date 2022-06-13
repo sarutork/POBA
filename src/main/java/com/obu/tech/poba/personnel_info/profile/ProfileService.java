@@ -33,4 +33,13 @@ public class ProfileService {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
     }
+
+    public List<Profile> findByNameOrId(String searchTxt){
+        return profileRepository.findAll(new SearchConditionBuilder<Profile>()
+                .ifNotNullThenAnd("name", LIKE, searchTxt)
+                .ifNotNullThenOr("surname", LIKE, searchTxt)
+                .ifNotNullThenOr("persNo", LIKE,searchTxt)
+                .build()
+        );
+    }
 }
