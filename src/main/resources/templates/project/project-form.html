@@ -124,8 +124,12 @@
                             <td>
                                 <select th:name="|participants[${itemStat.index}].status|">
                                     <option value="">กรุณาเลือก</option>
-                                    <option value="X" th:selected="${participant.getStatus() == 'X'}? 'selected'">X</option>
-                                    <option value="Y" th:selected="${participant.getStatus() == 'Y'}? 'selected'">Y</option>
+                                    <option value="ที่ปรึกษาโครงการ" th:selected="${participant.getStatus() == 'ที่ปรึกษาโครงการ'}? 'selected'">ที่ปรึกษาโครงการ</option>
+                                    <option value="ที่ปรึกษา/เข้าร่วมโครงการ" th:selected="${participant.getStatus() == 'ที่ปรึกษา/เข้าร่วมโครงการ'}? 'selected'">ที่ปรึกษา/เข้าร่วมโครงการ</option>
+                                    <option value="ผู้รับผิดชอบโครงการ" th:selected="${participant.getStatus() == 'ผู้รับผิดชอบโครงการ'}? 'selected'">ผู้รับผิดชอบโครงการ</option>
+                                    <option value="ผู้ปฏิบัติงาน" th:selected="${participant.getStatus() == 'ผู้ปฏิบัติงาน'}? 'selected'">ผู้ปฏิบัติงาน</option>
+                                    <option value="เข้าร่วมโครงการ" th:selected="${participant.getStatus() == 'เข้าร่วมโครงการ'}? 'selected'">เข้าร่วมโครงการ</option>
+                                    <option value="สัมภาษณ์ทุน" th:selected="${participant.getStatus() == 'สัมภาษณ์ทุน'}? 'selected'">สัมภาษณ์ทุน</option>
                                 </select>
                             </td>
                         </tr>

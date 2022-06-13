@@ -126,10 +126,14 @@ function findParticipant() {
                         render: function (data, type, row) {
                             var str1 = "<select type='text' class='form-control' name='participants["+(indexStatus++)+"].status'>";
                             var str2 = "<option value=''>กรุณาเลือก</option>";
-                            var str3 = "<option value='X'>X</option>";
-                            var str4 = "<option value='Y'>Y</option>";
-                            var str5 = "</select>";
-                           return str1.concat(str2,str3,str4,str5);
+                            var str3 = "<option value='ที่ปรึกษาโครงการ'>ที่ปรึกษาโครงการ</option>";
+                            var str4 = "<option value='ที่ปรึกษา/เข้าร่วมโครงการ'>ที่ปรึกษา/เข้าร่วมโครงการ</option>";
+                            var str5 = "<option value='ผู้รับผิดชอบโครงการ'>ผู้รับผิดชอบโครงการ</option>";
+                            var str6 = "<option value='ผู้ปฏิบัติงาน'>ผู้ปฏิบัติงาน</option>";
+                            var str7 = "<option value='เข้าร่วมโครงการ'>เข้าร่วมโครงการ</option>";
+;                           var str8 = "<option value='สัมภาษณ์ทุน'>สัมภาษณ์ทุน</option>";
+                            var str9 = "</select>";
+                           return str1.concat(str2,str3,str4,str5,str6,str7,str8,str9);
                         },
                         targets: 3,
                     },
