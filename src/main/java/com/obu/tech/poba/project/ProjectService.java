@@ -52,4 +52,8 @@ public class ProjectService {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
     }
+
+    public void removeParticipantByProjectId(Long id){
+         participantRepository.deleteByProjectId(id);
+    }
 }

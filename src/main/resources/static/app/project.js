@@ -149,3 +149,8 @@ function addParticipant(){
     var getSelectedRows = $("#table-participant-modal input:checked").parents("tr").clone();
     $("#table-participant tbody").append(getSelectedRows);
 }
+
+function removeParticipant(){
+    var getSelectedRows = $("#table-participant input:checked").parents("tr").remove().draw();
+
+}

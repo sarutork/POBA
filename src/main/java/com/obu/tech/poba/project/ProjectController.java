@@ -6,6 +6,7 @@ import com.obu.tech.poba.training.TrainingDto;
 import com.obu.tech.poba.training.TrainingPhase;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -58,6 +59,8 @@ public class ProjectController {
 
             participants.add(p);
         }
+
+
         return ResponseEntity.ok().body(participants);
     }
 
@@ -82,7 +85,12 @@ public class ProjectController {
             if(projectDto.getParticipants().size() !=0) {
                 long projectId = projectRes.getProjectId();
                 List<Participant> participants = projectDto.getParticipants();
+
+                participants.removeIf(p -> (StringUtils.isBlank(p.getParticipantId())));
+
                 participants.forEach(p -> p.setProjectId(projectId));
+
+                projectService.removeParticipantByProjectId(projectId);
                 projectService.saveParticipant(participants);
 
             }

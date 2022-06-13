@@ -113,6 +113,7 @@
                         <tr th:each="participant, itemStat : ${project.participants}">
                             <td>
                                 <input hidden th:name="|participants[${itemStat.index}].id|" th:value="${participant.getId()}"/>
+                                <input type="checkbox"/>
                             </td>
                             <td>
                                 <input th:name="|participants[${itemStat.index}].participantId|" th:value="${participant.getParticipantId()}" style="border: none;" readonly/>
