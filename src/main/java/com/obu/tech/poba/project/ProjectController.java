@@ -100,7 +100,7 @@ public class ProjectController {
             BeanUtils.copyProperties(projectDto, project);
             Project projectRes = projectService.save(project);
 
-            if(projectDto.getParticipants().size() !=0) {
+            if(projectDto.getParticipants() != null && projectDto.getParticipants().size() !=0) {
                 long projectId = projectRes.getProjectId();
                 List<Participant> participants = projectDto.getParticipants();
 
