@@ -27,12 +27,12 @@ public class DownloadController {
     private static String PDF_EXTENSION = ".pdf";
     @RequestMapping(path = "/download-pdf/{filePath}/{fileName}", method = RequestMethod.GET)
     public ResponseEntity<Resource> downloadPDFFile(@PathVariable String filePath, @PathVariable String fileName) throws IOException{
-        String[] filenames = fileName.split("\\.");
-        String extension = (filenames.length > 1 ? filenames[1] : "");
+        /*String[] filenames = fileName.split("\\.");
+        String extension = (filenames.length > 1 ? "."+filenames[1] : "");
         fileName = filenames[0];
-        if(StringUtils.isNoneBlank(extension)) PDF_EXTENSION = extension;
+        if(StringUtils.isNoneBlank(extension)) PDF_EXTENSION = extension;*/
 
-        String filePathStr = UPLOAD_PATH+File.separator+filePath+File.separator+fileName+PDF_EXTENSION;
+        String filePathStr = UPLOAD_PATH+File.separator+filePath+File.separator+fileName;
         File file = new File(filePathStr);
         Path path = Paths.get(file.getAbsolutePath());
         ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
