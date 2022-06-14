@@ -50,12 +50,11 @@
                             <th>หมายเหตุ:</th>
                             <td th:text="*{noteOfWork}"></td>
                         </tr>
-                        <tr>
+                        <tr th:each="upload: *{uploads}">
                             <th style="vertical-align: top;">เอกสารสัญญาจ้าง:</th>
                             <td>
-                                <th:block th:if="*{uploads}"
-                                          th:utext="*{#strings.arrayJoin(uploads.![filename], '<br><br>')}">
-                                </th:block>
+                                <a th:href="|/poba/download/download-pdf/researcher/${upload.id}_${upload.filename}|" target="_blank" rel="noopener"
+                                   th:text="${upload.filename}"></a>
                             </td>
                         </tr>
                     </tbody>
