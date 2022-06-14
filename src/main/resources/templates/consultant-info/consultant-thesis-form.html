@@ -274,7 +274,9 @@
                         <th:block th:if="*{acdConf.uploads}"
                                   th:each="upload : *{acdConf.uploads}">
                             <div class="col-sm-6 mb-2">
-                                <span class="file-name" th:text="${upload.filename}"></span>
+                                <a th:href="|/poba/download/download-pdf/thesis/${upload.id}_${upload.filename}|" target="_blank" rel="noopener"
+                                   th:text="${upload.filename}"></a>
+                                <!-- <span class="file-name" th:text="${upload.filename}"></span> -->
                                 <span class="file-remove close mdi mdi-close-circle" onclick="removeUploadedFile(this)"></span>
                                 <input class="file-id" type="hidden" th:value="${upload.id}"/>
                             </div>
