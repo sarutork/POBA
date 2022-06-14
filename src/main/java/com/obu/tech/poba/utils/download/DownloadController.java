@@ -1,5 +1,6 @@
 package com.obu.tech.poba.utils.download;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -23,10 +24,14 @@ public class DownloadController {
     @Value("${poba.upload}")
     private String UPLOAD_PATH;
 
-    private static final String PDF_EXTENSION = ".pdf";
+    private static String PDF_EXTENSION = ".pdf";
     @RequestMapping(path = "/download-pdf/{filePath}/{fileName}", method = RequestMethod.GET)
     public ResponseEntity<Resource> downloadPDFFile(@PathVariable String filePath, @PathVariable String fileName) throws IOException{
-        fileName = fileName.split("\\.")[0];
+        String[] filenames = fileName.split("\\.");
+        String extension = (filenames.length > 1 ? filenames[1] : "");
+        fileName = filenames[0];
+        if(StringUtils.isNoneBlank(extension)) PDF_EXTENSION = extension;
+
         String filePathStr = UPLOAD_PATH+File.separator+filePath+File.separator+fileName+PDF_EXTENSION;
         File file = new File(filePathStr);
         Path path = Paths.get(file.getAbsolutePath());
