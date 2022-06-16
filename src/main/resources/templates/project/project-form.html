@@ -18,11 +18,9 @@
             <input type="hidden" id="projectId" name="projectId" th:value="${project.projectId}"/>
             <div  class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="projectYear">ปีการศึกษา<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-4 form-control bg-white" id="projectYear" name="projectYear" required>
+                <select type="text" class="col-sm-4 form-control bg-white" th:field="${project.projectYear}" id="projectYear" name="projectYear" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="2565" th:selected="${project.projectYear == '2565'}? 'selected'">2565</option>
-                    <option value="2564" th:selected="${project.projectYear == '2564'}? 'selected'">2564</option>
-                    <option value="2563" th:selected="${project.projectYear == '2563'}? 'selected'">2563</option>
+                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
                 </select>
 
                 <label class="col-sm-2 form-control-label" for="projectName">ชื่อโครงการ/กิจกรรม<span style="color:red !important;">*</span>:</label>

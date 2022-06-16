@@ -4,6 +4,7 @@ import com.obu.tech.poba.personnel_info.profile.Profile;
 import com.obu.tech.poba.personnel_info.profile.ProfileService;
 import com.obu.tech.poba.students.Students;
 import com.obu.tech.poba.students.StudentsService;
+import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -11,7 +12,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -37,8 +37,14 @@ public class ProjectController {
     @Autowired
     private ProfileService profileService;
 
+    @Autowired
+    private YearGeneratorUtils yearGeneratorUtils;
+
     @GetMapping
-    public ModelAndView showListView() {return new ModelAndView(FRAGMENT_PROJECT);}
+    public ModelAndView showListView() {
+        List<Integer> years = yearGeneratorUtils.genYears();
+        return new ModelAndView(FRAGMENT_PROJECT).addObject("years", years);
+    }
 
     @GetMapping("/search")
     public ResponseEntity<List<Project>> search(@ModelAttribute Project project) {
@@ -139,7 +145,10 @@ public class ProjectController {
     }
 
     private ModelAndView form(ProjectDto data) {
+        List<Integer> years = yearGeneratorUtils.genYears();
+
         return new ModelAndView(FRAGMENT_PROJECT_FORM)
+                .addObject("years", years)
                 .addObject("project", data);
     }
 
@@ -153,7 +162,9 @@ public class ProjectController {
     }
 
     private ModelAndView view(ProjectDto data) {
+        List<Integer> years = yearGeneratorUtils.genYears();
         return new ModelAndView(FRAGMENT_PROJECT_FORM).addObject("viewName", "ดูข้อมูล")
+                .addObject("years", years)
                 .addObject("project", data);
     }
 }

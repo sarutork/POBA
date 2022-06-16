@@ -24,9 +24,7 @@
                     <label for="projectYear" class="col-2 text-sm-right col-form-label">ปีการศึกษา:</label>
                     <select type="text" class="col-4 form-control" id="projectYear" name="projectYear">
                         <option value="">กรุณาเลือก</option>
-                        <option value="2565">2565</option>
-                        <option value="2564">2564</option>
-                        <option value="2563">2563</option>
+                        <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
                     </select>
                     <label for="projectDateFrom" class="col-2 text-sm-right col-form-label">วันที่จัดกิจกรรม:</label>
                     <input type="date" class="col-4 form-control" id="projectDateFrom" name="projectDateFrom"/>
