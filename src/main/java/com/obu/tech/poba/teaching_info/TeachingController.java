@@ -1,6 +1,7 @@
 package com.obu.tech.poba.teaching_info;
 
 import com.obu.tech.poba.utils.NameConverterUtils;
+import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -29,8 +30,14 @@ public class TeachingController {
     @Autowired
     private NameConverterUtils nameConverter;
 
+    @Autowired
+    private YearGeneratorUtils yearGeneratorUtils;
+
     @GetMapping
-    public ModelAndView showListView() {return new ModelAndView(FRAGMENT_TEACHING_INFO);}
+    public ModelAndView showListView() {
+        List<Integer> years = yearGeneratorUtils.genYears();
+        return new ModelAndView(FRAGMENT_TEACHING_INFO).addObject("years", years);
+    }
 
     @GetMapping("/search")
     public ResponseEntity<List<Teaching>> search(@ModelAttribute Teaching teaching) {
@@ -75,7 +82,8 @@ public class TeachingController {
     }
 
     private ModelAndView form(Teaching data) {
-        return new ModelAndView(FRAGMENT_TEACHING_FORM).addObject("teaching", data);
+        List<Integer> years = yearGeneratorUtils.genYears();
+        return new ModelAndView(FRAGMENT_TEACHING_FORM).addObject("teaching", data).addObject("years", years);
     }
 
     private ModelAndView viewSuccess(Teaching data) {
@@ -88,7 +96,9 @@ public class TeachingController {
     }
 
     private ModelAndView view(Teaching data) {
+        List<Integer> years = yearGeneratorUtils.genYears();
         return new ModelAndView(FRAGMENT_TEACHING_FORM).addObject("viewName", "ดูข้อมูล")
-                                                       .addObject("teaching", data);
+                                                       .addObject("teaching", data)
+                                                       .addObject("years", years);
     }
 }

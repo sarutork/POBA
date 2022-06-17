@@ -5,7 +5,7 @@
     <div id="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a  href="/poba/home">หน้าหลัก</a></li>
-            <li class="breadcrumb-item"><a  href="javascript:void(0)" onclick="loadView('/poba/teaching')">ข้อมูลการสอน</a></li>
+            <li class="breadcrumb-item"><a  href="javascript:void(0)" onclick="loadView('/poba/teaching')">ข้อมูลผู้สอนหลัก/ร่วม/อาจารย์พิเศษ</a></li>
             <li class="breadcrumb-item active" ><span id="viewName" th:text="${viewName}"></span></li>
         </ol>
     </div>
@@ -107,11 +107,9 @@
             </div>
             <div class="row mb-2">
                 <label for="studyYear" class="form-control-label col-sm-2">ปีการศึกษา<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="studyYear" name="studyYear" required>
+                <select type="text" class="form-control bg-white col-sm-4" th:field="${teaching.studyYear}" id="studyYear" name="studyYear" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="2565" th:selected="${teaching.studyYear == '2565'}? 'selected'">2565</option>
-                    <option value="2564" th:selected="${teaching.studyYear == '2564'}? 'selected'">2564</option>
-                    <option value="2563" th:selected="${teaching.studyYear == '2563'}? 'selected'">2563</option>
+                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
                 </select>
                 <label for="subjectId" class="form-control-label col-sm-2">รหัสวิชา<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="subjectId" name="subjectId"

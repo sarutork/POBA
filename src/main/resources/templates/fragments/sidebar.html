@@ -18,10 +18,17 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/teaching')">
-                <i class="mdi mdi-book-open-page-variant menu-icon"></i>
+            <a class="nav-link" data-toggle="collapse" href="#menu-teaching-info" aria-expanded="false" aria-controls="menu-teaching-info">
+                <i class="mdi mdi-account menu-icon"></i>
                 <span class="menu-title">ข้อมูลการสอน</span>
+                <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="menu-teaching-info">
+                <ul class="nav flex-column sub-menu left-menu">
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/teaching')">ผู้สอนหลัก/ร่วม/อาจารย์พิเศษ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/teaching')">วิทยากร</a></li>
+                </ul>
+            </div>
         </li>
 
         <li class="nav-item">

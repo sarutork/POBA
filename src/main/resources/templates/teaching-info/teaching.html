@@ -5,7 +5,7 @@
     <div id="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
-            <li class="breadcrumb-item active"><span>ข้อมูลการสอน</span></li>
+            <li class="breadcrumb-item active"><span>ข้อมูลผู้สอนหลัก/ร่วม/อาจารย์พิเศษ</span></li>
         </ol>
     </div>
 
@@ -21,9 +21,7 @@
                 <label for="studyYear" class="mr-1">ปีการศึกษา:</label>
                 <select type="text" class="form-control bg-white mr-3" id="studyYear" name="studyYear">
                     <option value="">กรุณาเลือก</option>
-                    <option value="2565">2565</option>
-                    <option value="2564">2564</option>
-                    <option value="2563">2563</option>
+                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
                 </select>
             </div>
             <div class="form-group mb-3">
