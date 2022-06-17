@@ -1,19 +1,22 @@
-package com.obu.tech.poba.teaching_info;
+package com.obu.tech.poba.lecturer;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
-import javax.persistence.*;
-import javax.validation.constraints.*;
-import java.time.LocalDate;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
+import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
 @Entity
-@Table(name = "teach_info", schema = "poba")
-public class Teaching {
+@Table(name = "lecturer_info", schema = "poba")
+public class Lecturer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long staffId;
@@ -65,9 +68,6 @@ public class Teaching {
     public String name;
     public String surname;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก สถานะการสอน")
-    public String teachStatus;
-
     public String institutionInfo;
     public String teachTopic;
     public int teachTimes;
@@ -87,19 +87,4 @@ public class Teaching {
 
     @Pattern(regexp = "^\\d+$",message="กรุณาตรวจสอบข้อมูล จำนวนนิสิตลงทะเบียนเรียน")
     public String totalStudentsRegister;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public LocalDate midtermExamDate;
-
-    public String midtermExamTimeStart;
-
-    public String midtermExamTimeEnd;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public LocalDate finalExamDate;
-
-    public String finalExamTimeStart;
-
-    public String finalExamTimeEnd;
-
 }

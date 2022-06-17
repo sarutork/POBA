@@ -709,6 +709,9 @@ CREATE TABLE `teach_info` (
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+-- ALTER teach_info
+ALTER TABLE teach_info ADD teach_style_detail_other varchar(255);
+
 --
 -- Table structure for table `textbook`
 --
