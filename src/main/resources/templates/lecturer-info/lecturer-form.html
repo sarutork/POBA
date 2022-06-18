@@ -15,7 +15,7 @@
         <th:block th:replace="~{fragments/alert}"/>
 
         <form id="form-lecturer" class="form-wrapper">
-            <input type="hidden" id="staffId" name="staffId" th:value="${lecturer.staffId}"/>
+            <input type="hidden" id="lecturerId" name="lecturerId" th:value="${lecturer.lecturerId}"/>
             <div class="row col-sm-12 mb-2">
                 <label><b>ข้อมูลวิทยากร</b></label>
             </div>
@@ -41,7 +41,7 @@
                 <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
                        th:attr="value=${lecturer.prefixOther != null}? ${lecturer.prefixOther}: ''"
                        th:classappend="${lecturer.prefix == 'อื่นๆ'}? 'd-block':'d-none'"
-                       th:disabled="${lecturer.staffId != 0}"/>
+                       th:disabled="${lecturer.lecturerId != 0}"/>
 
                 <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
@@ -67,8 +67,36 @@
                        th:attr="value=${lecturer.teachDate != null}? ${lecturer.teachDate}: ''"/>
             </div>
             <div class="row mb-2">
-                <label for="noteOfTeach" class="form-control-label col-sm-2">เอกสารแนบ: ::TODO::</label>
+                <label for="noteOfTeach" class="form-control-label col-sm-2">เอกสารแนบ:</label>
+                <div class="row px-3 mb-3">
+                    <div class="col-sm-2 px-0">
+                        <label class="btn btn-outline-poba" for="input-file">เลือกไฟล์</label>
+                        <input type="file" id="input-file" multiple hidden/>
+                    </div>
+                </div>
             </div>
+
+            <div class="row px-3 mb-3">
+                <div class="offset-md-2 col-md-8 col-lg-6">
+                    <div id="file-divs" class="row">
+                        <th:block th:if="*{lecturer.uploads}"
+                                  th:each="upload : *{lecturer.uploads}">
+                            <div class="col-sm-6 mb-2 uploadDiv" th:classappend="${viewName == 'ดูข้อมูล'? 'd-none' : 'd-block' }">
+                                <span class="file-name" th:text="${upload.filename}"></span>
+                                <span class="file-remove close mdi mdi-close-circle" onclick="removeUploadedFile(this)"></span>
+                                <input class="file-id" type="hidden" th:value="${upload.id}"/>
+                            </div>
+                            <div class="col-sm-6 mb-2 downloadDiv" th:classappend="${viewName == 'ดูข้อมูล'? 'd-block' : 'd-none'}">
+                                <a th:href="|/poba/download/download-pdf/lecturer/${upload.id}_${upload.filename}|" target="_blank" rel="noopener"
+                                    th:text="${upload.filename}"></a>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+
+
+
             <div class="row mb-2">
                 <label for="noteOfTeach" class="form-control-label col-sm-2">หมายเหตุ:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="noteOfTeach" name="noteOfTeach"
@@ -174,7 +202,7 @@
                 <input type="text" class="form-control bg-white col-sm-2" id="teachLocationOther" name="teachLocationOther" placeholder="อื่นๆ โปรดระบุ"
                        th:attr="value=${lecturer.teachLocationOther != null}? ${lecturer.teachLocationOther}: ''"
                        th:classappend="${lecturer.teachLocation == 'อื่นๆ'}? 'd-block':'d-none'"
-                       th:disabled="${lecturer.staffId != 0}"/>
+                       th:disabled="${lecturer.lecturerId != 0}"/>
             </div>
             <div class="row mb-2">
                 <label for="teachRoom" class="form-control-label col-sm-2">ห้อง<span style="color:red !important;">*</span>:</label>
@@ -207,11 +235,11 @@
             </div>
 
         </form>
-        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${lecturer.staffId == 0 ? 'd-block' : 'd-none'} ">
+        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${lecturer.lecturerId == 0 ? 'd-block' : 'd-none'} ">
             <button type="button" class="btn btn-poba mr-3" onclick="submitLecturerInfo();">บันทึก</button>
             <a href="javascript:void(0)" onclick="loadView('/poba/lecturer')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
         </div>
-        <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${lecturer.staffId != 0 ? 'd-block' : 'd-none'}">
+        <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${lecturer.lecturerId != 0 ? 'd-block' : 'd-none'}">
             <a href="javascript:void(0)" onclick="loadView('/poba/lecturer')" class="btn btn-poba mr-3">ยกเลิก</a>
             <button type="button" class="btn btn-outline-poba mr-3" onclick="editLecturerInfo();">แก้ไข</button>
         </div>
@@ -219,8 +247,8 @@
 
     <script>
         $(document).ready(function() {
-             var staffId = $("#staffId").val();
-             if(staffId != '' && staffId > 0){
+             var lecturerId = $("#lecturerId").val();
+             if(lecturerId != '' && lecturerId > 0){
                 $("input").prop("disabled", true);
                 $("select").prop("disabled", true);
              }
@@ -277,6 +305,86 @@
                 $("#semester").prop("disabled", true);
             }
         });
+
+        $('#input-file').on('change', function() {
+            for (let i = 0; i < this.files.length; i++) {
+                let fileDiv = $('<div/>', { class: 'col-sm-6 mb-2' }),
+                    fileName = $('<span/>', { class: 'file-name', text: this.files.item(i).name }),
+                    fileRemove = $('<span/>', { class: 'file-remove close mdi mdi-close-circle' });
+                fileDiv.append(fileName).append(fileRemove);
+                $('#file-divs').append(fileDiv);
+            }
+            for (let file of this.files) {
+                selected.items.add(file);
+            }
+            this.files = selected.files;
+            $('span.file-remove').click(function() {
+                removeFile(this);
+            });
+        });
+
+        function removeFile(fileRemove) {
+            let name = $(fileRemove).prev('span.file-name').text();
+            for (let i = 0; i < selected.items.length; i++) {
+                if (name === selected.items[i].getAsFile().name) {
+                    selected.items.remove(i);
+                    continue;
+                }
+            }
+            $('#input-file')[0].files = selected.files;
+            $(fileRemove).parent().remove();
+        }
+
+        function removeUploadedFile(fileRemove) {
+            let id = $(fileRemove).next('input.file-id').val();
+            for (let i = 0; i < uploaded.length; i++) {
+                if (uploaded[i] == id) {
+                    uploaded.splice(i, 1);
+                    continue;
+                }
+            }
+            $(fileRemove).parent().remove();
+        }
+
+        var uploaded = $('input.file-id').toArray().map(i => Number($(i).val()));
+        var selected = new DataTransfer();
+
+        function submitLecturerInfo(){
+            event.preventDefault();
+            let form = $('#form-lecturer')[0];
+            let formData = new FormData(form);
+            formData.append('filesToKeep', uploaded);
+            $.each(selected.files, function(i, file) {
+                formData.append('newFiles', file);
+            });
+
+            var semester = $("#semester").val();
+            const semesterArray = semester.split(":");
+            if (semesterArray[1] == "กรุณาเลือก"){
+                $("#semester").val("");
+            }
+
+            var type = "POST";
+            $.ajax({
+                 type: type,
+                 url: "/poba/lecturer/save",
+                 enctype: 'multipart/form-data',
+                 data:formData,
+                 processData: false,
+                 contentType: false,
+                 cache: false,
+                 success: function(data) {
+                    setTimeout(function(){
+                        loadView('/poba/lecturer');
+                    },3000);
+                    window.scrollTo(0, 0);
+                    $('.content-wrapper').html(data);
+                 },
+                 error: function (error) {
+                    $('.content-wrapper').html(error.responseText);
+                 }
+            });
+        }
     </script>
 
 </th:block>

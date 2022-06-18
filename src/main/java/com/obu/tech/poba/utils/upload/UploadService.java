@@ -28,6 +28,7 @@ public class UploadService {
     public static final String UPLOAD_GROUP_RESEARCHER = "researcher";
     public static final String UPLOAD_GROUP_THESIS = "thesis";
     public static final String UPLOAD_GROUP_RESOLUTION = "resolution";
+    public static final String UPLOAD_GROUP_LECTURER = "lecturer";
 
 
     @Autowired

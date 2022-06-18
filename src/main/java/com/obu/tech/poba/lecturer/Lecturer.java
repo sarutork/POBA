@@ -1,9 +1,11 @@
 package com.obu.tech.poba.lecturer;
 
+import com.obu.tech.poba.utils.upload.Upload;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,6 +13,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -19,7 +23,7 @@ import java.time.LocalDate;
 public class Lecturer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long staffId;
+    public long lecturerId;
 
     @Size(min = 1, max = 255, message = "โปรดเลือก ปีการศึกษา")
     public String studyYear;
@@ -87,4 +91,15 @@ public class Lecturer {
 
     @Pattern(regexp = "^\\d+$",message="กรุณาตรวจสอบข้อมูล จำนวนนิสิตลงทะเบียนเรียน")
     public String totalStudentsRegister;
+
+    @Transient
+    private List<Upload> uploads;
+
+    @Transient
+    @ToString.Exclude
+    private Long[] filesToKeep;
+
+    @Transient
+    @ToString.Exclude
+    private MultipartFile[] newFiles;
 }

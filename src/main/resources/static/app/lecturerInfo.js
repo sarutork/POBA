@@ -11,7 +11,7 @@ function findLecturerInfo() {
             }
         },
         columns: [
-            { data: "staffId" },
+            { data: "lecturerId" },
             { data: "name"},
             { data: "studyYear" },
             { data: "semester" },
@@ -46,43 +46,13 @@ function findLecturerInfo() {
     $('#table-lecturer tbody').on('click', 'tr', function () {
             if(!$('#table-lecturer tbody tr td').hasClass("dataTables_empty")){
                var data = tableLecturer.row( this ).data();
-                loadView('/poba/lecturer/'+data.staffId);
+                loadView('/poba/lecturer/'+data.lecturerId);
             }
     } );
 }
 
-function submitLecturerInfo(){
-   var semester = $("#semester").val();
-   const semesterArray = semester.split(":");
-   if (semesterArray[1] == "กรุณาเลือก"){
-        $("#semester").val("");
-   }
-    var type = "POST";
-    var staffId = $("#staffId").val();
-    if (staffId != null &&  staffId != 0 ){
-        type = "PUT"
-    }
-    $.ajax({
-         type: type,
-         url: "/poba/lecturer/save",
-         data: $("#form-lecturer").serialize(),
-         success: function(data) {
-            setTimeout(function(){
-                loadView('/poba/lecturer');
-            },3000);
-            window.scrollTo(0, 0);
-            $('.content-wrapper').html(data);
-         },
-         error: function (error) {
-            $('.content-wrapper').html(error.responseText);
-         }
-    });
-}
-
 function editLecturerInfo(){
     $(":input").prop("disabled", false);
-
-    $(".btn-phase").prop("disabled", false);
 
     $("#studyType").trigger("change");
 
@@ -92,7 +62,13 @@ function editLecturerInfo(){
     $("#edit").removeClass("d-block");
     $("#edit").addClass("d-none");
 
-    $("#viewName").text("แก้ไข")
+    $("#viewName").text("แก้ไข");
+
+    $(".uploadDiv").removeClass("d-none");
+    $(".uploadDiv").addClass("d-block");
+
+    $(".downloadDiv").removeClass("d-block");
+    $(".downloadDiv").addClass("d-none");
 
     window.scrollTo(0, 0);
 }
