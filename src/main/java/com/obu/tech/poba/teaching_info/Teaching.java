@@ -1,12 +1,16 @@
 package com.obu.tech.poba.teaching_info;
 
+import com.obu.tech.poba.utils.upload.Upload;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -101,5 +105,16 @@ public class Teaching {
     public String finalExamTimeStart;
 
     public String finalExamTimeEnd;
+
+    @Transient
+    private List<Upload> uploads;
+
+    @Transient
+    @ToString.Exclude
+    private Long[] filesToKeep;
+
+    @Transient
+    @ToString.Exclude
+    private MultipartFile[] newFiles;
 
 }

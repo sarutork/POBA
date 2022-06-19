@@ -51,34 +51,6 @@ function findTeachingInfo() {
     } );
 }
 
-function submitTeachingInfo(){
-   var semester = $("#semester").val();
-   const semesterArray = semester.split(":");
-   if (semesterArray[1] == "กรุณาเลือก"){
-        $("#semester").val("");
-   }
-    var type = "POST";
-    var staffId = $("#staffId").val();
-    if (staffId != null &&  staffId != 0 ){
-        type = "PUT"
-    }
-    $.ajax({
-         type: type,
-         url: "/poba/teaching/save",
-         data: $("#form-teaching").serialize(),
-         success: function(data) {
-            setTimeout(function(){
-                loadView('/poba/teaching');
-            },3000);
-            window.scrollTo(0, 0);
-            $('.content-wrapper').html(data);
-         },
-         error: function (error) {
-            $('.content-wrapper').html(error.responseText);
-         }
-    });
-}
-
 function editTeachingInfo(){
     $(":input").prop("disabled", false);
 
@@ -92,7 +64,13 @@ function editTeachingInfo(){
     $("#edit").removeClass("d-block");
     $("#edit").addClass("d-none");
 
-    $("#viewName").text("แก้ไข")
+    $("#viewName").text("แก้ไข");
+
+    $(".uploadDiv").removeClass("d-none");
+    $(".uploadDiv").addClass("d-block");
+
+    $(".downloadDiv").removeClass("d-block");
+    $(".downloadDiv").addClass("d-none");
 
     window.scrollTo(0, 0);
 }

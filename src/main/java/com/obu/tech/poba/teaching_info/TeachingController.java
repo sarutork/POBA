@@ -3,18 +3,23 @@ package com.obu.tech.poba.teaching_info;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
+import com.obu.tech.poba.utils.upload.Upload;
+import com.obu.tech.poba.utils.upload.UploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.validation.Valid;
 import java.util.List;
+
+import static com.obu.tech.poba.utils.upload.UploadService.UPLOAD_GROUP_LECTURER;
+import static com.obu.tech.poba.utils.upload.UploadService.UPLOAD_GROUP_TEACHING;
 
 @Slf4j
 @Controller
@@ -22,7 +27,6 @@ import java.util.List;
 public class TeachingController {
     static final String FRAGMENT_TEACHING_INFO = "teaching-info/teaching :: teaching";
     static final String FRAGMENT_TEACHING_FORM = "teaching-info/teaching-form :: teaching-form";
-
 
     @Autowired
     private TeachingService teachingService;
@@ -32,6 +36,12 @@ public class TeachingController {
 
     @Autowired
     private YearGeneratorUtils yearGeneratorUtils;
+
+    @Autowired
+    private UploadService uploadService;
+
+    @Value("${poba.upload.teaching}")
+    private String UPLOAD_TEACHING_PATH;
 
     @GetMapping
     public ModelAndView showListView() {
@@ -47,12 +57,29 @@ public class TeachingController {
     @GetMapping("/add")
     public ModelAndView add() {return formAdd(new Teaching());}
 
-    @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ModelAndView save(@ModelAttribute("teaching") @Valid Teaching teaching, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new InvalidInputException(formAdd(teaching), bindingResult);
         }
         try{
+            long staffId = teaching.getStaffId();
+            if(staffId != 0) {
+                List<Upload> remains = uploadService.delete(
+                        teaching.getFilesToKeep(),
+                        UPLOAD_GROUP_TEACHING,
+                        staffId
+                );
+                List<Upload> uploads = uploadService.upload(
+                        teaching.getNewFiles(),
+                        UPLOAD_GROUP_TEACHING,
+                        staffId,
+                        UPLOAD_TEACHING_PATH
+                );
+                remains.addAll(uploads);
+                teaching.setUploads(remains);
+            }
+
             if(!StringUtils.isBlank(teaching.getName())) {
                 String[] fullName = nameConverter.fullNameToNameNSurname(teaching.getName());
                 teaching.setName(fullName[0]);
@@ -61,6 +88,18 @@ public class TeachingController {
 
             Teaching teachingRes = teachingService.save(teaching);
             teachingRes.setName(teachingRes.getName()+" "+teachingRes.getSurname());
+
+            if(staffId == 0) {
+                List<Upload> uploads = uploadService.upload(
+                        teaching.getNewFiles(),
+                        UPLOAD_GROUP_LECTURER,
+                        teachingRes.getStaffId(),
+                        UPLOAD_TEACHING_PATH
+                );
+            }
+
+            List<Upload> uploads = uploadService.getByGroupAndReference(UPLOAD_GROUP_TEACHING, teachingRes.getStaffId());
+            teachingRes.setUploads(uploads);
 
             return viewSuccess(teachingRes);
         }catch (Exception e){
@@ -74,6 +113,10 @@ public class TeachingController {
     public ModelAndView showTeachingInfo(@PathVariable String id){
         Teaching teaching = teachingService.findById(id);
         teaching.setName(teaching.getName()+" "+teaching.getSurname());
+
+        List<Upload> uploads = uploadService.getByGroupAndReference(UPLOAD_GROUP_TEACHING, teaching.getStaffId());
+        teaching.setUploads(uploads);
+
         return view(teaching);
     }
 
