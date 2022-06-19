@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.List;
-
-import static com.obu.tech.poba.utils.upload.UploadService.UPLOAD_GROUP_LECTURER;
 import static com.obu.tech.poba.utils.upload.UploadService.UPLOAD_GROUP_TEACHING;
 
 @Slf4j
@@ -92,7 +90,7 @@ public class TeachingController {
             if(staffId == 0) {
                 List<Upload> uploads = uploadService.upload(
                         teaching.getNewFiles(),
-                        UPLOAD_GROUP_LECTURER,
+                        UPLOAD_GROUP_TEACHING,
                         teachingRes.getStaffId(),
                         UPLOAD_TEACHING_PATH
                 );
