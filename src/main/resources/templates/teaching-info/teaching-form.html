@@ -141,7 +141,7 @@
                 </select>
                 <label for="subjectId" class="form-control-label col-sm-2">รหัสวิชา<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="subjectId" name="subjectId"
-                       th:attr="value=${teaching.subjectId != null}? ${teaching.subjectId} : ''" maxlength="5" required/>
+                       th:attr="value=${teaching.subjectId != null}? ${teaching.subjectId} : ''" maxlength="7" required/>
             </div>
             <div class="row mb-2">
                 <label for="subjectName" class="form-control-label col-sm-2">ชื่อย่อวิชา<span style="color:red !important;">*</span>:</label>
@@ -226,7 +226,10 @@
                 <select type="text" class="form-control bg-white col-sm-2" id="teachStyleDetail" name="teachStyleDetail" required>
                     <option value="">กรุณาเลือก</option>
                     <option value="EMAIL" th:selected="${teaching.teachStyleDetail == 'EMAIL'}? 'selected'">EMAIL</option>
+                    <option value="WEBSITE" th:selected="${teaching.teachStyleDetail == 'WEBSITE'}? 'selected'">WEBSITE</option>
+                    <option value="LINE" th:selected="${teaching.teachStyleDetail == 'LINE'}? 'selected'">LINE</option>
                     <option value="FACEBOOK" th:selected="${teaching.teachStyleDetail == 'FACEBOOK'}? 'selected'">FACEBOOK</option>
+                    <option value="อื่นๆ" th:selected="${teaching.teachStyleDetail == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
                 </select>
                 <label for="teachStyleDetailOther" class="form-control-label col-sm-4">ช่องทางติดต่ออาจารย์ผู้สอน อื่นๆ:</label>
                 <input type="text" class="form-control bg-white col-sm-2" th:field="${teaching.teachStyleDetailOther}" id="teachStyleDetailOther" name="teachStyleDetailOther" required/>
