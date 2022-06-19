@@ -997,3 +997,37 @@ CREATE TABLE `participant` (
   `status` varchar(255),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+
+-- poba.lecturer_info definition
+CREATE TABLE `lecturer_info` (
+  `lecturer_id` bigint NOT NULL AUTO_INCREMENT,
+  `current_credit` int NOT NULL,
+  `institution_info` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `note_of_teach` varchar(255) DEFAULT NULL,
+  `prefix` varchar(255) DEFAULT NULL,
+  `prefix_other` varchar(255) DEFAULT NULL,
+  `semester` varchar(255) DEFAULT NULL,
+  `study_end` varchar(5) DEFAULT NULL,
+  `study_start` varchar(5) DEFAULT NULL,
+  `study_type` varchar(255) DEFAULT NULL,
+  `study_year` varchar(255) DEFAULT NULL,
+  `subject_credit` int NOT NULL,
+  `subject_id` int NOT NULL,
+  `subject_name` varchar(255) DEFAULT NULL,
+  `surname` varchar(255) DEFAULT NULL,
+  `teach_date` date DEFAULT NULL,
+  `teach_day` varchar(255) DEFAULT NULL,
+  `teach_location` varchar(255) DEFAULT NULL,
+  `teach_location_other` varchar(255) DEFAULT NULL,
+  `teach_room` varchar(255) DEFAULT NULL,
+  `teach_style` varchar(255) DEFAULT NULL,
+  `teach_style_detail` varchar(255) DEFAULT NULL,
+  `teach_style_detail_other` varchar(255) DEFAULT NULL,
+  `teach_times` int NOT NULL,
+  `teach_topic` varchar(255) DEFAULT NULL,
+  `teach_type` varchar(255) DEFAULT NULL,
+  `total_of_students` varchar(255) DEFAULT NULL,
+  `total_students_register` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`lecturer_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
