@@ -79,9 +79,20 @@ function editStudentInfo(){
     window.scrollTo(0, 0);
 }
 function searchSummary(){
+    if(window.tableStudents2 != undefined){
+        window.tableStudents2.fnDestroy();
+    }
     $.when(validateSummarySearch()).then(function(data){
         if(data == true){
-            summaryStudentSearch();
+            $.when(summaryStudentSearch()).then(function(data){
+                if(data.body.length > 0){
+                    window.tableStudents2 = $("#table-students2").dataTable();
+                }else{
+                    if(window.tableStudents2 != undefined){
+                        window.tableStudents2.fnDestroy();
+                    }
+                }
+            });
         }
     });
 }
@@ -123,12 +134,11 @@ function validateSummarySearch(){
     return true;
 }
 function summaryStudentSearch(){
-    $.ajax({
+    return $.ajax({
          type: "GET",
          url: "/poba/students/summary/search",
          data: {"fromYear" : $("#fromYear").val(),"toYear" : $("#toYear").val(),level:$("#studentsLevel").val()},
          success: function(data) {
-            console.log(data);
             $("#table-students2 tbody").html("");
             var thtr = "<tr><th>#</th>";
             for(var i =0 ;i < data.header.length ;i++){
