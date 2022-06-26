@@ -6,12 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
-import static com.obu.tech.poba.utils.search.SearchOperator.EQUAL;
 import static com.obu.tech.poba.utils.search.SearchOperator.LIKE;
 
 @Service
@@ -45,17 +43,59 @@ public class StudentsService {
         }
     }
 
-    public List<Map<String,String>> findByYear(String year){
-        List<Map<String,String>> maps = new ArrayList<>();
-        List<StudentsSummary> results = studentsSummaryRepository.findRoles(year);
+    public Map<String,Object> findByYear(String fromYear,String toYear,String studentsLevel){
+        List<StudentsSummary> result = new ArrayList<>();
+        List<Object[]> results = studentsSummaryRepository.findYear(fromYear,toYear,studentsLevel);
+        AtomicInteger i = new AtomicInteger(1);
         results.stream().forEach(data->{
-            Map<String,String> map = new HashMap<>();
-            map.put("fullname",data.getFullName());
-            map.put("year", data.getYear());
-            map.put("total",data.getTotal());
-            maps.add(map);
+
+            StudentsSummary studentsSummary = new StudentsSummary();
+            String name = (String) data[0];
+            String surname = (String) data[1];
+
+            studentsSummary.setFullName(name.concat(" ").concat(surname));
+            studentsSummary.setYear((String) data[2]);
+            studentsSummary.setTotal(String.valueOf(data[3]));
+
+            studentsSummary.setRowNum(String.valueOf(i.getAndIncrement()));
+
+            result.add(studentsSummary);
         });
-        return maps;
+
+        Map<String, List<StudentsSummary>> groupByNameMap =
+                result.stream().collect(Collectors.groupingBy(StudentsSummary::getFullName));
+
+        List<String> ls1 = new ArrayList<>();
+        ls1.add("0");
+        int fYear = Integer.parseInt(fromYear);
+        int tYear = Integer.parseInt(toYear);
+        int betweenYear = tYear - fYear;
+        int pYear = 10 - betweenYear;
+        for(int x = fYear; x <= tYear; x++){
+            ls1.add(String.valueOf(x));
+        }
+        List<String> y = ls1.stream().distinct().sorted().collect(Collectors.toList());
+        if(betweenYear < 10){
+            for(int k =1 ;k<pYear;k++){
+                y.add("-");
+            }
+        }
+
+        List<Map<String,String>> rest = new ArrayList<>();
+        groupByNameMap.forEach((k,v)->{
+            Map<String,String> res = new HashMap<>();
+            res.put("name",k);
+            v.stream().forEach(sum->{
+                res.put(sum.getYear(),sum.getTotal());
+            });
+            rest.add(res);
+        });
+
+        Map<String,Object> mapResult = new HashMap<>();
+        mapResult.put("header",y);
+        mapResult.put("body",rest);
+
+        return mapResult;
     }
 
     public List<Students> findByNameOrId(String searchTxt){

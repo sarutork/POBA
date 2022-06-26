@@ -10,6 +10,13 @@ import java.util.List;
 
 @Repository
 public interface StudentsSummaryRepository extends JpaRepository<Students, Long>, JpaSpecificationExecutor<Students> {
-    @Query("FROM Students WHERE studentsYear = :year")
-    List<StudentsSummary> findRoles(@Param("year") String year);
+    @Query("SELECT s.name,s.surname,s.studentsYear as year, " +
+            "COUNT(*) AS total FROM Students AS s " +
+            "WHERE s.studentsYear BETWEEN  :fromYear AND :toYear " +
+            "AND s.studentsLevel = :studentsLevel " +
+            "GROUP BY s.name,s.surname,s.studentsYear " +
+            "ORDER BY s.studentsYear ")
+    List<Object[]> findYear(@Param("fromYear") String fromYear,
+                            @Param("toYear") String toYear,
+                            @Param("studentsLevel") String studentsLevel);
 }

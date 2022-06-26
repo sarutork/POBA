@@ -15,94 +15,57 @@
 
         <form id="form-training" class="form-inline justify-content-end flex-md-row flex-column">
             <div class="form-group mb-3">
-                <label for="studentsYear" class="mr-1">รายงาน:</label>
-                <select type="text" class="form-control bg-white mr-3" id="studentsYear" name="studentsYear">
+                <label for="studentsLevel" class="mr-1">รายงาน:</label>
+                <select type="text" class="form-control bg-white mr-3" id="studentsLevel" name="studentsLevel">
                     <option value="">กรุณาเลือก</option>
-                    <option value="ตรี">จำนวนนิสิต(ในที่ปรึกษา ป.ตรี)</option>
-                    <option value="โท">จำนวนนิสิต(ในที่ปรึกษา ป.โท)</option>
-                    <option value="เอก">จำนวนนิสิต(ในที่ปรึกษา ป.เอก)</option>
+                    <option value="ปริญญาตรี">จำนวนนิสิต(ในที่ปรึกษา ป.ตรี)</option>
+                    <option value="ปริญญาโท">จำนวนนิสิต(ในที่ปรึกษา ป.โท)</option>
+                    <option value="ปริญญาเอก">จำนวนนิสิต(ในที่ปรึกษา ป.เอก)</option>
                 </select>
             </div>
             <div class="form-group mb-2">
-                <label for="startYear" class="mr-1">ปีที่เข้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="form-control bg-white mr-3" id="startYear" name="startYear">
+                <label for="fromYear" class="mr-1">ปีที่เข้า<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="form-control bg-white mr-3" id="fromYear" name="fromYear">
                     <option value="">กรุณาเลือก</option>
-                    <option value="2565">2565</option>
-                    <option value="2564">2564</option>
-                    <option value="2563">2563</option>
+                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
                 </select>
             </div>
             <div class="form-group mb-2">
-                <label for="endYear" class="mr-1">ถึง<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="form-control bg-white mr-2" id="endYear" name="endYear">
+                <label for="toYear" class="mr-1">ถึง<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="form-control bg-white mr-2" id="toYear" name="toYear">
                     <option value="">กรุณาเลือก</option>
-                    <option value="2565">2565</option>
-                    <option value="2564">2564</option>
-                    <option value="2563">2563</option>
-                </select>
-            </div>
-            <div class="form-group mb-3">
-                <label for="studentsYear" class="mr-1">ประเภทนิสิต:</label>
-                <select type="text" class="form-control bg-white mr-2" id="b1" name="b1">
-                    <option value="">กรุณาเลือก</option>
-                    <option value="ตรี">จำนวนนิสิต(ในที่ปรึกษา ป.ตรี)</option>
-                    <option value="โท">จำนวนนิสิต(ในที่ปรึกษา ป.โท)</option>
-                    <option value="เอก">จำนวนนิสิต(ในที่ปรึกษา ป.เอก)</option>
+                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
                 </select>
             </div>
             <div class="form-group mb-2">
-                <button type="button" class="btn btn-outline-poba mr-2" onclick="">ค้นหา</button>
+                <button type="button" class="btn btn-outline-poba mr-2" onclick="summaryStudentSearch()">ค้นหา</button>
             </div>
         </form>
-
         <div class="table table-responsive">
-            <table id="table-students" class="display" width="100%">
+            <table id="table-students2" class="display" width="100%">
                 <thead>
                 <tr>
                     <th>#</th>
                     <th>ข้อมูลอาจารย์ที่สอน</th>
-                    <th>574X</th>
-                    <th>584X</th>
-                    <th>594X</th>
-                    <th>604X</th>
-                    <th>614X</th>
-                    <th>624X</th>
-                    <th>634X</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td colspan="9" class="dataTables_empty text-center bg-secondary">รายงานจำนวนนิสิต</td>
+                    <td colspan="12" class="dataTables_empty text-center bg-secondary">รายงานจำนวนนิสิต</td>
                 </tr>
                 </tbody>
             </table>
         </div>
-
-<!--        <ul class="test">-->
-<!--            <li><label for="datepicker-th">พ.ศ.</label><input type="text" id="datepicker-th" name="date1" /></li>-->
-<!--            <li><label for="datepicker-th-2">พ.ศ. แบบมีให้เลือกปี/เดือน</label> <input type="text" id="datepicker-th-2" name="date0" /></li>-->
-<!--            <li><label for="datepicker-en">ค.ศ.</label><input type="text" id="datepicker-en" name="date2" /></li>-->
-<!--        </ul>-->
-
     </div>
-<!--    <script type="text/javascript">-->
-<!--		  $(function () {-->
-<!--		    var d = new Date();-->
-<!--		    var toDay = d.getDate() + '/'+ (d.getMonth() + 1) + '/'+ (d.getFullYear() + 543);-->
-
-<!--				// Datepicker-->
-<!--		    $("#datepicker-th").datepicker({ dateFormat: 'dd/mm/yy', isBuddhist: true, defaultDate: toDay, dayNames: ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'],-->
-<!--              dayNamesMin: ['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'],-->
-<!--              monthNames: ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'],-->
-<!--              monthNamesShort: ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.']});-->
-<!--			  $("#datepicker-th-2").datepicker({ changeMonth: true, changeYear: true,dateFormat: 'dd/mm/yy', isBuddhist: true, defaultDate: toDay,dayNames: ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์','เสาร์'],-->
-<!--              dayNamesMin: ['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'],-->
-<!--              monthNames: ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'],-->
-<!--              monthNamesShort: ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.']});-->
-<!--			  $("#datepicker-en").datepicker({ dateFormat: 'dd/mm/yy'});-->
-<!--			  $("#inline").datepicker({ dateFormat: 'dd/mm/yy', inline: true });-->
-<!--			});-->
-<!--		</script>-->
-
 </th:block>
 </html>

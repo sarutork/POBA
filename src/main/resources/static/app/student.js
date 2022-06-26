@@ -78,3 +78,57 @@ function editStudentInfo(){
 
     window.scrollTo(0, 0);
 }
+
+function summaryStudentSearch(){
+    $.ajax({
+         type: "GET",
+         url: "/poba/students/summary/search",
+         data: {"fromYear" : $("#fromYear").val(),"toYear" : $("#toYear").val(),level:$("#studentsLevel").val()},
+         success: function(data) {
+            console.log(data);
+            $("#table-students2 tbody").html("");
+            var thtr = "<tr><th>#</th>";
+            for(var i =0 ;i < data.header.length ;i++){
+                if(data.header[i] == 0){
+                    thtr += "<th>อาจารย์ที่ปรึกษา</th>";
+                }else{
+                    if(data.header[i]!= "-"){
+                        thtr += "<th>"+data.header[i].substring(2,4)+"4X</th>";
+                    }else{
+                        thtr += "<th>"+data.header[i]+"</th>";
+                    }
+
+                }
+            }
+            thtr += "</tr>";
+            $("#table-students2 thead").html(thtr);
+
+            if(data.body.length > 0){
+                for(var i =0 ;i < data.body.length ;i++){
+                    var trtd = "<tr><td>"+(i+1)+"</td>";
+                    for(var j =0 ;j < data.header.length ;j++){
+                        if(j == 0){
+                            trtd += "<td>"+data.body[i].name+"</td>";
+                        }else{
+                            if(data.body[i][data.header[j]] != undefined){
+                                trtd += "<td>"+data.body[i][data.header[j]]+"</td>";
+                            }else{
+                                trtd += "<td> - </td>";
+                            }
+
+                        }
+
+                    }
+                    trtd += "</tr>";
+                    $("#table-students2 tbody").append(trtd);
+                }
+            }else{
+                $("#table-students2 tbody").html('<tr><td colspan="12" class="dataTables_empty text-center bg-secondary">รายงานจำนวนนิสิต</td></tr>');
+            }
+
+         },
+         error: function (error) {
+            $('.content-wrapper').html(error.responseText);
+         }
+    });
+}

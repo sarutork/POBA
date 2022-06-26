@@ -1,6 +1,7 @@
 package com.obu.tech.poba.students;
 
 import com.obu.tech.poba.utils.NameConverterUtils;
+import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -28,11 +29,19 @@ public class StudentsSummaryController {
     @Autowired
     private NameConverterUtils nameConverter;
 
+    @Autowired
+    private YearGeneratorUtils yearGeneratorUtils;
+
     @GetMapping
-    public ModelAndView showListView() {return new ModelAndView(FRAGMENT_STUDENT_SUMMARY);}
+    public ModelAndView showListView() {
+        List<Integer> years = yearGeneratorUtils.genYears();
+        return new ModelAndView(FRAGMENT_STUDENT_SUMMARY).addObject("years",years);
+    }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Students>> search(@ModelAttribute Students students) {
-        return ResponseEntity.ok().body(studentsService.findBySearchCriteria(students));
+    public ResponseEntity<?> search(@ModelAttribute StudentsSummary students) {
+        return ResponseEntity.ok().body(studentsService.findByYear(students.getFromYear(),
+                students.getToYear(),
+                students.getLevel()));
     }
 }
