@@ -78,7 +78,50 @@ function editStudentInfo(){
 
     window.scrollTo(0, 0);
 }
+function searchSummary(){
+    $.when(validateSummarySearch()).then(function(data){
+        if(data == true){
+            summaryStudentSearch();
+        }
+    });
+}
+function validateSummarySearch(){
+    var yearStart = $('#fromYear').val();
+    var yearEnd = $('#toYear').val();
 
+        if($("#studentsLevel").val() == ""){
+            $("#msgAlert").text("กรุณาเลือกประเภทรายงาน");
+            $("#msgAlertDiv").removeClass("d-none");
+            $("#msgAlertDiv").addClass("d-block");
+            return false;
+        }
+
+        if(yearStart == "" || yearEnd == ""){
+            $("#msgAlert").text("กรุณาเลือกปีที่เข้าศึกษา");
+            $("#msgAlertDiv").removeClass("d-none");
+            $("#msgAlertDiv").addClass("d-block");
+            return false;
+        }
+
+        var yearStartInt = parseInt(yearStart);
+        var yearEndInt = parseInt(yearEnd);
+
+        if(yearEndInt - yearStartInt < 0){
+            $("#msgAlert").text("กรุณาเลือกปีที่เข้าศึกษาเริ่มต้นน้อยกว่าปีที่เข้าศึกษาสิ้นสุด");
+            $("#msgAlertDiv").removeClass("d-none");
+            $("#msgAlertDiv").addClass("d-block");
+            return false;
+        }else if(yearEndInt - yearStartInt > 9){
+            $("#msgAlert").text("เงื่อนไขในการค้นหาต้องไม่เกิน 10 ปี");
+            $("#msgAlertDiv").removeClass("d-none");
+            $("#msgAlertDiv").addClass("d-block");
+            return false;
+        }
+
+        $("#msgAlertDiv").removeClass("d-block");
+        $("#msgAlertDiv").addClass("d-none");
+    return true;
+}
 function summaryStudentSearch(){
     $.ajax({
          type: "GET",

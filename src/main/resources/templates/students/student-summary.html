@@ -10,12 +10,15 @@
     </div>
 
     <div class="px-3">
-
+        <div id="msgAlertDiv" class ="alert alert-dismissible alert-danger d-none">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <span id="msgAlert"></span>
+        </div>
         <th:block th:replace="~{fragments/alert}"/>
 
         <form id="form-training" class="form-inline justify-content-end flex-md-row flex-column">
             <div class="form-group mb-3">
-                <label for="studentsLevel" class="mr-1">รายงาน:</label>
+                <label for="studentsLevel" class="mr-1">รายงาน<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="form-control bg-white mr-3" id="studentsLevel" name="studentsLevel">
                     <option value="">กรุณาเลือก</option>
                     <option value="ปริญญาตรี">จำนวนนิสิต(ในที่ปรึกษา ป.ตรี)</option>
@@ -38,7 +41,7 @@
                 </select>
             </div>
             <div class="form-group mb-2">
-                <button type="button" class="btn btn-outline-poba mr-2" onclick="summaryStudentSearch()">ค้นหา</button>
+                <button type="button" class="btn btn-outline-poba mr-2" onclick="searchSummary()">ค้นหา</button>
             </div>
         </form>
         <div class="table table-responsive">
