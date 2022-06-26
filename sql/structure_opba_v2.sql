@@ -306,10 +306,7 @@ DROP TABLE IF EXISTS `press_info`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `press_info` (
   `press_id` int NOT NULL AUTO_INCREMENT,
-  `prefix` varchar(255) NOT NULL,
-  `prefix_other` varchar(255),
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255),
+  `pers_no` varchar(11),
   `press_name` varchar(255),
   `press_date` date,
   `press_topic` varchar(255),

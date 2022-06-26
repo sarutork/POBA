@@ -16,33 +16,19 @@
 
         <form id="form-press" class="form-wrapper">
             <input type="hidden" id="pressId" name="pressId" th:value="${press.pressId}"/>
+            <input type="hidden" id="persNo" name="persNo" th:field="${press.persNo}"/>
+
+            <div class="row col-sm-12 mb-2">
+                <label><b>ข้อมูลบุคลากร</b></label>
+            </div>
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
-                    <option value="">กรุณาเลือก</option>
-                    <option value="นาย" th:selected="${press.prefix == 'นาย'}? 'selected'">นาย</option>
-                    <option value="นางสาว" th:selected="${press.prefix == 'นางสาว'}? 'selected'">นางสาว</option>
-                    <option value="นาง" th:selected="${press.prefix == 'นาง'}? 'selected'">นาง</option>
-                    <option value="อ." th:selected="${press.prefix == 'อ.'}? 'selected'">อ.</option>
-                    <option value="อ.ดร." th:selected="${press.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
-                    <option value="ผศ." th:selected="${press.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
-                    <option value="ผศ.ดร." th:selected="${press.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
-                    <option value="รศ." th:selected="${press.prefix == 'รศ.'}? 'selected'">รศ.</option>
-                    <option value="รศ.ดร." th:selected="${press.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
-                    <option value="ศ." th:selected="${press.prefix == 'ศ.'}? 'selected'">ศ.</option>
-                    <option value="ศ.ดร." th:selected="${press.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
-                    <option value="อื่นๆ" th:selected="${press.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
-                </select>
-
-                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${press.prefix == 'อื่นๆ'}? 'd-none':'d-block'"></div>
-                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
-                       th:attr="value=${press.prefixOther != null}? ${press.prefixOther}: ''"
-                       th:classappend="${press.prefix == 'อื่นๆ'}? 'd-block':'d-none'"
-                       th:disabled="${press.pressId != 0}"/>
-
+                <input type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"
+                       th:value="${press.prefix}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
                 <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
-                       th:attr="value=${press.name != null}? ${press.name}: ''" maxlength="255" required/>
+                       th:value="${press.name}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
+                <button type="button" class="btn btn-poba btn-add ml-2" data-toggle="modal" data-target="#personnelModal">ค้นหา</button>
             </div>
 
             <div class="row mb-2">
@@ -173,6 +159,44 @@
             </div>
 
         </form>
+        <!-- Modal -->
+        <div class="modal fade" id="personnelModal" tabindex="-1" role="dialog" aria-labelledby="findPersonnelModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">ค้นหา</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                            <input id="searchTxt" type="text" class="col-8 mr-2 form-control flex-xl-grow-1" placeholder="ค้นหาด้วยเลขประจำตัว/ชื่อ">
+                            <button type="button" class="btn btn-info" onclick="findPersonnel()">ค้นหา</button>
+                        </div>
+                    </div>
+                    <div class="table table-responsive">
+                        <table id="table-personnel-modal" class="display" width="100%">
+                            <thead>
+                            <tr>
+                                <th>เลขประจำตัว</th>
+                                <th>ชื่อ-นามสกุล</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td colspan="2" class="dataTables_empty text-center bg-secondary">บุคคลากร</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-poba" data-dismiss="modal">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${viewName != 'ดูข้อมูล' ? 'd-block' : 'd-none'} ">
             <button type="button" class="btn btn-poba mr-3" onclick="submitPressInfo();">บันทึก</button>
             <a href="javascript:void(0)" onclick="loadView('/poba/press')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
@@ -190,24 +214,6 @@
                 $("input").prop("disabled", true);
                 $("select").prop("disabled", true);
              }
-        });
-
-        $('#prefix').change(function(){
-            var value = $(this).val();
-            if(value == "อื่นๆ"){
-                $("#prefixOther").removeClass("d-none");
-                $("#prefixOther").addClass("d-block");
-
-                $("#prefixOtherTmp").removeClass("d-block");
-                $("#prefixOtherTmp").addClass("d-none");
-            }else{
-                $("#prefixOther").val("");
-                $("#prefixOther").removeClass("d-block");
-                $("#prefixOther").addClass("d-none");
-
-                $("#prefixOtherTmp").removeClass("d-none");
-                $("#prefixOtherTmp").addClass("d-block");
-            }
         });
 
         $('#guestPrefix1').change(function(){

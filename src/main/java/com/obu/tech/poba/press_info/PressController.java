@@ -1,5 +1,7 @@
 package com.obu.tech.poba.press_info;
 
+import com.obu.tech.poba.personnel_info.profile.Profile;
+import com.obu.tech.poba.personnel_info.profile.ProfileService;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,9 @@ public class PressController {
     @Autowired
     PressService pressService;
 
+    @Autowired
+    ProfileService profileService;
+
     @GetMapping
     public ModelAndView showListView() {return new ModelAndView(FRAGMENT_PRESS_INFO);}
 
@@ -40,16 +45,15 @@ public class PressController {
     public ModelAndView add() {return formAdd(new Press());}
 
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView save(@ModelAttribute("press") @Valid Press press, BindingResult bindingResult) {
+    public ModelAndView save(@ModelAttribute("press")@Valid Press press, BindingResult bindingResult) {
+        System.out.println(bindingResult.hasErrors());
+        System.out.println(press.getPersNo());
         if (bindingResult.hasErrors()) {
+            System.out.println(1);
             throw new InvalidInputException(formAdd(press), bindingResult);
         }
         try{
-            if(!StringUtils.isBlank(press.getName())) {
-                String[] fullName = nameConverter.fullNameToNameNSurname(press.getName());
-                press.setName(fullName[0]);
-                press.setSurname(fullName[1]);
-            }
+
             if(!StringUtils.isBlank(press.getGuestName1())) {
                 String[] fullName = nameConverter.fullNameToNameNSurname(press.getGuestName1());
                 press.setGuestName1(fullName[0]);
@@ -67,7 +71,8 @@ public class PressController {
             }
 
             Press pressRes = pressService.save(press);
-            pressRes.setName(press.getName()+" "+pressRes.getSurname());
+            pressRes.setPrefix(press.getPrefix());
+            pressRes.setName(press.getName());
 
             if(!StringUtils.isBlank(pressRes.getGuestName1())) {
                 pressRes.setGuestName1(pressRes.getGuestName1() + " " + pressRes.getGuestSurname1());
@@ -90,7 +95,10 @@ public class PressController {
     @GetMapping(value = "/{id}")
     public ModelAndView showPresentingInfo(@PathVariable String id){
         Press press = pressService.findById(id);
-        press.setName(press.getName()+" "+press.getSurname());
+
+        Profile profile = profileService.findByPersNo(press.getPersNo());
+        press.setPrefix(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+        press.setName(profile.getName()+" "+profile.getSurname());
 
         if(!StringUtils.isBlank(press.getGuestName1())) {
             press.setGuestName1(press.getGuestName1() + " " + press.getGuestSurname1());

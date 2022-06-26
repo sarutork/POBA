@@ -8,11 +8,13 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
+import static com.obu.tech.poba.utils.search.SearchOperator.EQUAL;
 import static com.obu.tech.poba.utils.search.SearchOperator.LIKE;
 @Service
 public class ProfileService {
     @Autowired
     ProfileRepository profileRepository;
+
     List<Profile> findBySearchCriteria(Profile profile){
         return profileRepository.findAll(new SearchConditionBuilder<Profile>()
                 .ifNotNullThenAnd("name", LIKE, profile.getName())
@@ -41,5 +43,9 @@ public class ProfileService {
                 .ifNotNullThenOr("persNo", LIKE,searchTxt)
                 .build()
         );
+    }
+
+    public Profile findByPersNo(String persNo){
+        return profileRepository.findByPersNo(persNo);
     }
 }
