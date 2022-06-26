@@ -37,6 +37,11 @@ public class ProfileController {
         return ResponseEntity.ok().body(profileService.findBySearchCriteria(profile));
     }
 
+    @GetMapping("/search-txt")
+    public ResponseEntity<List<Profile>> findByTxt(String searchTxt) {
+        return ResponseEntity.ok().body(profileService.findByNameOrId(searchTxt));
+    }
+
     @GetMapping(value = "/add")
     public ModelAndView showAddView() { return formAdd(new Profile());}
 
