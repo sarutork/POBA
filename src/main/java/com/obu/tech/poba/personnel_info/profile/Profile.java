@@ -83,10 +83,8 @@ public class Profile {
     @Size(min = 1, max = 255, message = "โปรดเลือก ชื่อโครงสร้างระดับ2")
     private String structureNameLevel2;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก ชื่อโครงสร้างระดับ3")
     private String structureNameLevel3;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก ชื่อโครงสร้างระดับ4")
     private String structureNameLevel4;
 
     @Size(min = 1, max = 255, message = "โปรดเลือก กลุ่มพนักงาน")
