@@ -175,15 +175,16 @@
                 <label for="teachDay" class="form-control-label col-sm-2">วัน<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="teachDay" name="teachDay" required>
                     <option value="">กรุณาเลือก</option>
+                    <option value="MO" th:selected="${teaching.teachDay == 'MO'}? 'selected'">MO</option>
+                    <option value="TU" th:selected="${teaching.teachDay == 'TU'}? 'selected'">TU</option>
+                    <option value="WE" th:selected="${teaching.teachDay == 'WE'}? 'selected'">WE</option>
+                    <option value="TH" th:selected="${teaching.teachDay == 'TH'}? 'selected'">TH</option>
+                    <option value="FR" th:selected="${teaching.teachDay == 'FR'}? 'selected'">SU</option>
+                    <option value="SU" th:selected="${teaching.teachDay == 'SU'}? 'selected'">SU</option>
                     <option value="AR" th:selected="${teaching.teachDay == 'AR'}? 'selected'">AR</option>
                     <option value="TO BE ARRANGED" th:selected="${teaching.teachDay == 'TO BE ARRANGED'}? 'selected'">TO BE ARRANGED</option>
                     <option value="IA" th:selected="${teaching.teachDay == 'IA'}? 'selected'">IA</option>
                     <option value="INDIVIDUALLY ARRANGED" th:selected="${teaching.teachDay == 'INDIVIDUALLY ARRANGED'}? 'selected'">INDIVIDUALLY ARRANGED</option>
-                    <option value="MO" th:selected="${teaching.teachDay == 'MO'}? 'selected'">MO</option>
-                    <option value="SU" th:selected="${teaching.teachDay == 'SU'}? 'selected'">SU</option>
-                    <option value="TH" th:selected="${teaching.teachDay == 'TH'}? 'selected'">TH</option>
-                    <option value="TU" th:selected="${teaching.teachDay == 'TU'}? 'selected'">TU</option>
-                    <option value="WE" th:selected="${teaching.teachDay == 'WE'}? 'selected'">WE</option>
                 </select>
                 <label for="studyStart" class="form-control-label col-sm-1">เวลาเรียนเริ่มต้น<span style="color:red !important;">*</span>:</label>
                 <input type="time" id="studyStart" name="studyStart" class="form-control col-sm-2"
