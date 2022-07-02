@@ -20,32 +20,24 @@ public class ConsultantThesis {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long thesisId;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า")
     private String prefix;
     private String prefixOther;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-นามสกุล")
     private String name;
     private String surname;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก ตำแหน่งอาจารย์ที่ปรึกษา")
     private String consultantPosition;
 
-    @Size(min = 1, max = 10, message = "กรุณาตรวจสอบข้อมูล เลขประจำตัวนิสิต")
     public String studentsId;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้านิสิต")
     private String studentPrefix;
     private String studentPrefixOther;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-นามสกุล นิสิต")
     private String studentName;
     private String studentSurname;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ระดับการศึกษา")
     private String studentLevel;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล หลักสูตร")
     private String courseName;
 
     private String thesisType;

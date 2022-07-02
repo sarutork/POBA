@@ -18,10 +18,8 @@ public class Journal {
     private long journalId;
     private long thesisId;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-หัวข้อเรื่อง")
     private String publishedTopic;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อวารสาร")
     private String publishedJournal;
 
     private String publishedYear;
@@ -30,8 +28,6 @@ public class Journal {
     private String publishedMonth;
     private String monthOther;
 
-
-    @Size(min = 1, max = 255, message = "โปรดเลือก ปีพิมพ์")
     private String publishedYear2;
 
     private String publishedBase;

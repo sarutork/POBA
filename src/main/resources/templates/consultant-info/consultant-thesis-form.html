@@ -29,8 +29,8 @@
                 <label><b>ข้อมูลกรรมการสอบ</b></label>
             </div>
             <div class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
+                <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix">
                     <option value="">กรุณาเลือก</option>
                     <option value="อ." th:selected="${thesis.prefix == 'อ.'}? 'selected'">อ.</option>
                     <option value="อ.ดร." th:selected="${thesis.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
@@ -46,13 +46,13 @@
                 <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
                        th:attr="value=${thesis.prefixOther != null}? ${thesis.prefixOther}: ''"
                        th:classappend="${thesis.prefix == 'อื่นๆ'}? 'd-block':'d-none'"/>
-                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
-                       th:attr="value=${thesis.name != null}? ${thesis.name}: ''" required/>
+                       th:attr="value=${thesis.name != null}? ${thesis.name}: ''" />
             </div>
             <div class="row mb-2">
-                <label for="consultantPosition" class="form-control-label col-sm-2">ตำแหน่ง<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="consultantPosition" name="consultantPosition" required>
+                <label for="consultantPosition" class="form-control-label col-sm-2">ตำแหน่ง:</label>
+                <select type="text" class="form-control bg-white col-sm-4" id="consultantPosition" name="consultantPosition" >
                     <option value="">กรุณาเลือก</option>
                     <option value="ประธานกรรมการ" th:selected="${thesis.consultantPosition == 'ประธานกรรมการ'}? 'selected'">ประธานกรรมการ</option>
                     <option value="ประธานกรรมการ(ผู้ทรงคุณวุฒิภายนอก)" th:selected="${thesis.consultantPosition == 'ประธานกรรมการ(ผู้ทรงคุณวุฒิภายนอก)'}? 'selected'">ประธานกรรมการ(ผู้ทรงคุณวุฒิภายนอก)</option>
@@ -68,13 +68,13 @@
                 <label><b>ข้อมูลนิสิต</b></label>
             </div>
             <div class="row mb-2">
-                <label for="studentsId" class="form-control-label col-sm-2">เลขประจำตัวนิสิต<span style="color:red !important;">*</span>:</label>
+                <label for="studentsId" class="form-control-label col-sm-2">เลขประจำตัวนิสิต:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="studentsId" name="studentsId"
-                       th:attr="value=${thesis.studentsId != null}? ${thesis.studentsId}: ''" maxlength="10" required/>
+                       th:attr="value=${thesis.studentsId != null}? ${thesis.studentsId}: ''" maxlength="10" />
             </div>
             <div class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="studentPrefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="studentPrefix" name="studentPrefix" required>
+                <label class="col-sm-2 form-control-label" for="studentPrefix">คำนำหน้า:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="studentPrefix" name="studentPrefix" >
                     <option value="">กรุณาเลือก</option>
                     <option value="นาย" th:selected="${thesis.studentPrefix == 'นาย'}? 'selected'">นาย</option>
                     <option value="นางสาว" th:selected="${thesis.studentPrefix == 'นางสาว'}? 'selected'">นางสาว</option>
@@ -84,20 +84,20 @@
                 <div id="studentPrefixOtherTmp" class="col-sm-2" th:classappend="${thesis.studentPrefixOther != null}? 'd-none':'d-block'"></div>
                 <input type="text" class="form-control bg-white col-sm-2" id="studentPrefixOther" name="studentPrefixOther" placeholder="อื่นๆ โปรดระบุ"
                        th:attr="value=${thesis.studentPrefixOther != null}? ${thesis.studentPrefixOther}: ''"
-                       th:classappend="${thesis.studentPrefix == 'อื่นๆ'}? 'd-block':'d-none'" required/>
-                <label for="studentName" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                       th:classappend="${thesis.studentPrefix == 'อื่นๆ'}? 'd-block':'d-none'" />
+                <label for="studentName" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="studentName" name="studentName"
-                       th:attr="value=${thesis.studentName != null}? ${thesis.studentName}: ''" required/>
+                       th:attr="value=${thesis.studentName != null}? ${thesis.studentName}: ''" />
             </div>
             <div class="row mb-2">
-                <label for="studentLevel" class="form-control-label col-sm-2">ระดับการศึกษา<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="studentLevel" name="studentLevel" required>
+                <label for="studentLevel" class="form-control-label col-sm-2">ระดับการศึกษา:</label>
+                <select type="text" class="form-control bg-white col-sm-4" id="studentLevel" name="studentLevel" >
                     <option value="">กรุณาเลือก</option>
                     <option value="ปริญญาโท" th:selected="${thesis.studentLevel == 'ปริญญาโท'}? 'selected'">ปริญญาโท</option>
                     <option value="ปริญญาเอก" th:selected="${thesis.studentLevel == 'ปริญญาเอก'}? 'selected'">ปริญญาเอก</option>
                 </select>
-                <label for="courseName" class="form-control-label col-sm-2">หลักสูตร<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="courseName" name="courseName" required>
+                <label for="courseName" class="form-control-label col-sm-2">หลักสูตร:</label>
+                <select type="text" class="form-control bg-white col-sm-4" id="courseName" name="courseName" >
                     <option value="">กรุณาเลือก</option>
                     <option value="ร.ม.การปกครอง" th:selected="${thesis.courseName == 'ร.ม.การปกครอง'}? 'selected'">ร.ม.การปกครอง</option>
                     <option value="ร.ม.การเมืองฯ" th:selected="${thesis.courseName == 'ร.ม.การเมืองฯ'}? 'selected'">ร.ม.การเมืองฯ</option>
@@ -169,29 +169,29 @@
                 <label><b>ข้อมูลการเผยแพร่บทความ</b></label>
             </div>
             <div class="row mb-2">
-                <label for="publishedTopic" class="form-control-label col-sm-2">ชื่อเรื่อง<span style="color:red !important;">*</span>:</label>
+                <label for="publishedTopic" class="form-control-label col-sm-2">ชื่อเรื่อง:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedTopic" name="publishedTopic"
-                       th:attr="value=${journal.publishedTopic != null}? ${journal.publishedTopic} : ''" maxlength="255" required/>
-                <label for="publishedJournal" class="form-control-label col-sm-2">ชื่อวารสาร/ชื่อหนังสือ<span style="color:red !important;">*</span>:</label>
+                       th:attr="value=${journal.publishedTopic != null}? ${journal.publishedTopic} : ''" maxlength="255" />
+                <label for="publishedJournal" class="form-control-label col-sm-2">ชื่อวารสาร/ชื่อหนังสือ:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedJournal" name="publishedJournal"
-                       th:attr="value=${journal.publishedJournal != null}? ${journal.publishedJournal} : ''" maxlength="255" required/>
+                       th:attr="value=${journal.publishedJournal != null}? ${journal.publishedJournal} : ''" maxlength="255" />
             </div>
             <div class="row mb-2">
                 <label for="publishedYear" class="form-control-label col-sm-2">ปีที่ (Vol.):</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedYear" name="publishedYear"
-                       th:attr="value=${journal.publishedYear != null}? ${journal.publishedYear} : ''" maxlength="255" required/>
+                       th:attr="value=${journal.publishedYear != null}? ${journal.publishedYear} : ''" maxlength="255" />
                 <label for="publishedIssue" class="form-control-label col-sm-2">ฉบับที่ (Issue):</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedIssue" name="publishedIssue"
-                       th:attr="value=${journal.publishedIssue != null}? ${journal.publishedIssue} : ''" maxlength="255" required/>
+                       th:attr="value=${journal.publishedIssue != null}? ${journal.publishedIssue} : ''" maxlength="255" />
             </div>
             <div class="row mb-2">
                 <label for="publishedPage" class="form-control-label col-sm-2">เลขหน้าที่ตีพิมพ์:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="publishedPage" name="publishedPage"
-                       th:attr="value=${journal.publishedPage != null}? ${journal.publishedPage} : ''" maxlength="255" required/>
+                       th:attr="value=${journal.publishedPage != null}? ${journal.publishedPage} : ''" maxlength="255" />
             </div>
             <div class="row mb-2">
                 <label for="publishedMonth" class="form-control-label col-sm-2">เดือน:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="publishedMonth" name="publishedMonth" required>
+                <select type="text" class="col-sm-2 form-control bg-white" id="publishedMonth" name="publishedMonth" >
                     <option value="">กรุณาเลือก</option>
                     <option value="มกราคม" th:selected="${journal.publishedMonth == 'มกราคม'}? 'selected'">มกราคม</option>
                     <option value="กุมภาพันธุ์" th:selected="${journal.publishedMonth == 'กุมภาพันธุ์'}? 'selected'">กุมภาพันธุ์</option>
@@ -212,8 +212,8 @@
                        th:attr="value=${journal.monthOther != null}? ${journal.monthOther}: ''"
                        th:classappend="${journal.publishedMonth == 'อื่นๆ'}? 'd-block':'d-none'"/>
 
-                <label for="publishedYear2" class="form-control-label col-sm-2">ปีพิมพ์<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="col-sm-2 form-control bg-white" th:field="${journal.publishedYear2}" id="publishedYear2" name="publishedYear2" required/>
+                <label for="publishedYear2" class="form-control-label col-sm-2">ปีพิมพ์:</label>
+                <input type="text" class="col-sm-2 form-control bg-white" th:field="${journal.publishedYear2}" id="publishedYear2" name="publishedYear2" />
             </div>
 
 
@@ -233,19 +233,19 @@
                 <label><b>ข้อมูลการนำเสนอผลงาน</b></label>
             </div>
             <div class="row mb-2">
-                <label for="conferenceTopic" class="form-control-label col-sm-2">หัวข้อ<span style="color:red !important;">*</span>:</label>
+                <label for="conferenceTopic" class="form-control-label col-sm-2">หัวข้อ:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="conferenceTopic" name="conferenceTopic"
-                       th:attr="value=${acdConf.conferenceTopic != null}? ${acdConf.conferenceTopic}: ''" required/>
-                <label for="conferenceName" class="form-control-label col-sm-2">ชื่อการประชุม<span style="color:red !important;">*</span>:</label>
+                       th:attr="value=${acdConf.conferenceTopic != null}? ${acdConf.conferenceTopic}: ''" />
+                <label for="conferenceName" class="form-control-label col-sm-2">ชื่อการประชุม:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="conferenceName" name="conferenceName"
-                       th:attr="value=${acdConf.conferenceName != null}? ${acdConf.conferenceName}: ''" required/>
+                       th:attr="value=${acdConf.conferenceName != null}? ${acdConf.conferenceName}: ''" />
             </div>
             <div class="row mb-2">
-                <label for="conferenceInstitution" class="form-control-label col-sm-2">หน่วยงานที่จัด<span style="color:red !important;">*</span>:</label>
+                <label for="conferenceInstitution" class="form-control-label col-sm-2">หน่วยงานที่จัด:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="conferenceInstitution" name="conferenceInstitution"
-                       th:attr="value=${acdConf.conferenceInstitution != null}? ${acdConf.conferenceInstitution}: ''" required/>
-                <label for="conferenceLevel" class="form-control-label col-sm-2">ระดับกิจกรรม<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="conferenceLevel" name="conferenceLevel" required>
+                       th:attr="value=${acdConf.conferenceInstitution != null}? ${acdConf.conferenceInstitution}: ''" />
+                <label for="conferenceLevel" class="form-control-label col-sm-2">ระดับกิจกรรม:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="conferenceLevel" name="conferenceLevel" >
                     <option value="">กรุณาเลือก</option>
                     <option value="ชาติ" th:selected="${acdConf.conferenceLevel == 'ชาติ'}? 'selected'">ระดับชาติ</option>
                     <option value="นานาชาติ" th:selected="${acdConf.conferenceLevel == 'นานาชาติ'}? 'selected'">ระดับนานาชาติ</option>
@@ -254,10 +254,10 @@
             <div class="row mb-2">
                 <label for="conferenceDateFrom" class="form-control-label col-sm-2">วันที่<span style="color:red !important;">*</span>:</label>
                 <input type="date" class="form-control bg-white col-sm-2" id="conferenceDateFrom" name="conferenceDateFrom"
-                       th:attr="value=${acdConf.conferenceDateFrom != null}? ${acdConf.conferenceDateFrom}: ''" required/>
-                <label for="conferenceDateTo" class="mr-3">ถึง:</label>
+                       th:attr="value=${acdConf.conferenceDateFrom != null}? ${acdConf.conferenceDateFrom}: ''" />
+                <label for="conferenceDateTo" class="mr-3">ถึง<span style="color:red !important;">*</span>:</label>
                 <input type="date" class="form-control bg-white col-sm-2" id="conferenceDateTo" name="conferenceDateTo"
-                       th:attr="value=${acdConf.conferenceDateTo != null}? ${acdConf.conferenceDateTo}: ''" required/>
+                       th:attr="value=${acdConf.conferenceDateTo != null}? ${acdConf.conferenceDateTo}: ''" />
             </div>
 
             <div class="row px-3 mb-3">
