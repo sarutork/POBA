@@ -68,6 +68,8 @@ function editPressInfo(){
     $("#edit").removeClass("d-block");
     $("#edit").addClass("d-none");
 
+    $(".btn-search").prop("disabled", false);
+
     $("#viewName").text("แก้ไข")
 
     window.scrollTo(0, 0);

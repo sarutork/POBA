@@ -1,5 +1,6 @@
 package com.obu.tech.poba.students;
 
+import com.obu.tech.poba.personnel_info.profile.Profile;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
@@ -42,6 +43,20 @@ public class StudentsController {
     @GetMapping("/search")
     public ResponseEntity<List<Students>> search(@ModelAttribute Students students) {
         return ResponseEntity.ok().body(studentsService.findBySearchCriteria(students));
+    }
+
+    @GetMapping("/search-txt")
+    public ResponseEntity<List<Students>> findByTxt(String searchTxt) {
+        return ResponseEntity.ok().body(studentsService.findByNameOrId(searchTxt));
+    }
+
+    @GetMapping("/search-txt-level1")
+    public ResponseEntity<List<Students>> findByTxt1(String searchTxt) {
+        return ResponseEntity.ok().body(studentsService.findByNameOrIdAndLevel1(searchTxt));
+    }
+    @GetMapping("/search-txt-level23")
+    public ResponseEntity<List<Students>> findByTxt23(String searchTxt) {
+        return ResponseEntity.ok().body(studentsService.findByNameOrIdAndLevel23(searchTxt));
     }
 
     @GetMapping("/add")

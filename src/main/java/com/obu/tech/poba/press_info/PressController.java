@@ -46,10 +46,7 @@ public class PressController {
 
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ModelAndView save(@ModelAttribute("press")@Valid Press press, BindingResult bindingResult) {
-        System.out.println(bindingResult.hasErrors());
-        System.out.println(press.getPersNo());
         if (bindingResult.hasErrors()) {
-            System.out.println(1);
             throw new InvalidInputException(formAdd(press), bindingResult);
         }
         try{

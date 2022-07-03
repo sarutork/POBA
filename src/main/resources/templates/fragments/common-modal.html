@@ -1,0 +1,116 @@
+<!-- Modal -->
+<div class="modal fade" id="personnelModal" tabindex="-1" role="dialog" aria-labelledby="findPersonnelModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">ค้นหา</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                    <input id="searchTxt" type="text" class="col-8 mr-2 form-control flex-xl-grow-1"
+                           style="background-color: white; color: black;" placeholder="ค้นหาด้วยเลขประจำตัว/ชื่อ">
+                    <button type="button" class="btn btn-info" onclick="findPersonnel()">ค้นหา</button>
+                </div>
+            </div>
+            <div class="table table-responsive">
+                <table id="table-personnel-modal" class="display" width="100%" style="background-color: white;">
+                    <thead>
+                    <tr>
+                        <th>เลขประจำตัว</th>
+                        <th>ชื่อ-นามสกุล</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td colspan="2" class="dataTables_empty text-center bg-secondary">บุคคลากร</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-poba" data-dismiss="modal">ยกเลิก</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="findStudentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalStLabel">ค้นหา</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                    <input id="searchStTxt" type="text" class="col-8 mr-2 form-control flex-xl-grow-1"
+                           style="background-color: white; color: black;" placeholder="ค้นหาด้วยเลขประจำตัว/ชื่อ">
+                    <button type="button" class="btn btn-info" onclick="findStudentModal()">ค้นหา</button>
+                </div>
+            </div>
+            <div class="table table-responsive">
+                <table id="table-student-modal" class="display" width="100%" style="background-color: white;">
+                    <thead>
+                    <tr>
+                        <th>เลขประจำตัว</th>
+                        <th>ชื่อ-นามสกุล</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td colspan="2" class="dataTables_empty text-center bg-secondary">ข้อมูลนิสิต</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-poba" data-dismiss="modal">ยกเลิก</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="student2Modal" tabindex="-1" role="dialog" aria-labelledby="findStudent2ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal2StLabel">ค้นหา</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                    <input id="searchStTxt2" type="text" class="col-8 mr-2 form-control flex-xl-grow-1"
+                           style="background-color: white; color: black;" placeholder="ค้นหาด้วยเลขประจำตัว/ชื่อ">
+                    <button type="button" class="btn btn-info" onclick="findStudent2Modal()">ค้นหา</button>
+                </div>
+            </div>
+            <div class="table table-responsive">
+                <table id="table-student-modal2" class="display" width="100%" style="background-color: white;">
+                    <thead>
+                    <tr>
+                        <th>เลขประจำตัว</th>
+                        <th>ชื่อ-นามสกุล</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td colspan="2" class="dataTables_empty text-center bg-secondary">ข้อมูลนิสิต</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-poba" data-dismiss="modal">ยกเลิก</button>
+            </div>
+        </div>
+    </div>
+</div>

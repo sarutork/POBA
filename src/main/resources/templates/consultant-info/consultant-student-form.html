@@ -21,92 +21,54 @@
         <th:block th:replace="~{fragments/alert}"/>
 
         <form id="form-consultant-student">
-            <input type="hidden" id="staffId" name="staffId" th:value="${consultantStudent.staffId}"/>
+            <input type="hidden" id="consultantStudentId" name="consultantStudentId" th:value="${consultantStudent.consultantStudentId}"/>
+            <input type="hidden" id="persNo" name="persNo" th:field="${consultantStudent.persNo}"/>
+
             <div class="row col-sm-12 mb-2">
                 <label><b>ข้อมูลที่ปรึกษา</b></label>
             </div>
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required
-                        th:disabled="${consultantStudent.staffId != 0}">
-                    <option value="">กรุณาเลือก</option>
-                    <option value="อ." th:selected="${consultantStudent.prefix == 'อ.'}? 'selected'">อ.</option>
-                    <option value="อ.ดร." th:selected="${consultantStudent.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
-                    <option value="ผศ." th:selected="${consultantStudent.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
-                    <option value="ผศ.ดร." th:selected="${consultantStudent.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
-                    <option value="รศ." th:selected="${consultantStudent.prefix == 'รศ.'}? 'selected'">รศ.</option>
-                    <option value="รศ.ดร." th:selected="${consultantStudent.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
-                    <option value="ศ." th:selected="${consultantStudent.prefix == 'ศ.'}? 'selected'">ศ.</option>
-                    <option value="ศ.ดร." th:selected="${consultantStudent.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
-                    <option value="อื่นๆ" th:selected="${consultantStudent.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
-                </select>
-                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${consultantStudent.prefixOther != null}? 'd-none':'d-block'"></div>
-                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
-                       th:attr="value=${consultantStudent.prefixOther != null}? ${consultantStudent.prefixOther}: ''"
-                       th:classappend="${consultantStudent.prefix == 'อื่นๆ'}? 'd-block':'d-none'"
-                       th:disabled="${consultantStudent.staffId != 0}" required/>
+                <input type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"
+                       th:value="${consultantStudent.prefix}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
                 <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
-                       th:attr="value=${consultantStudent.name != null}? ${consultantStudent.name}: ''"
-                       th:disabled="${consultantStudent.staffId != 0}" required/>
+                       th:value="${consultantStudent.name}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
+                <button type="button" class="btn btn-poba btn-search ml-2" data-toggle="modal" data-target="#personnelModal">ค้นหา</button>
             </div>
             <div class="row col-sm-12 mb-2">
                 <label><b>ข้อมูลนิสิต</b></label>
+
             </div>
             <div class="row mb-2">
                 <label for="studentsId" class="form-control-label col-sm-2">เลขประจำตัวนิสิต<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="studentsId" name="studentsId"
-                       th:attr="value=${consultantStudent.studentsId != null}? ${consultantStudent.studentsId}: ''" maxlength="10" required/>
+                       th:value="${consultantStudent.studentsId}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
+                <button type="button" class="btn btn-poba btn-search ml-2" data-toggle="modal" data-target="#studentModal">ค้นหา</button>
             </div>
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="studentPrefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="studentPrefix" name="studentPrefix"
-                        th:disabled="${consultantStudent.staffId != 0}" required>
-                    <option value="">กรุณาเลือก</option>
-                    <option value="นาย" th:selected="${consultantStudent.studentPrefix == 'นาย'}? 'selected'">นาย</option>
-                    <option value="นางสาว" th:selected="${consultantStudent.studentPrefix == 'นางสาว'}? 'selected'">นางสาว</option>
-                    <option value="นาง" th:selected="${consultantStudent.studentPrefix == 'นาง'}? 'selected'">นาง</option>
-                    <option value="อื่นๆ" th:selected="${consultantStudent.studentPrefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
-                </select>
-                <div id="studentPrefixOtherTmp" class="col-sm-2" th:classappend="${consultantStudent.studentPrefixOther != null}? 'd-none':'d-block'"></div>
-                <input type="text" class="form-control bg-white col-sm-2" id="studentPrefixOther" name="studentPrefixOther" placeholder="อื่นๆ โปรดระบุ"
-                       th:attr="value=${consultantStudent.studentPrefixOther != null}? ${consultantStudent.studentPrefixOther}: ''"
-                       th:classappend="${consultantStudent.studentPrefix == 'อื่นๆ'}? 'd-block':'d-none'"
-                       th:disabled="${consultantStudent.staffId != 0}" required/>
+                <input type="text" class="col-sm-2 form-control bg-white" id="studentPrefix" name="studentPrefix"
+                th:value="${consultantStudent.studentPrefix}" readonly/>
                 <label for="studentName" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="studentName" name="studentName"
-                       th:attr="value=${consultantStudent.studentName != null}? ${consultantStudent.studentName}: ''"
-                       th:disabled="${consultantStudent.staffId != 0}" required/>
+                       th:value="${consultantStudent.studentName}" readonly/>
             </div>
             <div class="row mb-2">
                 <label for="yearOfStudy" class="form-control-label col-sm-2">ปีที่เข้าศึกษา<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="form-control bg-white col-sm-4" th:field="${consultantStudent.yearOfStudy}" id="yearOfStudy" name="yearOfStudy" required>
-                    <option value="">กรุณาเลือก</option>
-                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
-                </select>
+                <input type="text" class="form-control bg-white col-sm-4" id="yearOfStudy" name="yearOfStudy"
+                       th:value="${consultantStudent.yearOfStudy}" readonly/>
                 <label for="studentsLevel" class="form-control-label col-sm-2">ระดับการศึกษา<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="studentsLevel" name="studentsLevel"
-                        th:disabled="${consultantStudent.staffId != 0}" required>
-                    <option value="ปริญญาตรี" th:selected="${consultantStudent.studentsLevel == 'ปริญญาตรี'}? 'selected'">ปริญญาตรี</option>
-                </select>
+                <input type="text" class="form-control bg-white col-sm-4" id="studentsLevel" name="studentsLevel"
+                        th:value="${consultantStudent.studentsLevel}" readonly/>
             </div>
             <div class="row mb-2">
                 <label for="admissionStatus" class="form-control-label col-sm-2">สถานะการรับเข้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="admissionStatus" name="admissionStatus" required>
-                    <option value="ปริญญาตรี:กรุณาเลือก">กรุณาเลือก</option>
-                    <option value="ปริญญาตรี:โครงการจุฬาฯ-ชนบท" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:โครงการจุฬาฯ-ชนบท'}? 'selected'">โครงการจุฬาฯ-ชนบท</option>
-                    <option value="ปริญญาตรี:โครงการปอเนอะ" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:โครงการปอเนอะ'}? 'selected'">โครงการปอเนอะ</option>
-                    <option value="ปริญญาตรี:โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)'}? 'selected'">โครงการกีฬาฯ ชาติ (ระบุประเภทกีฬาที่รับเข้า)</option>
-                    <option value="ปริญญาตรี:Admission" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:Admission'}? 'selected'">Admission</option>
-                    <option value="ปริญญาตรี:นิสิตแลกเปลี่ยน" th:selected="${consultantStudent.admissionStatus == 'ปริญญาตรี:นิสิตแลกเปลี่ยน'}? 'selected'">นิสิตแลกเปลี่ยน</option>
-                </select>
+                <input type="text" class="form-control bg-white col-sm-4" id="admissionStatus" name="admissionStatus"
+                       th:value="${consultantStudent.admissionStatus}" readonly/>
                 <label for="course" class="form-control-label col-sm-2">หลักสูตร<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="course" name="course"
-                        th:disabled="${consultantStudent.staffId != 0}" required>
-                    <option value="">กรุณาเลือก</option>
-                    <option value="ร.บ." th:selected="${consultantStudent.course == 'ร.บ.'}? 'selected'">ร.บ.</option>
-                    <option value="ร.บ.(PGS)" th:selected="${consultantStudent.course == 'ร.บ.(PGS)'}? 'selected'">ร.บ.(PGS)</option>
-                </select>
+                <input type="text" class="form-control bg-white col-sm-4" id="course" name="course"
+                        th:value="${consultantStudent.course}" readonly/>
             </div>
             <div class="row mb-2">
                 <label for="department" class="form-control-label col-sm-2">ภาควิชา<span style="color:red !important;">*</span>:</label>
@@ -120,11 +82,11 @@
                 </select>
             </div>
         </form>
-        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${consultantStudent.staffId == 0 ? 'd-block' : 'd-none'} ">
+        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${consultantStudent.consultantStudentId == 0 ? 'd-block' : 'd-none'} ">
             <button type="button" class="btn btn-poba mr-3" onclick="submitConsultantStudent();">บันทึก</button>
             <a href="javascript:void(0)" onclick="loadView('/poba/consultant/students')" class="btn btn-outline-poba ">ยกเลิก</a>
         </div>
-        <div id="edit" class="row mt-5 mb-5 text-align-center" th:classappend="${consultantStudent.staffId != 0 ? 'd-block' : 'd-none'}">
+        <div id="edit" class="row mt-5 mb-5 text-align-center" th:classappend="${consultantStudent.consultantStudentId != 0 ? 'd-block' : 'd-none'}">
             <a href="javascript:void(0)" onclick="loadView('/poba/consultant/students')" class="btn btn-poba mr-3">ยกเลิก</a>
             <button type="button" class="btn btn-outline-poba" onclick="editConsultantStudent();">แก้ไข</button>
         </div>
@@ -132,7 +94,12 @@
 
     <script>
         $(document).ready(function() {
-
+            var viewName = $("#viewName").text();
+             if(viewName == "ดูข้อมูล"){
+                $("input").prop("disabled", true);
+                $("select").prop("disabled", true);
+                $(".btn-search").prop("disabled", true);
+             }
         });
 
         $('#prefix').change(function(){

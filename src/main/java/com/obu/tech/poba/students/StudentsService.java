@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static com.obu.tech.poba.utils.search.SearchOperator.LIKE;
+import static com.obu.tech.poba.utils.search.SearchOperator.NOT_EQUAL;
 
 @Service
 public class StudentsService {
@@ -105,5 +106,28 @@ public class StudentsService {
                 .ifNotNullThenOr("studentsId", LIKE,searchTxt)
                 .build()
         );
+    }
+    public List<Students> findByNameOrIdAndLevel1(String searchTxt){
+        return studentsRepository.findAll(new SearchConditionBuilder<Students>()
+                .ifNotNullThenAnd("studentsName", LIKE, searchTxt)
+                .ifNotNullThenOr("studentsSurname", LIKE, searchTxt)
+                .ifNotNullThenOr("studentsId", LIKE,searchTxt)
+                .ifNotNullThenAnd("studentsLevel", LIKE,"ปริญญาตรี")
+                .build()
+        );
+    }
+
+    public List<Students> findByNameOrIdAndLevel23(String searchTxt){
+        return studentsRepository.findAll(new SearchConditionBuilder<Students>()
+                .ifNotNullThenAnd("studentsName", LIKE, searchTxt)
+                .ifNotNullThenOr("studentsSurname", LIKE, searchTxt)
+                .ifNotNullThenOr("studentsId", LIKE,searchTxt)
+                .ifNotNullThenAnd("studentsLevel", NOT_EQUAL,"ปริญญาตรี")
+                .build()
+        );
+    }
+
+    public Students findByStudentId(String studentId){
+        return studentsRepository.findStudentId(studentId);
     }
 }

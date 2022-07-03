@@ -77,3 +77,107 @@ function findPersonnel() {
             }
     } );
 }
+
+function findStudentModal() {
+  var searchTxt = $('#searchStTxt').val();
+  var tableStModal =  $('#table-student-modal').DataTable({
+        ajax: {
+            type: "GET",
+            url: "/poba/students/search-txt-level1",
+            dataSrc: "",
+            data:{'searchTxt' : searchTxt},
+        },
+        columns: [
+            { data: "studentsId"},
+            { data: null}
+        ],
+        columnDefs: [
+                    {
+                        render: function (data, type, row) {
+                           var prefix = row["studentsPrefix"];
+                              if(prefix == "อื่นๆ"){
+                                   prefix = row["studentsPrefixOther"]
+                              }
+                              var fullName = prefix+' '+row["studentsName"] + ' ' + row["studentsSurname"];
+                                  return fullName;
+                        },
+                        targets: 1,
+                    },
+                    {
+                        "defaultContent": "",
+                        "targets": "_all"
+                    }
+        ],
+        searching: false,
+        "bDestroy": true
+    });
+    $('#table-student-modal tbody').on('click', 'tr', function () {
+            if(!$('#table-student-modal tbody tr td').hasClass("dataTables_empty")){
+               var data = tableStModal.row( this ).data();
+               var prefix = data.studentsPrefix;
+                     if(prefix == "อื่นๆ"){
+                          prefix = data.studentsPrefixOther;
+                     }
+               $('#studentsId').val(data.studentsId);
+               $('#studentPrefix').val(prefix);
+               $('#studentName').val(data.studentsName+" "+data.studentsSurname);
+               $('#yearOfStudy').val(data.studentsYear);
+               $('#studentsLevel').val(data.studentsLevel);
+               $('#admissionStatus').val(data.studentsHow);
+               $('#course').val(data.studentsCourse);
+               $('#studentModal').modal('toggle');
+            }
+    } );
+}
+
+function findStudent2Modal() {
+  var searchTxt = $('#searchSt2Txt').val();
+  var tableSt2Modal =  $('#table-student-modal2').DataTable({
+        ajax: {
+            type: "GET",
+            url: "/poba/students/search-txt-level23",
+            dataSrc: "",
+            data:{'searchTxt' : searchTxt},
+        },
+        columns: [
+            { data: "studentsId"},
+            { data: null}
+        ],
+        columnDefs: [
+                    {
+                        render: function (data, type, row) {
+                           var prefix = row["studentsPrefix"];
+                              if(prefix == "อื่นๆ"){
+                                   prefix = row["studentsPrefixOther"]
+                              }
+                              var fullName = prefix+' '+row["studentsName"] + ' ' + row["studentsSurname"];
+                                  return fullName;
+                        },
+                        targets: 1,
+                    },
+                    {
+                        "defaultContent": "",
+                        "targets": "_all"
+                    }
+        ],
+        searching: false,
+        "bDestroy": true
+    });
+    $('#table-student-modal2 tbody').on('click', 'tr', function () {
+            if(!$('#table-student-modal2 tbody tr td').hasClass("dataTables_empty")){
+               var data = tableSt2Modal.row( this ).data();
+               var prefix = data.studentsPrefix;
+                     if(prefix == "อื่นๆ"){
+                          prefix = data.studentsPrefixOther;
+                     }
+               $('#studentsId').val(data.studentsId);
+               $('#studentPrefix').val(prefix);
+               $('#studentName').val(data.studentsName+" "+data.studentsSurname);
+               $('#yearOfStudy').val(data.studentsYear);
+               $('#studentsLevel').val(data.studentsLevel);
+               $('#admissionStatus').val(data.studentsHow);
+               $('#course').val(data.studentsCourse);
+               $('#student2Modal').modal('toggle');
+            }
+    } );
+}

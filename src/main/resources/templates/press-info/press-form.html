@@ -28,7 +28,7 @@
                 <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
                        th:value="${press.name}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
-                <button type="button" class="btn btn-poba btn-add ml-2" data-toggle="modal" data-target="#personnelModal">ค้นหา</button>
+                <button type="button" class="btn btn-poba btn-search ml-2" data-toggle="modal" data-target="#personnelModal">ค้นหา</button>
             </div>
 
             <div class="row mb-2">
@@ -157,45 +157,7 @@
                 <input type="text" class="form-control bg-white col-sm-4" id="guestName3" name="guestName3"
                        th:attr="value=${press.guestName3 != null && press.guestName3 != 'null'}? ${press.guestName3}: ''" maxlength="255"/>
             </div>
-
         </form>
-        <!-- Modal -->
-        <div class="modal fade" id="personnelModal" tabindex="-1" role="dialog" aria-labelledby="findPersonnelModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalLabel">ค้นหา</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
-                            <input id="searchTxt" type="text" class="col-8 mr-2 form-control flex-xl-grow-1" placeholder="ค้นหาด้วยเลขประจำตัว/ชื่อ">
-                            <button type="button" class="btn btn-info" onclick="findPersonnel()">ค้นหา</button>
-                        </div>
-                    </div>
-                    <div class="table table-responsive">
-                        <table id="table-personnel-modal" class="display" width="100%">
-                            <thead>
-                            <tr>
-                                <th>เลขประจำตัว</th>
-                                <th>ชื่อ-นามสกุล</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td colspan="2" class="dataTables_empty text-center bg-secondary">บุคคลากร</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-poba" data-dismiss="modal">ยกเลิก</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${viewName != 'ดูข้อมูล' ? 'd-block' : 'd-none'} ">
             <button type="button" class="btn btn-poba mr-3" onclick="submitPressInfo();">บันทึก</button>
@@ -213,6 +175,7 @@
              if(viewName == "ดูข้อมูล"){
                 $("input").prop("disabled", true);
                 $("select").prop("disabled", true);
+                $(".btn-search").prop("disabled", true);
              }
         });
 

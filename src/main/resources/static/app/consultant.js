@@ -11,7 +11,7 @@ function findConsultantStudent() {
             }
         },
         columns: [
-            { data: "staffId" },
+            { data: "consultantStudentId" },
             { data: "name"},
             { data: "studentName" },
             { data: "yearOfStudy" },
@@ -22,24 +22,14 @@ function findConsultantStudent() {
         columnDefs: [
             {
                render: function (data, type, row) {
-                   var prefix = row["prefix"];
-                   if(prefix == "อื่นๆ"){
-                        prefix = row["prefixOther"]
-                   }
-                   var fullName = prefix+' '+row["name"] + ' ' + row["surname"];
-                       return fullName;
-                    },
+                    return  row["prefix"]+' '+row["name"];
+               },
                targets: 1,
             },
             {
                render: function (data, type, row) {
-                   var prefix = row["studentPrefix"];
-                      if(prefix == "อื่นๆ"){
-                           prefix = row["studentPrefixOther"]
-                      }
-                   var fullName = prefix+' '+row["studentName"] + ' ' + row["studentSurname"];
-                       return fullName;
-                    },
+                return row["studentPrefix"]+' '+row["studentName"];
+               },
                targets: 2,
             },
         ],
@@ -49,17 +39,13 @@ function findConsultantStudent() {
     $('#table-consultant-student tbody').on('click', 'tr', function () {
             if(!$('#table-consultant-student tbody tr td').hasClass("dataTables_empty")){
                var data = tableConsultantStudent.row( this ).data();
-                loadView('/poba/consultant/students/'+data.staffId);
+                loadView('/poba/consultant/students/'+data.consultantStudentId);
             }
         } );
 }
 
 function submitConsultantStudent(){
     var type = "POST";
-    var staffId = $("#staffId").val();
-    if (staffId != null &&  staffId != 0 ){
-        type = "PUT"
-    }
     $.ajax({
          type: type,
          url: "/poba/consultant/students/save",
@@ -86,6 +72,8 @@ function editConsultantStudent(){
 
     $("#edit").removeClass("d-block");
     $("#edit").addClass("d-none");
+
+    $(".btn-search").prop("disabled", false);
 
     $("#viewName").text("แก้ไข")
 }
@@ -364,7 +352,7 @@ function findConsultantStudent2() {
             }
         },
         columns: [
-            { data: "staffId" },
+            { data: "consultantStudentId" },
             { data: "name"},
             { data: "studentName" },
             { data: "yearOfStudy" },
@@ -375,24 +363,14 @@ function findConsultantStudent2() {
         columnDefs: [
             {
                render: function (data, type, row) {
-                   var prefix = row["prefix"];
-                   if(prefix == "อื่นๆ"){
-                        prefix = row["prefixOther"]
-                   }
-                   var fullName = prefix+' '+row["name"] + ' ' + row["surname"];
-                       return fullName;
-                    },
+                    return  row["prefix"]+' '+row["name"];
+               },
                targets: 1,
             },
             {
                render: function (data, type, row) {
-                   var prefix = row["studentPrefix"];
-                      if(prefix == "อื่นๆ"){
-                           prefix = row["studentPrefixOther"]
-                      }
-                   var fullName = prefix+' '+row["studentName"] + ' ' + row["studentSurname"];
-                       return fullName;
-                    },
+                return row["studentPrefix"]+' '+row["studentName"];
+               },
                targets: 2,
             },
         ],
@@ -402,16 +380,12 @@ function findConsultantStudent2() {
     $('#table-consultant-student tbody').on('click', 'tr', function () {
             if(!$('#table-consultant-student tbody tr td').hasClass("dataTables_empty")){
                var data = tableConsultantStudent.row( this ).data();
-                loadView('/poba/consultant/students2/'+data.staffId);
+                loadView('/poba/consultant/students2/'+data.consultantStudentId);
             }
         } );
 }
 function submitConsultantStudent2(){
     var type = "POST";
-    var staffId = $("#staffId").val();
-    if (staffId != null &&  staffId != 0 ){
-        type = "PUT"
-    }
     $.ajax({
          type: type,
          url: "/poba/consultant/students2/save",
