@@ -112,23 +112,12 @@ DROP TABLE IF EXISTS `consultant_students`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `consultant_students` (
-  `staff_id` int NOT NULL AUTO_INCREMENT,
-  `prefix` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `surname` varchar(255) DEFAULT NULL,
-  `students_id` int DEFAULT NULL,
-  `student_prefix` varchar(255) DEFAULT NULL,
-  `year_of_study` varchar(255) DEFAULT NULL,
-  `admission_status` varchar(255) DEFAULT NULL,
-  `students_level` varchar(255) DEFAULT NULL,
-  `course` varchar(255) DEFAULT NULL,
-  `department` varchar(255) DEFAULT NULL,
-  `student_name` varchar(255) DEFAULT NULL,
-  `student_surname` varchar(255) DEFAULT NULL,
-  `prefix_other` varchar(255) DEFAULT NULL,
-  `student_prefix_other` varchar(255) DEFAULT NULL,
+  `consultant_student_id` int NOT NULL AUTO_INCREMENT,
+  `pers_no` varchar(11),
+  `students_id` varchar(11) DEFAULT NULL,
+  `department` varchar(255) NOT NULL,
   `count_student` int DEFAULT NULL,
-  PRIMARY KEY (`staff_id`)
+  PRIMARY KEY (`consultant_student_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
