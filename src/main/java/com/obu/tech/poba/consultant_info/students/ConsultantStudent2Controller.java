@@ -75,12 +75,12 @@ public class ConsultantStudent2Controller {
         return view;
     }
 
-//    @GetMapping("/search/sum/consultant")
-//    public ResponseEntity<List<ConsultantStudentReportDto>> searchSumConsultant(@ModelAttribute ConsultantStudentReportDto consultantStudentReportDto, HttpSession session) {
-//        List<ConsultantStudentReportDto> ctsList = consultantStudentService.findConsultantSummaryReport(consultantStudentReportDto);
-//        session.setAttribute("cstlist",ctsList);
-//        return ResponseEntity.ok().body(ctsList);
-//    }
+    @GetMapping("/search/sum/consultant")
+    public ResponseEntity<List<ConsultantStudentReportDto>> searchSumConsultant(@ModelAttribute ConsultantStudentReportDto consultantStudentReportDto, HttpSession session) {
+        List<ConsultantStudentReportDto> ctsList = consultantStudentService.findConsultantSummaryReport(consultantStudentReportDto);
+        session.setAttribute("cstlist",ctsList);
+        return ResponseEntity.ok().body(ctsList);
+    }
 
     @GetMapping("/search/sum/consultant/detail/{name}/{surname}")
     public ModelAndView sumConsultant(@PathVariable("name") String name, @PathVariable("surname") String surname, HttpSession session) {
@@ -100,11 +100,11 @@ public class ConsultantStudent2Controller {
         return view;
     }
 
-//    @GetMapping("/search/student-by-consultant")
-//    public ResponseEntity<List<StudentDto>> searchStudentByConsultant(HttpSession session) {
-//        ConsultantStudentReportDto cst = (ConsultantStudentReportDto) session.getAttribute("cstDetail");
-//        return ResponseEntity.ok().body(consultantStudentService.findStudentByConsultant(cst));
-//    }
+    @GetMapping("/search/student-by-consultant")
+    public ResponseEntity<List<StudentDto>> searchStudentByConsultant(HttpSession session) {
+        ConsultantStudentReportDto cst = (ConsultantStudentReportDto) session.getAttribute("cstDetail");
+        return ResponseEntity.ok().body(consultantStudentService.findStudentByConsultant(cst));
+    }
 
     @GetMapping("/sum/yearly")
     public ModelAndView sumYearly() {
@@ -118,55 +118,55 @@ public class ConsultantStudent2Controller {
 
         return view;
     }
-//    @GetMapping("/search/yearly-report")
-//    public ResponseEntity<List<ConsultantDto>> yearlyReport(@ModelAttribute ConsultantDto consultantDto) {
-//        ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_YEARLY);
-//        ConsultantStudent consultantStudent = new ConsultantStudent();
-//        view.addObject("viewName", "สรุปข้อมูลรายปี");
-//        view.addObject("consultantStudent", consultantStudent);
-//
-//        List<Integer> years = yearGeneratorUtils.genYears();
-//        view.addObject("years", years);
-//
-//        int yearStart = Integer.parseInt(consultantDto.getYearStart());
-//        int yearEnd = Integer.parseInt(consultantDto.getYearEnd());
-//
-//        List<ConsultantDto> consultantDtos = consultantStudentService.findConsultantByNameStdLevelAdmissionStatus(consultantDto);
-//        List<ConsultantDto> yearlyReportList = new ArrayList<>();
-//        for(ConsultantDto c : consultantDtos){
-//            ConsultantDto cstDto = new ConsultantDto();
-//            BeanUtils.copyProperties(c,cstDto);
-//            int yearIndex=0;
-//            for(int i = yearStart; i<=yearEnd; i++){
-//                String studentCount = "";
-//                studentCount = consultantStudentService.findConsultantSumStudentReport(c,i);
-//                if(yearIndex == 0){
-//                    cstDto.setSumYear1(studentCount);
-//                }else if(yearIndex == 1){
-//                    cstDto.setSumYear2(studentCount);
-//                }else if(yearIndex == 2){
-//                    cstDto.setSumYear3(studentCount);
-//                }else if(yearIndex == 3){
-//                    cstDto.setSumYear4(studentCount);
-//                }else if(yearIndex == 4){
-//                    cstDto.setSumYear5(studentCount);
-//                }else if(yearIndex == 5){
-//                    cstDto.setSumYear6(studentCount);
-//                }else if(yearIndex == 6){
-//                    cstDto.setSumYear7(studentCount);
-//                }else if(yearIndex == 7){
-//                    cstDto.setSumYear8(studentCount);
-//                }else if(yearIndex == 8){
-//                    cstDto.setSumYear9(studentCount);
-//                }else if(yearIndex == 9){
-//                    cstDto.setSumYear10(studentCount);
-//                }
-//                yearIndex++;
-//            }
-//            yearlyReportList.add(cstDto);
-//        }
-//        return ResponseEntity.ok().body(yearlyReportList);
-//    }
+    @GetMapping("/search/yearly-report")
+    public ResponseEntity<List<ConsultantDto>> yearlyReport(@ModelAttribute ConsultantDto consultantDto) {
+        ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_YEARLY);
+        ConsultantStudent consultantStudent = new ConsultantStudent();
+        view.addObject("viewName", "สรุปข้อมูลรายปี");
+        view.addObject("consultantStudent", consultantStudent);
+
+        List<Integer> years = yearGeneratorUtils.genYears();
+        view.addObject("years", years);
+
+        int yearStart = Integer.parseInt(consultantDto.getYearStart());
+        int yearEnd = Integer.parseInt(consultantDto.getYearEnd());
+
+        List<ConsultantDto> consultantDtos = consultantStudentService.findConsultantByNameStdLevelAdmissionStatus(consultantDto);
+        List<ConsultantDto> yearlyReportList = new ArrayList<>();
+        for(ConsultantDto c : consultantDtos){
+            ConsultantDto cstDto = new ConsultantDto();
+            BeanUtils.copyProperties(c,cstDto);
+            int yearIndex=0;
+            for(int i = yearStart; i<=yearEnd; i++){
+                String studentCount = "";
+                studentCount = consultantStudentService.findConsultantSumStudentReport(c,i);
+                if(yearIndex == 0){
+                    cstDto.setSumYear1(studentCount);
+                }else if(yearIndex == 1){
+                    cstDto.setSumYear2(studentCount);
+                }else if(yearIndex == 2){
+                    cstDto.setSumYear3(studentCount);
+                }else if(yearIndex == 3){
+                    cstDto.setSumYear4(studentCount);
+                }else if(yearIndex == 4){
+                    cstDto.setSumYear5(studentCount);
+                }else if(yearIndex == 5){
+                    cstDto.setSumYear6(studentCount);
+                }else if(yearIndex == 6){
+                    cstDto.setSumYear7(studentCount);
+                }else if(yearIndex == 7){
+                    cstDto.setSumYear8(studentCount);
+                }else if(yearIndex == 8){
+                    cstDto.setSumYear9(studentCount);
+                }else if(yearIndex == 9){
+                    cstDto.setSumYear10(studentCount);
+                }
+                yearIndex++;
+            }
+            yearlyReportList.add(cstDto);
+        }
+        return ResponseEntity.ok().body(yearlyReportList);
+    }
 
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ModelAndView save(@ModelAttribute("consultantStudent") @Valid ConsultantStudent consultantStudent, BindingResult bindingResult) {
