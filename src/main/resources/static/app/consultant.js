@@ -327,6 +327,8 @@ function editThesisInfo(){
     $("#edit").addClass("d-none");
 
     $("#viewName").text("แก้ไข")
+
+    $(".btn-search").prop("disabled", false);
 }
 
 function findConsultantStudent2() {
