@@ -5,9 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Getter
@@ -20,25 +17,25 @@ public class ConsultantThesis {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long thesisId;
 
-    private String prefix;
-    private String prefixOther;
+    private String persNo;
 
+    @Transient
+    private String prefix;
+    @Transient
     private String name;
-    private String surname;
 
     private String consultantPosition;
 
     public String studentsId;
 
+    @Transient
     private String studentPrefix;
-    private String studentPrefixOther;
-
+    @Transient
     private String studentName;
-    private String studentSurname;
-
-    private String studentLevel;
-
-    private String courseName;
+    @Transient
+    private String studentsLevel;
+    @Transient
+    private String course;
 
     private String thesisType;
     private String thesisTopic;

@@ -24,31 +24,20 @@
             <input type="hidden" id="thesisId" name="thesisId" th:value="${thesis.thesisId}"/>
             <input type="hidden" id="journalId" name="journalId" th:value="${journal.journalId}"/>
             <input type="hidden" id="conferenceId" name="conferenceId" th:value="${acdConf.conferenceId}"/>
+            <input type="hidden" id="persNo" name="persNo" th:field="${thesis.persNo}"/>
+
 
             <div class="row col-sm-12 mb-2">
                 <label><b>ข้อมูลกรรมการสอบ</b></label>
             </div>
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix">
-                    <option value="">กรุณาเลือก</option>
-                    <option value="อ." th:selected="${thesis.prefix == 'อ.'}? 'selected'">อ.</option>
-                    <option value="อ.ดร." th:selected="${thesis.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
-                    <option value="ผศ." th:selected="${thesis.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
-                    <option value="ผศ.ดร." th:selected="${thesis.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
-                    <option value="รศ." th:selected="${thesis.prefix == 'รศ.'}? 'selected'">รศ.</option>
-                    <option value="รศ.ดร." th:selected="${thesis.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
-                    <option value="ศ." th:selected="${thesis.prefix == 'ศ.'}? 'selected'">ศ.</option>
-                    <option value="ศ.ดร." th:selected="${thesis.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
-                    <option value="อื่นๆ" th:selected="${thesis.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
-                </select>
-                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${thesis.prefixOther != null}? 'd-none':'d-block'"></div>
-                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
-                       th:attr="value=${thesis.prefixOther != null}? ${thesis.prefixOther}: ''"
-                       th:classappend="${thesis.prefix == 'อื่นๆ'}? 'd-block':'d-none'"/>
+                <input type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"
+                       th:value="${thesis.prefix}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
                 <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
-                       th:attr="value=${thesis.name != null}? ${thesis.name}: ''" />
+                       th:value="${thesis.name}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
+                <button type="button" class="btn btn-poba btn-search ml-2" data-toggle="modal" data-target="#personnelModal">ค้นหา</button>
             </div>
             <div class="row mb-2">
                 <label for="consultantPosition" class="form-control-label col-sm-2">ตำแหน่ง:</label>
@@ -70,50 +59,24 @@
             <div class="row mb-2">
                 <label for="studentsId" class="form-control-label col-sm-2">เลขประจำตัวนิสิต:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="studentsId" name="studentsId"
-                       th:attr="value=${thesis.studentsId != null}? ${thesis.studentsId}: ''" maxlength="10" />
+                       th:value=${thesis.studentsId} placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
+                <button type="button" class="btn btn-poba btn-search ml-2" data-toggle="modal" data-target="#student2Modal">ค้นหา</button>
             </div>
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="studentPrefix">คำนำหน้า:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="studentPrefix" name="studentPrefix" >
-                    <option value="">กรุณาเลือก</option>
-                    <option value="นาย" th:selected="${thesis.studentPrefix == 'นาย'}? 'selected'">นาย</option>
-                    <option value="นางสาว" th:selected="${thesis.studentPrefix == 'นางสาว'}? 'selected'">นางสาว</option>
-                    <option value="นาง" th:selected="${thesis.studentPrefix == 'นาง'}? 'selected'">นาง</option>
-                    <option value="อื่นๆ" th:selected="${thesis.studentPrefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
-                </select>
-                <div id="studentPrefixOtherTmp" class="col-sm-2" th:classappend="${thesis.studentPrefixOther != null}? 'd-none':'d-block'"></div>
-                <input type="text" class="form-control bg-white col-sm-2" id="studentPrefixOther" name="studentPrefixOther" placeholder="อื่นๆ โปรดระบุ"
-                       th:attr="value=${thesis.studentPrefixOther != null}? ${thesis.studentPrefixOther}: ''"
-                       th:classappend="${thesis.studentPrefix == 'อื่นๆ'}? 'd-block':'d-none'" />
+                <input type="text" class="col-sm-2 form-control bg-white" id="studentPrefix" name="studentPrefix"
+                       th:value="${thesis.studentPrefix}" readonly/>
                 <label for="studentName" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="studentName" name="studentName"
-                       th:attr="value=${thesis.studentName != null}? ${thesis.studentName}: ''" />
+                       th:value="${thesis.studentName}" readonly/>
             </div>
             <div class="row mb-2">
-                <label for="studentLevel" class="form-control-label col-sm-2">ระดับการศึกษา:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="studentLevel" name="studentLevel" >
-                    <option value="">กรุณาเลือก</option>
-                    <option value="ปริญญาโท" th:selected="${thesis.studentLevel == 'ปริญญาโท'}? 'selected'">ปริญญาโท</option>
-                    <option value="ปริญญาเอก" th:selected="${thesis.studentLevel == 'ปริญญาเอก'}? 'selected'">ปริญญาเอก</option>
-                </select>
-                <label for="courseName" class="form-control-label col-sm-2">หลักสูตร:</label>
-                <select type="text" class="form-control bg-white col-sm-4" id="courseName" name="courseName" >
-                    <option value="">กรุณาเลือก</option>
-                    <option value="ร.ม.การปกครอง" th:selected="${thesis.courseName == 'ร.ม.การปกครอง'}? 'selected'">ร.ม.การปกครอง</option>
-                    <option value="ร.ม.การเมืองฯ" th:selected="${thesis.courseName == 'ร.ม.การเมืองฯ'}? 'selected'">ร.ม.การเมืองฯ</option>
-                    <option value="ร.ม.ความสัมพันธ์ฯ (ในเวลา)" th:selected="${thesis.courseName == 'ร.ม.ความสัมพันธ์ฯ (ในเวลา)'}? 'selected'">ร.ม.ความสัมพันธ์ฯ (ในเวลา)</option>
-                    <option value="ร.ม.ความสัมพันธ์ฯ (นอกเวลา)" th:selected="${thesis.courseName == 'ร.ม.ความสัมพันธ์ฯ (นอกเวลา)'}? 'selected'">ร.ม.ความสัมพันธ์ฯ (นอกเวลา)</option>
-                    <option value="ร.ม.ธรรมมาภิบาล" th:selected="${thesis.courseName == 'ร.ม.ธรรมมาภิบาล'}? 'selected'">ร.ม.ธรรมมาภิบาล</option>
-                    <option value="ศศ.ม.สังคมฯ" th:selected="${thesis.courseName == 'ศศ.ม.สังคมฯ'}? 'selected'">ศศ.ม.สังคมฯ</option>
-                    <option value="ศศ.ม.อาชญาฯ" th:selected="${thesis.courseName == 'ศศ.ม.อาชญาฯ'}? 'selected'">ศศ.ม.อาชญาฯ</option>
-                    <option value="ศศ.ด.อาชญาฯ" th:selected="${thesis.courseName == 'ศศ.ด.อาชญาฯ'}? 'selected'">ศศ.ด.อาชญาฯ</option>
-                    <option value="ศศ.ด.สังคมฯ" th:selected="${thesis.courseName == 'ศศ.ด.สังคมฯ'}? 'selected'">ศศ.ด.สังคมฯ</option>
-                    <option value="รป.ม.(ในเวลา)" th:selected="${thesis.courseName == 'รป.ม.(ในเวลา)'}? 'selected'">รป.ม.(ในเวลา)</option>
-                    <option value="รป.ม.(นอกเวลา)" th:selected="${thesis.courseName == 'รป.ม.(นอกเวลา)'}? 'selected'">รป.ม.(นอกเวลา)</option>
-                    <option value="ร.ด." th:selected="${thesis.courseName == 'ร.ด.'}? 'selected'">ร.ด.</option>
-                    <option value="ศศ.ม.การพัฒนาฯ" th:selected="${thesis.courseName == 'ศศ.ม.การพัฒนาฯ'}? 'selected'">ศศ.ม.การพัฒนาฯ</option>
-                    <option value="ศศ.ด.การพัฒนาฯ" th:selected="${thesis.courseName == 'ศศ.ด.การพัฒนาฯ'}? 'selected'">ศศ.ด.การพัฒนาฯ</option>
-                </select>
+                <label for="studentsLevel" class="form-control-label col-sm-2">ระดับการศึกษา:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="studentsLevel" name="studentsLevel"
+                       th:value="${thesis.studentsLevel}" readonly/>
+                <label for="course" class="form-control-label col-sm-2">หลักสูตร:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="course" name="course"
+                       th:value="${thesis.course}" readonly/>
             </div>
 
             <div class="row col-sm-12 mb-2">
@@ -303,42 +266,6 @@
                 $("input").prop("disabled", true);
                 $("select").prop("disabled", true);
              }
-        });
-
-        $('#prefix').change(function(){
-            var value = $(this).val();
-            if(value == "อื่นๆ"){
-                $("#prefixOther").removeClass("d-none");
-                $("#prefixOther").addClass("d-block");
-
-                $("#prefixOtherTmp").removeClass("d-block");
-                $("#prefixOtherTmp").addClass("d-none");
-            }else{
-                $("#prefixOther").val("");
-                $("#prefixOther").removeClass("d-block");
-                $("#prefixOther").addClass("d-none");
-
-                $("#prefixOtherTmp").removeClass("d-none");
-                $("#prefixOtherTmp").addClass("d-block");
-            }
-        });
-
-         $('#studentPrefix').change(function(){
-            var value = $(this).val();
-            if(value == "อื่นๆ"){
-                $("#studentPrefixOther").removeClass("d-none");
-                $("#studentPrefixOther").addClass("d-block");
-
-                $("#studentPrefixOtherTmp").removeClass("d-block");
-                $("#studentPrefixOtherTmp").addClass("d-none");
-            }else{
-                $("#studentPrefixOther").val("");
-                $("#studentPrefixOther").removeClass("d-block");
-                $("#studentPrefixOther").addClass("d-none");
-
-                $("#studentPrefixOtherTmp").removeClass("d-none");
-                $("#studentPrefixOtherTmp").addClass("d-block");
-            }
         });
 
         var uploaded = $('input.file-id').toArray().map(i => Number($(i).val()));

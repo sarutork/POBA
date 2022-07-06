@@ -114,7 +114,7 @@ DROP TABLE IF EXISTS `consultant_students`;
 CREATE TABLE `consultant_students` (
   `consultant_student_id` int NOT NULL AUTO_INCREMENT,
   `pers_no` varchar(11),
-  `students_id` varchar(11) DEFAULT NULL,
+  `students_id` varchar(10) DEFAULT NULL,
   `department` varchar(255) NOT NULL,
   `count_student` int DEFAULT NULL,
   PRIMARY KEY (`consultant_student_id`)
@@ -130,17 +130,9 @@ DROP TABLE IF EXISTS `consultant_thesis`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `consultant_thesis` (
   `thesis_id` int NOT NULL AUTO_INCREMENT,
-  `prefix` varchar(255) DEFAULT NULL,
-  `prefix_other` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `surname` varchar(255) DEFAULT NULL,
+  `pers_no` varchar(11),
+  `students_id` varchar(10) DEFAULT NULL,
   `consultant_position` varchar(255) DEFAULT NULL,
-  `student_prefix` varchar(255) DEFAULT NULL,
-  `student_prefix_other` varchar(255) DEFAULT NULL,
-  `student_name` varchar(255) DEFAULT NULL,
-  `student_surname` varchar(255) DEFAULT NULL,
-  `student_level` varchar(255) DEFAULT NULL,
-  `course_name` varchar(255) DEFAULT NULL,
   `thesis_type` varchar(255) DEFAULT NULL,
   `thesis_topic` varchar(255) DEFAULT NULL,
   `thesis_consider` varchar(255) DEFAULT NULL,
@@ -150,7 +142,6 @@ CREATE TABLE `consultant_thesis` (
   `thesis_success` varchar(255) DEFAULT NULL,
   `thesis_success_date` date DEFAULT NULL,
   `thesis_assessment` varchar(255) DEFAULT NULL,
-  `students_id` int NOT NULL,
   PRIMARY KEY (`thesis_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;

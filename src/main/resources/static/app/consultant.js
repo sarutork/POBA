@@ -279,7 +279,7 @@ function findConsultantThesis() {
             data: function(d){
                 d.name = $('#name').val();
                 d.thesisType = $('#thesisType').val();
-                d.studentLevel = $('#studentLevel').val();
+                d.studentsLevel = $('#studentsLevel').val();
             }
         },
         columns: [
@@ -287,31 +287,21 @@ function findConsultantThesis() {
             { data: "name"},
             { data: "thesisType" },
             { data: "studentName" },
-            { data: "studentLevel" },
+            { data: "studentsLevel" },
             { data: "thesisAssessment" },
 
         ],
         columnDefs: [
             {
                render: function (data, type, row) {
-                   var prefix = row["prefix"];
-                   if(prefix == "อื่นๆ"){
-                        prefix = row["prefixOther"]
-                   }
-                   var fullName = prefix+' '+row["name"] + ' ' + row["surname"];
-                       return fullName;
-                    },
+                    return row["prefix"]+' '+row["name"];
+               },
                targets: 1,
             },
             {
                render: function (data, type, row) {
-                   var prefix = row["studentPrefix"];
-                      if(prefix == "อื่นๆ"){
-                           prefix = row["studentPrefixOther"]
-                      }
-                   var fullName = prefix+' '+row["studentName"] + ' ' + row["studentSurname"];
-                       return fullName;
-                    },
+                    return row["studentPrefix"]+' '+row["studentName"];
+               },
                targets: 3,
             },
         ],

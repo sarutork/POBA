@@ -1,5 +1,9 @@
 package com.obu.tech.poba.consultant_info.thesis;
 
+import com.obu.tech.poba.personnel_info.profile.Profile;
+import com.obu.tech.poba.personnel_info.profile.ProfileService;
+import com.obu.tech.poba.students.Students;
+import com.obu.tech.poba.students.StudentsService;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
@@ -45,6 +49,12 @@ public class ConsultantThesisController {
     @Autowired
     private YearGeneratorUtils yearGeneratorUtils;
 
+    @Autowired
+    private ProfileService profileService;
+
+    @Autowired
+    private StudentsService studentsService;
+
     @Value("${poba.upload.thesis}")
     private String UPLOAD_THESIS_PATH;
 
@@ -74,18 +84,6 @@ public class ConsultantThesisController {
         }
 
         try {
-            if(!StringUtils.isBlank(thesis.getName())) {
-                String[] fullName = nameConverter.fullNameToNameNSurname(thesis.getName());
-                thesis.setName(fullName[0]);
-                thesis.setSurname(fullName[1]);
-            }
-
-            if(!StringUtils.isBlank(thesis.getStudentName())) {
-                String[] stdFullName = nameConverter.fullNameToNameNSurname(thesis.getStudentName());
-                thesis.setStudentName(stdFullName[0]);
-                thesis.setStudentSurname(stdFullName[1]);
-            }
-
             ConsultantThesis thesisRes = consultantThesisService.save(thesis);
 
             journal.setThesisId(thesisRes.getThesisId());
@@ -123,9 +121,12 @@ public class ConsultantThesisController {
                         UPLOAD_THESIS_PATH
                 );
             }
-
-            thesisRes.setName(thesisRes.getName()+" "+thesisRes.getSurname());
-            thesisRes.setStudentName(thesisRes.getStudentName()+" "+thesisRes.getStudentSurname());
+            thesisRes.setPrefix(thesis.getPrefix());
+            thesisRes.setName(thesis.getName());
+            thesisRes.setStudentPrefix(thesis.getStudentPrefix());
+            thesisRes.setStudentName(thesis.getStudentName());
+            thesisRes.setStudentsLevel(thesis.getStudentsLevel());
+            thesisRes.setCourse(thesis.getCourse());
 
             return viewSuccess(thesisRes, journalRes, acdConfRes);
 
@@ -140,14 +141,26 @@ public class ConsultantThesisController {
     @GetMapping(value = "/{id}")
     public ModelAndView showInfo(@PathVariable String id){
         ConsultantThesis thesis = consultantThesisService.findById(id);
-        thesis.setName(thesis.getName()+" "+thesis.getSurname());
-        thesis.setStudentName(thesis.getStudentName()+" "+thesis.getStudentSurname());
+        if(thesis.getPersNo() !=null) {
+            Profile profile = profileService.findByPersNo(thesis.getPersNo());
+            thesis.setPrefix(profile.getPrefix().equals("อื่นๆ") ? profile.getPrefixOther() : profile.getPrefix());
+            thesis.setName(profile.getName() + " " + profile.getSurname());
+        }
+
+        if(thesis.getStudentsId() != null){
+            Students students = studentsService.findByStudentId(thesis.getStudentsId());
+            thesis.setStudentPrefix(students.getStudentsPrefix().equals("อื่นๆ")? students.getStudentsPrefixOther() :
+                    students.getStudentsPrefix());
+            thesis.setStudentName(students.getStudentsName()+" "+students.getStudentsSurname());
+
+            thesis.setStudentsLevel(students.getStudentsLevel());
+            thesis.setCourse(students.getStudentsCourse());
+        }
 
         Journal journal = journalService.findByThesisId(id);
 
         AcademicConference academicConference = academicConfService.findByThesisId(id);
         List<Upload> uploads = uploadService.getByGroupAndReference(UPLOAD_GROUP_THESIS, academicConference.getConferenceId());
-        System.out.println("Uploads Size: "+uploads.size());
         academicConference.setUploads(uploads);
 
         return view(thesis, journal, academicConference);
