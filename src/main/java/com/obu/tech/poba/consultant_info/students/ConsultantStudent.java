@@ -25,7 +25,7 @@ public class ConsultantStudent {
     @Transient
     private String name;
 
-    @Size(min = 1, max = 11, message = "โปรดตรวจสอบ เลขประจำตัว, คำนำหน้า และ ชื่อ-นามสกุล นิสิต")
+    @Size(min = 1, max = 10, message = "โปรดตรวจสอบ เลขประจำตัว, คำนำหน้า และ ชื่อ-นามสกุล นิสิต")
     public String studentsId;
     @Transient
     public String studentPrefix;

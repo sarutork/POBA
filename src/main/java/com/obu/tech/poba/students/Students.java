@@ -20,14 +20,14 @@ public class Students {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long Id;
 
-  @Size(min = 1, max = 11, message = "กรุณาตรวจสอบข้อมูล เลขประจำตัวนิสิต")
+  @Size(min = 1, max = 10, message = "กรุณาตรวจสอบข้อมูล เลขประจำตัวนิสิต")
   private String studentsId;
 
   @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้านิสิต")
   private String studentsPrefix;
   private String studentsPrefixOther;
 
-  @Size(min = 1, max = 11, message = "กรุณาตรวจสอบข้อมูล ชื่อ-สกุล")
+  @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-สกุล")
   private String studentsName;
   private String studentsSurname;
 
