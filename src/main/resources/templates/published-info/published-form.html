@@ -42,15 +42,15 @@
                 <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
                        th:attr="value=${published.name != null}? ${published.name} : ''" maxlength="255" required/>
-                <label for="publishedStatus" class="form-control-label col-sm-1">สถานะผู้เขียน:</label>
+                <label for="publishedStatus" class="form-control-label col-sm-2">สถานะผู้เขียน:</label>
                 <select type="text" class="col-sm-2 form-control bg-white" id="publishedStatus" name="publishedStatus">
                     <option value="">กรุณาเลือก</option>
                     <option value="หลัก" th:selected="${published.publishedStatus == 'หลัก'}? 'selected'">หลัก</option>
                     <option value="ร่วม" th:selected="${published.publishedStatus == 'ร่วม'}? 'selected'">ร่วม</option>
                     <option value="อื่นๆ" th:selected="${published.publishedStatus == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
                 </select>
-                <label for="publishedStatus" class="form-control-label col-sm-1">สถานะผู้เขียน อื่นๆ:</label>
-                <input type="text" class="col-sm-2 form-control bg-white" th:field="${published.publishedStatusOther}"id="publishedStatusOther" name="publishedStatusOther"/>
+                <input type="text" class="col-sm-2 form-control bg-white d-non" th:field="${published.publishedStatusOther}"id="publishedStatusOther" name="publishedStatusOther"
+                       th:classappend="${published.publishedStatus == 'อื่นๆ'}? 'd-block':'d-none'" placeholder="อื่นๆ โปรดระบุ"/>
             </div>
             <div class="row col-sm-12 mb-2">
                 <label><b>ข้อมูลเผยแพร่</b></label>
@@ -64,8 +64,8 @@
                     <option value="บทในหนังสือ" th:selected="${published.publishedType == 'บทในหนังสือ'}? 'selected'">บทในหนังสือ</option>
                     <option value="อื่นๆ" th:selected="${published.publishedType == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
                 </select>
-                <label for="publishedType" class="form-control-label col-sm-2">ประเภทผลงานอื่นๆ:</label>
-                <input type="text" class="form-control bg-white col-sm-2" th:field="${published.publishedTypeOther}" id="publishedTypeOther" name="publishedTypeOther" maxlength="255" required/>
+                <input type="text" class="form-control bg-white col-sm-2" th:field="${published.publishedTypeOther}" id="publishedTypeOther" name="publishedTypeOther" maxlength="255"
+                       th:classappend="${published.publishedType == 'อื่นๆ'}? 'd-block':'d-none'" placeholder="อื่นๆ โปรดระบุ" required/>
             </div>
             <div class="row mb-2">
                 <label for="publishedTopic" class="form-control-label col-sm-2">ชื่อเรื่อง<span style="color:red !important;">*</span>:</label>
@@ -221,8 +221,6 @@
                 $("input").prop("disabled", true);
                 $("select").prop("disabled", true);
              }
-
-
              amtFormat();
         });
 
@@ -279,6 +277,34 @@
                 $("#monthOtherTmp").addClass("d-block");
             }
         });
+
+         $('#publishedStatus').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#publishedStatusOther").removeClass("d-none");
+                $("#publishedStatusOther").addClass("d-block");
+            }else{
+                $("#publishedStatusOther").val("");
+                $("#publishedStatusOther").removeClass("d-block");
+                $("#publishedStatusOther").addClass("d-none");
+            }
+        });
+
+        $('#publishedType').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#publishedTypeOther").removeClass("d-none");
+                $("#publishedTypeOther").addClass("d-block");
+            }else{
+                $("#publishedTypeOther").val("");
+                $("#publishedTypeOther").removeClass("d-block");
+                $("#publishedTypeOther").addClass("d-none");
+            }
+        });
+
+
+
+
 
     </script>
 
