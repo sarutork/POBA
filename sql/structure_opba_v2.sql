@@ -456,15 +456,28 @@ DROP TABLE IF EXISTS `published_join`;
 CREATE TABLE `published_join` (
   `published_join_id` int NOT NULL AUTO_INCREMENT,
   `published_id` int DEFAULT NULL,
-  `prefix` varchar(255) DEFAULT NULL,
-  `prefix_other` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `surname` varchar(255) DEFAULT NULL,
+  `published_join_prefix` varchar(255) DEFAULT NULL,
+  `published_join_prefix_other` varchar(255) DEFAULT NULL,
+  `published_join_name` varchar(255) DEFAULT NULL,
+  `published_join_surname` varchar(255) DEFAULT NULL,
+  `published_join_prefix2` varchar(255) DEFAULT NULL,
+  `published_join_prefix_other2` varchar(255) DEFAULT NULL,
+  `published_join_name2` varchar(255) DEFAULT NULL,
+  `published_join_surname2` varchar(255) DEFAULT NULL,
+  `published_join_prefix3` varchar(255) DEFAULT NULL,
+  `published_join_prefix_other3` varchar(255) DEFAULT NULL,
+  `published_join_name3` varchar(255) DEFAULT NULL,
+  `published_join_surname3` varchar(255) DEFAULT NULL,
+  `other_people` bool DEFAULT false,
   `published_fund` decimal(12,2) DEFAULT NULL,
   `published_q1` int DEFAULT NULL,
   `published_q2` int DEFAULT NULL,
   `published_q3` int DEFAULT NULL,
   `published_q4` int DEFAULT NULL,
+  `fiscal_yearq1` varchar(255) DEFAULT NULL,
+  `fiscal_yearq2` varchar(255) DEFAULT NULL,
+  `fiscal_yearq3` varchar(255) DEFAULT NULL,
+  `fiscal_yearq4` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`published_join_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -818,16 +831,6 @@ ALTER TABLE published_info ADD published_status_other varchar(255);
 ALTER TABLE published_info MODIFY COLUMN published_status VARCHAR(255) NULL;
 ALTER TABLE published_info MODIFY COLUMN published_base VARCHAR(255) NULL;
 ALTER TABLE published_info MODIFY COLUMN published_level VARCHAR(255) NULL;
-
-
-ALTER TABLE published_join ADD fiscal_yearq1 varchar(255);
-ALTER TABLE published_join ADD fiscal_yearq2 varchar(255);
-ALTER TABLE published_join ADD fiscal_yearq3 varchar(255);
-ALTER TABLE published_join ADD fiscal_yearq4 varchar(255);
-
-ALTER TABLE published_join ADD other_people bool DEFAULT false;
-
-
 
 
 -- present_work
