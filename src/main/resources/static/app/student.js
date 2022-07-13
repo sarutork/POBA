@@ -101,7 +101,23 @@ function searchSummary(){
         if(data == true){
             $.when(summaryStudentSearch()).then(function(data){
                 if(data.body.length > 0){
-                    window.tableStudents2 = $("#table-students2").dataTable();
+                    window.tableStudents2 = $("#table-students2").dataTable({
+                    "bDestroy": true,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            title: $(".breadcrumb-item.active span").html()
+                        },
+                        {
+                            extend: 'csvHtml5',
+                            title: $(".breadcrumb-item.active span").html()
+                        },
+                        {
+                            extend: 'print',
+                            title: $(".breadcrumb-item.active span").html()
+                        }
+                    ]});
                 }else{
                     if(window.tableStudents2 != undefined){
                         window.tableStudents2.fnDestroy();
