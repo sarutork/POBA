@@ -34,7 +34,22 @@ function findConsultantStudent() {
             },
         ],
         searching: false,
-        "bDestroy": true
+        "bDestroy": true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'csvHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'print',
+                title: $(".breadcrumb-item.active span").html()
+            }
+        ]
     });
     $('#table-consultant-student tbody').on('click', 'tr', function () {
             if(!$('#table-consultant-student tbody tr td').hasClass("dataTables_empty")){
@@ -120,7 +135,22 @@ function findSumConsultant(){
                 }
             ],
             searching: false,
-            "bDestroy": true
+            "bDestroy": true,
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    title: $(".breadcrumb-item.active span").html()
+                },
+                {
+                    extend: 'csvHtml5',
+                    title: $(".breadcrumb-item.active span").html()
+                },
+                {
+                    extend: 'print',
+                    title: $(".breadcrumb-item.active span").html()
+                }
+            ]
         });
         $('#table-sum-consultant tbody').on('click', 'tr', function () {
                 if(!$('#table-sum-consultant tbody tr td').hasClass("dataTables_empty")){
@@ -166,7 +196,22 @@ function findStudentByConsultant(){
                 }
             ],
             searching: false,
-            "bDestroy": true
+            "bDestroy": true,
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    title: $(".breadcrumb-item.active span").html()
+                },
+                {
+                    extend: 'csvHtml5',
+                    title: $(".breadcrumb-item.active span").html()
+                },
+                {
+                    extend: 'print',
+                    title: $(".breadcrumb-item.active span").html()
+                }
+            ]
         });
 }
 
@@ -257,7 +302,22 @@ function findYearlyReport(){
                  },
             ],
             searching: false,
-            "bDestroy": true
+            "bDestroy": true,
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    title: $(".breadcrumb-item.active span").html()
+                },
+                {
+                    extend: 'csvHtml5',
+                    title: $(".breadcrumb-item.active span").html()
+                },
+                {
+                    extend: 'print',
+                    title: $(".breadcrumb-item.active span").html()
+                }
+            ]
         });
 
         for(var i = 0 ;i < 10 ;i++ ){
@@ -306,7 +366,22 @@ function findConsultantThesis() {
             },
         ],
         searching: false,
-        "bDestroy": true
+        "bDestroy": true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'csvHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'print',
+                title: $(".breadcrumb-item.active span").html()
+            }
+        ]
     });
     $('#table-consultant-thesis tbody').on('click', 'tr', function () {
             if(!$('#table-consultant-thesis tbody tr td').hasClass("dataTables_empty")){
@@ -367,7 +442,22 @@ function findConsultantStudent2() {
             },
         ],
         searching: false,
-        "bDestroy": true
+        "bDestroy": true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'csvHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'print',
+                title: $(".breadcrumb-item.active span").html()
+            }
+        ]
     });
     $('#table-consultant-student tbody').on('click', 'tr', function () {
             if(!$('#table-consultant-student tbody tr td').hasClass("dataTables_empty")){
@@ -481,7 +571,22 @@ function findYearlyReport2(){
                  },
             ],
             searching: false,
-            "bDestroy": true
+            "bDestroy": true,
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    title: $(".breadcrumb-item.active span").html()
+                },
+                {
+                    extend: 'csvHtml5',
+                    title: $(".breadcrumb-item.active span").html()
+                },
+                {
+                    extend: 'print',
+                    title: $(".breadcrumb-item.active span").html()
+                }
+            ]
         });
 
         for(var i = 0 ;i < 10 ;i++ ){

@@ -61,7 +61,22 @@ function findPersonnel() {
                     }
         ],
         searching: false,
-        "bDestroy": true
+        "bDestroy": true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'csvHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'print',
+                title: $(".breadcrumb-item.active span").html()
+            }
+        ]
     });
     $('#table-personnel-modal tbody').on('click', 'tr', function () {
             if(!$('#table-personnel-modal tbody tr td').hasClass("dataTables_empty")){
@@ -109,7 +124,22 @@ function findStudentModal() {
                     }
         ],
         searching: false,
-        "bDestroy": true
+        "bDestroy": true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'csvHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'print',
+                title: $(".breadcrumb-item.active span").html()
+            }
+        ]
     });
     $('#table-student-modal tbody').on('click', 'tr', function () {
             if(!$('#table-student-modal tbody tr td').hasClass("dataTables_empty")){
@@ -161,7 +191,22 @@ function findStudent2Modal() {
                     }
         ],
         searching: false,
-        "bDestroy": true
+        "bDestroy": true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'csvHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'print',
+                title: $(".breadcrumb-item.active span").html()
+            }
+        ]
     });
     $('#table-student-modal2 tbody').on('click', 'tr', function () {
             if(!$('#table-student-modal2 tbody tr td').hasClass("dataTables_empty")){

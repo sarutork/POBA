@@ -18,7 +18,22 @@ function findProjectInfo() {
             { data: "projectDateFrom" },
         ],
         searching: false,
-        "bDestroy": true
+        "bDestroy": true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'csvHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'print',
+                title: $(".breadcrumb-item.active span").html()
+            }
+        ]
     });
     $('#table-project tbody').on('click', 'tr', function () {
             if(!$('#table-project tbody tr td').hasClass("dataTables_empty")){
@@ -143,7 +158,22 @@ function findParticipant() {
                     }
         ],
         searching: false,
-        "bDestroy": true
+        "bDestroy": true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'csvHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'print',
+                title: $(".breadcrumb-item.active span").html()
+            }
+        ]
     });
     $('#table-participant-modal tbody').on('click', 'tr', function () {
             if(!$('#table-participant-modal tbody tr td').hasClass("dataTables_empty")){

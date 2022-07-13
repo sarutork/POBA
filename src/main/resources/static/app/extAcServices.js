@@ -31,7 +31,22 @@ function findExtAcademicServices() {
             },
         ],
         searching: false,
-        "bDestroy": true
+        "bDestroy": true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'csvHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'print',
+                title: $(".breadcrumb-item.active span").html()
+            }
+        ]
     });
     $('#table-ext-academic-services tbody').on('click', 'tr', function () {
             if(!$('#table-ext-academic-services tbody tr td').hasClass("dataTables_empty")){

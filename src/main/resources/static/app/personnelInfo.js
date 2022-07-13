@@ -30,7 +30,22 @@ function findProfileInfo() {
             },
         ],
         searching: false,
-        "bDestroy": true
+        "bDestroy": true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'csvHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'print',
+                title: $(".breadcrumb-item.active span").html()
+            }
+        ]
     });
     $('#table-profile tbody').on('click', 'tr', function () {
             if(!$('#table-profile tbody tr td').hasClass("dataTables_empty")){
@@ -154,7 +169,22 @@ function findStudyInfo() {
             },
         ],
         searching: false,
-        "bDestroy": true
+        "bDestroy": true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'csvHtml5',
+                title: $(".breadcrumb-item.active span").html()
+            },
+            {
+                extend: 'print',
+                title: $(".breadcrumb-item.active span").html()
+            }
+        ]
     });
     $('#table-study tbody').on('click', 'tr', function () {
             if(!$('#table-study tbody tr td').hasClass("dataTables_empty")){
