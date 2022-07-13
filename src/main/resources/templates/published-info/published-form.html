@@ -153,6 +153,50 @@
                        th:attr="value=${published.publishedJoinName != null}? ${published.publishedJoinName} : ''" maxlength="255" required/>
             </div>
             <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="publishedJoinPrefix2">คำนำหน้า:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="publishedJoinPrefix2" name="publishedJoinPrefix2"required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="อ." th:selected="${published.publishedJoinPrefix2 == 'อ.'}? 'selected'">อ.</option>
+                    <option value="อ.ดร." th:selected="${published.publishedJoinPrefix2 == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
+                    <option value="ผศ." th:selected="${published.publishedJoinPrefix2 == 'ผศ.'}? 'selected'">ผศ.</option>
+                    <option value="ผศ.ดร." th:selected="${published.publishedJoinPrefix2 == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
+                    <option value="รศ." th:selected="${published.publishedJoinPrefix2 == 'รศ.'}? 'selected'">รศ.</option>
+                    <option value="รศ.ดร." th:selected="${published.publishedJoinPrefix2 == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
+                    <option value="ศ." th:selected="${published.publishedJoinPrefix2 == 'ศ.'}? 'selected'">ศ.</option>
+                    <option value="ศ.ดร." th:selected="${published.publishedJoinPrefix2 == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
+                    <option value="อื่นๆ" th:selected="${published.publishedJoinPrefix2 == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
+                </select>
+                <div id="publishedJoinPrefixOtherTmp2" class="col-sm-2" th:classappend="${published.publishedJoinPrefix2 == 'อื่นๆ'}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="publishedJoinPrefixOther2" name="publishedJoinPrefixOther2" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${published.publishedJoinPrefixOther2 != null}? ${published.publishedJoinPrefixOther2}: ''"
+                       th:classappend="${published.publishedJoinPrefix2 == 'อื่นๆ'}? 'd-block':'d-none'"/>
+                <label for="publishedJoinName2" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedJoinName2" name="publishedJoinName2"
+                       th:attr="value=${published.publishedJoinName2 != null}? ${published.publishedJoinName2} : ''" maxlength="255" required/>
+            </div>
+            <div class="row mb-2">
+                <label class="col-sm-2 form-control-label" for="publishedJoinPrefix3">คำนำหน้า:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" id="publishedJoinPrefix3" name="publishedJoinPrefix3"required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="อ." th:selected="${published.publishedJoinPrefix3 == 'อ.'}? 'selected'">อ.</option>
+                    <option value="อ.ดร." th:selected="${published.publishedJoinPrefix3 == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
+                    <option value="ผศ." th:selected="${published.publishedJoinPrefix3 == 'ผศ.'}? 'selected'">ผศ.</option>
+                    <option value="ผศ.ดร." th:selected="${published.publishedJoinPrefix3 == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
+                    <option value="รศ." th:selected="${published.publishedJoinPrefix3 == 'รศ.'}? 'selected'">รศ.</option>
+                    <option value="รศ.ดร." th:selected="${published.publishedJoinPrefix3 == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
+                    <option value="ศ." th:selected="${published.publishedJoinPrefix3 == 'ศ.'}? 'selected'">ศ.</option>
+                    <option value="ศ.ดร." th:selected="${published.publishedJoinPrefix3 == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
+                    <option value="อื่นๆ" th:selected="${published.publishedJoinPrefix3 == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
+                </select>
+                <div id="publishedJoinPrefixOtherTmp3" class="col-sm-2" th:classappend="${published.publishedJoinPrefix3 == 'อื่นๆ'}? 'd-none':'d-block'"></div>
+                <input type="text" class="form-control bg-white col-sm-2" id="publishedJoinPrefixOther3" name="publishedJoinPrefixOther3" placeholder="อื่นๆ โปรดระบุ"
+                       th:attr="value=${published.publishedJoinPrefixOther3 != null}? ${published.publishedJoinPrefixOther3}: ''"
+                       th:classappend="${published.publishedJoinPrefix3 == 'อื่นๆ'}? 'd-block':'d-none'"/>
+                <label for="publishedJoinName3" class="form-control-label col-sm-2">ชื่อ-นามสกุล:</label>
+                <input type="text" class="form-control bg-white col-sm-4" id="publishedJoinName3" name="publishedJoinName3"
+                       th:attr="value=${published.publishedJoinName3 != null}? ${published.publishedJoinName3} : ''" maxlength="255" required/>
+            </div>
+            <div class="row mb-2">
                 <label for="otherPeople" class="col-sm-2"></label>
                 <input type="checkbox"  id="otherPeople" name="otherPeople" th:checked="${published.otherPeople}"/>
                 <label for="otherPeople" class="ml-2" style="align-self: center;">และคนอื่นๆ (et al.)</label>
@@ -239,6 +283,42 @@
 
                 $("#publishedJoinPrefixOtherTmp").removeClass("d-none");
                 $("#publishedJoinPrefixOtherTmp").addClass("d-block");
+            }
+        });
+
+        $('#publishedJoinPrefix2').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#publishedJoinPrefixOther2").removeClass("d-none");
+                $("#publishedJoinPrefixOther2").addClass("d-block");
+
+                $("#publishedJoinPrefixOtherTmp2").removeClass("d-block");
+                $("#publishedJoinPrefixOtherTmp2").addClass("d-none");
+            }else{
+                $("#publishedJoinPrefixOther2").val("");
+                $("#publishedJoinPrefixOther2").removeClass("d-block");
+                $("#publishedJoinPrefixOther2").addClass("d-none");
+
+                $("#publishedJoinPrefixOtherTmp2").removeClass("d-none");
+                $("#publishedJoinPrefixOtherTmp2").addClass("d-block");
+            }
+        });
+
+        $('#publishedJoinPrefix3').change(function(){
+            var value = $(this).val();
+            if(value == "อื่นๆ"){
+                $("#publishedJoinPrefixOther3").removeClass("d-none");
+                $("#publishedJoinPrefixOther3").addClass("d-block");
+
+                $("#publishedJoinPrefixOtherTmp3").removeClass("d-block");
+                $("#publishedJoinPrefixOtherTmp3").addClass("d-none");
+            }else{
+                $("#publishedJoinPrefixOther3").val("");
+                $("#publishedJoinPrefixOther3").removeClass("d-block");
+                $("#publishedJoinPrefixOther3").addClass("d-none");
+
+                $("#publishedJoinPrefixOtherTmp3").removeClass("d-none");
+                $("#publishedJoinPrefixOtherTmp3").addClass("d-block");
             }
         });
 

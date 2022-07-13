@@ -54,6 +54,14 @@ public class PublishedDto {
     private String publishedJoinPrefixOther;
     private String publishedJoinName;
     private String publishedJoinSurname;
+    private String publishedJoinPrefix2;
+    private String publishedJoinPrefixOther2;
+    private String publishedJoinName2;
+    private String publishedJoinSurname2;
+    private String publishedJoinPrefix3;
+    private String publishedJoinPrefixOther3;
+    private String publishedJoinName3;
+    private String publishedJoinSurname3;
     private boolean otherPeople;
     private Double publishedFund;
     private int publishedQ1;

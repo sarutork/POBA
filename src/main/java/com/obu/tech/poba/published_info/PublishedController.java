@@ -48,11 +48,7 @@ public class PublishedController {
                 PublishedDto publishedDto = new PublishedDto();
                 if(publishedJoin.size() > 0) {
                     BeanUtils.copyProperties(p, publishedDto);
-                    BeanUtils.copyProperties(publishedJoin.get(0), publishedDto, "prefix", "prefixOther", "name", "surname");
-                    publishedDto.setPublishedJoinPrefix(publishedJoin.get(0).getPrefix());
-                    publishedDto.setPublishedJoinPrefixOther(publishedJoin.get(0).getPrefixOther());
-                    publishedDto.setPublishedJoinName(publishedJoin.get(0).getName());
-                    publishedDto.setPublishedJoinSurname(publishedJoin.get(0).getSurname());
+                    BeanUtils.copyProperties(publishedJoin.get(0), publishedDto);
                 }
                 publishedDtoList.add(publishedDto);
             });
@@ -61,13 +57,7 @@ public class PublishedController {
     }
 
     @GetMapping(value = "/{id}")
-    public ModelAndView showTeachingInfo(@PathVariable String id){
-        //ModelAndView view = new ModelAndView(FRAGMENT_PUBLISHED_FORM);
-        //view.addObject("viewName", "ดูข้อมูล");
-
-        //List<Integer> years = yearGeneratorUtils.genYears(10,10);
-        //view.addObject("years", years);
-
+    public ModelAndView showInfo(@PathVariable String id){
 
         Published published = publishedService.findPublishedById(id);
         List<PublishedJoin> publishedJoin = publishedService.findPublishedJoinById(published.getPublishedId());
@@ -75,17 +65,22 @@ public class PublishedController {
         PublishedDto publishedDto = new PublishedDto();
 
         BeanUtils.copyProperties(published,publishedDto);
-        BeanUtils.copyProperties(publishedJoin.get(0),publishedDto,"prefix","prefixOther","name","surname");
-        publishedDto.setPublishedJoinPrefix(publishedJoin.get(0).getPrefix());
-        publishedDto.setPublishedJoinPrefixOther(publishedJoin.get(0).getPrefixOther());
-        if(StringUtils.isNotEmpty(publishedJoin.get(0).getName())){
-            publishedDto.setPublishedJoinName(publishedJoin.get(0).getName() + " " + publishedJoin.get(0).getSurname());
+        BeanUtils.copyProperties(publishedJoin.get(0),publishedDto);
+
+        if(StringUtils.isNotEmpty(publishedJoin.get(0).getPublishedJoinName())){
+            publishedDto.setPublishedJoinName(publishedJoin.get(0).getPublishedJoinName() + " " + publishedJoin.get(0).getPublishedJoinSurname());
         }
-        publishedDto.setPublishedJoinSurname(publishedJoin.get(0).getSurname());
+
+        if(StringUtils.isNotEmpty(publishedJoin.get(0).getPublishedJoinName2())){
+            publishedDto.setPublishedJoinName2(publishedJoin.get(0).getPublishedJoinName2() + " " + publishedJoin.get(0).getPublishedJoinSurname2());
+        }
+
+        if(StringUtils.isNotEmpty(publishedJoin.get(0).getPublishedJoinName3())){
+            publishedDto.setPublishedJoinName3(publishedJoin.get(0).getPublishedJoinName3() + " " + publishedJoin.get(0).getPublishedJoinSurname3());
+        }
 
         publishedDto.setName(published.getName() +" "+published.getSurname());
 
-        //view.addObject("published",publishedDto);
         return view(publishedDto);
     }
 
@@ -110,6 +105,18 @@ public class PublishedController {
                 String[] pJoinfullName = nameConverterUtils.fullNameToNameNSurname(publishedDto.getPublishedJoinName());
                 publishedDto.setPublishedJoinName(pJoinfullName[0]);
                 publishedDto.setPublishedJoinSurname(pJoinfullName[1]);
+            }
+
+            if(!StringUtils.isBlank(publishedDto.getPublishedJoinName2())) {
+                String[] pJoinfullName2 = nameConverterUtils.fullNameToNameNSurname(publishedDto.getPublishedJoinName2());
+                publishedDto.setPublishedJoinName2(pJoinfullName2[0]);
+                publishedDto.setPublishedJoinSurname2(pJoinfullName2[1]);
+            }
+
+            if(!StringUtils.isBlank(publishedDto.getPublishedJoinName3())) {
+                String[] pJoinfullName3 = nameConverterUtils.fullNameToNameNSurname(publishedDto.getPublishedJoinName3());
+                publishedDto.setPublishedJoinName3(pJoinfullName3[0]);
+                publishedDto.setPublishedJoinSurname3(pJoinfullName3[1]);
             }
 
             Published published = publishedService.savePublished(publishedDto);

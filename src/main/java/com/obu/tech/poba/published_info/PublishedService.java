@@ -61,16 +61,6 @@ public class PublishedService {
     public PublishedJoin savePublishedJoin(PublishedDto publishedDto){
         PublishedJoin publishedJoin = new PublishedJoin();
         BeanUtils.copyProperties(publishedDto,publishedJoin);
-        publishedJoin.setPrefix(publishedDto.getPublishedJoinPrefix());
-        publishedJoin.setPrefixOther(publishedDto.getPublishedJoinPrefixOther());
-        publishedJoin.setName(publishedDto.getPublishedJoinName());
-        publishedJoin.setSurname(publishedDto.getPublishedJoinSurname());
-//        Double fund = 0.00;
-//        if(!StringUtils.isBlank(publishedDto.getPublishedFund())){
-//           String fundStr = publishedDto.getPublishedFund().replace(",","");
-//           fund = Double.parseDouble(fundStr);
-//        }
-//        publishedJoin.setPublishedFund(fund);
         return publishedJoinRepository.saveAndFlush(publishedJoin);
     }
 
