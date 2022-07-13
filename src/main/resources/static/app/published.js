@@ -105,7 +105,38 @@ function editPublishedInfo(){
         $("#edit").removeClass("d-block");
         $("#edit").addClass("d-none");
 
-        $("#viewName").text("แก้ไข")
+        $("#viewName").text("แก้ไข");
+
+        $(".btn-add").prop("disabled", false);
+        $(".btn-del").prop("disabled", false);
 
         window.scrollTo(0, 0);
+}
+
+function addFiscalYear(){
+    var table = $('#table-fiscal-year').DataTable();
+
+    var rowCount = table.rows().count();
+    var index = rowCount
+
+    var id = '<input type="checkbox"/>';
+
+    var year = '<input type="text" name="fiscalYears['+(index)+'].year" style="border: none;"/>';
+
+    var quarter0 = '<select name="fiscalYears['+(index)+'].quarter" style="border: none;">';
+    var quarter1 = '<option value="">กรุณาเลือก</option>';
+    var quarter2 = '<option value="ไตรมาส 1">ไตรมาส 1</option>';
+    var quarter3 = '<option value="ไตรมาส 2">ไตรมาส 2</option>';
+    var quarter4 = '<option value="ไตรมาส 3">ไตรมาส 3</option>';
+    var quarter5 = '<option value="ไตรมาส 4">ไตรมาส 4</option>';
+    var quarter6 = '</select>';
+
+    var countRef = '<input type="text" name="fiscalYears['+(index)+'].countRef" style="border: none;"/>';
+
+    table.row.add([id,year,quarter0+quarter1+quarter2+quarter3+quarter4+quarter5+quarter6,countRef]).draw();
+
+}
+
+function removeFiscalYear(){
+    $("#table-fiscal-year input:checked").parents("tr").remove();
 }

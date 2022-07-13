@@ -215,38 +215,47 @@
             <div class="row col-sm-12 mb-2">
                 <label><b>จํานวนครั้งที่ถูกอ้างอิง</b></label>
             </div>
-            <div class="row mb-2">
-                <label for="fiscalYearQ1" class="form-control-label col-sm-2">ปีงบประมาณ:</label>
-                <input type="text" class="form-control bg-white col-sm-1" id="fiscalYearQ1" name="fiscalYearQ1"
-                       th:attr="value=${published.fiscalYearQ1 != null}? ${published.fiscalYearQ1} : ''" maxlength="255"/>
-                <label for="publishedQ1" class="form-control-label ml-3">ไตรมาส 1:</label>
-                <input type="text" class="form-control bg-white col-sm-2 mr-1" id="publishedQ1" name="publishedQ1"
-                       th:attr="value=${published.publishedQ1 != null}? ${published.publishedQ1} : ''" maxlength="255"/>
-
-                <label for="fiscalYearQ2" class="form-control-label col-sm-2">ปีงบประมาณ:</label>
-                <input type="text" class="form-control bg-white col-sm-1" id="fiscalYearQ2" name="fiscalYearQ2"
-                       th:attr="value=${published.fiscalYearQ2 != null}? ${published.fiscalYearQ2} : ''" maxlength="255"/>
-                <label for="publishedQ2" class="form-control-label ml-3">ไตรมาส 2:</label>
-                <input type="text" class="form-control bg-white col-sm-2" id="publishedQ2" name="publishedQ2"
-                       th:attr="value=${published.publishedQ2 != null}? ${published.publishedQ2} : ''" maxlength="255" required/>
+            <div id="addFiscalYear" class="row mt-4 mb-2 ml-1">
+                <button type="button" class="btn btn-poba btn-add mr-3" onclick="addFiscalYear()">เพิ่ม</button>
             </div>
-            <div class="row mb-2">
-                <label for="fiscalYearQ3" class="form-control-label col-sm-2">ปีงบประมาณ:</label>
-                <input type="text" class="form-control bg-white col-sm-1" id="fiscalYearQ3" name="fiscalYearQ3"
-                       th:attr="value=${published.fiscalYearQ3 != null}? ${published.fiscalYearQ3} : ''" maxlength="255" />
 
-                <label for="publishedQ3" class="form-control-label ml-3">ไตรมาส 3:</label>
-                <input type="text" class="form-control bg-white col-sm-2 mr-1" id="publishedQ3" name="publishedQ3"
-                       th:attr="value=${published.publishedQ3 != null}? ${published.publishedQ3} : ''" maxlength="255" />
-
-                <label for="fiscalYearQ4" class="form-control-label col-sm-2">ปีงบประมาณ:</label>
-                <input type="text" class="form-control bg-white col-sm-1" id="fiscalYearQ4" name="fiscalYearQ4"
-                       th:attr="value=${published.fiscalYearQ4 != null}? ${published.fiscalYearQ4} : ''" maxlength="255"/>
-                <label for="publishedQ4" class="form-control-label ml-3">ไตรมาส 4:</label>
-                <input type="text" class="form-control bg-white col-sm-2" id="publishedQ4" name="publishedQ4"
-                       th:attr="value=${published.publishedQ4 != null}? ${published.publishedQ4} : ''" maxlength="255" />
-
+            <div class="table table-responsive">
+                <table id="table-fiscal-year" class="display" width="100%">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ปีงบประมาณ</th>
+                        <th>ไตรมาส</th>
+                        <th>จำนวนครั้งการอ้างอิงสะสม</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="fiscalYear, itemStat : ${published.fiscalYears}">
+                        <td>
+                            <input type="hidden" th:name="|fiscalYears[${itemStat.index}].id|" th:value="${fiscalYear.getId()}"/>
+                            <input type="checkbox"/>
+                        </td>
+                        <td>
+                            <input th:name="|fiscalYears[${itemStat.index}].year|" th:value="${fiscalYear.getYear()}" style="border: none;"/>
+                        </td>
+                        <td>
+                            <select th:name="|fiscalYears[${itemStat.index}].quarter|" style="border: none;">
+                                <option value="">กรุณาเลือก</option>
+                                <option value="ไตรมาส 1" th:selected="${fiscalYear.getQuarter() == 'ไตรมาส 1'}? 'selected'">ไตรมาส 1</option>
+                                <option value="ไตรมาส 2" th:selected="${fiscalYear.getQuarter() == 'ไตรมาส 2'}? 'selected'">ไตรมาส 2</option>
+                                <option value="ไตรมาส 3" th:selected="${fiscalYear.getQuarter() == 'ไตรมาส 3'}? 'selected'">ไตรมาส 3</option>
+                                <option value="ไตรมาส 4" th:selected="${fiscalYear.getQuarter() == 'ไตรมาส 4'}? 'selected'">ไตรมาส 4</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input th:name="|fiscalYears[${itemStat.index}].countRef|" th:value="${fiscalYear.getCountRef()}" style="border: none;"  />
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
+            <button type="button" class="btn btn-outline-poba btn-del" onclick="removeFiscalYear()">ลบ</button>
+
         </form>
         <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${published.publishedId == 0 ? 'd-block' : 'd-none'} ">
             <button type="button" class="btn btn-poba mr-3" onclick="submitPublishedInfo()">บันทึก</button>
@@ -264,6 +273,8 @@
              if(publishedId != '' && publishedId > 0){
                 $("input").prop("disabled", true);
                 $("select").prop("disabled", true);
+                $(".btn-add").prop("disabled", true);
+                $(".btn-del").prop("disabled", true);
              }
              amtFormat();
         });

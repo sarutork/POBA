@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.validation.constraints.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -64,13 +65,6 @@ public class PublishedDto {
     private String publishedJoinSurname3;
     private boolean otherPeople;
     private Double publishedFund;
-    private int publishedQ1;
-    private int publishedQ2;
-    private int publishedQ3;
-    private int publishedQ4;
-    private String fiscalYearQ1;
-    private String fiscalYearQ2;
-    private String fiscalYearQ3;
-    private String fiscalYearQ4;
+    private List<FiscalYear> fiscalYears;
 
 }

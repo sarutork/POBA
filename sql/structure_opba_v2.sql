@@ -470,17 +470,20 @@ CREATE TABLE `published_join` (
   `published_join_surname3` varchar(255) DEFAULT NULL,
   `other_people` bool DEFAULT false,
   `published_fund` decimal(12,2) DEFAULT NULL,
-  `published_q1` int DEFAULT NULL,
-  `published_q2` int DEFAULT NULL,
-  `published_q3` int DEFAULT NULL,
-  `published_q4` int DEFAULT NULL,
-  `fiscal_yearq1` varchar(255) DEFAULT NULL,
-  `fiscal_yearq2` varchar(255) DEFAULT NULL,
-  `fiscal_yearq3` varchar(255) DEFAULT NULL,
-  `fiscal_yearq4` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`published_join_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+-- poba.fiscal_year definition
+DROP TABLE IF EXISTS `fiscal_year`;
+CREATE TABLE `fiscal_year` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `published_id` bigint NOT NULL,
+  `year` varchar(255) DEFAULT NULL,
+  `quarter` varchar(255) DEFAULT NULL,
+  `count_ref` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Table structure for table `researcher`

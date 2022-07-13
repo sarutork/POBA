@@ -1,7 +1,6 @@
 package com.obu.tech.poba.published_info;
 
 import com.obu.tech.poba.utils.search.SearchConditionBuilder;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +16,9 @@ public class PublishedService {
 
     @Autowired
     private PublishedJoinRepository publishedJoinRepository;
+
+    @Autowired
+    private FiscalYearRepository fiscalYearRepository;
 
     public  List<Published> findBySearchCriteria(Published published){
         return publishedRepository.findAll(new SearchConditionBuilder<Published>()
@@ -62,6 +64,18 @@ public class PublishedService {
         PublishedJoin publishedJoin = new PublishedJoin();
         BeanUtils.copyProperties(publishedDto,publishedJoin);
         return publishedJoinRepository.saveAndFlush(publishedJoin);
+    }
+
+    public void removeByPublishedId(Long id){
+        fiscalYearRepository.deleteByPublishedId(id);
+    }
+
+    public List<FiscalYear> saveFiscalYear(List<FiscalYear> fiscalYears){
+        return  fiscalYearRepository.saveAllAndFlush(fiscalYears);
+    }
+
+    public  List<FiscalYear>findFiscalYearByPublishedId(long id){
+        return fiscalYearRepository.findByPublishedId(id);
     }
 
 }

@@ -81,6 +81,9 @@ public class PublishedController {
 
         publishedDto.setName(published.getName() +" "+published.getSurname());
 
+        List<FiscalYear> fiscalYears = publishedService.findFiscalYearByPublishedId(published.getPublishedId());
+        publishedDto.setFiscalYears(fiscalYears);
+
         return view(publishedDto);
     }
 
@@ -127,6 +130,18 @@ public class PublishedController {
 
             publishedDto.setName(publishedDto.getName()+" "+publishedDto.getSurname());
             publishedDto.setPublishedJoinName(publishedDto.getPublishedJoinName()+" "+publishedDto.getPublishedJoinSurname());
+
+            if(publishedDto.getFiscalYears() != null && publishedDto.getFiscalYears().size() !=0) {
+                long publishedId = published.getPublishedId();
+                List<FiscalYear> fiscalYears = publishedDto.getFiscalYears();
+
+                fiscalYears.removeIf(p -> (StringUtils.isBlank(p.getYear())));
+
+                fiscalYears.forEach(p -> p.setPublishedId(publishedId));
+
+                publishedService.removeByPublishedId(publishedId);
+                publishedService.saveFiscalYear(fiscalYears);
+            }
 
             return viewSuccess(publishedDto);
 
