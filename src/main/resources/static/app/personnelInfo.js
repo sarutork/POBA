@@ -90,14 +90,14 @@ function editProfileInfo(){
 
 function startWorkDateChange(){
     var startDate = $("#startWorkDate").val();
-    var endDate = $("#toWorkDate").val();
-    $("#toWorkDate").attr('min',startDate);
+    var endDate = $("#startCountWorkDate").val();
+    $("#startCountWorkDate").attr('min',startDate);
     startCountWorkOHECDateChange();
 }
 
 function startCountWorkDateChange(){
-    var startDate = $("#startCountWorkDate").val();
-    var endDate = $("#toWorkDate").val();
+    var startDate = $("#startWorkDate").val();
+    var endDate = $("#startCountWorkDate").val();
     if(startDate != null && endDate != null && startDate != "" && endDate != ""){
              const date1 = new Date(startDate);
              const date2 = new Date(endDate);
