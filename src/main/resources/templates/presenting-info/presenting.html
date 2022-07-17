@@ -26,8 +26,8 @@
                 </select>
             </div>
             <div class="form-group mb-3">
-                <button type="button" class="btn btn-outline-poba mr-3" onclick="findPresentingInfo();">ค้นหา</button>
-                <a href="javascript:void(0)" onclick="loadView('/poba/presenting/add')" class="btn btn-poba">เพิ่มข้อมูล</a>
+                <button type="button" class="btn btn-outline-poba mr-3" onclick="findPresentingInfo();" th:if="${#lists.contains(roles, 'ROLE_PRESENTING_SEARCH')}">ค้นหา</button>
+                <a href="javascript:void(0)" onclick="loadView('/poba/presenting/add')" class="btn btn-poba" th:if="${#lists.contains(roles, 'ROLE_PRESENTING_ADD')}">เพิ่มข้อมูล</a>
             </div>
         </form>
 
