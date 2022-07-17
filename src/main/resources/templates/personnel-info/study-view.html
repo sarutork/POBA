@@ -65,7 +65,7 @@
             </div>
             <div class="row justify-content-center mt-5">
                 <a href="javascript:void(0)" onclick="loadView('/poba/personnel-info/study')" class="btn btn-poba mr-3">กลับ</a>
-                <a href="javascript:void(0)" th:onclick="|loadView('/poba/personnel-info/study/${studyInfo.staffId}/edit')|" class="btn btn-outline-poba">แก้ไข</a>
+                <a href="javascript:void(0)" th:onclick="|loadView('/poba/personnel-info/study/${studyInfo.staffId}/edit')|" class="btn btn-outline-poba" th:if="${#lists.contains(roles, 'ROLE_PERSONNEL_INFO_STUDY_EDIT')}">แก้ไข</a>
             </div>
         </form>
     </div>

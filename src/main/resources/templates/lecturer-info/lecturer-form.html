@@ -239,12 +239,12 @@
 
         </form>
         <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${lecturer.lecturerId == 0 ? 'd-block' : 'd-none'} ">
-            <button type="button" class="btn btn-poba mr-3" onclick="submitLecturerInfo();">บันทึก</button>
+            <button type="button" class="btn btn-poba mr-3" onclick="submitLecturerInfo();" th:if="${#lists.contains(roles, 'ROLE_LECTURER_ADD') || #lists.contains(roles, 'ROLE_LECTURER_EDIT')}">บันทึก</button>
             <a href="javascript:void(0)" onclick="loadView('/poba/lecturer')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
         </div>
         <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${lecturer.lecturerId != 0 ? 'd-block' : 'd-none'}">
             <a href="javascript:void(0)" onclick="loadView('/poba/lecturer')" class="btn btn-poba mr-3">ยกเลิก</a>
-            <button type="button" class="btn btn-outline-poba mr-3" onclick="editLecturerInfo();">แก้ไข</button>
+            <button type="button" class="btn btn-outline-poba mr-3" onclick="editLecturerInfo();" th:if="${#lists.contains(roles, 'ROLE_LECTURER_EDIT')}">แก้ไข</button>
         </div>
     </div>
 

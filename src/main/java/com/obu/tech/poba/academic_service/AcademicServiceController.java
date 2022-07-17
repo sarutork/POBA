@@ -1,6 +1,8 @@
 package com.obu.tech.poba.academic_service;
 
+import com.obu.tech.poba.authenticate.MemberAccess;
 import com.obu.tech.poba.teaching_info.Teaching;
+import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
@@ -13,10 +15,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+
+import static com.obu.tech.poba.utils.role.Roles.*;
+
 @Slf4j
 @Controller
+@RolesAllowed(ROLE_PERSONNEL_INFO_ACADEMIC_SERVICE_ACCESS)
 @RequestMapping("/academic-service")
 public class AcademicServiceController {
     static final String FRAGMENT_ACADEMIC_SERVICE = "academic-services/academic-service :: academic-service";
@@ -27,23 +35,34 @@ public class AcademicServiceController {
     @Autowired
     NameConverterUtils nameConverter;
 
+    @Autowired
+    private MemberAccessUtils memberAccessUtils;
+
     @GetMapping
-    public ModelAndView showListView() {
-        return new ModelAndView(FRAGMENT_ACADEMIC_SERVICE);
+    public ModelAndView showListView(HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(FRAGMENT_ACADEMIC_SERVICE);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        return view;
     }
 
+    @RolesAllowed(ROLE_PERSONNEL_INFO_ACADEMIC_SERVICE_SEARCH)
     @GetMapping("/search")
     public ResponseEntity<List<AcademicService>> search(@ModelAttribute AcademicService academicService) {
         return ResponseEntity.ok().body(academicServiceService.findBySearchCriteria(academicService));
     }
 
+    @RolesAllowed(ROLE_PERSONNEL_INFO_ACADEMIC_SERVICE_ADD)
     @GetMapping("/add")
-    public ModelAndView add() {return formAdd(new AcademicService());}
+    public ModelAndView add(HttpServletRequest request) {return formAdd(new AcademicService(),request);}
 
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView save(@ModelAttribute("academicService") @Valid AcademicService academicService, BindingResult bindingResult) {
+    public ModelAndView save(@ModelAttribute("academicService") @Valid AcademicService academicService,
+                             BindingResult bindingResult,
+                             HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            throw new InvalidInputException(formAdd(academicService), bindingResult);
+            throw new InvalidInputException(formAdd(academicService,request), bindingResult);
         }
         try{
             if(!StringUtils.isBlank(academicService.getName())) {
@@ -55,7 +74,7 @@ public class AcademicServiceController {
             AcademicService academicServiceRes = academicServiceService.save(academicService);
             academicServiceRes.setName(academicServiceRes.getName()+" "+academicServiceRes.getSurname());
 
-            return viewSuccess(academicServiceRes);
+            return viewSuccess(academicServiceRes,request);
         }catch (Exception e){
             e.printStackTrace();
             log.error("{}: {}", e.getClass().getSimpleName(), e.getMessage());
@@ -63,23 +82,29 @@ public class AcademicServiceController {
         }
     }
 
+    @RolesAllowed({ROLE_PERSONNEL_INFO_ACADEMIC_SERVICE_SEARCH,ROLE_PERSONNEL_INFO_ACADEMIC_SERVICE_EDIT})
     @GetMapping(value = "/{id}")
-    public ModelAndView showTeachingInfo(@PathVariable String id){
+    public ModelAndView showTeachingInfo(@PathVariable String id,HttpServletRequest request){
         AcademicService academicService = academicServiceService.findById(id);
         academicService.setName(academicService.getName()+" "+academicService.getSurname());
-        return view(academicService);
+        return view(academicService,request);
     }
 
-    private ModelAndView formAdd(AcademicService data) {
-        return form(data).addObject("viewName", "เพิ่มข้อมูล");
+    private ModelAndView formAdd(AcademicService data,HttpServletRequest request) {
+        return form(data,request).addObject("viewName", "เพิ่มข้อมูล");
     }
 
-    private ModelAndView form(AcademicService data) {
-        return new ModelAndView(FRAGMENT_ACADEMIC_SERVICE_FORM).addObject("service", data);
+    private ModelAndView form(AcademicService data,HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(FRAGMENT_ACADEMIC_SERVICE_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("service", data);
+        return view;
     }
 
-    private ModelAndView viewSuccess(AcademicService data) {
-        return view(data)
+    private ModelAndView viewSuccess(AcademicService data,HttpServletRequest request) {
+        return view(data,request)
                 .addObject("viewName", "ดูข้อมูล")
                 .addObject("responseMessage", "บันทึกสำเร็จ")
                 .addObject("success", true) // success green, else red
@@ -87,9 +112,15 @@ public class AcademicServiceController {
                 ;
     }
 
-    private ModelAndView view(AcademicService data) {
-        return new ModelAndView(FRAGMENT_ACADEMIC_SERVICE_FORM).addObject("viewName", "ดูข้อมูล")
-                .addObject("service", data);
+    private ModelAndView view(AcademicService data,HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(FRAGMENT_ACADEMIC_SERVICE_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("viewName", "ดูข้อมูล");
+        view.addObject("service", data);
+        return view;
+
     }
 
 

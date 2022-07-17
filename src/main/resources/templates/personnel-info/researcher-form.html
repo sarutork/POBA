@@ -139,7 +139,7 @@
             </div>
 
             <div class="form-buttons">
-                <button type="submit" class="btn btn-poba mr-3" id="button-upload">บันทึก</button>
+                <button type="submit" class="btn btn-poba mr-3" id="button-upload" th:if="${#lists.contains(roles, 'ROLE_PERSONNEL_INFO_RESEARCHER_ADD') || #lists.contains(roles, 'ROLE_PERSONNEL_INFO_RESEARCHER_EDIT')}">บันทึก</button>
                 <a class="btn btn-outline-poba" href="javascript:void(0)"
                    th:with="id=*{staffId ?: ''}"
                    th:onclick="|loadView('@{/personnel-info/researchers/__${id}__}')|">ยกเลิก</a>

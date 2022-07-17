@@ -1,6 +1,8 @@
 package com.obu.tech.poba.lecturer;
 
+import com.obu.tech.poba.authenticate.MemberAccess;
 import com.obu.tech.poba.resolution.Resolution;
+import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
@@ -17,14 +19,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.obu.tech.poba.utils.role.Roles.*;
 import static com.obu.tech.poba.utils.upload.UploadService.UPLOAD_GROUP_LECTURER;
 import static com.obu.tech.poba.utils.upload.UploadService.UPLOAD_GROUP_RESOLUTION;
 
 @Slf4j
 @Controller
+@RolesAllowed(ROLE_LECTURER_ACCESS)
 @RequestMapping("/lecturer")
 public class LecturerController {
     static final String FRAGMENT_LECTURER_INFO = "lecturer-info/lecturer :: lecturer";
@@ -46,24 +52,37 @@ public class LecturerController {
     @Value("${poba.upload.lecturer}")
     private String UPLOAD_LECTURER_PATH;
 
+    @Autowired
+    private MemberAccessUtils memberAccessUtils;
+
     @GetMapping
-    public ModelAndView showListView() {
+    public ModelAndView showListView(HttpServletRequest request) {
         List<Integer> years = yearGeneratorUtils.genYears();
-        return new ModelAndView(FRAGMENT_LECTURER_INFO).addObject("years", years);
+        ModelAndView view = new ModelAndView(FRAGMENT_LECTURER_INFO);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("years", years);
+        return view;
     }
 
+    @RolesAllowed(ROLE_LECTURER_SEARCH)
     @GetMapping("/search")
     public ResponseEntity<List<Lecturer>> search(@ModelAttribute Lecturer lecturer) {
         return ResponseEntity.ok().body(lecturerService.findBySearchCriteria(lecturer));
     }
 
+    @RolesAllowed(ROLE_LECTURER_ADD)
     @GetMapping("/add")
-    public ModelAndView add() {return formAdd(new Lecturer());}
+    public ModelAndView add(HttpServletRequest request) {return formAdd(new Lecturer(),request);}
 
+    @RolesAllowed({ROLE_LECTURER_ADD,ROLE_LECTURER_EDIT})
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ModelAndView save(@ModelAttribute("teaching") @Valid Lecturer lecturer, BindingResult bindingResult) {
+    public ModelAndView save(@ModelAttribute("teaching") @Valid Lecturer lecturer,
+                             BindingResult bindingResult,
+                             HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            throw new InvalidInputException(formAdd(lecturer), bindingResult);
+            throw new InvalidInputException(formAdd(lecturer,request), bindingResult);
         }
         try{
             long lecturerId = lecturer.getLecturerId();
@@ -104,7 +123,7 @@ public class LecturerController {
             List<Upload> uploads = uploadService.getByGroupAndReference(UPLOAD_GROUP_LECTURER, lecturerRes.getLecturerId());
             lecturerRes.setUploads(uploads);
 
-            return viewSuccess(lecturerRes);
+            return viewSuccess(lecturerRes,request);
         }catch (Exception e){
             e.printStackTrace();
             log.error("{}: {}", e.getClass().getSimpleName(), e.getMessage());
@@ -112,26 +131,34 @@ public class LecturerController {
         }
     }
 
+    @RolesAllowed(ROLE_LECTURER_EDIT)
     @GetMapping(value = "/{id}")
-    public ModelAndView showLecturerInfo(@PathVariable String id){
+    public ModelAndView showLecturerInfo(@PathVariable String id,HttpServletRequest request){
         Lecturer lecturer = lecturerService.findById(id);
         lecturer.setName(lecturer.getName()+" "+lecturer.getSurname());
         List<Upload> uploads = uploadService.getByGroupAndReference(UPLOAD_GROUP_LECTURER, lecturer.getLecturerId());
         lecturer.setUploads(uploads);
-        return view(lecturer);
+        return view(lecturer,request);
     }
 
-    private ModelAndView formAdd(Lecturer data) {
-        return form(data).addObject("viewName", "เพิ่มข้อมูล");
+    private ModelAndView formAdd(Lecturer data,HttpServletRequest request) {
+        return form(data,request).addObject("viewName", "เพิ่มข้อมูล");
     }
 
-    private ModelAndView form(Lecturer data) {
+    private ModelAndView form(Lecturer data,HttpServletRequest request) {
         List<Integer> years = yearGeneratorUtils.genYears();
-        return new ModelAndView(FRAGMENT_LECTURER_FORM).addObject("lecturer", data).addObject("years", years);
+        ModelAndView view = new ModelAndView(FRAGMENT_LECTURER_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("years", years);
+        view.addObject("lecturer", data);
+        view.addObject("years", years);
+        return view;
     }
 
-    private ModelAndView viewSuccess(Lecturer data) {
-        return view(data)
+    private ModelAndView viewSuccess(Lecturer data,HttpServletRequest request) {
+        return view(data,request)
                 .addObject("viewName", "ดูข้อมูล")
                 .addObject("responseMessage", "บันทึกสำเร็จ")
                 .addObject("success", true) // success green, else red
@@ -139,10 +166,15 @@ public class LecturerController {
                 ;
     }
 
-    private ModelAndView view(Lecturer data) {
+    private ModelAndView view(Lecturer data,HttpServletRequest request) {
         List<Integer> years = yearGeneratorUtils.genYears();
-        return new ModelAndView(FRAGMENT_LECTURER_FORM).addObject("viewName", "ดูข้อมูล")
-                .addObject("lecturer", data)
-                .addObject("years", years);
+        ModelAndView view = new ModelAndView(FRAGMENT_LECTURER_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("years", years);
+        view.addObject("viewName", "ดูข้อมูล");
+        view.addObject("lecturer", data);
+        return view;
     }
 }

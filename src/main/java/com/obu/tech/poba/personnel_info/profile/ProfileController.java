@@ -21,9 +21,12 @@ import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+
+import static com.obu.tech.poba.utils.role.Roles.*;
+
 @Slf4j
 @Controller
-@RolesAllowed("ROLE_PERSONNEL_INFO_PROFILE_ACCESS")
+@RolesAllowed(ROLE_PERSONNEL_INFO_PROFILE_ACCESS)
 @RequestMapping("/personnel-info/profile")
 public class ProfileController {
 
@@ -48,23 +51,23 @@ public class ProfileController {
         return view;
     }
 
-    @RolesAllowed("ROLE_PERSONNEL_INFO_PROFILE_SEARCH")
+    @RolesAllowed(ROLE_PERSONNEL_INFO_PROFILE_SEARCH)
     @GetMapping("/search")
     public ResponseEntity<List<Profile>> search(@ModelAttribute Profile profile) {
         return ResponseEntity.ok().body(profileService.findBySearchCriteria(profile));
     }
 
-    @RolesAllowed("ROLE_PERSONNEL_INFO_PROFILE_SEARCH")
+    @RolesAllowed(ROLE_PERSONNEL_INFO_PROFILE_SEARCH)
     @GetMapping("/search-txt")
     public ResponseEntity<List<Profile>> findByTxt(String searchTxt) {
         return ResponseEntity.ok().body(profileService.findByNameOrId(searchTxt));
     }
 
-    @RolesAllowed("ROLE_PERSONNEL_INFO_PROFILE_ADD")
+    @RolesAllowed(ROLE_PERSONNEL_INFO_PROFILE_ADD)
     @GetMapping(value = "/add")
     public ModelAndView showAddView(HttpServletRequest request) { return formAdd(new Profile(),request);}
 
-    @RolesAllowed({"ROLE_PERSONNEL_INFO_PROFILE_ADD","ROLE_PERSONNEL_INFO_PROFILE_EDIT"})
+    @RolesAllowed({ROLE_PERSONNEL_INFO_PROFILE_ADD,ROLE_PERSONNEL_INFO_PROFILE_EDIT})
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ModelAndView save(@ModelAttribute("profile")
                                  @Valid Profile profile, BindingResult bindingResult,HttpServletRequest request) {
@@ -89,7 +92,7 @@ public class ProfileController {
         }
     }
 
-    @RolesAllowed({"ROLE_PERSONNEL_INFO_PROFILE_ADD","ROLE_PERSONNEL_INFO_PROFILE_EDIT"})
+    @RolesAllowed({ROLE_PERSONNEL_INFO_PROFILE_SEARCH,ROLE_PERSONNEL_INFO_PROFILE_ADD,ROLE_PERSONNEL_INFO_PROFILE_EDIT})
     @GetMapping(value = "/{id}")
     public ModelAndView showDetailView(@PathVariable("id") String id,HttpServletRequest request) {
         Profile profile = profileService.findById(id);

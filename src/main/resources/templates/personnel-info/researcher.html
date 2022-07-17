@@ -26,8 +26,8 @@
                     <input id="work-end-date" type="date" class="col-4 form-control">
                 </div>
                 <div class="pl-xl-3 d-inline-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findResearcherInfo()">ค้นหา</button>
-                    <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/personnel-info/researchers/add')">เพิ่มข้อมูล</a>
+                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findResearcherInfo()" th:if="${#lists.contains(roles, 'ROLE_PERSONNEL_INFO_RESEARCHER_SEARCH')}">ค้นหา</button>
+                    <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/personnel-info/researchers/add')" th:if="${#lists.contains(roles, 'ROLE_PERSONNEL_INFO_RESEARCHER_ADD')}">เพิ่มข้อมูล</a>
                 </div>
             </div>
         </form>

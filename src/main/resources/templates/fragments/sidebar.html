@@ -25,8 +25,8 @@
             </a>
             <div class="collapse" id="menu-teaching-info">
                 <ul class="nav flex-column sub-menu left-menu">
-                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/teaching')">ผู้สอนหลัก/ร่วม/อาจารย์พิเศษ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/lecturer')">วิทยากร</a></li>
+                    <li class="nav-item" th:if="${#lists.contains(roles, 'ROLE_TEACHING_ACCESS')}"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/teaching')">ผู้สอนหลัก/ร่วม/อาจารย์พิเศษ</a></li>
+                    <li class="nav-item" th:if="${#lists.contains(roles, 'ROLE_LECTURER_ACCESS')}"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/lecturer')">วิทยากร</a></li>
                 </ul>
             </div>
         </li>

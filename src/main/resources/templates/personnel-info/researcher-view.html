@@ -65,7 +65,7 @@
                 <a class="btn btn-poba mr-3" href="javascript:void(0)"
                    onclick="loadView('/poba/personnel-info/researchers')">กลับ</a>
                 <a class="btn btn-outline-poba" href="javascript:void(0)"
-                   th:onclick="|loadView('/poba/personnel-info/researchers/*{staffId}/edit')|">แก้ไข</a>
+                   th:onclick="|loadView('/poba/personnel-info/researchers/*{staffId}/edit')|"th:if="${#lists.contains(roles, 'ROLE_PERSONNEL_INFO_RESEARCHER_EDIT')}">แก้ไข</a>
             </div>
         </div>
 
