@@ -72,5 +72,10 @@ public class Roles {
     public static final String ROLE_EXTERNAL_ACADEMIC_SERVICE_SEARCH = "ROLE_EXTERNAL_ACADEMIC_SERVICE_SEARCH";
     public static final String ROLE_EXTERNAL_ACADEMIC_SERVICE_ADD = "ROLE_EXTERNAL_ACADEMIC_SERVICE_ADD";
     public static final String ROLE_EXTERNAL_ACADEMIC_SERVICE_EDIT = "ROLE_EXTERNAL_ACADEMIC_SERVICE_EDIT";
+    // ข้อมูลจัดอบรม
+    public static final String ROLE_TRAINING_ACCESS = "ROLE_TRAINING_ACCESS";
+    public static final String ROLE_TRAINING_SEARCH = "ROLE_TRAINING_SEARCH";
+    public static final String ROLE_TRAINING_ADD = "ROLE_TRAINING_ADD";
+    public static final String ROLE_TRAINING_EDIT = "ROLE_TRAINING_EDIT";
 
 }

@@ -59,7 +59,7 @@
                     <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/presenting')" th:if="${#lists.contains(roles, 'ROLE_PRESENTING_ACCESS')}">ข้อมูลการเสนอผลงาน</a></li>
                     <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/textbook')" th:if="${#lists.contains(roles, 'ROLE_TEXTBOOK_ACCESS')}">ข้อมูลเขียนหนังสือ ตำรา งานวิจัย</a></li>
                     <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/ext-academic-services')" th:if="${#lists.contains(roles, 'ROLE_EXTERNAL_ACADEMIC_SERVICE_ACCESS')}">ข้อมูลบริการวิชาการภายนอก</a></li>
-                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/training')">ข้อมูลจัดอบรม</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/training')" th:if="${#lists.contains(roles, 'ROLE_TRAINING_ACCESS')}">ข้อมูลจัดอบรม</a></li>
                     <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/press')">ข้อมูลการออกสื่อ</a></li>
                 </ul>
             </div>

@@ -29,8 +29,8 @@
                     </select>
                 </div>
                 <div class="pl-xl-3 d-inline-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findTraining()">ค้นหา</button>
-                    <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/training/add')">เพิ่มข้อมูล</a>
+                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findTraining()" th:if="${#lists.contains(roles, 'ROLE_TRAINING_SEARCH')}">ค้นหา</button>
+                    <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/training/add')" th:if="${#lists.contains(roles, 'ROLE_TRAINING_ADD')}">เพิ่มข้อมูล</a>
                 </div>
             </div>
         </form>

@@ -1,5 +1,7 @@
 package com.obu.tech.poba.training;
 
+import com.obu.tech.poba.authenticate.MemberAccess;
+import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
@@ -15,12 +17,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.obu.tech.poba.utils.role.Roles.*;
+
 @Slf4j
 @Controller
+@RolesAllowed(ROLE_TRAINING_ACCESS)
 @RequestMapping("/training")
 public class TrainingController {
 
@@ -33,16 +40,27 @@ public class TrainingController {
     @Autowired
     private NameConverterUtils nameConverter;
 
-    @GetMapping
-    public ModelAndView showListView() {return new ModelAndView(FRAGMENT_TRAINING);}
+    @Autowired
+    private MemberAccessUtils memberAccessUtils;
 
+    @GetMapping
+    public ModelAndView showListView(HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(FRAGMENT_TRAINING);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        return view;
+    }
+
+    @RolesAllowed(ROLE_TRAINING_SEARCH)
     @GetMapping("/search")
     public ResponseEntity<List<Training>> search(@ModelAttribute Training training) {
         return ResponseEntity.ok().body(trainingService.findBySearchCriteria(training));
     }
 
+    @RolesAllowed(ROLE_TRAINING_ADD)
     @GetMapping("/add")
-    public ModelAndView add() {
+    public ModelAndView add(HttpServletRequest request) {
         TrainingPhase phase = new TrainingPhase();
         phase.setTrainingPhase(1);
 
@@ -51,14 +69,16 @@ public class TrainingController {
         
         TrainingDto trainingDto = new TrainingDto();
         trainingDto.setPhases(phases);
-        return formAdd(trainingDto);
+        return formAdd(trainingDto,request);
 
     }
 
+    @RolesAllowed({ROLE_TRAINING_EDIT,ROLE_TRAINING_ADD})
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView save(@ModelAttribute("trainingDto") @Valid TrainingDto trainingDto, BindingResult bindingResult) {
+    public ModelAndView save(@ModelAttribute("trainingDto") @Valid TrainingDto trainingDto,
+                             BindingResult bindingResult,HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            throw new InvalidInputException(formAdd(trainingDto), bindingResult);
+            throw new InvalidInputException(formAdd(trainingDto,request), bindingResult);
         }
         try{
             if(!StringUtils.isBlank(trainingDto.getName())) {
@@ -104,16 +124,23 @@ public class TrainingController {
 
             List<TrainingPhase> trainingPhases = trainingService.savePhase(phases);
 
-            return viewSuccess(trainingDto);
+            return viewSuccess(trainingDto,request);
         }catch (Exception e){
             e.printStackTrace();
             log.error("{}: {}", e.getClass().getSimpleName(), e.getMessage());
-            return new ModelAndView(FRAGMENT_TRAINING).addObject("responseMessage", "ไม่สำเร็จ");
+            ModelAndView view = new ModelAndView(FRAGMENT_TRAINING);
+            MemberAccess member = memberAccessUtils.getMemberAccess(request);
+            view.addObject("user",member.getMember());
+            view.addObject("roles",member.getRoles());
+            view.addObject("responseMessage", "ไม่สำเร็จ");
+            return view;
+
         }
     }
 
+    @RolesAllowed({ROLE_TRAINING_SEARCH,ROLE_TRAINING_EDIT})
     @GetMapping(value = "/{id}")
-    public ModelAndView showTeachingInfo(@PathVariable String id){
+    public ModelAndView showTeachingInfo(@PathVariable String id,HttpServletRequest request){
         Training training = trainingService.findById(id);
         training.setName(training.getName()+" "+training.getSurname());
         if(StringUtils.isNotEmpty(training.getName2())) {
@@ -130,24 +157,29 @@ public class TrainingController {
         BeanUtils.copyProperties(training,trainingDto);
         trainingDto.setPhases(phases);
 
-        return view(trainingDto);
+        return view(trainingDto,request);
     }
 
-    private ModelAndView formAdd(TrainingDto data) {
-        return form(data).addObject("viewName", "เพิ่มข้อมูล");
+    private ModelAndView formAdd(TrainingDto data,HttpServletRequest request) {
+        return form(data,request).addObject("viewName", "เพิ่มข้อมูล");
     }
 
-    private ModelAndView formEdit(TrainingDto data) {
-        return form(data).addObject("viewName", "แก้ไข");
+    private ModelAndView formEdit(TrainingDto data,HttpServletRequest request) {
+        return form(data,request).addObject("viewName", "แก้ไข");
     }
 
 
-    private ModelAndView form(TrainingDto data) {
-        return new ModelAndView(FRAGMENT_TRAINING_FORM).addObject("training", data);
+    private ModelAndView form(TrainingDto data,HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(FRAGMENT_TRAINING_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("training", data);
+        return view;
     }
 
-    private ModelAndView viewSuccess(TrainingDto data) {
-        return view(data)
+    private ModelAndView viewSuccess(TrainingDto data,HttpServletRequest request) {
+        return view(data,request)
                 .addObject("viewName", "ดูข้อมูล")
                 .addObject("responseMessage", "บันทึกสำเร็จ")
                 .addObject("success", true) // success green, else red
@@ -155,13 +187,19 @@ public class TrainingController {
                 ;
     }
 
-    private ModelAndView view(TrainingDto data) {
-        return new ModelAndView(FRAGMENT_TRAINING_FORM).addObject("viewName", "ดูข้อมูล")
-                .addObject("training", data);
+    private ModelAndView view(TrainingDto data,HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(FRAGMENT_TRAINING_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("viewName", "ดูข้อมูล");
+        view.addObject("training", data);
+        return view;
     }
 
+    @RolesAllowed({ROLE_TRAINING_EDIT,ROLE_TRAINING_ADD})
     @RequestMapping(path = "/addPhase",method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView addPhase(@ModelAttribute("trainingDto") TrainingDto trainingDto) {
+    public ModelAndView addPhase(@ModelAttribute("trainingDto") TrainingDto trainingDto,HttpServletRequest request) {
 
         List<TrainingPhase> phases = trainingDto.getPhases();
 
@@ -172,11 +210,14 @@ public class TrainingController {
 
         trainingDto.setPhases(phases);
 
-        return formEdit(trainingDto);
+        return formEdit(trainingDto,request);
     }
 
+    @RolesAllowed({ROLE_TRAINING_EDIT,ROLE_TRAINING_ADD})
     @RequestMapping(path = "/removePhase/{phase}", method = { RequestMethod.POST}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView removePhase(@ModelAttribute("trainingDto") TrainingDto trainingDto, @PathVariable String phase) {
+    public ModelAndView removePhase(@ModelAttribute("trainingDto") TrainingDto trainingDto,
+                                    @PathVariable String phase,
+                                    HttpServletRequest request) {
 
         List<TrainingPhase> phases = trainingDto.getPhases();
 
@@ -207,6 +248,6 @@ public class TrainingController {
 
         trainingDto.setPhases(phases);
 
-        return formEdit(trainingDto);
+        return formEdit(trainingDto,request);
     }
 }
