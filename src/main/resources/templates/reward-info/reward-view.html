@@ -43,7 +43,7 @@
             </div>
             <div class="row justify-content-center mt-5">
                 <a href="javascript:void(0)" onclick="loadView('/poba/rewards')" class="btn btn-poba mr-3">กลับ</a>
-                <a href="javascript:void(0)" th:onclick="|loadView('/poba/rewards/${reward.staffId}/edit')|" class="btn btn-outline-poba">แก้ไข</a>
+                <a href="javascript:void(0)" th:onclick="|loadView('/poba/rewards/${reward.staffId}/edit')|" class="btn btn-outline-poba" th:if="${#lists.contains(roles, 'ROLE_REWARD_EDIT')}">แก้ไข</a>
             </div>
         </form>
     </div>

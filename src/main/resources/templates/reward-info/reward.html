@@ -31,8 +31,8 @@
                     <input type="date" class="col-7 form-control" id="rewardDate"/>
                 </div>
                 <div class="pl-xl-3 d-inline-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findRewardInfo()">ค้นหา</button>
-                    <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/rewards/add')" >เพิ่มข้อมูล</a>
+                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findRewardInfo()" th:if="${#lists.contains(roles, 'ROLE_REWARD_SEARCH')}">ค้นหา</button>
+                    <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/rewards/add')" th:if="${#lists.contains(roles, 'ROLE_REWARD_ADD')}">เพิ่มข้อมูล</a>
                 </div>
             </div>
         </form>

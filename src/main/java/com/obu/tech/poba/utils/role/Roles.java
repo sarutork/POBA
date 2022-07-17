@@ -47,5 +47,11 @@ public class Roles {
     public static final String ROLE_CONSULTANT_THESIS_SEARCH = "ROLE_CONSULTANT_THESIS_SEARCH";
     public static final String ROLE_CONSULTANT_THESIS_ADD = "ROLE_CONSULTANT_THESIS_ADD";
     public static final String ROLE_CONSULTANT_THESIS_EDIT = "ROLE_CONSULTANT_THESIS_EDIT";
+    // รับรางวัล
+    public static final String ROLE_REWARD_ACCESS = "ROLE_REWARD_ACCESS";
+    public static final String ROLE_REWARD_SEARCH = "ROLE_REWARD_SEARCH";
+    public static final String ROLE_REWARD_ADD = "ROLE_REWARD_ADD";
+    public static final String ROLE_REWARD_EDIT = "ROLE_REWARD_EDIT";
+
 
 }

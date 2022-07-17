@@ -85,7 +85,7 @@
                 </select>
             </div>
             <div class="row justify-content-center mt-5">
-                <button type="button" class="btn btn-poba mr-3" onclick="submitRewardInfo()">บันทึก</button>
+                <button type="button" class="btn btn-poba mr-3" onclick="submitRewardInfo()" th:if="${#lists.contains(roles, 'ROLE_REWARD_ADD') || #lists.contains(roles, 'ROLE_REWARD_EDIT')}">บันทึก</button>
                 <a href="javascript:void(0)" onclick="loadView('/poba/rewards')"class="btn btn-outline-poba mr-3">ยกเลิก</a>
             </div>
         </form>
