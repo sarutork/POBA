@@ -1,9 +1,7 @@
 package com.obu.tech.poba;
 
-import com.obu.tech.poba.authenticate.AuthenticateMessageHandle;
-import com.obu.tech.poba.authenticate.POBAUser;
-import com.obu.tech.poba.authenticate.POBAUserService;
-import com.obu.tech.poba.authenticate.ResetPassword;
+import com.obu.tech.poba.authenticate.*;
+import com.obu.tech.poba.utils.MemberAccessUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +13,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -25,6 +24,9 @@ public class WebController {
 
     @Autowired
     private POBAUserService pobaUserService;
+
+    @Autowired
+    private MemberAccessUtils memberAccessUtils;
 
     @GetMapping("/")
     public ModelAndView index() throws Exception {
@@ -42,8 +44,12 @@ public class WebController {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView home(HttpServletRequest request) throws Exception {
         ModelAndView view = new ModelAndView("home");
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
         return view;
     }
+
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> authenticate(@RequestBody POBAUser user,

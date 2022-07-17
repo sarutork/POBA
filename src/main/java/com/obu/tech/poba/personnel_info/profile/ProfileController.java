@@ -1,6 +1,10 @@
 package com.obu.tech.poba.personnel_info.profile;
 
 
+import com.obu.tech.poba.authenticate.MemberAccess;
+import com.obu.tech.poba.authenticate.POBAUser;
+import com.obu.tech.poba.authenticate.POBAUserService;
+import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
@@ -13,10 +17,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 @Slf4j
 @Controller
+@RolesAllowed("ROLE_PERSONNEL_INFO_PROFILE_ACCESS")
 @RequestMapping("/personnel-info/profile")
 public class ProfileController {
 
@@ -29,26 +36,40 @@ public class ProfileController {
     @Autowired
     NameConverterUtils nameConverter;
 
-    @GetMapping
-    public ModelAndView showListView() {return new ModelAndView(FRAGMENT_HISTORY_INFO);}
+    @Autowired
+    private MemberAccessUtils memberAccessUtils;
 
+    @GetMapping
+    public ModelAndView showListView(HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(FRAGMENT_HISTORY_INFO);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        return view;
+    }
+
+    @RolesAllowed("ROLE_PERSONNEL_INFO_PROFILE_SEARCH")
     @GetMapping("/search")
     public ResponseEntity<List<Profile>> search(@ModelAttribute Profile profile) {
         return ResponseEntity.ok().body(profileService.findBySearchCriteria(profile));
     }
 
+    @RolesAllowed("ROLE_PERSONNEL_INFO_PROFILE_SEARCH")
     @GetMapping("/search-txt")
     public ResponseEntity<List<Profile>> findByTxt(String searchTxt) {
         return ResponseEntity.ok().body(profileService.findByNameOrId(searchTxt));
     }
 
+    @RolesAllowed("ROLE_PERSONNEL_INFO_PROFILE_ADD")
     @GetMapping(value = "/add")
-    public ModelAndView showAddView() { return formAdd(new Profile());}
+    public ModelAndView showAddView(HttpServletRequest request) { return formAdd(new Profile(),request);}
 
+    @RolesAllowed({"ROLE_PERSONNEL_INFO_PROFILE_ADD","ROLE_PERSONNEL_INFO_PROFILE_EDIT"})
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView save(@ModelAttribute("profile") @Valid Profile profile, BindingResult bindingResult) {
+    public ModelAndView save(@ModelAttribute("profile")
+                                 @Valid Profile profile, BindingResult bindingResult,HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            throw new InvalidInputException(formAdd(profile), bindingResult);
+            throw new InvalidInputException(formAdd(profile,request), bindingResult);
         }
         try{
             if(!StringUtils.isBlank(profile.getName())) {
@@ -60,7 +81,7 @@ public class ProfileController {
             Profile profileRes = profileService.save(profile);
             profileRes.setName(profileRes.getName()+" "+profileRes.getSurname());
 
-            return viewSuccess(profileRes);
+            return viewSuccess(profileRes,request);
         }catch (Exception e){
             e.printStackTrace();
             log.error("{}: {}", e.getClass().getSimpleName(), e.getMessage());
@@ -68,23 +89,29 @@ public class ProfileController {
         }
     }
 
+    @RolesAllowed({"ROLE_PERSONNEL_INFO_PROFILE_ADD","ROLE_PERSONNEL_INFO_PROFILE_EDIT"})
     @GetMapping(value = "/{id}")
-    public ModelAndView showDetailView(@PathVariable("id") String id) {
+    public ModelAndView showDetailView(@PathVariable("id") String id,HttpServletRequest request) {
         Profile profile = profileService.findById(id);
         profile.setName(profile.getName()+" "+profile.getSurname());
-        return view(profile);
+        return view(profile,request);
     }
 
-    private ModelAndView formAdd(Profile data) {
-        return form(data).addObject("viewName", "เพิ่มข้อมูล");
+    private ModelAndView formAdd(Profile data,HttpServletRequest request) {
+        return form(data,request).addObject("viewName", "เพิ่มข้อมูล");
     }
 
-    private ModelAndView form(Profile data) {
-        return new ModelAndView(FRAGMENT_HISTORY_INFO_FORM).addObject("profile", data);
+    private ModelAndView form(Profile data,HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(FRAGMENT_HISTORY_INFO_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("profile", data);
+        return view;
     }
 
-    private ModelAndView viewSuccess(Profile data) {
-        return view(data)
+    private ModelAndView viewSuccess(Profile data,HttpServletRequest request) {
+        return view(data,request)
                 .addObject("viewName", "ดูข้อมูล")
                 .addObject("responseMessage", "บันทึกสำเร็จ")
                 .addObject("success", true) // success green, else red
@@ -92,9 +119,14 @@ public class ProfileController {
                 ;
     }
 
-    private ModelAndView view(Profile data) {
-        return new ModelAndView(FRAGMENT_HISTORY_INFO_FORM).addObject("viewName", "ดูข้อมูล")
-                .addObject("profile", data);
+    private ModelAndView view(Profile data,HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(FRAGMENT_HISTORY_INFO_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("viewName", "ดูข้อมูล");
+        view.addObject("profile", data);
+        return view;
     }
 
 }

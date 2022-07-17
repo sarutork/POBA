@@ -385,12 +385,12 @@
             </div>
         </form>
         <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${viewName != 'ดูข้อมูล' ? 'd-block' : 'd-none'} ">
-            <button type="button" class="btn btn-poba mr-3" onclick="submitProfileInfo()">บันทึก</button>
+            <button type="button" class="btn btn-poba mr-3" onclick="submitProfileInfo()" th:if="${#lists.contains(roles, 'ROLE_PERSONNEL_INFO_PROFILE_ADD')}">บันทึก</button>
             <a href="javascript:void(0)" onclick="loadView('/poba/personnel-info/profile')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
         </div>
         <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${viewName == 'ดูข้อมูล' ? 'd-block' : 'd-none'}">
             <a href="javascript:void(0)" onclick="loadView('/poba/personnel-info/profile')" class="btn btn-poba mr-3">ยกเลิก</a>
-            <button type="button" class="btn btn-outline-poba mr-3" onclick="editProfileInfo();">แก้ไข</button>
+            <button type="button" class="btn btn-outline-poba mr-3" onclick="editProfileInfo();" th:if="${#lists.contains(roles, 'ROLE_PERSONNEL_INFO_PROFILE_EDIT')}">แก้ไข</button>
         </div>
     </div>
 
