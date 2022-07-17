@@ -1,5 +1,7 @@
 package com.obu.tech.poba.published_info;
 
+import com.obu.tech.poba.authenticate.MemberAccess;
+import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
@@ -14,11 +16,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.obu.tech.poba.utils.role.Roles.*;
+
 @Slf4j
 @Controller
+@RolesAllowed(ROLE_PUBLISHED_ACCESS)
 @RequestMapping("/published")
 public class PublishedController {
 
@@ -34,11 +42,19 @@ public class PublishedController {
     @Autowired
     private PublishedService publishedService;
 
+    @Autowired
+    private MemberAccessUtils memberAccessUtils;
+
     @GetMapping
-    public ModelAndView showListView() {
-      return new ModelAndView(FRAGMENT_PUBLISHED);
+    public ModelAndView showListView(HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(FRAGMENT_PUBLISHED);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        return view;
     }
 
+    @RolesAllowed(ROLE_PUBLISHED_SEARCH)
     @GetMapping("/search")
     public ResponseEntity<List<PublishedDto>> search(@ModelAttribute Published published) {
             List<PublishedDto> publishedDtoList = new ArrayList<>();
@@ -56,8 +72,9 @@ public class PublishedController {
         return ResponseEntity.ok().body(publishedDtoList);
     }
 
+    @RolesAllowed({ROLE_PUBLISHED_SEARCH,ROLE_PUBLISHED_EDIT})
     @GetMapping(value = "/{id}")
-    public ModelAndView showInfo(@PathVariable String id){
+    public ModelAndView showInfo(@PathVariable String id,HttpServletRequest request){
 
         Published published = publishedService.findPublishedById(id);
         List<PublishedJoin> publishedJoin = publishedService.findPublishedJoinById(published.getPublishedId());
@@ -84,18 +101,22 @@ public class PublishedController {
         List<FiscalYear> fiscalYears = publishedService.findFiscalYearByPublishedId(published.getPublishedId());
         publishedDto.setFiscalYears(fiscalYears);
 
-        return view(publishedDto);
+        return view(publishedDto,request);
     }
 
+    @RolesAllowed(ROLE_PUBLISHED_ADD)
     @GetMapping("/add")
-    public ModelAndView add() {
-        return formAdd(new PublishedDto());
+    public ModelAndView add(HttpServletRequest request) {
+        return formAdd(new PublishedDto(),request);
     }
 
+    @RolesAllowed({ROLE_PUBLISHED_ADD,ROLE_PUBLISHED_EDIT})
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView save(@ModelAttribute("publishedDto") @Valid PublishedDto publishedDto, BindingResult bindingResult) {
+    public ModelAndView save(@ModelAttribute("publishedDto") @Valid PublishedDto publishedDto,
+                             BindingResult bindingResult,
+                             HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            throw new InvalidInputException(formAdd(publishedDto), bindingResult);
+            throw new InvalidInputException(formAdd(publishedDto,request), bindingResult);
         }
         try {
             if(!StringUtils.isBlank(publishedDto.getName())) {
@@ -143,28 +164,38 @@ public class PublishedController {
                 publishedService.saveFiscalYear(fiscalYears);
             }
 
-            return viewSuccess(publishedDto);
+            return viewSuccess(publishedDto,request);
 
         }catch (Exception e){
         e.printStackTrace();
         log.error("{}: {}", e.getClass().getSimpleName(), e.getMessage());
-        return new ModelAndView(FRAGMENT_PUBLISHED).addObject("responseMessage", "ไม่สำเร็จ");
+            ModelAndView view = new ModelAndView(FRAGMENT_PUBLISHED);
+            MemberAccess member = memberAccessUtils.getMemberAccess(request);
+            view.addObject("user",member.getMember());
+            view.addObject("roles",member.getRoles());
+            view.addObject("responseMessage", "ไม่สำเร็จ");
+        return view;
+
     }
     }
 
-    private ModelAndView formAdd(PublishedDto data) {
-        return form(data).addObject("viewName", "เพิ่มข้อมูล");
+    private ModelAndView formAdd(PublishedDto data,HttpServletRequest request) {
+        return form(data,request).addObject("viewName", "เพิ่มข้อมูล");
     }
 
-    private ModelAndView form(PublishedDto data) {
+    private ModelAndView form(PublishedDto data,HttpServletRequest request) {
         List<Integer> years = yearGeneratorUtils.genYears();
-        return new ModelAndView(FRAGMENT_PUBLISHED_FORM)
-                .addObject("years", years)
-                .addObject("published", data);
+        ModelAndView view = new ModelAndView(FRAGMENT_PUBLISHED_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("years", years);
+        view.addObject("published", data);
+        return view;
     }
 
-    private ModelAndView viewSuccess(PublishedDto data) {
-        return view(data)
+    private ModelAndView viewSuccess(PublishedDto data,HttpServletRequest request) {
+        return view(data,request)
                 .addObject("viewName", "ดูข้อมูล")
                 .addObject("responseMessage", "บันทึกสำเร็จ")
                 .addObject("success", true) // success green, else red
@@ -172,12 +203,16 @@ public class PublishedController {
                 ;
     }
 
-    private ModelAndView view(PublishedDto data) {
+    private ModelAndView view(PublishedDto data,HttpServletRequest request) {
         List<Integer> years = yearGeneratorUtils.genYears();
-
-        return new ModelAndView(FRAGMENT_PUBLISHED_FORM).addObject("viewName", "ดูข้อมูล")
-                .addObject("years", years)
-                .addObject("published", data);
+        ModelAndView view = new ModelAndView(FRAGMENT_PUBLISHED_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("viewName", "ดูข้อมูล");
+        view.addObject("years", years);
+        view.addObject("published", data);
+        return view;
 
     }
 }

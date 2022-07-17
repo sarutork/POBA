@@ -55,7 +55,7 @@
             <div class="collapse" id="ui-farm-inside">
                 <ul class="nav flex-column sub-menu left-menu">
                     <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/rewards')" th:if="${#lists.contains(roles, 'ROLE_REWARD_ACCESS')}">ข้อมูลการรับรางวัล</a></li>
-                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/published')">ข้อมูลการเผยแพร่ผลงานอาจารย์</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/published')" th:if="${#lists.contains(roles, 'ROLE_PUBLISHED_ACCESS')}">ข้อมูลการเผยแพร่ผลงานอาจารย์</a></li>
                     <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/presenting')">ข้อมูลการเสนอผลงาน</a></li>
                     <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/textbook')">ข้อมูลเขียนหนังสือ ตำรา งานวิจัย</a></li>
                     <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/ext-academic-services')">ข้อมูลบริการวิชาการภายนอก</a></li>

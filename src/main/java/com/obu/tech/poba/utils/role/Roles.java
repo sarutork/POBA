@@ -52,6 +52,11 @@ public class Roles {
     public static final String ROLE_REWARD_SEARCH = "ROLE_REWARD_SEARCH";
     public static final String ROLE_REWARD_ADD = "ROLE_REWARD_ADD";
     public static final String ROLE_REWARD_EDIT = "ROLE_REWARD_EDIT";
+    // ข้อมูลการเผยแพร่ผลงานอาจารย์
+    public static final String ROLE_PUBLISHED_ACCESS = "ROLE_PUBLISHED_ACCESS";
+    public static final String ROLE_PUBLISHED_SEARCH = "ROLE_PUBLISHED_SEARCH";
+    public static final String ROLE_PUBLISHED_ADD = "ROLE_PUBLISHED_ADD";
+    public static final String ROLE_PUBLISHED_EDIT = "ROLE_PUBLISHED_EDIT";
 
 
 }
