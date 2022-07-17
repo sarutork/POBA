@@ -1,7 +1,9 @@
 package com.obu.tech.poba.press_info;
 
+import com.obu.tech.poba.authenticate.MemberAccess;
 import com.obu.tech.poba.personnel_info.profile.Profile;
 import com.obu.tech.poba.personnel_info.profile.ProfileService;
+import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
@@ -14,11 +16,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.obu.tech.poba.utils.role.Roles.*;
+
 @Slf4j
 @Controller
+@RolesAllowed(ROLE_PRESS_ACCESS)
 @RequestMapping("/press")
 public class PressController {
     static final String FRAGMENT_PRESS_INFO = "press-info/press :: press";
@@ -33,21 +40,35 @@ public class PressController {
     @Autowired
     ProfileService profileService;
 
-    @GetMapping
-    public ModelAndView showListView() {return new ModelAndView(FRAGMENT_PRESS_INFO);}
+    @Autowired
+    private MemberAccessUtils memberAccessUtils;
 
+    @GetMapping
+    public ModelAndView showListView(HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(FRAGMENT_PRESS_INFO);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        return view;
+    }
+
+    @RolesAllowed(ROLE_PRESS_SEARCH)
     @GetMapping("/search")
     public ResponseEntity<List<Press>> search(@ModelAttribute Press press) {
         return ResponseEntity.ok().body(pressService.findBySearchCriteria(press));
     }
 
+    @RolesAllowed(ROLE_PRESS_ADD)
     @GetMapping("/add")
-    public ModelAndView add() {return formAdd(new Press());}
+    public ModelAndView add(HttpServletRequest request) {return formAdd(new Press(),request);}
 
+    @RolesAllowed({ROLE_PRESS_EDIT,ROLE_PRESS_ADD})
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView save(@ModelAttribute("press")@Valid Press press, BindingResult bindingResult) {
+    public ModelAndView save(@ModelAttribute("press")@Valid Press press,
+                             BindingResult bindingResult,
+                             HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            throw new InvalidInputException(formAdd(press), bindingResult);
+            throw new InvalidInputException(formAdd(press,request), bindingResult);
         }
         try{
 
@@ -81,16 +102,23 @@ public class PressController {
                 pressRes.setGuestName3(pressRes.getGuestName3() + " " + pressRes.getGuestSurname3());
             }
 
-            return viewSuccess(pressRes);
+            return viewSuccess(pressRes,request);
         }catch (Exception e){
             e.printStackTrace();
             log.error("{}: {}", e.getClass().getSimpleName(), e.getMessage());
-            return new ModelAndView(FRAGMENT_PRESS_FORM).addObject("responseMessage", "ไม่สำเร็จ");
+            ModelAndView view = new ModelAndView(FRAGMENT_PRESS_FORM);
+            MemberAccess member = memberAccessUtils.getMemberAccess(request);
+            view.addObject("user",member.getMember());
+            view.addObject("roles",member.getRoles());
+            view.addObject("responseMessage", "ไม่สำเร็จ");
+            return view;
+
         }
     }
 
+    @RolesAllowed({ROLE_PRESS_SEARCH,ROLE_PRESS_EDIT})
     @GetMapping(value = "/{id}")
-    public ModelAndView showPresentingInfo(@PathVariable String id){
+    public ModelAndView showPresentingInfo(@PathVariable String id,HttpServletRequest request){
         Press press = pressService.findById(id);
 
         Profile profile = profileService.findByPersNo(press.getPersNo());
@@ -109,27 +137,37 @@ public class PressController {
             press.setGuestName3(press.getGuestName3() + " " + press.getGuestSurname3());
         }
 
-        return view(press);
+        return view(press,request);
     }
 
-    private ModelAndView formAdd(Press data) {
-        return form(data).addObject("viewName", "เพิ่มข้อมูล");
+    private ModelAndView formAdd(Press data,HttpServletRequest request) {
+        return form(data,request).addObject("viewName", "เพิ่มข้อมูล");
     }
 
-    private ModelAndView form(Press data) {
-        return new ModelAndView(FRAGMENT_PRESS_FORM).addObject("press", data);
+    private ModelAndView form(Press data,HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(FRAGMENT_PRESS_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("press", data);
+        return view;
     }
 
-    private ModelAndView viewSuccess(Press data) {
-        return view(data)
+    private ModelAndView viewSuccess(Press data,HttpServletRequest request) {
+        return view(data,request)
                 .addObject("viewName", "ดูข้อมูล")
                 .addObject("responseMessage", "บันทึกสำเร็จ")
                 .addObject("success", true) // success green, else red
                 .addObject("timeout", true) // redirect after delay
                 ;
     }
-    private ModelAndView view(Press data) {
-        return new ModelAndView(FRAGMENT_PRESS_FORM).addObject("viewName", "ดูข้อมูล")
-                .addObject("press", data);
+    private ModelAndView view(Press data,HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(FRAGMENT_PRESS_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("viewName", "ดูข้อมูล");
+        view.addObject("press", data);
+        return view;
     }
 }

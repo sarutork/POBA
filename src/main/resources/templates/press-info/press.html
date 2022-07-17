@@ -22,8 +22,8 @@
                 <input type="date" class="form-control bg-white mr-3" id="pressDate" name="pressDate"/>
             </div>
             <div class="form-group mb-3">
-                <button type="button" class="btn btn-outline-poba mr-3" onclick="findPressInfo();">ค้นหา</button>
-                <a href="javascript:void(0)" onclick="loadView('/poba/press/add')" class="btn btn-poba">เพิ่มข้อมูล</a>
+                <button type="button" class="btn btn-outline-poba mr-3" onclick="findPressInfo();" th:if="${#lists.contains(roles, 'ROLE_PRESS_SEARCH')}">ค้นหา</button>
+                <a href="javascript:void(0)" onclick="loadView('/poba/press/add')" class="btn btn-poba" th:if="${#lists.contains(roles, 'ROLE_PRESS_ADD')}">เพิ่มข้อมูล</a>
             </div>
         </form>
 

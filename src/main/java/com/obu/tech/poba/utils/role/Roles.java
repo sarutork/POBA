@@ -78,4 +78,10 @@ public class Roles {
     public static final String ROLE_TRAINING_ADD = "ROLE_TRAINING_ADD";
     public static final String ROLE_TRAINING_EDIT = "ROLE_TRAINING_EDIT";
 
+    //
+    public static final String ROLE_PRESS_ACCESS = "ROLE_PRESS_ACCESS";
+    public static final String ROLE_PRESS_SEARCH = "ROLE_PRESS_SEARCH";
+    public static final String ROLE_PRESS_ADD = "ROLE_PRESS_ADD";
+    public static final String ROLE_PRESS_EDIT = "ROLE_PRESS_EDIT";
+
 }

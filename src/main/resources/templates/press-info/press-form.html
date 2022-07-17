@@ -160,12 +160,12 @@
         </form>
 
         <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${viewName != 'ดูข้อมูล' ? 'd-block' : 'd-none'} ">
-            <button type="button" class="btn btn-poba mr-3" onclick="submitPressInfo();">บันทึก</button>
+            <button type="button" class="btn btn-poba mr-3" onclick="submitPressInfo();" th:if="${#lists.contains(roles, 'ROLE_PRESS_EDIT') || #lists.contains(roles, 'ROLE_PRESS_ADD')}">บันทึก</button>
             <a href="javascript:void(0)" onclick="loadView('/poba/press')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
         </div>
         <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${viewName == 'ดูข้อมูล' ? 'd-block' : 'd-none'}">
             <a href="javascript:void(0)" onclick="loadView('/poba/press')" class="btn btn-poba mr-3">ยกเลิก</a>
-            <button type="button" class="btn btn-outline-poba mr-3" onclick="editPressInfo();">แก้ไข</button>
+            <button type="button" class="btn btn-outline-poba mr-3" onclick="editPressInfo();" th:if="${#lists.contains(roles, 'ROLE_PRESS_EDIT')}">แก้ไข</button>
         </div>
     </div>
 
