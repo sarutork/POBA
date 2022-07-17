@@ -33,8 +33,8 @@
                 </select>
             </div>
             <div class="form-group mb-3">
-                <button type="button" class="btn btn-outline-poba mr-3" onclick="findConsultantThesis();">ค้นหา</button>
-                <a href="javascript:void(0)" onclick="loadView('/poba/consultant/thesis/add')" class="btn btn-poba">เพิ่มข้อมูล</a>
+                <button type="button" class="btn btn-outline-poba mr-3" onclick="findConsultantThesis();" th:if="${#lists.contains(roles, 'ROLE_CONSULTANT_THESIS_SEARCH')}">ค้นหา</button>
+                <a href="javascript:void(0)" onclick="loadView('/poba/consultant/thesis/add')" class="btn btn-poba" th:if="${#lists.contains(roles, 'ROLE_CONSULTANT_THESIS_ADD')}">เพิ่มข้อมูล</a>
             </div>
         </form>
         <div class="table table-responsive">
