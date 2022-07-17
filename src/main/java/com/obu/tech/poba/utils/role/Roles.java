@@ -67,5 +67,10 @@ public class Roles {
     public static final String ROLE_TEXTBOOK_SEARCH = "ROLE_TEXTBOOK_SEARCH";
     public static final String ROLE_TEXTBOOK_ADD = "ROLE_TEXTBOOK_ADD";
     public static final String ROLE_TEXTBOOK_EDIT = "ROLE_TEXTBOOK_EDIT";
+    // ข้อมูลบริการวิชาการภายนอก
+    public static final String ROLE_EXTERNAL_ACADEMIC_SERVICE_ACCESS = "ROLE_EXTERNAL_ACADEMIC_SERVICE_ACCESS";
+    public static final String ROLE_EXTERNAL_ACADEMIC_SERVICE_SEARCH = "ROLE_EXTERNAL_ACADEMIC_SERVICE_SEARCH";
+    public static final String ROLE_EXTERNAL_ACADEMIC_SERVICE_ADD = "ROLE_EXTERNAL_ACADEMIC_SERVICE_ADD";
+    public static final String ROLE_EXTERNAL_ACADEMIC_SERVICE_EDIT = "ROLE_EXTERNAL_ACADEMIC_SERVICE_EDIT";
 
 }
