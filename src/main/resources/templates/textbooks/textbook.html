@@ -37,8 +37,8 @@
                     </select>
                 </div>
                 <div class="pl-xl-3 d-inline-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findTextbookInfo()">ค้นหา</button>
-                    <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/textbook/add')">เพิ่มข้อมูล</a>
+                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findTextbookInfo()" th:if="${#lists.contains(roles, 'ROLE_TEXTBOOK_SEARCH')}">ค้นหา</button>
+                    <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/textbook/add')" th:if="${#lists.contains(roles, 'ROLE_TEXTBOOK_ADD')}">เพิ่มข้อมูล</a>
                 </div>
             </div>
         </form>

@@ -62,5 +62,10 @@ public class Roles {
     public static final String ROLE_PRESENTING_SEARCH = "ROLE_PRESENTING_SEARCH";
     public static final String ROLE_PRESENTING_ADD = "ROLE_PRESENTING_ADD";
     public static final String ROLE_PRESENTING_EDIT = "ROLE_PRESENTING_EDIT";
+    // ข้อมูลเขียนหนังสือ
+    public static final String ROLE_TEXTBOOK_ACCESS = "ROLE_TEXTBOOK_ACCESS";
+    public static final String ROLE_TEXTBOOK_SEARCH = "ROLE_TEXTBOOK_SEARCH";
+    public static final String ROLE_TEXTBOOK_ADD = "ROLE_TEXTBOOK_ADD";
+    public static final String ROLE_TEXTBOOK_EDIT = "ROLE_TEXTBOOK_EDIT";
 
 }
