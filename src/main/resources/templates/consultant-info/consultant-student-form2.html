@@ -82,12 +82,12 @@
             </div>
         </form>
         <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${consultantStudent.consultantStudentId == 0 ? 'd-block' : 'd-none'} ">
-            <button type="button" class="btn btn-poba mr-3" onclick="submitConsultantStudent2();">บันทึก</button>
+            <button type="button" class="btn btn-poba mr-3" onclick="submitConsultantStudent2();" th:if="${#lists.contains(roles, 'ROLE_CONSULTANT_STUDENT_MASTER_ADD') || #lists.contains(roles, 'ROLE_CONSULTANT_STUDENT_MASTER_EDIT')}">บันทึก</button>
             <a href="javascript:void(0)" onclick="loadView('/poba/consultant/students2')" class="btn btn-outline-poba ">ยกเลิก</a>
         </div>
         <div id="edit" class="row mt-5 mb-5 text-align-center" th:classappend="${consultantStudent.consultantStudentId != 0 ? 'd-block' : 'd-none'}">
             <a href="javascript:void(0)" onclick="loadView('/poba/consultant/students2')" class="btn btn-poba mr-3">ยกเลิก</a>
-            <button type="button" class="btn btn-outline-poba" onclick="editConsultantStudent();">แก้ไข</button>
+            <button type="button" class="btn btn-outline-poba" onclick="editConsultantStudent();" th:if="${#lists.contains(roles, 'ROLE_CONSULTANT_STUDENT_MASTER_EDIT')}">แก้ไข</button>
         </div>
     </div>
 

@@ -39,8 +39,8 @@
             </a>
             <div class="collapse" id="ui-user">
                 <ul class="nav flex-column sub-menu left-menu">
-                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/consultant/students')">ที่ปรึกษาระดับปริญญา ตรี</a></li>
-                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/consultant/students2')">ที่ปรึกษาระดับปริญญา โท เอก</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/consultant/students')" th:if="${#lists.contains(roles, 'ROLE_CONSULTANT_STUDENT_BACHELOR_ACCESS')}">ที่ปรึกษาระดับปริญญา ตรี</a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/consultant/students2')" th:if="${#lists.contains(roles, 'ROLE_CONSULTANT_STUDENT_MASTER_ACCESS')}">ที่ปรึกษาระดับปริญญา โท เอก</a></li>
                     <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/consultant/thesis')">ที่ปรึกษาค้นคว้าอิสระ/วิทยานิพนธ์</a></li>
                 </ul>
             </div>

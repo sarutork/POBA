@@ -55,7 +55,7 @@
             </div>
         </form>
         <div class="row mb-5" style="justify-content: center;">
-            <button type="button" class="btn btn-outline-poba" onclick="findYearlyReport2()">ค้นหา</button>
+            <button type="button" class="btn btn-outline-poba" onclick="findYearlyReport2()" th:if="${#lists.contains(roles, 'ROLE_CONSULTANT_STUDENT_MASTER_SEARCH')}">ค้นหา</button>
         </div>
         <div class="table table-responsive mb-5">
             <table id="table-yearly-report" class="display" width="100%">

@@ -52,7 +52,7 @@
             </div>
         </form>
         <div class="row mb-5" style="justify-content: center;">
-            <button type="button" class="btn btn-outline-poba" onclick="findSumConsultant()">ค้นหา</button>
+            <button type="button" class="btn btn-outline-poba" onclick="findSumConsultant()" th:if="${#lists.contains(roles, 'ROLE_CONSULTANT_STUDENT_MASTER_SEARCH')}">ค้นหา</button>
         </div>
         <div class="table table-responsive mb-5">
             <table id="table-sum-consultant" class="display" width="100%">

@@ -1,9 +1,11 @@
 package com.obu.tech.poba.consultant_info.students;
 
+import com.obu.tech.poba.authenticate.MemberAccess;
 import com.obu.tech.poba.personnel_info.profile.Profile;
 import com.obu.tech.poba.personnel_info.profile.ProfileService;
 import com.obu.tech.poba.students.Students;
 import com.obu.tech.poba.students.StudentsService;
+import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
@@ -18,13 +20,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.obu.tech.poba.utils.role.Roles.*;
+
 @Slf4j
 @Controller
+@RolesAllowed(ROLE_CONSULTANT_STUDENT_BACHELOR_ACCESS)
 @RequestMapping("/consultant/students")
 public class ConsultantStudentController {
 
@@ -50,29 +58,44 @@ public class ConsultantStudentController {
     @Autowired
     private YearGeneratorUtils yearGeneratorUtils;
 
+    @Autowired
+    private MemberAccessUtils memberAccessUtils;
+
     @GetMapping
-    public ModelAndView showListView() {
+    public ModelAndView showListView(HttpServletRequest request) {
         List<Integer> years = yearGeneratorUtils.genYears();
-        return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS).addObject("years", years);
+        ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("years", years);
+        return view;
     }
 
+    @RolesAllowed(ROLE_CONSULTANT_STUDENT_BACHELOR_SEARCH)
     @GetMapping("/search")
     public ResponseEntity<List<ConsultantStudent>> search(@ModelAttribute ConsultantStudent consultantStudent) {
         return ResponseEntity.ok().body(consultantStudentService.findBySearchCriteria(consultantStudent,consultantStudentService.studentsLevel_1));
     }
 
+    @RolesAllowed(ROLE_CONSULTANT_STUDENT_BACHELOR_ADD)
     @GetMapping("/add")
-    public ModelAndView add() {return formAdd(new ConsultantStudent());}
+    public ModelAndView add(HttpServletRequest request) {return formAdd(new ConsultantStudent(),request);}
 
+    @RolesAllowed(ROLE_CONSULTANT_STUDENT_BACHELOR_SEARCH)
     @GetMapping("/sum/consultant")
-    public ModelAndView sumConsultant() {
+    public ModelAndView sumConsultant(HttpServletRequest request) {
         ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_CST);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
         view.addObject("viewName", "สรุปข้อมูลรายที่ปรึกษา");
         List<Integer> years = yearGeneratorUtils.genYears();
         view.addObject("years", years);
         return view;
     }
 
+    @RolesAllowed(ROLE_CONSULTANT_STUDENT_BACHELOR_SEARCH)
     @GetMapping("/search/sum/consultant")
     public ResponseEntity<List<ConsultantStudentReportDto>> searchSumConsultant(@ModelAttribute ConsultantStudentReportDto consultantStudentReportDto, HttpSession session) {
         List<ConsultantStudentReportDto> ctsList = consultantStudentService.findConsultantSummaryReport(consultantStudentReportDto);
@@ -80,10 +103,17 @@ public class ConsultantStudentController {
         return ResponseEntity.ok().body(ctsList);
     }
 
+    @RolesAllowed({ROLE_CONSULTANT_STUDENT_BACHELOR_SEARCH,ROLE_CONSULTANT_STUDENT_BACHELOR_EDIT})
     @GetMapping("/search/sum/consultant/detail/{name}/{surname}")
-    public ModelAndView sumConsultant(@PathVariable("name") String name, @PathVariable("surname") String surname, HttpSession session) {
+    public ModelAndView sumConsultant(@PathVariable("name") String name,
+                                      @PathVariable("surname") String surname,
+                                      HttpSession session,
+                                      HttpServletRequest request) {
 
         ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_CST_DTL);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
         List<ConsultantStudentReportDto> cstlist = (List<ConsultantStudentReportDto>) session.getAttribute("cstlist");
         Optional<ConsultantStudentReportDto> consultantStudentReportDto = cstlist.stream()
                 .filter(o -> o.getName().equals(name) && o.getSurname().equals(surname)).findFirst();
@@ -94,15 +124,20 @@ public class ConsultantStudentController {
         return view;
     }
 
+    @RolesAllowed(ROLE_CONSULTANT_STUDENT_BACHELOR_SEARCH)
     @GetMapping("/search/student-by-consultant")
     public ResponseEntity<List<StudentDto>> searchStudentByConsultant(HttpSession session) {
         ConsultantStudentReportDto cst = (ConsultantStudentReportDto) session.getAttribute("cstDetail");
         return ResponseEntity.ok().body(consultantStudentService.findStudentByConsultant(cst));
     }
 
+    @RolesAllowed(ROLE_CONSULTANT_STUDENT_BACHELOR_SEARCH)
     @GetMapping("/sum/yearly")
-    public ModelAndView sumYearly() {
+    public ModelAndView sumYearly(HttpServletRequest request) {
         ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_YEARLY);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
         ConsultantStudent consultantStudent = new ConsultantStudent();
         view.addObject("viewName", "สรุปข้อมูลรายปี");
         view.addObject("consultantStudent", consultantStudent);
@@ -111,9 +146,13 @@ public class ConsultantStudentController {
         return view;
     }
 
+    @RolesAllowed(ROLE_CONSULTANT_STUDENT_BACHELOR_SEARCH)
     @GetMapping("/search/yearly-report")
-    public ResponseEntity<List<ConsultantDto>> yearlyReport(@ModelAttribute ConsultantDto consultantDto) {
+    public ResponseEntity<List<ConsultantDto>> yearlyReport(@ModelAttribute ConsultantDto consultantDto,HttpServletRequest request) {
         ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM_SUM_YEARLY);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
         ConsultantStudent consultantStudent = new ConsultantStudent();
         view.addObject("viewName", "สรุปข้อมูลรายปี");
         view.addObject("consultantStudent", consultantStudent);
@@ -161,10 +200,13 @@ public class ConsultantStudentController {
         return ResponseEntity.ok().body(yearlyReportList);
     }
 
+    @RolesAllowed({ROLE_CONSULTANT_STUDENT_BACHELOR_ADD,ROLE_CONSULTANT_STUDENT_BACHELOR_EDIT})
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView save(@ModelAttribute("consultantStudent") @Valid ConsultantStudent consultantStudent, BindingResult bindingResult) {
+    public ModelAndView save(@ModelAttribute("consultantStudent") @Valid ConsultantStudent consultantStudent,
+                             BindingResult bindingResult,
+                             HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            throw new InvalidInputException(formAdd(consultantStudent), bindingResult);
+            throw new InvalidInputException(formAdd(consultantStudent,request), bindingResult);
         }
         try {
             ConsultantStudent consultantStudentRes = consultantStudentService.save(consultantStudent);
@@ -177,7 +219,7 @@ public class ConsultantStudentController {
             consultantStudentRes.setAdmissionStatus(consultantStudent.getAdmissionStatus());
             consultantStudentRes.setCourse(consultantStudent.getCourse());
 
-            return viewSuccess(consultantStudentRes);
+            return viewSuccess(consultantStudentRes,request);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -187,8 +229,9 @@ public class ConsultantStudentController {
         }
     }
 
+    @RolesAllowed({ROLE_CONSULTANT_STUDENT_BACHELOR_SEARCH,ROLE_CONSULTANT_STUDENT_BACHELOR_EDIT})
     @GetMapping(value = "/{id}")
-    public ModelAndView showInfo(@PathVariable String id){
+    public ModelAndView showInfo(@PathVariable String id,HttpServletRequest request){
         ConsultantStudent consultantStudent = consultantStudentService.findById(id);
         Profile profile = profileService.findByPersNo(consultantStudent.getPersNo());
         Students students = studentsService.findByStudentId(consultantStudent.getStudentsId());
@@ -202,23 +245,28 @@ public class ConsultantStudentController {
         consultantStudent.setStudentsLevel(students.getStudentsLevel());
         consultantStudent.setAdmissionStatus(students.getStudentsStatus());
         consultantStudent.setCourse(students.getStudentsCourse());
-        return view(consultantStudent);
+        return view(consultantStudent,request);
     }
 
-    private ModelAndView formAdd(ConsultantStudent data) {
-        return form(data).addObject("viewName", "เพิ่มข้อมูล");
+    private ModelAndView formAdd(ConsultantStudent data,HttpServletRequest request) {
+        return form(data,request).addObject("viewName", "เพิ่มข้อมูล");
     }
 
-    private ModelAndView form(ConsultantStudent data) {
+    private ModelAndView form(ConsultantStudent data,HttpServletRequest request) {
         List<Integer> years = yearGeneratorUtils.genYears();
+        ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("years", years);
+        view.addObject("consultantStudent", data);
+        return view;
 
-        return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM)
-                .addObject("years", years)
-                .addObject("consultantStudent", data);
+
     }
 
-    private ModelAndView viewSuccess(ConsultantStudent data) {
-        return view(data)
+    private ModelAndView viewSuccess(ConsultantStudent data,HttpServletRequest request) {
+        return view(data,request)
                 .addObject("viewName", "ดูข้อมูล")
                 .addObject("responseMessage", "บันทึกสำเร็จ")
                 .addObject("success", true) // success green, else red
@@ -226,11 +274,15 @@ public class ConsultantStudentController {
                 ;
     }
 
-    private ModelAndView view(ConsultantStudent data) {
+    private ModelAndView view(ConsultantStudent data,HttpServletRequest request) {
         List<Integer> years = yearGeneratorUtils.genYears();
-
-        return new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM).addObject("viewName", "ดูข้อมูล")
-                .addObject("years", years)
-                .addObject("consultantStudent", data);
+        ModelAndView view = new ModelAndView(FRAGMENT_CONSULTANT_STUDENTS_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("viewName", "ดูข้อมูล");
+        view.addObject("years", years);
+        view.addObject("consultantStudent", data);
+        return view;
     }
 }
