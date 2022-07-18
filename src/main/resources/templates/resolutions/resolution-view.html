@@ -52,7 +52,7 @@
                 <a class="btn btn-poba mr-3" href="javascript:void(0)"
                    onclick="loadView('/poba/resolution')">กลับ</a>
                 <a class="btn btn-outline-poba" href="javascript:void(0)"
-                   th:onclick="|loadView('/poba/resolution/*{bordId}/edit')|">แก้ไข</a>
+                   th:onclick="|loadView('/poba/resolution/*{bordId}/edit')|" th:if="${#lists.contains(roles, 'ROLE_RESOLUTION_EDIT')}">แก้ไข</a>
             </div>
         </div>
 

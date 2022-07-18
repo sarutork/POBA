@@ -1,5 +1,7 @@
 package com.obu.tech.poba.resolution;
 
+import com.obu.tech.poba.authenticate.MemberAccess;
+import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import com.obu.tech.poba.utils.upload.Upload;
@@ -16,14 +18,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.obu.tech.poba.utils.role.Roles.*;
 import static com.obu.tech.poba.utils.upload.UploadService.UPLOAD_GROUP_RESOLUTION;
 
 @Slf4j
 @Controller
+@RolesAllowed(ROLE_RESOLUTION_ACCESS)
 @RequestMapping("/resolution")
 public class ResolutionController {
     static final String FRAGMENT_RESOLUTION = "resolutions/resolution :: resolution";
@@ -42,22 +48,32 @@ public class ResolutionController {
     @Value("${poba.upload.resolution}")
     private String UPLOAD_RESOLUTION_PATH;
 
+    @Autowired
+    private MemberAccessUtils memberAccessUtils;
+
     @GetMapping
-    public ModelAndView showListView() {
-        return new ModelAndView(FRAGMENT_RESOLUTION);
+    public ModelAndView showListView(HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(FRAGMENT_RESOLUTION);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        return view;
     }
 
+    @RolesAllowed(ROLE_RESOLUTION_ADD)
     @GetMapping(value = "/add")
-    public ModelAndView showAddView() {return formAdd(new Resolution());}
+    public ModelAndView showAddView(HttpServletRequest request) {return formAdd(new Resolution(),request);}
 
+    @RolesAllowed({ROLE_RESOLUTION_SEARCH,ROLE_RESOLUTION_EDIT})
     @GetMapping(value = "/{id}")
-    public ModelAndView showInfo(@PathVariable String id){
+    public ModelAndView showInfo(@PathVariable String id,HttpServletRequest request){
         Resolution resolution = resolutionService.findById(id);
         List<Upload> uploads = uploadService.getByGroupAndReference(UPLOAD_GROUP_RESOLUTION, resolution.getBordId());
         resolution.setUploads(uploads);
-        return view(resolution);
+        return view(resolution,request);
     }
 
+    @RolesAllowed({ROLE_RESOLUTION_SEARCH,ROLE_RESOLUTION_EDIT})
     @GetMapping(value = "/{id}/edit")
     public ModelAndView showEditView(@PathVariable String id) {
         ModelAndView view = new ModelAndView(FRAGMENT_RESOLUTION_FORM);
@@ -69,6 +85,7 @@ public class ResolutionController {
         return view;
     }
 
+    @RolesAllowed(ROLE_RESOLUTION_SEARCH)
     @GetMapping(value = "/search")
     public ResponseEntity<List<Resolution>> search(String bordNo,
                                                    @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate dateStart ,
@@ -86,10 +103,13 @@ public class ResolutionController {
         return ResponseEntity.ok().body(resolutionService.findBySearchCriteria(bordNo1,bordNo2,dateStart,dateEnd));
     }
 
+    @RolesAllowed({ROLE_RESOLUTION_EDIT,ROLE_RESOLUTION_ADD})
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ModelAndView save(@ModelAttribute("resolution") @Valid Resolution resolution, BindingResult bindingResult) {
+    public ModelAndView save(@ModelAttribute("resolution") @Valid Resolution resolution,
+                             BindingResult bindingResult,
+                             HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            throw new InvalidInputException(formAdd(resolution), bindingResult);
+            throw new InvalidInputException(formAdd(resolution,request), bindingResult);
         }
         try {
             long bordId = resolution.getBordId();
@@ -124,36 +144,52 @@ public class ResolutionController {
             List<Upload> uploads = uploadService.getByGroupAndReference(UPLOAD_GROUP_RESOLUTION, resolutionRes.getBordId());
             resolutionRes.setUploads(uploads);
 
-            return viewSuccess(resolutionRes);
+            return viewSuccess(resolutionRes,request);
         }catch (Exception e){
             e.printStackTrace();
             log.error("{}: {}", e.getClass().getSimpleName(), e.getMessage());
-            return new ModelAndView(FRAGMENT_RESOLUTION).addObject("responseMessage", "ไม่สำเร็จ");
+            ModelAndView view = new ModelAndView(FRAGMENT_RESOLUTION);
+            MemberAccess member = memberAccessUtils.getMemberAccess(request);
+            view.addObject("user",member.getMember());
+            view.addObject("roles",member.getRoles());
+            view.addObject("responseMessage", "ไม่สำเร็จ");
+            return view;
+
         }
     }
 
-    private ModelAndView formAdd(Resolution data) {
-        return form(data).addObject("viewName", "เพิ่มข้อมูล");
+    private ModelAndView formAdd(Resolution data,HttpServletRequest request) {
+        return form(data,request).addObject("viewName", "เพิ่มข้อมูล");
     }
 
-    private ModelAndView form(Resolution data) {
-        return new ModelAndView(FRAGMENT_RESOLUTION_FORM).addObject("resolution", data);
+    private ModelAndView form(Resolution data,HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(FRAGMENT_RESOLUTION_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("resolution", data);
+        return view;
     }
 
-    private ModelAndView viewSuccess(Resolution data) {
-        return view(data)
+    private ModelAndView viewSuccess(Resolution data,HttpServletRequest request) {
+        return view(data,request)
                 .addObject("responseMessage", "บันทึกสำเร็จ")
                 .addObject("success", true) // success green, else red
                 .addObject("timeout", true) // redirect after delay
                 ;
     }
 
-    private ModelAndView viewError(Resolution data, String message) {
-        return view(data).addObject("responseMessage", message);
+    private ModelAndView viewError(Resolution data, String message,HttpServletRequest request) {
+        return view(data,request).addObject("responseMessage", message);
     }
 
-    private ModelAndView view(Resolution data) {
-        return new ModelAndView(FRAGMENT_RESOLUTION_VIEW).addObject("resolution", data);
+    private ModelAndView view(Resolution data,HttpServletRequest request) {
+        ModelAndView view = new ModelAndView(FRAGMENT_RESOLUTION_VIEW);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("resolution", data);
+        return view;
     }
 
 }

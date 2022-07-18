@@ -26,8 +26,8 @@
                 <input type="date" class="form-control bg-white mr-3" id="dateEnd">
             </div>
             <div class="form-group mb-3">
-                <button type="button" class="btn btn-outline-poba mr-3" onclick="findResolutionInfo();">ค้นหา</button>
-                <a href="javascript:void(0)" onclick="loadView('/poba/resolution/add')" class="btn btn-poba">เพิ่มข้อมูล</a>
+                <button type="button" class="btn btn-outline-poba mr-3" onclick="findResolutionInfo();" th:if="${#lists.contains(roles, 'ROLE_RESOLUTION_SEARCH')}">ค้นหา</button>
+                <a href="javascript:void(0)" onclick="loadView('/poba/resolution/add')" class="btn btn-poba" th:if="${#lists.contains(roles, 'ROLE_RESOLUTION_ADD')}">เพิ่มข้อมูล</a>
             </div>
         </form>
 

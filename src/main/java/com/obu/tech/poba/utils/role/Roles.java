@@ -101,5 +101,10 @@ public class Roles {
     public static final String ROLE_POL_SCI_SEARCH = "ROLE_POL_SCI_SEARCH";
     public static final String ROLE_POL_SCI_ADD = "ROLE_POL_SCI_ADD";
     public static final String ROLE_POL_SCI_EDIT = "ROLE_POL_SCI_EDIT";
+    // มติกรรมการคณะ
+    public static final String ROLE_RESOLUTION_ACCESS = "ROLE_RESOLUTION_ACCESS";
+    public static final String ROLE_RESOLUTION_SEARCH = "ROLE_RESOLUTION_SEARCH";
+    public static final String ROLE_RESOLUTION_ADD = "ROLE_RESOLUTION_ADD";
+    public static final String ROLE_RESOLUTION_EDIT = "ROLE_RESOLUTION_EDIT";
 
 }
