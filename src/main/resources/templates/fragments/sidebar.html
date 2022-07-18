@@ -1,7 +1,7 @@
 <nav id="sidebar" class="sidebar sidebar-offcanvas" xmlns:th="http://www.thymeleaf.org">
     <ul class="nav">
 
-        <li class="nav-item">
+        <li class="nav-item" th:if="${#lists.contains(roles, 'ROLE_PERSONNEL_INFO_PROFILE_ACCESS') || #lists.contains(roles, 'ROLE_PERSONNEL_INFO_STUDY_ACCESS') || #lists.contains(roles, 'ROLE_PERSONNEL_INFO_RESEARCHER_ACCESS') || #lists.contains(roles, 'ROLE_PERSONNEL_INFO_ACADEMIC_SERVICE_ACCESS')}">
             <a class="nav-link" data-toggle="collapse" href="#menu-personnel-info" aria-expanded="false" aria-controls="menu-personnel-info">
                 <i class="mdi mdi-account menu-icon"></i>
                 <span class="menu-title">ข้อมูลบุคลากร</span>
@@ -17,7 +17,7 @@
             </div>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" th:if="${#lists.contains(roles, 'ROLE_TEACHING_ACCESS') || #lists.contains(roles, 'ROLE_LECTURER_ACCESS')}">
             <a class="nav-link" data-toggle="collapse" href="#menu-teaching-info" aria-expanded="false" aria-controls="menu-teaching-info">
                 <i class="mdi mdi-account menu-icon"></i>
                 <span class="menu-title">ข้อมูลการสอน</span>
@@ -31,7 +31,7 @@
             </div>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" th:if="${#lists.contains(roles, 'ROLE_CONSULTANT_STUDENT_BACHELOR_ACCESS') || #lists.contains(roles, 'ROLE_CONSULTANT_STUDENT_MASTER_ACCESS') || #lists.contains(roles, 'ROLE_CONSULTANT_THESIS_ACCESS')}">
             <a class="nav-link" data-toggle="collapse" href="#ui-user" aria-expanded="false" aria-controls="ui-user">
                 <i class="mdi mdi-account-multiple menu-icon"></i>
                 <span class="menu-title">ข้อมูลที่ปรึกษานิสิต</span>
@@ -46,7 +46,7 @@
             </div>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" th:if="${#lists.contains(roles, 'ROLE_REWARD_ACCESS') || #lists.contains(roles, 'ROLE_PUBLISHED_ACCESS') || #lists.contains(roles, 'ROLE_PRESENTING_ACCESS') || #lists.contains(roles, 'ROLE_TEXTBOOK_ACCESS') || #lists.contains(roles, 'ROLE_EXTERNAL_ACADEMIC_SERVICE_ACCESS') || #lists.contains(roles, 'ROLE_TRAINING_ACCESS') || #lists.contains(roles, 'ROLE_PRESS_ACCESS')}">
             <a class="nav-link" data-toggle="collapse" href="#ui-farm-inside" aria-expanded="false" aria-controls="ui-farm-inside">
                 <i class="mdi mdi-certificate menu-icon"></i>
                 <span class="menu-title">ข้อมูลผลงานวิชาการ</span>
@@ -65,7 +65,7 @@
             </div>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" th:if="${#lists.contains(roles, 'ROLE_STUDENT_ACCESS') || #lists.contains(roles, 'ROLE_STUDENT_SUMMARY_ACCESS')}">
             <a class="nav-link" data-toggle="collapse" href="#ui-farm-inside2" aria-expanded="false" aria-controls="ui-farm-inside">
                 <i class="mdi mdi-account-card-details menu-icon"></i>
                 <span class="menu-title">ข้อมูลนิสิต</span>
@@ -79,7 +79,7 @@
             </div>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" th:if="${#lists.contains(roles, 'ROLE_PROJECT_ACCESS') || #lists.contains(roles, 'ROLE_POL_SCI_ACCESS')}">
             <a class="nav-link" data-toggle="collapse" href="#ui-farm-inside3" aria-expanded="false" aria-controls="ui-farm-inside">
                 <i class="mdi mdi-calendar menu-icon"></i>
                 <span class="menu-title">โครงการ / กิจกรรม</span>
