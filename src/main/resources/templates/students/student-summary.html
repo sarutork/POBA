@@ -41,7 +41,7 @@
                 </select>
             </div>
             <div class="form-group mb-2">
-                <button type="button" class="btn btn-outline-poba mr-2" onclick="searchSummary()">ค้นหา</button>
+                <button type="button" class="btn btn-outline-poba mr-2" onclick="searchSummary()" th:if="${#lists.contains(roles, 'ROLE_STUDENT_SEARCH')}">ค้นหา</button>
             </div>
         </form>
         <div class="table table-responsive">

@@ -88,5 +88,8 @@ public class Roles {
     public static final String ROLE_STUDENT_SEARCH = "ROLE_STUDENT_SEARCH";
     public static final String ROLE_STUDENT_ADD = "ROLE_STUDENT_ADD";
     public static final String ROLE_STUDENT_EDIT = "ROLE_STUDENT_EDIT";
+    // สรุปจำนวนนิสิต
+    public static final String ROLE_STUDENT_SUMMARY_ACCESS = "ROLE_STUDENT_SUMMARY_ACCESS";
+    public static final String ROLE_STUDENT_SUMMARY_SEARCH = "ROLE_STUDENT_SUMMARY_SEARCH";
 
 }
