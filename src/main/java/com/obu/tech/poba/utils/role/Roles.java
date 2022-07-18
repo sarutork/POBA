@@ -96,5 +96,10 @@ public class Roles {
     public static final String ROLE_PROJECT_SEARCH = "ROLE_PROJECT_SEARCH";
     public static final String ROLE_PROJECT_ADD = "ROLE_PROJECT_ADD";
     public static final String ROLE_PROJECT_EDIT = "ROLE_PROJECT_EDIT";
+    // ข้อมูลการเข้าร่วมกิจกรรมคณะ
+    public static final String ROLE_POL_SCI_ACCESS = "ROLE_POL_SCI_ACCESS";
+    public static final String ROLE_POL_SCI_SEARCH = "ROLE_POL_SCI_SEARCH";
+    public static final String ROLE_POL_SCI_ADD = "ROLE_POL_SCI_ADD";
+    public static final String ROLE_POL_SCI_EDIT = "ROLE_POL_SCI_EDIT";
 
 }

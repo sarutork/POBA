@@ -32,8 +32,8 @@
                     <input type="date" class="col-4 form-control" id="polsciDateFrom" name="polsciDateFrom"/>
                 </div>
                 <div class="pl-xl-3 d-inline-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findPolsciInfo()">ค้นหา</button>
-                    <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/polsci/add')">เพิ่มข้อมูล</a>
+                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findPolsciInfo()" th:if="${#lists.contains(roles, 'ROLE_POL_SCI_SEARCH')}">ค้นหา</button>
+                    <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/polsci/add')" th:if="${#lists.contains(roles, 'ROLE_POL_SCI_ADD')}">เพิ่มข้อมูล</a>
                 </div>
             </div>
         </form>

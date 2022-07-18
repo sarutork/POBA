@@ -154,12 +154,12 @@
             </div>
         </form>
         <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${viewName != 'ดูข้อมูล' ? 'd-block' : 'd-none'} ">
-            <button type="button" class="btn btn-poba mr-3" onclick="submitPolsciInfo();">บันทึก</button>
+            <button type="button" class="btn btn-poba mr-3" onclick="submitPolsciInfo();" th:if="${#lists.contains(roles, 'ROLE_POL_SCI_ADD') || #lists.contains(roles, 'ROLE_POL_SCI_EDIT')}">บันทึก</button>
             <a href="javascript:void(0)" onclick="loadView('/poba/polsci')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
         </div>
         <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${viewName == 'ดูข้อมูล' ? 'd-block' : 'd-none'}">
             <a href="javascript:void(0)" onclick="loadView('/poba/polsci')" class="btn btn-poba mr-3">ยกเลิก</a>
-            <button type="button" class="btn btn-outline-poba mr-3" onclick="editPolsciInfo();">แก้ไข</button>
+            <button type="button" class="btn btn-outline-poba mr-3" onclick="editPolsciInfo();" th:if="${#lists.contains(roles, 'ROLE_POL_SCI_EDIT')}">แก้ไข</button>
         </div>
     </div>
 
