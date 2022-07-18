@@ -78,10 +78,15 @@ public class Roles {
     public static final String ROLE_TRAINING_ADD = "ROLE_TRAINING_ADD";
     public static final String ROLE_TRAINING_EDIT = "ROLE_TRAINING_EDIT";
 
-    //
+    // ข้อมูลการออกสื่อ
     public static final String ROLE_PRESS_ACCESS = "ROLE_PRESS_ACCESS";
     public static final String ROLE_PRESS_SEARCH = "ROLE_PRESS_SEARCH";
     public static final String ROLE_PRESS_ADD = "ROLE_PRESS_ADD";
     public static final String ROLE_PRESS_EDIT = "ROLE_PRESS_EDIT";
+    // ข้อมูลนิสิต
+    public static final String ROLE_STUDENT_ACCESS = "ROLE_STUDENT_ACCESS";
+    public static final String ROLE_STUDENT_SEARCH = "ROLE_STUDENT_SEARCH";
+    public static final String ROLE_STUDENT_ADD = "ROLE_STUDENT_ADD";
+    public static final String ROLE_STUDENT_EDIT = "ROLE_STUDENT_EDIT";
 
 }

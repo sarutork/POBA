@@ -1,6 +1,8 @@
 package com.obu.tech.poba.students;
 
+import com.obu.tech.poba.authenticate.MemberAccess;
 import com.obu.tech.poba.personnel_info.profile.Profile;
+import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
@@ -14,12 +16,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.obu.tech.poba.utils.role.Roles.*;
+
 @Slf4j
 @Controller
+@RolesAllowed(ROLE_STUDENT_ACCESS)
 @RequestMapping("/students")
 public class StudentsController {
     static final String FRAGMENT_STUDENT = "students/student :: student";
@@ -34,42 +41,59 @@ public class StudentsController {
     @Autowired
     private YearGeneratorUtils yearGeneratorUtils;
 
+    @Autowired
+    private MemberAccessUtils memberAccessUtils;
+
     @GetMapping
-    public ModelAndView showListView() {
+    public ModelAndView showListView(HttpServletRequest request) {
         List<Integer> years = yearGeneratorUtils.genYears();
-        return new ModelAndView(FRAGMENT_STUDENT).addObject("years", years);
+        ModelAndView view = new ModelAndView(FRAGMENT_STUDENT);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("years", years);
+        return view;
     }
 
+    @RolesAllowed(ROLE_STUDENT_SEARCH)
     @GetMapping("/search")
     public ResponseEntity<List<Students>> search(@ModelAttribute Students students) {
         return ResponseEntity.ok().body(studentsService.findBySearchCriteria(students));
     }
 
+    @RolesAllowed(ROLE_STUDENT_SEARCH)
     @GetMapping("/search-txt")
     public ResponseEntity<List<Students>> findByTxt(String searchTxt) {
         return ResponseEntity.ok().body(studentsService.findByNameOrId(searchTxt));
     }
 
+    @RolesAllowed(ROLE_STUDENT_SEARCH)
     @GetMapping("/search-txt-level1")
     public ResponseEntity<List<Students>> findByTxt1(String searchTxt) {
         return ResponseEntity.ok().body(studentsService.findByNameOrIdAndLevel1(searchTxt));
     }
+
+    @RolesAllowed(ROLE_STUDENT_SEARCH)
     @GetMapping("/search-txt-level23")
     public ResponseEntity<List<Students>> findByTxt23(String searchTxt) {
         return ResponseEntity.ok().body(studentsService.findByNameOrIdAndLevel23(searchTxt));
     }
 
+    @RolesAllowed(ROLE_STUDENT_ADD)
     @GetMapping("/add")
-    public ModelAndView add() {
+    public ModelAndView add(HttpServletRequest request) {
         Students students = new Students();
         students.setStudentsUpdate(LocalDate.now());
-        return formAdd(students);
+        return formAdd(students,request);
     }
 
+    @RolesAllowed({ROLE_STUDENT_ADD,ROLE_STUDENT_EDIT})
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView save(@ModelAttribute("training") @Valid Students students, BindingResult bindingResult) {
+    public ModelAndView save(@ModelAttribute("training") @Valid Students students,
+                             BindingResult bindingResult,
+                             HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            throw new InvalidInputException(formAdd(students), bindingResult);
+            throw new InvalidInputException(formAdd(students,request), bindingResult);
         }
         try{
             if(!StringUtils.isBlank(students.getStudentsName())) {
@@ -88,36 +112,47 @@ public class StudentsController {
             studentsRes.setStudentsName(students.getStudentsName()+" "+students.getStudentsSurname());
             studentsRes.setName(students.getName()+" "+students.getSurname());
 
-            return viewSuccess(studentsRes);
+            return viewSuccess(studentsRes,request);
         }catch (Exception e){
             e.printStackTrace();
             log.error("{}: {}", e.getClass().getSimpleName(), e.getMessage());
-            return new ModelAndView(FRAGMENT_STUDENT_FORM).addObject("responseMessage", "ไม่สำเร็จ");
+            ModelAndView view = new ModelAndView(FRAGMENT_STUDENT_FORM);
+            MemberAccess member = memberAccessUtils.getMemberAccess(request);
+            view.addObject("user",member.getMember());
+            view.addObject("roles",member.getRoles());
+            view.addObject("responseMessage", "ไม่สำเร็จ");
+            return view;
+
         }
     }
 
+    @RolesAllowed({ROLE_STUDENT_SEARCH,ROLE_STUDENT_EDIT})
     @GetMapping(value = "/{id}")
-    public ModelAndView showTeachingInfo(@PathVariable String id){
+    public ModelAndView showTeachingInfo(@PathVariable String id,HttpServletRequest request){
         Students students = studentsService.findById(id);
         students.setStudentsName(students.getStudentsName()+" "+students.getStudentsSurname());
         students.setName(students.getName()+" "+students.getSurname());
         students.setStudentsUpdate(LocalDate.now());
-        return view(students);
+        return view(students,request);
     }
 
-    private ModelAndView formAdd(Students data) {
-        return form(data).addObject("viewName", "เพิ่มข้อมูล");
+    private ModelAndView formAdd(Students data,HttpServletRequest request) {
+        return form(data,request).addObject("viewName", "เพิ่มข้อมูล");
     }
 
-    private ModelAndView form(Students data) {
+    private ModelAndView form(Students data,HttpServletRequest request) {
         List<Integer> years = yearGeneratorUtils.genYears();
-        return new ModelAndView(FRAGMENT_STUDENT_FORM)
-                .addObject("years", years)
-                .addObject("student", data);
+        ModelAndView view = new ModelAndView(FRAGMENT_STUDENT_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("years", years);
+        view.addObject("student", data);
+        return view;
     }
 
-    private ModelAndView viewSuccess(Students data) {
-        return view(data)
+    private ModelAndView viewSuccess(Students data,HttpServletRequest request) {
+        return view(data,request)
                 .addObject("viewName", "ดูข้อมูล")
                 .addObject("responseMessage", "บันทึกสำเร็จ")
                 .addObject("success", true) // success green, else red
@@ -125,10 +160,15 @@ public class StudentsController {
                 ;
     }
 
-    private ModelAndView view(Students data) {
+    private ModelAndView view(Students data,HttpServletRequest request) {
         List<Integer> years = yearGeneratorUtils.genYears();
-        return new ModelAndView(FRAGMENT_STUDENT_FORM).addObject("viewName", "ดูข้อมูล")
-                .addObject("years", years)
-                .addObject("student", data);
+        ModelAndView view = new ModelAndView(FRAGMENT_STUDENT_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
+        view.addObject("viewName", "ดูข้อมูล");
+        view.addObject("years", years);
+        view.addObject("student", data);
+        return view;
     }
 }

@@ -35,8 +35,8 @@
                 </select>
             </div>
             <div class="form-group mb-3">
-                <button type="button" class="btn btn-outline-poba mr-3" onclick="findStudent()">ค้นหา</button>
-                <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/students/add')">เพิ่มข้อมูล</a>
+                <button type="button" class="btn btn-outline-poba mr-3" onclick="findStudent()" th:if="${#lists.contains(roles, 'ROLE_STUDENT_SEARCH')}">ค้นหา</button>
+                <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/students/add')" th:if="${#lists.contains(roles, 'ROLE_STUDENT_ADD')}">เพิ่มข้อมูล</a>
             </div>
         </form>
 
