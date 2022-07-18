@@ -91,5 +91,10 @@ public class Roles {
     // สรุปจำนวนนิสิต
     public static final String ROLE_STUDENT_SUMMARY_ACCESS = "ROLE_STUDENT_SUMMARY_ACCESS";
     public static final String ROLE_STUDENT_SUMMARY_SEARCH = "ROLE_STUDENT_SUMMARY_SEARCH";
+    // ข้อมูลผู้เข้าร่วมกิจกรรม
+    public static final String ROLE_PROJECT_ACCESS = "ROLE_PROJECT_ACCESS";
+    public static final String ROLE_PROJECT_SEARCH = "ROLE_PROJECT_SEARCH";
+    public static final String ROLE_PROJECT_ADD = "ROLE_PROJECT_ADD";
+    public static final String ROLE_PROJECT_EDIT = "ROLE_PROJECT_EDIT";
 
 }
