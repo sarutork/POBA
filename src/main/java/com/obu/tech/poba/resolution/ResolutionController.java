@@ -75,8 +75,11 @@ public class ResolutionController {
 
     @RolesAllowed({ROLE_RESOLUTION_SEARCH,ROLE_RESOLUTION_EDIT})
     @GetMapping(value = "/{id}/edit")
-    public ModelAndView showEditView(@PathVariable String id) {
+    public ModelAndView showEditView(@PathVariable String id,HttpServletRequest request) {
         ModelAndView view = new ModelAndView(FRAGMENT_RESOLUTION_FORM);
+        MemberAccess member = memberAccessUtils.getMemberAccess(request);
+        view.addObject("user",member.getMember());
+        view.addObject("roles",member.getRoles());
         view.addObject("viewName", "แก้ไขข้อมูล");
         Resolution resolution = resolutionService.findById(id);
         List<Upload> uploads = uploadService.getByGroupAndReference(UPLOAD_GROUP_RESOLUTION, resolution.getBordId());
