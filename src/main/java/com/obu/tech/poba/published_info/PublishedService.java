@@ -1,13 +1,11 @@
 package com.obu.tech.poba.published_info;
-
-import com.obu.tech.poba.utils.search.SearchConditionBuilder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
+import java.util.ArrayList;
 import java.util.List;
-import static com.obu.tech.poba.utils.search.SearchOperator.*;
 
 @Service
 public class PublishedService {
@@ -21,11 +19,31 @@ public class PublishedService {
     private FiscalYearRepository fiscalYearRepository;
 
     public  List<Published> findBySearchCriteria(Published published){
-        return publishedRepository.findAll(new SearchConditionBuilder<Published>()
-                .ifNotNullThenAnd("fullNamePublisher", LIKE, published.getName().replaceAll("\\s", ""))
-                .ifNotNullThenOr("fullNameJoiner", LIKE, published.getName().replaceAll("\\s", ""))
-                .ifNotNullThenAnd("publishedLevel", LIKE, published.getPublishedLevel())
-                .build());
+        List<Object[]> dataList = publishedRepository.findPublishedInfo("%"+published.getName()+"%",published.getPublishedLevel());
+
+        List<Published> publisheds = new ArrayList<>();
+        if (!dataList.isEmpty() && dataList.size() >0){
+            for(final Object[] e : dataList){
+                final Published result = new Published();
+                result.setPublishedId(Long.parseLong(e[0].toString()));
+                result.setPrefix( !e[1].toString().equals("อื่นๆ")? e[1].toString() : e[2].toString());
+                result.setName(e[3].toString()+" "+e[4].toString());
+                if (e[5] != null ) {
+                    result.setPublishedStatus(e[5].toString());
+                }
+
+                if(e[6] != null){
+                    result.setPublishedTopic(e[6].toString());
+                }
+
+                if(e[7] != null){
+                    result.setPublishedLevel(e[7].toString());
+                }
+
+                publisheds.add(result);
+            }
+        }
+        return publisheds;
     }
 
     public  Published findPublishedById(String id){
@@ -45,11 +63,6 @@ public class PublishedService {
     public Published savePublished(PublishedDto publishedDto){
         Published published = new Published();
         BeanUtils.copyProperties(publishedDto,published);
-        String prefix = published.getPrefix();
-        if("อื่นๆ".equals(prefix)){
-            prefix = published.getPrefixOther();
-        }
-        published.setFullNamePublisher(prefix+published.getName()+published.getSurname());
 
         String prefixJoiner = publishedDto.getPublishedJoinPrefix();
         if("อื่นๆ".equals(prefixJoiner)){

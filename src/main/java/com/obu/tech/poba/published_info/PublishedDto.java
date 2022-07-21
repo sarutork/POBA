@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.Transient;
 import javax.validation.constraints.*;
 import java.util.List;
 
@@ -15,13 +16,11 @@ import java.util.List;
 public class PublishedDto {
     private long publishedId;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า")
-    private String prefix;
-    private String prefixOther;
+    @NotEmpty(message = "โปรดเลือก คำนำหน้า และ ชื่อ-นามสกุล ")
+    private String persNo;
 
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-นามสกุล")
+    private String prefix;
     private String name;
-    private String surname;
 
     private String publishedStatus;
 

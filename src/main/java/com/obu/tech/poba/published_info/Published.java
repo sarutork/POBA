@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
@@ -15,10 +16,11 @@ public class Published {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long publishedId;
+    private String persNo;
+    @Transient
     private String prefix;
-    private String prefixOther;
+    @Transient
     private String name;
-    private String surname;
     private String fullNamePublisher;
     private String fullNameJoiner;
     private String publishedStatus;

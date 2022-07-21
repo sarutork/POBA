@@ -1,6 +1,8 @@
 package com.obu.tech.poba.published_info;
 
 import com.obu.tech.poba.authenticate.MemberAccess;
+import com.obu.tech.poba.personnel_info.profile.Profile;
+import com.obu.tech.poba.personnel_info.profile.ProfileService;
 import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.YearGeneratorUtils;
@@ -44,6 +46,9 @@ public class PublishedController {
 
     @Autowired
     private MemberAccessUtils memberAccessUtils;
+
+    @Autowired
+    private ProfileService profileService;
 
     @GetMapping
     public ModelAndView showListView(HttpServletRequest request) {
@@ -96,7 +101,9 @@ public class PublishedController {
             publishedDto.setPublishedJoinName3(publishedJoin.get(0).getPublishedJoinName3() + " " + publishedJoin.get(0).getPublishedJoinSurname3());
         }
 
-        publishedDto.setName(published.getName() +" "+published.getSurname());
+        Profile profile = profileService.findByPersNo(published.getPersNo());
+        publishedDto.setPrefix(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+        publishedDto.setName(profile.getName()+" "+profile.getSurname());
 
         List<FiscalYear> fiscalYears = publishedService.findFiscalYearByPublishedId(published.getPublishedId());
         publishedDto.setFiscalYears(fiscalYears);
@@ -119,11 +126,6 @@ public class PublishedController {
             throw new InvalidInputException(formAdd(publishedDto,request), bindingResult);
         }
         try {
-            if(!StringUtils.isBlank(publishedDto.getName())) {
-                String[] fullName = nameConverterUtils.fullNameToNameNSurname(publishedDto.getName());
-                publishedDto.setName(fullName[0]);
-                publishedDto.setSurname(fullName[1]);
-            }
 
             if(!StringUtils.isBlank(publishedDto.getPublishedJoinName())) {
                 String[] pJoinfullName = nameConverterUtils.fullNameToNameNSurname(publishedDto.getPublishedJoinName());
@@ -149,7 +151,6 @@ public class PublishedController {
 
             PublishedJoin publishedJoin = publishedService.savePublishedJoin(publishedDto);
 
-            publishedDto.setName(publishedDto.getName()+" "+publishedDto.getSurname());
             publishedDto.setPublishedJoinName(publishedDto.getPublishedJoinName()+" "+publishedDto.getPublishedJoinSurname());
 
             if(publishedDto.getFiscalYears() != null && publishedDto.getFiscalYears().size() !=0) {

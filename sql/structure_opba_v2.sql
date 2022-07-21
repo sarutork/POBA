@@ -427,11 +427,8 @@ DROP TABLE IF EXISTS `published_info`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `published_info` (
   `published_id` int NOT NULL AUTO_INCREMENT,
-  `prefix` varchar(255) NOT NULL,
-  `prefix_other` varchar(255) DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
-  `full_name_publisher` varchar(255) NOT NULL,
+  `pers_no` varchar(11),
+  `full_name_publisher` varchar(255) NULL,
   `full_name_joiner` varchar(255) NOT NULL,
   `published_status` varchar(255) NOT NULL,
   `published_topic` varchar(255) NOT NULL,
@@ -445,6 +442,16 @@ CREATE TABLE `published_info` (
   PRIMARY KEY (`published_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+-- published_info
+ALTER TABLE published_info ADD month_other  varchar(255);
+ALTER TABLE published_info ADD published_page  varchar(255);
+ALTER TABLE published_info ADD published_type varchar(255);
+ALTER TABLE published_info ADD published_status_other varchar(255);
+
+ALTER TABLE published_info MODIFY COLUMN published_status VARCHAR(255) NULL;
+ALTER TABLE published_info MODIFY COLUMN published_base VARCHAR(255) NULL;
+ALTER TABLE published_info MODIFY COLUMN published_level VARCHAR(255) NULL;
 
 --
 -- Table structure for table `published_join`
@@ -822,15 +829,7 @@ CREATE TABLE `upload` (
 -- Dump completed on 2022-04-24 23:16:31
 
 
--- published_info
-ALTER TABLE published_info ADD month_other  varchar(255);
-ALTER TABLE published_info ADD published_page  varchar(255);
-ALTER TABLE published_info ADD published_type varchar(255);
-ALTER TABLE published_info ADD published_status_other varchar(255);
 
-ALTER TABLE published_info MODIFY COLUMN published_status VARCHAR(255) NULL;
-ALTER TABLE published_info MODIFY COLUMN published_base VARCHAR(255) NULL;
-ALTER TABLE published_info MODIFY COLUMN published_level VARCHAR(255) NULL;
 
 
 -- present_work

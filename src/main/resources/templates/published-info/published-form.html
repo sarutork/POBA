@@ -16,32 +16,21 @@
         <form id="form-published">
             <input type="hidden" id="publishedId" name="publishedId" th:value="${published.publishedId}"/>
             <input type="hidden" id="publishedJoinId" name="publishedJoinId" th:value="${published.publishedJoinId}"/>
+            <input type="hidden" id="persNo" name="persNo" th:field="${published.persNo}"/>
+
             <div class="row col-sm-12 mb-2">
                 <label><b>ข้อมูลอาจารย์</b></label>
             </div>
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
-                    <option value="">กรุณาเลือก</option>
-                    <option value="อ." th:selected="${published.prefix == 'อ.'}? 'selected'">อ.</option>
-                    <option value="อ.ดร." th:selected="${published.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
-                    <option value="ผศ." th:selected="${published.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
-                    <option value="ผศ.ดร." th:selected="${published.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
-                    <option value="รศ." th:selected="${published.prefix == 'รศ.'}? 'selected'">รศ.</option>
-                    <option value="รศ.ดร." th:selected="${published.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
-                    <option value="ศ." th:selected="${published.prefix == 'ศ.'}? 'selected'">ศ.</option>
-                    <option value="ศ.ดร." th:selected="${published.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
-                    <option value="อื่นๆ" th:selected="${published.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
-                </select>
-                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${published.prefixOther != null}? 'd-none':'d-block'"></div>
-                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
-                       th:attr="value=${published.prefixOther != null}? ${published.prefixOther}: ''"
-                       th:classappend="${published.prefix == 'อื่นๆ'}? 'd-block':'d-none'"/>
-            </div>
-            <div class="row mb-2">
+                <input type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"
+                       th:value="${published.prefix}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
                 <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
-                       th:attr="value=${published.name != null}? ${published.name} : ''" maxlength="255" required/>
+                       th:value="${published.name}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
+                <button type="button" class="btn btn-poba btn-search ml-2" data-toggle="modal" data-target="#personnelModal">ค้นหา</button>
+            </div>
+            <div class="row mb-2">
                 <label for="publishedStatus" class="form-control-label col-sm-2">สถานะผู้เขียน:</label>
                 <select type="text" class="col-sm-2 form-control bg-white" id="publishedStatus" name="publishedStatus">
                     <option value="">กรุณาเลือก</option>
