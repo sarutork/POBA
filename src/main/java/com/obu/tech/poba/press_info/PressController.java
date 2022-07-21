@@ -118,7 +118,7 @@ public class PressController {
 
     @RolesAllowed({ROLE_PRESS_SEARCH,ROLE_PRESS_EDIT})
     @GetMapping(value = "/{id}")
-    public ModelAndView showPresentingInfo(@PathVariable String id,HttpServletRequest request){
+    public ModelAndView showInfo(@PathVariable String id,HttpServletRequest request){
         Press press = pressService.findById(id);
 
         Profile profile = profileService.findByPersNo(press.getPersNo());

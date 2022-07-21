@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
@@ -16,8 +17,9 @@ public class Reward {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long staffId;
     private long rewardId;
+    private String persNo;
+    @Transient
     private String prefix;
-    private String prefixOther;
+    @Transient
     private String name;
-    private String surname;
 }

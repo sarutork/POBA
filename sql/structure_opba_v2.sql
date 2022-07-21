@@ -521,10 +521,7 @@ DROP TABLE IF EXISTS `reward`;
 CREATE TABLE `reward` (
   `staff_id` int NOT NULL AUTO_INCREMENT,
   `reward_id` int NOT NULL,
-  `prefix` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
-  `prefix_other` varchar(255) DEFAULT NULL,
+  `pers_no` varchar(11),
   PRIMARY KEY (`staff_id`,`reward_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;

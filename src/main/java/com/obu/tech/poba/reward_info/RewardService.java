@@ -26,10 +26,8 @@ public class RewardService {
                 final RewardDto result = new RewardDto();
                 result.setStaffId(Long.parseLong(e[0].toString()));
                 result.setRewardId(Long.parseLong(e[1].toString()));
-                result.setPrefix(e[2].toString());
-                result.setPrefixOther(e[3].toString());
-                result.setName(e[4].toString());
-                result.setSurname(e[5].toString());
+                result.setPrefix( !e[2].toString().equals("อื่นๆ")? e[2].toString() : e[3].toString());
+                result.setName(e[4].toString()+" "+e[5].toString());
                 result.setRewardType(e[6].toString());
                 result.setRewardName(e[7].toString());
                 result.setRewardLevel(e[8].toString());
@@ -49,16 +47,15 @@ public class RewardService {
                 final RewardDto result = new RewardDto();
                 result.setStaffId(Long.parseLong(e[0].toString()));
                 result.setRewardId(Long.parseLong(e[1].toString()));
-                result.setPrefix(e[2].toString());
-                result.setPrefixOther(e[3].toString());
-                result.setName(e[4].toString());
-                result.setSurname(e[5].toString());
-                result.setRewardType(e[6].toString());
-                result.setRewardName(e[7].toString());
-                result.setRewardLevel(e[8].toString());
-                result.setRewardDate(LocalDate.parse(e[9].toString()));
-                result.setRewardTopic(e[10].toString());
-                result.setRewardInstitution(e[11].toString());
+                result.setPersNo(e[2].toString());
+                result.setPrefix( !e[3].toString().equals("อื่นๆ")? e[3].toString() : e[4].toString());
+                result.setName(e[5].toString()+" "+e[6].toString());
+                result.setRewardType(e[7].toString());
+                result.setRewardName(e[8].toString());
+                result.setRewardLevel(e[9].toString());
+                result.setRewardDate(LocalDate.parse(e[10].toString()));
+                result.setRewardTopic(e[11].toString());
+                result.setRewardInstitution(e[12].toString());
 
                 rewardDtos.add(result);
             }

@@ -1,6 +1,8 @@
 package com.obu.tech.poba.reward_info;
 
 import com.obu.tech.poba.authenticate.MemberAccess;
+import com.obu.tech.poba.personnel_info.profile.Profile;
+import com.obu.tech.poba.personnel_info.profile.ProfileService;
 import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
@@ -40,6 +42,8 @@ public class RewardController {
     @Autowired
     private MemberAccessUtils memberAccessUtils;
 
+    @Autowired ProfileService profileService;
+
     @GetMapping
     public ModelAndView showListView(HttpServletRequest request) {
         ModelAndView view = new ModelAndView(FRAGMENT_REWARDS);
@@ -70,19 +74,12 @@ public class RewardController {
             throw new InvalidInputException(formAdd(rewardDto,request), bindingResult);
         }
         try {
-            if(!StringUtils.isBlank(rewardDto.getName())) {
-                String[] fullName = nameConverterUtils.fullNameToNameNSurname(rewardDto.getName());
-                rewardDto.setName(fullName[0]);
-                rewardDto.setSurname(fullName[1]);
-            }
 
             RewardDetail rewardDetail = rewardService.saveRewardDetail(rewardDto);
 
             rewardDto.setRewardId(rewardDetail.getRewardId());
 
             Reward reward = rewardService.saveReward(rewardDto);
-
-            rewardDto.setName(rewardDto.getName()+" "+rewardDto.getSurname());
 
             return viewSuccess(rewardDto,request);
         }catch (Exception e){
@@ -107,10 +104,9 @@ public class RewardController {
         view.addObject("viewName", "ดูข้อมูล");
         List<RewardDto> reward = rewardService.findRewardByStaffId(id);
 
-        String prefix = StringUtils.isBlank(reward.get(0).getPrefixOther())? reward.get(0).getPrefix(): reward.get(0).getPrefixOther();
-        reward.get(0).setPrefix(prefix);
-
-        reward.get(0).setName(reward.get(0).getName()+" "+reward.get(0).getSurname());
+        Profile profile = profileService.findByPersNo(reward.get(0).getPersNo());
+        reward.get(0).setPrefix(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+        reward.get(0).setName(profile.getName()+" "+profile.getSurname());
 
         view.addObject("reward",reward.get(0));
         return view;
@@ -124,8 +120,12 @@ public class RewardController {
         view.addObject("user",member.getMember());
         view.addObject("roles",member.getRoles());
         view.addObject("viewName", "แก้ไขข้อมูล");
+
         List<RewardDto> reward  = rewardService.findRewardByStaffId(id);
-        reward.get(0).setName(reward.get(0).getName()+" "+reward.get(0).getSurname());
+
+        Profile profile = profileService.findByPersNo(reward.get(0).getPersNo());
+        reward.get(0).setPrefix(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+        reward.get(0).setName(profile.getName()+" "+profile.getSurname());
         view.addObject("reward",reward.get(0));
         return view;
     }
