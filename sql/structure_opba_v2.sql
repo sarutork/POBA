@@ -261,10 +261,7 @@ DROP TABLE IF EXISTS `present_work`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `present_work` (
   `present_id` int NOT NULL AUTO_INCREMENT,
-  `prefix` varchar(255) NOT NULL,
-  `prefix_other` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
+  `pers_no` varchar(11),
   `present_topic` varchar(255) NOT NULL,
   `present_name` varchar(255) NOT NULL,
   `present_institution` varchar(255) NOT NULL,
@@ -276,6 +273,11 @@ CREATE TABLE `present_work` (
   PRIMARY KEY (`present_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+-- present_work
+ALTER TABLE present_work ADD present_country varchar(255);
+ALTER TABLE present_work ADD present_fund2 varchar(255);
+ALTER TABLE present_work ADD present_amount2 double;
 
 --
 -- Table structure for table `press_info`
@@ -828,14 +830,6 @@ CREATE TABLE `upload` (
 
 -- Dump completed on 2022-04-24 23:16:31
 
-
-
-
-
--- present_work
-ALTER TABLE present_work ADD present_country varchar(255);
-ALTER TABLE present_work ADD present_fund2 varchar(255);
-ALTER TABLE present_work ADD present_amount2 double;
 
 -- textbook
 ALTER TABLE textbook ADD textbook_extend_date2 date;

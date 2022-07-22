@@ -1,6 +1,8 @@
 package com.obu.tech.poba.presenting_info;
 
 import com.obu.tech.poba.authenticate.MemberAccess;
+import com.obu.tech.poba.personnel_info.profile.Profile;
+import com.obu.tech.poba.personnel_info.profile.ProfileService;
 import com.obu.tech.poba.teaching_info.Teaching;
 import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
@@ -37,6 +39,9 @@ public class PresentingController {
     @Autowired
     private MemberAccessUtils memberAccessUtils;
 
+    @Autowired
+    ProfileService profileService;
+
     @GetMapping
     public ModelAndView showListView(HttpServletRequest request) {
         ModelAndView view = new ModelAndView(FRAGMENT_PRESENTING_INFO);
@@ -65,14 +70,10 @@ public class PresentingController {
             throw new InvalidInputException(formAdd(presenting,request), bindingResult);
         }
         try{
-            if(!StringUtils.isBlank(presenting.getName())) {
-                String[] fullName = nameConverter.fullNameToNameNSurname(presenting.getName());
-                presenting.setName(fullName[0]);
-                presenting.setSurname(fullName[1]);
-            }
 
             Presenting presentingRes = presentingService.save(presenting);
-            presentingRes.setName(presentingRes.getName()+" "+presentingRes.getSurname());
+            presentingRes.setPrefix(presenting.getPrefix());
+            presentingRes.setName(presenting.getName());
 
             return viewSuccess(presentingRes,request);
         }catch (Exception e){
@@ -92,7 +93,10 @@ public class PresentingController {
     @GetMapping(value = "/{id}")
     public ModelAndView showPresentingInfo(@PathVariable String id,HttpServletRequest request){
         Presenting presenting = presentingService.findById(id);
-        presenting.setName(presenting.getName()+" "+presenting.getSurname());
+        Profile profile = profileService.findByPersNo(presenting.getPersNo());
+        presenting.setPrefix(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+        presenting.setName(profile.getName()+" "+profile.getSurname());
+
         return view(presenting,request);
     }
 
