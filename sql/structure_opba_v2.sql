@@ -720,10 +720,7 @@ DROP TABLE IF EXISTS `textbook`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `textbook` (
   `textbook_id` int NOT NULL AUTO_INCREMENT,
-  `prefix` varchar(255) NOT NULL,
-  `prefix_other` varchar(255) DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
+  `pers_no` varchar(11),
   `textbook_type` varchar(255) NOT NULL,
   `textbook_announce` varchar(255) DEFAULT NULL,
   `textbook_contract` varchar(255) DEFAULT NULL,
@@ -745,6 +742,10 @@ CREATE TABLE `textbook` (
   PRIMARY KEY (`textbook_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+-- textbook
+ALTER TABLE textbook ADD textbook_extend_date2 date;
+ALTER TABLE textbook ADD textbook_extend_date3 date;
 
 --
 -- Table structure for table `textbook_phase`

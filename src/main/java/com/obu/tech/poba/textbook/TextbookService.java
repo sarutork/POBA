@@ -1,11 +1,13 @@
 package com.obu.tech.poba.textbook;
 
+import com.obu.tech.poba.presenting_info.Presenting;
 import com.obu.tech.poba.utils.search.SearchConditionBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.obu.tech.poba.utils.search.SearchOperator.LIKE;
@@ -16,13 +18,30 @@ public class TextbookService {
     @Autowired TextbookPhaseRepository textbookPhaseRepository;
 
     List<Textbook> findBySearchCriteria(Textbook textbook){
-        return textbookRepository.findAll(new SearchConditionBuilder<Textbook>()
-                .ifNotNullThenAnd("name", LIKE, textbook.getName())
-                .ifNotNullThenOr("surname", LIKE, textbook.getName())
-                .ifNotNullThenAnd("textbookLevel", LIKE, textbook.getTextbookLevel())
-                .ifNotNullThenAnd("textbookType", LIKE, textbook.getTextbookType())
-                .build()
-        );
+        List<Object[]> data = textbookRepository.findTextbookInfo("%"+textbook.getName()+"%",textbook.getTextbookLevel(),textbook.getTextbookType());
+
+        List<Textbook> textbookList = new ArrayList<>();
+        if (!data.isEmpty() && data.size() >0){
+            for(final Object[] e : data){
+                final Textbook result = new Textbook();
+                result.setTextbookId(Long.parseLong(e[0].toString()));
+                result.setPrefix( !e[1].toString().equals("อื่นๆ")? e[1].toString() : e[2].toString());
+                result.setName(e[3].toString()+" "+e[4].toString());
+                if (e[5] != null ) {
+                    result.setTextbookType(e[5].toString());
+                }
+
+                if(e[6] != null){
+                    result.setTextbookTopic(e[6].toString());
+                }
+                if(e[7] != null){
+                    result.setTextbookLevel(e[7].toString());
+                }
+
+                textbookList.add(result);
+            }
+        }
+        return textbookList;
     }
 
     public Textbook findById(String id) {

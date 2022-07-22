@@ -1,6 +1,8 @@
 package com.obu.tech.poba.textbook;
 
 import com.obu.tech.poba.authenticate.MemberAccess;
+import com.obu.tech.poba.personnel_info.profile.Profile;
+import com.obu.tech.poba.personnel_info.profile.ProfileService;
 import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
@@ -41,6 +43,9 @@ public class TextbookController {
     @Autowired
     private MemberAccessUtils memberAccessUtils;
 
+    @Autowired
+    ProfileService profileService;
+
     @GetMapping
     public ModelAndView showListView(HttpServletRequest request) {
         ModelAndView view = new ModelAndView(FRAGMENT_TEXTBOOK);
@@ -80,11 +85,6 @@ public class TextbookController {
             throw new InvalidInputException(formAdd(textbookDto,request), bindingResult);
         }
         try{
-            if(!StringUtils.isBlank(textbookDto.getName())) {
-                String[] fullName = nameConverter.fullNameToNameNSurname(textbookDto.getName());
-                textbookDto.setName(fullName[0]);
-                textbookDto.setSurname(fullName[1]);
-            }
 
             Textbook textbook = new Textbook();
 
@@ -97,7 +97,6 @@ public class TextbookController {
             textbook.setTextbookAmountTotal(sumAmount);
 
             Textbook textbookRes = textbookService.save(textbook);
-            textbookDto.setName(textbookRes.getName()+" "+textbookRes.getSurname());
 
             long textbookId = textbookRes.getTextbookId();
             List<TextbookPhase> phases = textbookDto.getPhases();
@@ -176,7 +175,10 @@ public class TextbookController {
     @GetMapping(value = "/{id}")
     public ModelAndView showInfo(@PathVariable String id,HttpServletRequest request){
         Textbook textbook = textbookService.findById(id);
-        textbook.setName(textbook.getName()+" "+textbook.getSurname());
+
+        Profile profile = profileService.findByPersNo(textbook.getPersNo());
+        textbook.setPrefix(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+        textbook.setName(profile.getName()+" "+profile.getSurname());
 
         List<TextbookPhase> phases = textbookService.findByTextbookId(id);
 

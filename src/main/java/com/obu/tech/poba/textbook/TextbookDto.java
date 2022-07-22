@@ -5,7 +5,9 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
+import javax.persistence.Transient;
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -16,13 +18,10 @@ import java.util.List;
 public class TextbookDto {
     private long textbookId;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า")
+    @NotEmpty(message = "โปรดเลือก คำนำหน้า และ ชื่อ-นามสกุล ")
+    private String persNo;
     private String prefix;
-    private String prefixOther;
-
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-นามสกุล")
     private String name;
-    private String surname;
 
     @Size(min = 1, max = 255, message = "โปรดเลือก ประเภทผลงาน")
     private String textbookType;
