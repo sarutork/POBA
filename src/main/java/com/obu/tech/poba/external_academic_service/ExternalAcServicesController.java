@@ -1,6 +1,8 @@
 package com.obu.tech.poba.external_academic_service;
 
 import com.obu.tech.poba.authenticate.MemberAccess;
+import com.obu.tech.poba.personnel_info.profile.Profile;
+import com.obu.tech.poba.personnel_info.profile.ProfileService;
 import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
@@ -39,6 +41,9 @@ public class ExternalAcServicesController {
     @Autowired
     private MemberAccessUtils memberAccessUtils;
 
+    @Autowired
+    ProfileService profileService;
+
     @GetMapping
     public ModelAndView showListView(HttpServletRequest request) {
         ModelAndView view = new ModelAndView(FRAGMENT_EXT_ACADEMIC_SERVICES);
@@ -67,14 +72,10 @@ public class ExternalAcServicesController {
             throw new InvalidInputException(formAdd(externalAcServices,request), bindingResult);
         }
         try{
-            if(!StringUtils.isBlank(externalAcServices.getName())) {
-                String[] fullName = nameConverter.fullNameToNameNSurname(externalAcServices.getName());
-                externalAcServices.setName(fullName[0]);
-                externalAcServices.setSurname(fullName[1]);
-            }
 
             ExternalAcServices externalAcServicesRes = externalAcServicesService.save(externalAcServices);
-            externalAcServicesRes.setName(externalAcServicesRes.getName()+" "+externalAcServicesRes.getSurname());
+            externalAcServicesRes.setPrefix(externalAcServices.getPrefix());
+            externalAcServicesRes.setName(externalAcServices.getName());
 
             return viewSuccess(externalAcServicesRes,request);
         }catch (Exception e){
@@ -94,7 +95,11 @@ public class ExternalAcServicesController {
     @GetMapping(value = "/{id}")
     public ModelAndView showInfo(@PathVariable String id,HttpServletRequest request){
         ExternalAcServices externalAcServices = externalAcServicesService.findById(id);
-        externalAcServices.setName(externalAcServices.getName()+" "+externalAcServices.getSurname());
+
+        Profile profile = profileService.findByPersNo(externalAcServices.getPersNo());
+        externalAcServices.setPrefix(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+        externalAcServices.setName(profile.getName()+" "+profile.getSurname());
+
         return view(externalAcServices,request);
     }
 

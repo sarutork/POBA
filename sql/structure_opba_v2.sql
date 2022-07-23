@@ -876,12 +876,10 @@ ALTER TABLE training ADD trainingAmountTotal double;
 ALTER TABLE training DROP COLUMN training_phase;
 ALTER TABLE training DROP COLUMN training_amount;
 
+DROP TABLE IF EXISTS `external_academic_services`;
 CREATE TABLE IF NOT EXISTS `external_academic_services` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `prefix` varchar(255) NOT NULL,
-  `prefix_other` varchar(255),
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
+  `pers_no` varchar(11),
   `title` varchar(255),
   `type` varchar(255),
   `type_other` varchar(255),
