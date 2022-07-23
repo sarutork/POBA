@@ -20,69 +20,36 @@
                 <label><b>ข้อมูลอาจารย์</b></label>
             </div>
             <div class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-1 form-control bg-white" id="prefix" name="prefix"required>
+                <input type="hidden" id="persNo1" name="persNo1" th:field="${training.persNo1}"/>
+                <label class="col-sm-2 form-control-label" for="prefix1">คำนำหน้า<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="col-sm-1 form-control bg-white" id="prefix1" name="prefix1"
+                       th:value="${training.prefix1}" readonly/>
+
+                <label for="name1" class="form-control-label col-sm-1">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-3" id="name1" name="name1"
+                       th:value="${training.name1}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
+                <button type="button" class="btn btn-poba btn-search ml-2" data-toggle="modal" data-target="#personnelModal1">ค้นหา</button>
+
+                <label class="ml-5 form-control-label" for="trainingStatus1">สถานะ<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-2 form-control" id="trainingStatus1" name="trainingStatus1" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="นาย" th:selected="${training.prefix == 'นาย'}? 'selected'">นาย</option>
-                    <option value="นางสาว" th:selected="${training.prefix == 'นางสาว'}? 'selected'">นางสาว</option>
-                    <option value="นาง" th:selected="${training.prefix == 'นาง'}? 'selected'">นาง</option>
-                    <option value="อ." th:selected="${training.prefix == 'อ.'}? 'selected'">อ.</option>
-                    <option value="อ.ดร." th:selected="${training.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
-                    <option value="ผศ." th:selected="${training.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
-                    <option value="ผศ.ดร." th:selected="${training.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
-                    <option value="รศ." th:selected="${training.prefix == 'รศ.'}? 'selected'">รศ.</option>
-                    <option value="รศ.ดร." th:selected="${training.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
-                    <option value="ศ." th:selected="${training.prefix == 'ศ.'}? 'selected'">ศ.</option>
-                    <option value="ศ.ดร." th:selected="${training.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
-                    <option value="อื่นๆ" th:selected="${training.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
-                </select>
-
-                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${training.prefix == 'อื่นๆ'}? 'd-none':'d-block'"></div>
-                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
-                       th:attr="value=${training.prefixOther != null}? ${training.prefixOther}: ''"
-                       th:classappend="${training.prefix == 'อื่นๆ'}? 'd-block':'d-none'"
-                       th:disabled="${training.trainingId != 0}"/>
-
-                <label for="name" class="form-control-label ml-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
-                <input type="text" class="form-control bg-white col-sm-3" id="name" name="name"
-                       th:attr="value=${training.name != null}? ${training.name}: ''" maxlength="255" required/>
-
-                <label class="ml-2 form-control-label" for="trainingStatus">สถานะ<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-2 form-control" id="trainingStatus" name="trainingStatus" required>
-                    <option value="">กรุณาเลือก</option>
-                    <option value="ผู้รับผิดชอบ" th:selected="${training.trainingStatus == 'ผู้รับผิดชอบ'}? 'selected'">ผู้รับผิดชอบ</option>
-                    <option value="คณะทำงาน" th:selected="${training.trainingStatus == 'คณะทำงาน'}? 'selected'">คณะทำงาน</option>
+                    <option value="ผู้รับผิดชอบ" th:selected="${training.trainingStatus1 == 'ผู้รับผิดชอบ'}? 'selected'">ผู้รับผิดชอบ</option>
+                    <option value="คณะทำงาน" th:selected="${training.trainingStatus1 == 'คณะทำงาน'}? 'selected'">คณะทำงาน</option>
                 </select>
             </div>
 
             <div class="row mb-2">
+                <input type="hidden" id="persNo2" name="persNo2" th:field="${training.persNo2}"/>
                 <label class="col-sm-2 form-control-label" for="prefix2">คำนำหน้า:</label>
-                <select type="text" class="col-sm-1 form-control bg-white" id="prefix2" name="prefix2">
-                    <option value="">กรุณาเลือก</option>
-                    <option value="นาย" th:selected="${training.prefix2 == 'นาย'}? 'selected'">นาย</option>
-                    <option value="นางสาว" th:selected="${training.prefix2 == 'นางสาว'}? 'selected'">นางสาว</option>
-                    <option value="นาง" th:selected="${training.prefix2 == 'นาง'}? 'selected'">นาง</option>
-                    <option value="อ." th:selected="${training.prefix2 == 'อ.'}? 'selected'">อ.</option>
-                    <option value="อ.ดร." th:selected="${training.prefix2 == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
-                    <option value="ผศ." th:selected="${training.prefix2 == 'ผศ.'}? 'selected'">ผศ.</option>
-                    <option value="ผศ.ดร." th:selected="${training.prefix2 == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
-                    <option value="รศ." th:selected="${training.prefix2 == 'รศ.'}? 'selected'">รศ.</option>
-                    <option value="รศ.ดร." th:selected="${training.prefix2 == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
-                    <option value="ศ." th:selected="${training.prefix2 == 'ศ.'}? 'selected'">ศ.</option>
-                    <option value="ศ.ดร." th:selected="${training.prefix2 == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
-                    <option value="อื่นๆ" th:selected="${training.prefix2 == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
-                </select>
+                <input type="text" class="col-sm-1 form-control bg-white" id="prefix2" name="prefix2"
+                       th:value="${training.prefix2}" readonly/>
 
-                <div id="prefixOtherTmp2" class="col-sm-2" th:classappend="${training.prefix2 == 'อื่นๆ'}? 'd-none':'d-block'"></div>
-                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther2" name="prefixOther2" placeholder="อื่นๆ โปรดระบุ"
-                       th:attr="value=${training.prefixOther2 != null}? ${training.prefixOther2}: ''"
-                       th:classappend="${training.prefix2 == 'อื่นๆ'}? 'd-block':'d-none'"/>
-
-                <label for="name2" class="form-control-label ml-2">ชื่อ-นามสกุล&nbsp;&nbsp;:</label>
+                <label for="name2" class="form-control-label col-sm-1">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-3" id="name2" name="name2"
-                       th:attr="value=${training.name2 != null}? ${training.name2}: ''" maxlength="255"/>
+                       th:value="${training.name2}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
+                <button type="button" class="btn btn-poba btn-search ml-2" data-toggle="modal" data-target="#personnelModal2">ค้นหา</button>
 
-                <label class="ml-2 form-control-label" for="trainingStatus2">สถานะ&nbsp;&nbsp;:</label>
+                <label class="ml-5 form-control-label" for="trainingStatus2">สถานะ&nbsp;&nbsp;:</label>
                 <select type="text" class="col-2 form-control" id="trainingStatus2" name="trainingStatus2">
                     <option value="">กรุณาเลือก</option>
                     <option value="ผู้รับผิดชอบ" th:selected="${training.trainingStatus2 == 'ผู้รับผิดชอบ'}? 'selected'">ผู้รับผิดชอบ</option>
@@ -91,33 +58,17 @@
             </div>
 
             <div class="row mb-2">
+                <input type="hidden" id="persNo3" name="persNo3" th:field="${training.persNo3}"/>
                 <label class="col-sm-2 form-control-label" for="prefix3">คำนำหน้า:</label>
-                <select type="text" class="col-sm-1 form-control bg-white" id="prefix3" name="prefix3">
-                    <option value="">กรุณาเลือก</option>
-                    <option value="นาย" th:selected="${training.prefix3 == 'นาย'}? 'selected'">นาย</option>
-                    <option value="นางสาว" th:selected="${training.prefix3 == 'นางสาว'}? 'selected'">นางสาว</option>
-                    <option value="นาง" th:selected="${training.prefix3 == 'นาง'}? 'selected'">นาง</option>
-                    <option value="อ." th:selected="${training.prefix3 == 'อ.'}? 'selected'">อ.</option>
-                    <option value="อ.ดร." th:selected="${training.prefix3 == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
-                    <option value="ผศ." th:selected="${training.prefix3 == 'ผศ.'}? 'selected'">ผศ.</option>
-                    <option value="ผศ.ดร." th:selected="${training.prefix3 == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
-                    <option value="รศ." th:selected="${training.prefix3 == 'รศ.'}? 'selected'">รศ.</option>
-                    <option value="รศ.ดร." th:selected="${training.prefix3 == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
-                    <option value="ศ." th:selected="${training.prefix3 == 'ศ.'}? 'selected'">ศ.</option>
-                    <option value="ศ.ดร." th:selected="${training.prefix3 == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
-                    <option value="อื่นๆ" th:selected="${training.prefix3 == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
-                </select>
+                <input type="text" class="col-sm-1 form-control bg-white" id="prefix3" name="prefix3"
+                       th:value="${training.prefix3}" readonly/>
 
-                <div id="prefixOtherTmp3" class="col-sm-2" th:classappend="${training.prefix3 == 'อื่นๆ'}? 'd-none':'d-block'"></div>
-                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther3" name="prefixOther3" placeholder="อื่นๆ โปรดระบุ"
-                       th:attr="value=${training.prefixOther3 != null}? ${training.prefixOther3}: ''"
-                       th:classappend="${training.prefix3 == 'อื่นๆ'}? 'd-block':'d-none'"/>
-
-                <label for="name3" class="form-control-label ml-2">ชื่อ-นามสกุล&nbsp;&nbsp;:</label>
+                <label for="name3" class="form-control-label col-sm-1">ชื่อ-นามสกุล:</label>
                 <input type="text" class="form-control bg-white col-sm-3" id="name3" name="name3"
-                       th:attr="value=${training.name3 != null}? ${training.name3}: ''" maxlength="255" />
+                       th:value="${training.name3}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
+                <button type="button" class="btn btn-poba btn-search ml-2" data-toggle="modal" data-target="#personnelModal3">ค้นหา</button>
 
-                <label class="ml-2 form-control-label" for="trainingStatus3">สถานะ&nbsp;&nbsp;:</label>
+                <label class="ml-5 form-control-label" for="trainingStatus3">สถานะ&nbsp;&nbsp;:</label>
                 <select type="text" class="col-2 form-control" id="trainingStatus3" name="trainingStatus3" required>
                     <option value="">กรุณาเลือก</option>
                     <option value="ผู้รับผิดชอบ" th:selected="${training.trainingStatus3 == 'ผู้รับผิดชอบ'}? 'selected'">ผู้รับผิดชอบ</option>
@@ -228,6 +179,123 @@
             <a href="javascript:void(0)" onclick="loadView('/poba/training')" class="btn btn-poba mr-3">ยกเลิก</a>
             <button type="button" class="btn btn-outline-poba mr-3" onclick="editTrainingInfo();" th:if="${#lists.contains(roles, 'ROLE_TRAINING_EDIT')}">แก้ไข</button>
         </div>
+
+        <!-- Modal#1 -->
+        <div class="modal fade" id="personnelModal1" tabindex="-1" role="dialog" aria-labelledby="findPersonnelModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel1">ค้นหา</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                            <input id="searchTxt1" type="text" class="col-8 mr-2 form-control flex-xl-grow-1"
+                                   style="background-color: white; color: black;" placeholder="ค้นหาด้วยเลขประจำตัว/ชื่อ">
+                            <button type="button" class="btn btn-info" onclick="findPersonnelTraining(1)">ค้นหา</button>
+                        </div>
+                    </div>
+                    <div class="table table-responsive">
+                        <table id="table-personnel-modal1" class="display" width="100%" style="background-color: white;">
+                            <thead>
+                            <tr>
+                                <th>เลขประจำตัว</th>
+                                <th>ชื่อ-นามสกุล</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td colspan="2" class="dataTables_empty text-center bg-secondary">บุคคลากร</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-poba" data-dismiss="modal">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal#2 -->
+        <div class="modal fade" id="personnelModal2" tabindex="-1" role="dialog" aria-labelledby="findPersonnelModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel2">ค้นหา</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                            <input id="searchTxt2" type="text" class="col-8 mr-2 form-control flex-xl-grow-1"
+                                   style="background-color: white; color: black;" placeholder="ค้นหาด้วยเลขประจำตัว/ชื่อ">
+                            <button type="button" class="btn btn-info" onclick="findPersonnelTraining(2)">ค้นหา</button>
+                        </div>
+                    </div>
+                    <div class="table table-responsive">
+                        <table id="table-personnel-modal2" class="display" width="100%" style="background-color: white;">
+                            <thead>
+                            <tr>
+                                <th>เลขประจำตัว</th>
+                                <th>ชื่อ-นามสกุล</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td colspan="2" class="dataTables_empty text-center bg-secondary">บุคคลากร</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-poba" data-dismiss="modal">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal#3 -->
+        <div class="modal fade" id="personnelModal3" tabindex="-1" role="dialog" aria-labelledby="findPersonnelModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel3">ค้นหา</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                            <input id="searchTxt3" type="text" class="col-8 mr-2 form-control flex-xl-grow-1"
+                                   style="background-color: white; color: black;" placeholder="ค้นหาด้วยเลขประจำตัว/ชื่อ">
+                            <button type="button" class="btn btn-info" onclick="findPersonnelTraining(3)">ค้นหา</button>
+                        </div>
+                    </div>
+                    <div class="table table-responsive">
+                        <table id="table-personnel-modal3" class="display" width="100%" style="background-color: white;">
+                            <thead>
+                            <tr>
+                                <th>เลขประจำตัว</th>
+                                <th>ชื่อ-นามสกุล</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td colspan="2" class="dataTables_empty text-center bg-secondary">บุคคลากร</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-poba" data-dismiss="modal">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -240,60 +308,6 @@
                 $(".btn-phase").prop("disabled", true);
              }
              trainingAmtFormat();
-        });
-
-        $('#prefix').change(function(){
-            var value = $(this).val();
-            if(value == "อื่นๆ"){
-                $("#prefixOther").removeClass("d-none");
-                $("#prefixOther").addClass("d-block");
-
-                $("#prefixOtherTmp").removeClass("d-block");
-                $("#prefixOtherTmp").addClass("d-none");
-            }else{
-                $("#prefixOther").val("");
-                $("#prefixOther").removeClass("d-block");
-                $("#prefixOther").addClass("d-none");
-
-                $("#prefixOtherTmp").removeClass("d-none");
-                $("#prefixOtherTmp").addClass("d-block");
-            }
-        });
-
-        $('#prefix2').change(function(){
-            var value = $(this).val();
-            if(value == "อื่นๆ"){
-                $("#prefixOther2").removeClass("d-none");
-                $("#prefixOther2").addClass("d-block");
-
-                $("#prefixOtherTmp2").removeClass("d-block");
-                $("#prefixOtherTmp2").addClass("d-none");
-            }else{
-                $("#prefixOther2").val("");
-                $("#prefixOther2").removeClass("d-block");
-                $("#prefixOther2").addClass("d-none");
-
-                $("#prefixOtherTmp2").removeClass("d-none");
-                $("#prefixOtherTmp2").addClass("d-block");
-            }
-        });
-
-        $('#prefix3').change(function(){
-            var value = $(this).val();
-            if(value == "อื่นๆ"){
-                $("#prefixOther3").removeClass("d-none");
-                $("#prefixOther3").addClass("d-block");
-
-                $("#prefixOtherTmp3").removeClass("d-block");
-                $("#prefixOtherTmp3").addClass("d-none");
-            }else{
-                $("#prefixOther3").val("");
-                $("#prefixOther3").removeClass("d-block");
-                $("#prefixOther3").addClass("d-none");
-
-                $("#prefixOtherTmp3").removeClass("d-none");
-                $("#prefixOtherTmp3").addClass("d-block");
-            }
         });
     </script>
 

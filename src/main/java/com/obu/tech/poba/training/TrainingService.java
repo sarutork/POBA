@@ -1,14 +1,10 @@
 package com.obu.tech.poba.training;
-
-import com.obu.tech.poba.utils.search.SearchConditionBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-
+import java.util.ArrayList;
 import java.util.List;
-
-import static com.obu.tech.poba.utils.search.SearchOperator.LIKE;
 
 @Service
 public class TrainingService {
@@ -18,12 +14,27 @@ public class TrainingService {
     TrainingPhaseRepository trainingPhaseRepository;
 
     List<Training> findBySearchCriteria(Training training){
-        return trainingRepository.findAll(new SearchConditionBuilder<Training>()
-                .ifNotNullThenAnd("name", LIKE, training.getName())
-                .ifNotNullThenOr("surname", LIKE, training.getName())
-                .ifNotNullThenAnd("trainingLevel", LIKE, training.getTrainingLevel())
-                .build()
-        );
+        List<Object[]> data = trainingRepository.findInfo("%"+training.getName1()+"%",training.getTrainingLevel());
+
+        List<Training> trainings = new ArrayList<>();
+        if (!data.isEmpty() && data.size() >0){
+            for(final Object[] e : data){
+                final Training result = new Training();
+                result.setTrainingId(Long.parseLong(e[0].toString()));
+                result.setPrefix1( !e[1].toString().equals("อื่นๆ")? e[1].toString() : e[2].toString());
+                result.setName1(e[3].toString()+" "+e[4].toString());
+                if (e[5] != null ) {
+                    result.setTrainingStatus1(e[5].toString());
+                }
+
+                if(e[6] != null){
+                    result.setTrainingLevel(e[6].toString());
+                }
+
+                trainings.add(result);
+            }
+        }
+        return trainings;
     }
 
     public Training save(Training training) {

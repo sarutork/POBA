@@ -1,6 +1,8 @@
 package com.obu.tech.poba.training;
 
 import com.obu.tech.poba.authenticate.MemberAccess;
+import com.obu.tech.poba.personnel_info.profile.Profile;
+import com.obu.tech.poba.personnel_info.profile.ProfileService;
 import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
@@ -43,6 +45,9 @@ public class TrainingController {
     @Autowired
     private MemberAccessUtils memberAccessUtils;
 
+    @Autowired
+    ProfileService profileService;
+
     @GetMapping
     public ModelAndView showListView(HttpServletRequest request) {
         ModelAndView view = new ModelAndView(FRAGMENT_TRAINING);
@@ -81,21 +86,6 @@ public class TrainingController {
             throw new InvalidInputException(formAdd(trainingDto,request), bindingResult);
         }
         try{
-            if(!StringUtils.isBlank(trainingDto.getName())) {
-                String[] fullName = nameConverter.fullNameToNameNSurname(trainingDto.getName());
-                trainingDto.setName(fullName[0]);
-                trainingDto.setSurname(fullName[1]);
-            }
-            if(!StringUtils.isBlank(trainingDto.getName2())) {
-                String[] fullName = nameConverter.fullNameToNameNSurname(trainingDto.getName2());
-                trainingDto.setName2(fullName[0]);
-                trainingDto.setSurname2(fullName[1]);
-            }
-            if(!StringUtils.isBlank(trainingDto.getName3())) {
-                String[] fullName = nameConverter.fullNameToNameNSurname(trainingDto.getName3());
-                trainingDto.setName3(fullName[0]);
-                trainingDto.setSurname3(fullName[1]);
-            }
 
             Training training = new Training();
 
@@ -108,15 +98,6 @@ public class TrainingController {
             training.setTrainingAmountTotal(sumAmount);
 
             Training trainingRes = trainingService.save(training);
-
-            trainingDto.setName(trainingRes.getName()+" "+trainingRes.getSurname());
-
-            if(StringUtils.isNotEmpty(trainingRes.getName2())) {
-                trainingDto.setName2(trainingRes.getName2() + " " + trainingRes.getSurname2());
-            }
-            if(StringUtils.isNotEmpty(trainingRes.getName3())){
-                trainingDto.setName3(trainingRes.getName3()+" "+trainingRes.getSurname3());
-            }
 
             long trainingId = trainingRes.getTrainingId();
             List<TrainingPhase> phases = trainingDto.getPhases();
@@ -142,12 +123,20 @@ public class TrainingController {
     @GetMapping(value = "/{id}")
     public ModelAndView showTeachingInfo(@PathVariable String id,HttpServletRequest request){
         Training training = trainingService.findById(id);
-        training.setName(training.getName()+" "+training.getSurname());
-        if(StringUtils.isNotEmpty(training.getName2())) {
-            training.setName2(training.getName2() + " " + training.getSurname2());
+
+        Profile profile = profileService.findByPersNo(training.getPersNo1());
+        training.setPrefix1(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+        training.setName1(profile.getName()+" "+profile.getSurname());
+
+        if(StringUtils.isNotEmpty(training.getPersNo2())) {
+            Profile profile2 = profileService.findByPersNo(training.getPersNo2());
+            training.setPrefix2(profile2.getPrefix().equals("อื่นๆ")? profile2.getPrefixOther() : profile2.getPrefix());
+            training.setName2(profile2.getName()+" "+profile2.getSurname());
         }
-        if(StringUtils.isNotEmpty(training.getName3())) {
-            training.setName3(training.getName3() + " " + training.getSurname3());
+        if(StringUtils.isNotEmpty(training.getPersNo3())) {
+            Profile profile3 = profileService.findByPersNo(training.getPersNo3());
+            training.setPrefix3(profile3.getPrefix().equals("อื่นๆ")? profile3.getPrefixOther() : profile3.getPrefix());
+            training.setName3(profile3.getName()+" "+profile3.getSurname());
         }
 
         List<TrainingPhase> phases = trainingService.findByTrainingId(id);

@@ -767,15 +767,17 @@ CREATE TABLE `textbook_phase` (
 --
 -- Table structure for table `training`
 --
-
 DROP TABLE IF EXISTS `training`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `training` (
   `training_id` int NOT NULL AUTO_INCREMENT,
-  `prefix` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `training_status` varchar(255) DEFAULT NULL,
+  `pers_no1` varchar(11),
+  `pers_no2` varchar(11),
+  `pers_no3` varchar(11),
+  `training_status1` varchar(255) DEFAULT NULL,
+  `training_status2` varchar(255) DEFAULT NULL,
+  `training_status3` varchar(255) DEFAULT NULL,
   `training_name` varchar(255) DEFAULT NULL,
   `training_location` varchar(255) DEFAULT NULL,
   `training_date_from` date DEFAULT NULL,
@@ -786,18 +788,26 @@ CREATE TABLE `training` (
   `training_type` varchar(255) DEFAULT NULL,
   `training_announce` varchar(255) DEFAULT NULL,
   `training_budget` double DEFAULT NULL,
-  `training_phase` int DEFAULT NULL,
-  `training_amount` double DEFAULT NULL,
   `training_join` varchar(255) DEFAULT NULL,
   `training_thai` int DEFAULT NULL,
   `training_foreign` int DEFAULT NULL,
   `training_total_person` int DEFAULT NULL,
   `training_level` varchar(255) DEFAULT NULL,
-  `prefix_other` varchar(255) DEFAULT NULL,
-  `surname` varchar(255) DEFAULT NULL,
+  `trainingAmountTotal` double,
   PRIMARY KEY (`training_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+
+DROP TABLE IF EXISTS `training_phase`;
+CREATE TABLE `training_phase` (
+  `training_phase_id` int NOT NULL AUTO_INCREMENT,
+  `training_id` int NOT NULL,
+  `training_phase` int NOT NULL,
+  `training_amount` double NOT NULL,
+  `training_withdraw` date NOT NULL,
+  PRIMARY KEY (`training_phase_id`)
+);
 
 --
 -- Table structure for table `upload`
@@ -846,35 +856,6 @@ ALTER TABLE consultant_students MODIFY COLUMN students_id varchar(10);
 -- consultant_thesis
 ALTER TABLE consultant_thesis MODIFY COLUMN students_id varchar(10);
 
-
-
--- training
-ALTER TABLE training ADD prefix2 varchar(255);
-ALTER TABLE training ADD prefix_other2 varchar(255);
-ALTER TABLE training ADD name2 varchar(255);
-ALTER TABLE training ADD surname2 varchar(255);
-ALTER TABLE training ADD training_status2 varchar(255);
-
-
-ALTER TABLE training ADD prefix3 varchar(255);
-ALTER TABLE training ADD prefix_other3 varchar(255);
-ALTER TABLE training ADD name3 varchar(255);
-ALTER TABLE training ADD surname3 varchar(255);
-ALTER TABLE training ADD training_status3 varchar(255);
-
-DROP TABLE IF EXISTS `training_phase`;
-CREATE TABLE `training_phase` (
-  `training_phase_id` int NOT NULL AUTO_INCREMENT,
-  `training_id` int NOT NULL,
-  `training_phase` int NOT NULL,
-  `training_amount` double NOT NULL,
-  `training_withdraw` date NOT NULL,
-  PRIMARY KEY (`training_phase_id`)
-);
-
-ALTER TABLE training ADD trainingAmountTotal double;
-ALTER TABLE training DROP COLUMN training_phase;
-ALTER TABLE training DROP COLUMN training_amount;
 
 DROP TABLE IF EXISTS `external_academic_services`;
 CREATE TABLE IF NOT EXISTS `external_academic_services` (

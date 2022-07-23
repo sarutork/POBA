@@ -3,7 +3,10 @@ package com.obu.tech.poba.training;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Transient;
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
@@ -16,28 +19,21 @@ public class TrainingDto {
 
     private long trainingId;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า")
-    private String prefix;
-    private String prefixOther;
-
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-นามสกุล")
-    private String name;
-    private String surname;
-
+    @NotEmpty(message = "โปรดเลือก คำนำหน้า และ ชื่อ-นามสกุล ")
+    private String persNo1;
+    private String prefix1;
+    private String name1;
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล สถานะ")
-    private String trainingStatus;
+    private String trainingStatus1;
 
+    private String persNo2;
     private String prefix2;
-    private String prefixOther2;
     private String name2;
-    private String surname2;
     private String trainingStatus2;
 
-
+    private String persNo3;
     private String prefix3;
-    private String prefixOther3;
     private String name3;
-    private String surname3;
     private String trainingStatus3;
 
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อโครงการ")
