@@ -1,6 +1,8 @@
 package com.obu.tech.poba.lecturer;
 
 import com.obu.tech.poba.authenticate.MemberAccess;
+import com.obu.tech.poba.personnel_info.profile.Profile;
+import com.obu.tech.poba.personnel_info.profile.ProfileService;
 import com.obu.tech.poba.resolution.Resolution;
 import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
@@ -55,6 +57,9 @@ public class LecturerController {
     @Autowired
     private MemberAccessUtils memberAccessUtils;
 
+    @Autowired
+    ProfileService profileService;
+
     @GetMapping
     public ModelAndView showListView(HttpServletRequest request) {
         List<Integer> years = yearGeneratorUtils.genYears();
@@ -102,14 +107,9 @@ public class LecturerController {
                 lecturer.setUploads(remains);
             }
 
-            if(!StringUtils.isBlank(lecturer.getName())) {
-                String[] fullName = nameConverter.fullNameToNameNSurname(lecturer.getName());
-                lecturer.setName(fullName[0]);
-                lecturer.setSurname(fullName[1]);
-            }
-
             Lecturer lecturerRes = lecturerService.save(lecturer);
-            lecturerRes.setName(lecturerRes.getName()+" "+lecturerRes.getSurname());
+            lecturerRes.setPrefix(lecturer.getPrefix());
+            lecturerRes.setName(lecturer.getName());
 
             if(lecturerId == 0) {
                 List<Upload> uploads = uploadService.upload(
@@ -135,7 +135,10 @@ public class LecturerController {
     @GetMapping(value = "/{id}")
     public ModelAndView showLecturerInfo(@PathVariable String id,HttpServletRequest request){
         Lecturer lecturer = lecturerService.findById(id);
-        lecturer.setName(lecturer.getName()+" "+lecturer.getSurname());
+        Profile profile = profileService.findByPersNo(lecturer.getPersNo());
+        lecturer.setPrefix(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+        lecturer.setName(profile.getName()+" "+profile.getSurname());
+
         List<Upload> uploads = uploadService.getByGroupAndReference(UPLOAD_GROUP_LECTURER, lecturer.getLecturerId());
         lecturer.setUploads(uploads);
         return view(lecturer,request);

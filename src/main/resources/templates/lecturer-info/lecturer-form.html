@@ -16,36 +16,19 @@
 
         <form id="form-lecturer" class="form-wrapper">
             <input type="hidden" id="lecturerId" name="lecturerId" th:value="${lecturer.lecturerId}"/>
+            <input type="hidden" id="persNo" name="persNo" th:field="${lecturer.persNo}"/>
+
             <div class="row col-sm-12 mb-2">
                 <label><b>ข้อมูลวิทยากร</b></label>
             </div>
             <div class="row mb-2">
                 <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
-                    <option value="">กรุณาเลือก</option>
-                    <option value="นาย" th:selected="${lecturer.prefix == 'นาย'}? 'selected'">นาย</option>
-                    <option value="นางสาว" th:selected="${lecturer.prefix == 'นางสาว'}? 'selected'">นางสาว</option>
-                    <option value="นาง" th:selected="${lecturer.prefix == 'นาง'}? 'selected'">นาง</option>
-                    <option value="อ." th:selected="${lecturer.prefix == 'อ.'}? 'selected'">อ.</option>
-                    <option value="อ.ดร." th:selected="${lecturer.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
-                    <option value="ผศ." th:selected="${lecturer.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
-                    <option value="ผศ.ดร." th:selected="${lecturer.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
-                    <option value="รศ." th:selected="${lecturer.prefix == 'รศ.'}? 'selected'">รศ.</option>
-                    <option value="รศ.ดร." th:selected="${lecturer.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
-                    <option value="ศ." th:selected="${lecturer.prefix == 'ศ.'}? 'selected'">ศ.</option>
-                    <option value="ศ.ดร." th:selected="${lecturer.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
-                    <option value="อื่นๆ" th:selected="${lecturer.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
-                </select>
-
-                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${lecturer.prefix == 'อื่นๆ'}? 'd-none':'d-block'"></div>
-                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
-                       th:attr="value=${lecturer.prefixOther != null}? ${lecturer.prefixOther}: ''"
-                       th:classappend="${lecturer.prefix == 'อื่นๆ'}? 'd-block':'d-none'"
-                       th:disabled="${lecturer.lecturerId != 0}"/>
-
+                <input type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"
+                       th:value="${lecturer.prefix}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
                 <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
-                       th:attr="value=${lecturer.name != null}? ${lecturer.name}: ''" maxlength="255" required/>
+                       th:value="${lecturer.name}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
+                <button type="button" class="btn btn-poba btn-search ml-2" data-toggle="modal" data-target="#personnelModal">ค้นหา</button>
             </div>
             <div class="row col-sm-12 mb-2">
                 <label><b>ข้อมูลเชิญวิทยากร</b></label>
@@ -169,17 +152,17 @@
                 <label for="teachDay" class="form-control-label col-sm-2">วัน<span style="color:red !important;">*</span>:</label>
                 <select type="text" class="form-control bg-white col-sm-4" id="teachDay" name="teachDay" required>
                     <option value="">กรุณาเลือก</option>
-                    <option value="MO" th:selected="${teaching.teachDay == 'MO'}? 'selected'">MO</option>
-                    <option value="TU" th:selected="${teaching.teachDay == 'TU'}? 'selected'">TU</option>
-                    <option value="WE" th:selected="${teaching.teachDay == 'WE'}? 'selected'">WE</option>
-                    <option value="TH" th:selected="${teaching.teachDay == 'TH'}? 'selected'">TH</option>
-                    <option value="FR" th:selected="${teaching.teachDay == 'FR'}? 'selected'">FR</option>
-                    <option value="SA" th:selected="${teaching.teachDay == 'SAA'}? 'selected'">SA</option>
-                    <option value="SU" th:selected="${teaching.teachDay == 'SU'}? 'selected'">SU</option>
-                    <option value="AR" th:selected="${teaching.teachDay == 'AR'}? 'selected'">AR</option>
-                    <option value="TO BE ARRANGED" th:selected="${teaching.teachDay == 'TO BE ARRANGED'}? 'selected'">TO BE ARRANGED</option>
-                    <option value="IA" th:selected="${teaching.teachDay == 'IA'}? 'selected'">IA</option>
-                    <option value="INDIVIDUALLY ARRANGED" th:selected="${teaching.teachDay == 'INDIVIDUALLY ARRANGED'}? 'selected'">INDIVIDUALLY ARRANGED</option>
+                    <option value="MO" th:selected="${lecturer.teachDay == 'MO'}? 'selected'">MO</option>
+                    <option value="TU" th:selected="${lecturer.teachDay == 'TU'}? 'selected'">TU</option>
+                    <option value="WE" th:selected="${lecturer.teachDay == 'WE'}? 'selected'">WE</option>
+                    <option value="TH" th:selected="${lecturer.teachDay == 'TH'}? 'selected'">TH</option>
+                    <option value="FR" th:selected="${lecturer.teachDay == 'FR'}? 'selected'">FR</option>
+                    <option value="SA" th:selected="${lecturer.teachDay == 'SAA'}? 'selected'">SA</option>
+                    <option value="SU" th:selected="${lecturer.teachDay == 'SU'}? 'selected'">SU</option>
+                    <option value="AR" th:selected="${lecturer.teachDay == 'AR'}? 'selected'">AR</option>
+                    <option value="TO BE ARRANGED" th:selected="${lecturer.teachDay == 'TO BE ARRANGED'}? 'selected'">TO BE ARRANGED</option>
+                    <option value="IA" th:selected="${lecturer.teachDay == 'IA'}? 'selected'">IA</option>
+                    <option value="INDIVIDUALLY ARRANGED" th:selected="${lecturer.teachDay == 'INDIVIDUALLY ARRANGED'}? 'selected'">INDIVIDUALLY ARRANGED</option>
                 </select>
                 <label for="studyStart" class="form-control-label col-sm-1">เวลาเรียนเริ่มต้น<span style="color:red !important;">*</span>:</label>
                 <input type="time" id="studyStart" name="studyStart" class="form-control col-sm-2"
