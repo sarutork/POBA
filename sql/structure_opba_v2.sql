@@ -952,14 +952,14 @@ CREATE TABLE `participant` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 
 -- poba.lecturer_info definition
+DROP TABLE IF EXISTS `lecturer_info`;
+
 CREATE TABLE `lecturer_info` (
   `lecturer_id` bigint NOT NULL AUTO_INCREMENT,
+  `pers_no` varchar(11),
   `current_credit` int NOT NULL,
   `institution_info` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
   `note_of_teach` varchar(255) DEFAULT NULL,
-  `prefix` varchar(255) DEFAULT NULL,
-  `prefix_other` varchar(255) DEFAULT NULL,
   `semester` varchar(255) DEFAULT NULL,
   `study_end` varchar(5) DEFAULT NULL,
   `study_start` varchar(5) DEFAULT NULL,
@@ -968,7 +968,6 @@ CREATE TABLE `lecturer_info` (
   `subject_credit` int NOT NULL,
   `subject_id` int NOT NULL,
   `subject_name` varchar(255) DEFAULT NULL,
-  `surname` varchar(255) DEFAULT NULL,
   `teach_date` date DEFAULT NULL,
   `teach_day` varchar(255) DEFAULT NULL,
   `teach_location` varchar(255) DEFAULT NULL,

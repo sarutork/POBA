@@ -8,10 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -24,6 +21,14 @@ public class Lecturer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long lecturerId;
+
+    @NotEmpty(message = "โปรดเลือก คำนำหน้า และ ชื่อ-นามสกุล ")
+    private String persNo;
+
+    @Transient
+    private String prefix;
+    @Transient
+    private String name;
 
     @Size(min = 1, max = 255, message = "โปรดเลือก ปีการศึกษา")
     public String studyYear;
@@ -64,13 +69,6 @@ public class Lecturer {
 
     @Size(min = 1, message = "โปรดเลือก ห้อง")
     public String teachRoom;
-
-    @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า")
-    public String prefix;
-    public String prefixOther;
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-นามสกุล")
-    public String name;
-    public String surname;
 
     public String institutionInfo;
     public String teachTopic;
