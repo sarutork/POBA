@@ -24,6 +24,14 @@ public class Teaching {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long staffId;
 
+    @NotEmpty(message = "โปรดเลือก คำนำหน้า และ ชื่อ-นามสกุล ")
+    private String persNo;
+
+    @Transient
+    private String prefix;
+    @Transient
+    private String name;
+
     @Size(min = 1, max = 255, message = "โปรดเลือก ปีการศึกษา")
     public String studyYear;
 
@@ -63,13 +71,6 @@ public class Teaching {
 
     @Size(min = 1, message = "โปรดเลือก ห้อง")
     public String teachRoom;
-
-    @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า")
-    public String prefix;
-    public String prefixOther;
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-นามสกุล")
-    public String name;
-    public String surname;
 
     @Size(min = 1, max = 255, message = "โปรดเลือก สถานะการสอน")
     public String teachStatus;

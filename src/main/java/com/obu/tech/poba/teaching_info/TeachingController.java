@@ -1,5 +1,7 @@
 package com.obu.tech.poba.teaching_info;
 
+import com.obu.tech.poba.personnel_info.profile.Profile;
+import com.obu.tech.poba.personnel_info.profile.ProfileService;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
@@ -39,6 +41,9 @@ public class TeachingController {
 
     @Autowired
     private UploadService uploadService;
+
+    @Autowired
+    ProfileService profileService;
 
     @Value("${poba.upload.teaching}")
     private String UPLOAD_TEACHING_PATH;
@@ -80,14 +85,9 @@ public class TeachingController {
                 teaching.setUploads(remains);
             }
 
-            if(!StringUtils.isBlank(teaching.getName())) {
-                String[] fullName = nameConverter.fullNameToNameNSurname(teaching.getName());
-                teaching.setName(fullName[0]);
-                teaching.setSurname(fullName[1]);
-            }
-
             Teaching teachingRes = teachingService.save(teaching);
-            teachingRes.setName(teachingRes.getName()+" "+teachingRes.getSurname());
+            teachingRes.setPrefix(teaching.getPrefix());
+            teachingRes.setName(teaching.getName());
 
             if(staffId == 0) {
                 List<Upload> uploads = uploadService.upload(
@@ -112,7 +112,9 @@ public class TeachingController {
     @GetMapping(value = "/{id}")
     public ModelAndView showTeachingInfo(@PathVariable String id){
         Teaching teaching = teachingService.findById(id);
-        teaching.setName(teaching.getName()+" "+teaching.getSurname());
+        Profile profile = profileService.findByPersNo(teaching.getPersNo());
+        teaching.setPrefix(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+        teaching.setName(profile.getName()+" "+profile.getSurname());
 
         List<Upload> uploads = uploadService.getByGroupAndReference(UPLOAD_GROUP_TEACHING, teaching.getStaffId());
         teaching.setUploads(uploads);
