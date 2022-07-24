@@ -641,26 +641,26 @@ div .scroll {
 }
 
 .btn-poba {
-    background-color: #d33957;
-    border-color: #d33957;
+    background-color: #d33957 !important;
+    border-color: #d33957 !important;
     color: #ffffff !important;
 }
 
 .btn-poba:hover {
-    background-color: #ab2640;
-    border-color: #ab2640;
+    background-color: #ab2640 !important;
+    border-color: #ab2640 !important;
     color: #ffffff !important;
 }
 
 .btn-outline-poba {
-    background-color: #ffffff;
-    border-color: #d33957;
+    background-color: #ffffff !important;
+    border-color: #d33957 !important;
     color: #d33957 !important;
 }
 
 .btn-outline-poba:hover {
-    background-color: #ab2640;
-    border-color: #ab2640;
+    background-color: #ab2640 !important;
+    border-color: #ab2640 !important;
     color: #ffffff !important;
 }
 
@@ -869,4 +869,22 @@ table.view-info th, td {
 .alert {
     border: none;
     min-height: 47px;
+}
+
+.icon {
+    padding: 5px;
+    min-width: 40px;
+}
+.datepicker.datepicker-dropdown.dropdown-menu{
+    background-color: #fff !important;
+    border: 1px solid #d33957;
+}
+.datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.day.active:before{
+    background-color: #d33957 !important;
+}
+.datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.day{
+    color: #000 !important;
+}
+.datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.day.old{
+    color: #f7c0cb !important;
 }

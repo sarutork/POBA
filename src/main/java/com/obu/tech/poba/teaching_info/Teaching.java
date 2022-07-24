@@ -4,12 +4,14 @@ import com.obu.tech.poba.utils.upload.Upload;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Getter
@@ -75,7 +77,8 @@ public class Teaching {
     public String institutionInfo;
     public String teachTopic;
     public int teachTimes;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     public LocalDate teachDate;
     public String noteOfTeach;
 
@@ -92,14 +95,16 @@ public class Teaching {
     @Pattern(regexp = "^\\d+$",message="กรุณาตรวจสอบข้อมูล จำนวนนิสิตลงทะเบียนเรียน")
     public String totalStudentsRegister;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     public LocalDate midtermExamDate;
 
     public String midtermExamTimeStart;
 
     public String midtermExamTimeEnd;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     public LocalDate finalExamDate;
 
     public String finalExamTimeStart;
@@ -117,4 +122,17 @@ public class Teaching {
     @ToString.Exclude
     private MultipartFile[] newFiles;
 
+    public String teachDateDesc;
+    public LocalDate midtermExamDateDesc;
+    public LocalDate finalExamDateDesc;
+
+    public String getTeachDateDesc(){
+        return (this.teachDate != null ? this.teachDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")):null);
+    }
+    public String getMidtermExamDateDesc(){
+        return (this.midtermExamDate != null ? this.midtermExamDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")):null);
+    }
+    public String getFinalExamDateDesc(){
+        return (this.finalExamDate != null ? this.finalExamDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")):null);
+    }
 }
