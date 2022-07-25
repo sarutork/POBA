@@ -307,7 +307,7 @@ function findResearcherInfo() {
         ],
         columnDefs: [{
             render: function(data, type, row) {
-                var fullName = row['prefix'] + ' ' + row['name'] + ' ' + row['surname'];
+                var fullName = row['prefix'] + ' ' + row['name'];
                 return fullName;
             },
             targets: 1,

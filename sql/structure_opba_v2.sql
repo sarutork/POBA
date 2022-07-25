@@ -500,9 +500,7 @@ DROP TABLE IF EXISTS `researcher`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `researcher` (
   `staff_id` int NOT NULL AUTO_INCREMENT,
-  `prefix` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
+  `pers_no` varchar(11),
   `r_status` varchar(255) NOT NULL,
   `r_type` varchar(255) NOT NULL,
   `length_of_work` datetime DEFAULT NULL,

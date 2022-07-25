@@ -1,6 +1,8 @@
 package com.obu.tech.poba.personnel_info.research;
 
 import com.obu.tech.poba.authenticate.MemberAccess;
+import com.obu.tech.poba.personnel_info.profile.Profile;
+import com.obu.tech.poba.personnel_info.profile.ProfileService;
 import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import com.obu.tech.poba.utils.exceptions.UploadException;
@@ -38,6 +40,9 @@ public class ResearcherController {
     @Autowired
     private MemberAccessUtils memberAccessUtils;
 
+    @Autowired
+    ProfileService profileService;
+
     @GetMapping
     public ModelAndView showListView(HttpServletRequest request) {
         ModelAndView view = new ModelAndView(FRAGMENT_RESEARCHERS);
@@ -56,7 +61,13 @@ public class ResearcherController {
     @RolesAllowed({ROLE_PERSONNEL_INFO_RESEARCHER_EDIT,ROLE_PERSONNEL_INFO_RESEARCHER_SEARCH})
     @GetMapping(value = "/{id}")
     public ModelAndView showDetailView(@PathVariable("id") String id,HttpServletRequest request) {
-        return view(researcherService.findById(id),request);
+        Researcher researcher = researcherService.findById(id);
+
+        Profile profile = profileService.findByPersNo(researcher.getPersNo());
+        researcher.setPrefix(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+        researcher.setName(profile.getName()+" "+profile.getSurname());
+
+        return view(researcher,request);
     }
 
     @RolesAllowed(ROLE_PERSONNEL_INFO_RESEARCHER_EDIT)
@@ -64,9 +75,9 @@ public class ResearcherController {
     public ModelAndView showEditView(@PathVariable("id") String id,HttpServletRequest request) {
         Researcher researcher = researcherService.findById(id);
 
-        if (StringUtils.isNotBlank(researcher.getSurname())) {
-            researcher.setName(researcher.getName() + " " + researcher.getSurname());
-        }
+        Profile profile = profileService.findByPersNo(researcher.getPersNo());
+        researcher.setPrefix(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+        researcher.setName(profile.getName()+" "+profile.getSurname());
 
         return formUpdate(researcher,request);
     }

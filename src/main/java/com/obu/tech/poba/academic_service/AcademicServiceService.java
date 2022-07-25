@@ -12,7 +12,7 @@ import java.util.List;
 public class AcademicServiceService {
     @Autowired AcdemicServiceRepository acdemicServiceRepository;
     List<AcademicService> findBySearchCriteria(AcademicService academicService){
-        List<Object[]> data = acdemicServiceRepository.findPresentInfo("%"+academicService.getName()+"%",academicService.getServiceLevel());
+        List<Object[]> data = acdemicServiceRepository.findInfo("%"+academicService.getName()+"%",academicService.getServiceLevel());
 
         List<AcademicService> academicServices = new ArrayList<>();
         if (!data.isEmpty() && data.size() >0){

@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -24,14 +25,13 @@ public class Researcher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long staffId;
+    @NotEmpty(message = "โปรดเลือก คำนำหน้า และ ชื่อ-นามสกุล ")
+    private String persNo;
 
-    @Pattern(regexp = "(Mr(s)?\\.|Miss)", message = "โปรดเลือก คำนำหน้า")
+    @Transient
     private String prefix;
-
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-นามสกุล")
+    @Transient
     private String name;
-
-    private String surname;
 
     @Column(name = "r_status")
     @Pattern(regexp = "(อาจารย์|นักวิจัย)", message = "โปรดเลือก สถานะ")

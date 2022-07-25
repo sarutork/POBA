@@ -15,5 +15,5 @@ public interface AcdemicServiceRepository extends JpaRepository<AcademicService,
             " WHERE (:name is null or :name = '' or p.name LIKE :name" +
             " or p.surname LIKE :name)" +
             " and (:serviceLevel is null or :serviceLevel = '' or a.serviceLevel = :serviceLevel)")
-    List<Object[]> findPresentInfo(@Param("name") String name, @Param("serviceLevel") String serviceLevel);
+    List<Object[]> findInfo(@Param("name") String name, @Param("serviceLevel") String serviceLevel);
 }

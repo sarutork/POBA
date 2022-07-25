@@ -1,5 +1,6 @@
 package com.obu.tech.poba.personnel_info.research;
 
+import com.obu.tech.poba.presenting_info.Presenting;
 import com.obu.tech.poba.utils.exceptions.NotFoundException;
 import com.obu.tech.poba.utils.exceptions.UploadException;
 import com.obu.tech.poba.utils.search.SearchConditionBuilder;
@@ -10,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,13 +36,49 @@ public class ResearcherService {
     private ResearcherRepository researcherRepository;
 
     public List<Researcher> search(Researcher researcher) {
-        return researcherRepository
-                .findAll(new SearchConditionBuilder<Researcher>()
-                        .ifNotNullThenAnd("name", LIKE, researcher.getName())
-                        .ifNotNullThenOr("surname", LIKE, researcher.getName())
-                        .ifNotNullThenAnd("workStartDate", DATE_AFTER_OR_EQUAL, researcher.getWorkStartDate())
-                        .ifNotNullThenAnd("workEndDate", DATE_BEFORE_OR_EQUAL, researcher.getWorkEndDate())
-                        .build());
+
+        List<Object[]> data = researcherRepository.findInfo("%"+researcher.getName()+"%",researcher.getWorkStartDate(),researcher.getWorkEndDate());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        List<Researcher> researchers = new ArrayList<>();
+        if (!data.isEmpty() && data.size() >0){
+            for(final Object[] e : data){
+                final Researcher result = new Researcher();
+                result.setStaffId(Long.parseLong(e[0].toString()));
+                result.setPrefix( !e[1].toString().equals("อื่นๆ")? e[1].toString() : e[2].toString());
+                result.setName(e[3].toString()+" "+e[4].toString());
+                if (e[5] != null ) {
+                    result.setStatus(e[5].toString());
+                }
+
+                if(e[6] != null){
+                    result.setType(e[6].toString());
+                }
+
+                if(e[7] != null){
+                    result.setTeacher1(e[7].toString());
+                }
+
+                if(e[8] != null){
+                    result.setTeacher2(e[8].toString());
+                }
+
+                if(e[9] != null){
+                    result.setSubSegment(e[9].toString());
+                }
+
+                if(e[10] != null){
+                    result.setWorkStartDate(LocalDate.parse(e[10].toString(),formatter));
+                }
+                if(e[11] != null){
+                    result.setWorkEndDate(LocalDate.parse(e[11].toString(),formatter));
+                }
+
+                researchers.add(result);
+            }
+        }
+        return researchers;
     }
 
     public List<Researcher> findAll() {
@@ -58,7 +98,6 @@ public class ResearcherService {
     }
 
     public Researcher add(Researcher researcher) {
-        splitSurname(researcher);
 
         researcherRepository.saveAndFlush(researcher); // generate staff_id for upload.reference_key
 
@@ -76,9 +115,7 @@ public class ResearcherService {
 
     public Researcher update(String id, Researcher updateData) throws NotFoundException, UploadException {
         Researcher researcher = findById(id);
-        researcher.setPrefix        (updateData.getPrefix());
-        researcher.setName          (updateData.getName()); // full name
-        splitSurname(researcher);
+        researcher.setPersNo(updateData.getPersNo());
         researcher.setStatus        (updateData.getStatus());
         researcher.setType          (updateData.getType());
         researcher.setWorkStartDate (updateData.getWorkStartDate());
@@ -104,12 +141,5 @@ public class ResearcherService {
 
         log.info("Update " + researcher);
         return researcherRepository.save(researcher);
-    }
-
-    private void splitSurname(Researcher researcher) {
-        String fullName = researcher.getName().replaceAll("\\s+", " ").trim();
-        int firstSpace = fullName.contains(" ") ? fullName.indexOf(" ") : fullName.length();
-        researcher.setName(fullName.substring(0, firstSpace));
-        researcher.setSurname(fullName.substring(firstSpace).trim());
     }
 }
