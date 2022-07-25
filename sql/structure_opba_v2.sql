@@ -46,9 +46,7 @@ DROP TABLE IF EXISTS `academic_service`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `academic_service` (
   `service_id` int NOT NULL AUTO_INCREMENT,
-  `prefix` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
+  `pers_no` varchar(11),
   `service_status` varchar(255) NOT NULL,
   `service_order` varchar(255) NOT NULL,
   `service_date_from` date NOT NULL,
@@ -57,7 +55,6 @@ CREATE TABLE `academic_service` (
   `service_position` varchar(255) NOT NULL,
   `service_institution` varchar(255) NOT NULL,
   `service_level` varchar(255) NOT NULL,
-  `prefix_other` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`service_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;

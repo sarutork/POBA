@@ -18,13 +18,8 @@ function findAcademicService() {
         columnDefs: [
             {
                render: function (data, type, row) {
-                   var prefix = row["prefix"];
-                      if(prefix == "อื่นๆ"){
-                           prefix = row["prefixOther"]
-                      }
-                      var fullName = prefix+' '+row["name"] + ' ' + row["surname"];
-                          return fullName;
-                       },
+                    return row["prefix"]+' '+row["name"];
+               },
                targets: 1,
             },
         ],

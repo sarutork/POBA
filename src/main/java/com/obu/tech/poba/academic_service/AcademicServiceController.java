@@ -1,6 +1,8 @@
 package com.obu.tech.poba.academic_service;
 
 import com.obu.tech.poba.authenticate.MemberAccess;
+import com.obu.tech.poba.personnel_info.profile.Profile;
+import com.obu.tech.poba.personnel_info.profile.ProfileService;
 import com.obu.tech.poba.teaching_info.Teaching;
 import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
@@ -38,6 +40,9 @@ public class AcademicServiceController {
     @Autowired
     private MemberAccessUtils memberAccessUtils;
 
+    @Autowired
+    ProfileService profileService;
+
     @GetMapping
     public ModelAndView showListView(HttpServletRequest request) {
         ModelAndView view = new ModelAndView(FRAGMENT_ACADEMIC_SERVICE);
@@ -65,14 +70,9 @@ public class AcademicServiceController {
             throw new InvalidInputException(formAdd(academicService,request), bindingResult);
         }
         try{
-            if(!StringUtils.isBlank(academicService.getName())) {
-                String[] fullName = nameConverter.fullNameToNameNSurname(academicService.getName());
-                academicService.setName(fullName[0]);
-                academicService.setSurname(fullName[1]);
-            }
-
             AcademicService academicServiceRes = academicServiceService.save(academicService);
-            academicServiceRes.setName(academicServiceRes.getName()+" "+academicServiceRes.getSurname());
+            academicServiceRes.setPrefix(academicService.getPrefix());
+            academicServiceRes.setName(academicService.getName());
 
             return viewSuccess(academicServiceRes,request);
         }catch (Exception e){
@@ -86,7 +86,11 @@ public class AcademicServiceController {
     @GetMapping(value = "/{id}")
     public ModelAndView showTeachingInfo(@PathVariable String id,HttpServletRequest request){
         AcademicService academicService = academicServiceService.findById(id);
-        academicService.setName(academicService.getName()+" "+academicService.getSurname());
+
+        Profile profile = profileService.findByPersNo(academicService.getPersNo());
+        academicService.setPrefix(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+        academicService.setName(profile.getName()+" "+profile.getSurname());
+
         return view(academicService,request);
     }
 
