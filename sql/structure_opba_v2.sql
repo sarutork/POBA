@@ -626,9 +626,7 @@ DROP TABLE IF EXISTS `study_info`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `study_info` (
   `staff_id` int NOT NULL AUTO_INCREMENT,
-  `prefix` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
+  `pers_no` varchar(11) DEFAULT NULL,
   `travel_order` varchar(255) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,

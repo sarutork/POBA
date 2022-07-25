@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -17,13 +18,13 @@ public class StudyInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long staffId;
+    @NotEmpty(message = "โปรดเลือก คำนำหน้า และ ชื่อ-นามสกุล ")
+    private String persNo;
 
-    @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า")
-    public String prefix;
-
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-นามสกุล")
-    public String name;
-    public String surname;
+    @Transient
+    private String prefix;
+    @Transient
+    private String name;
 
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล คำสั่งเดินทาง")
     public String travelOrder;
