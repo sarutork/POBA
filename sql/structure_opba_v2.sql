@@ -666,10 +666,9 @@ CREATE TABLE `table_1` (
 --
 
 DROP TABLE IF EXISTS `teach_info`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `teach_info` (
   `staff_id` int NOT NULL AUTO_INCREMENT,
+  `pers_no` varchar(11) DEFAULT NULL,
   `study_year` varchar(255) NOT NULL,
   `semester` varchar(255) NOT NULL,
   `study_type` varchar(255) NOT NULL,
@@ -683,9 +682,6 @@ CREATE TABLE `teach_info` (
   `study_end` varchar(5) DEFAULT NULL,
   `teach_location` varchar(255) NOT NULL,
   `teach_room` varchar(255) NOT NULL,
-  `prefix` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
   `teach_status` varchar(255) NOT NULL,
   `institution_info` varchar(255) DEFAULT NULL,
   `teach_topic` varchar(255) DEFAULT NULL,
@@ -702,14 +698,13 @@ CREATE TABLE `teach_info` (
   `final_exam_time_start` varchar(5) DEFAULT NULL,
   `final_exam_time_end` varchar(5) DEFAULT NULL,
   `midterm_exam_time_end` varchar(5) DEFAULT NULL,
-  `prefix_other` varchar(255) DEFAULT NULL,
   `teach_location_other` varchar(255) DEFAULT NULL,
+  `teach_style_detail_other` varchar(255) DEFAULT NULL,
+  `final_exam_date_desc` date DEFAULT NULL,
+  `midterm_exam_date_desc` date DEFAULT NULL,
+  `teach_date_desc` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`staff_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
--- ALTER teach_info
-ALTER TABLE teach_info ADD teach_style_detail_other varchar(255);
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Table structure for table `textbook`
