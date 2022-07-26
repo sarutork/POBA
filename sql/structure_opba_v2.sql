@@ -46,9 +46,7 @@ DROP TABLE IF EXISTS `academic_service`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `academic_service` (
   `service_id` int NOT NULL AUTO_INCREMENT,
-  `prefix` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
+  `pers_no` varchar(11),
   `service_status` varchar(255) NOT NULL,
   `service_order` varchar(255) NOT NULL,
   `service_date_from` date NOT NULL,
@@ -57,7 +55,6 @@ CREATE TABLE `academic_service` (
   `service_position` varchar(255) NOT NULL,
   `service_institution` varchar(255) NOT NULL,
   `service_level` varchar(255) NOT NULL,
-  `prefix_other` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`service_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -503,9 +500,7 @@ DROP TABLE IF EXISTS `researcher`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `researcher` (
   `staff_id` int NOT NULL AUTO_INCREMENT,
-  `prefix` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
+  `pers_no` varchar(11),
   `r_status` varchar(255) NOT NULL,
   `r_type` varchar(255) NOT NULL,
   `length_of_work` datetime DEFAULT NULL,
@@ -631,9 +626,7 @@ DROP TABLE IF EXISTS `study_info`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `study_info` (
   `staff_id` int NOT NULL AUTO_INCREMENT,
-  `prefix` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
+  `pers_no` varchar(11) DEFAULT NULL,
   `travel_order` varchar(255) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
@@ -666,10 +659,9 @@ CREATE TABLE `table_1` (
 --
 
 DROP TABLE IF EXISTS `teach_info`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `teach_info` (
   `staff_id` int NOT NULL AUTO_INCREMENT,
+  `pers_no` varchar(11) DEFAULT NULL,
   `study_year` varchar(255) NOT NULL,
   `semester` varchar(255) NOT NULL,
   `study_type` varchar(255) NOT NULL,
@@ -683,9 +675,6 @@ CREATE TABLE `teach_info` (
   `study_end` varchar(5) DEFAULT NULL,
   `teach_location` varchar(255) NOT NULL,
   `teach_room` varchar(255) NOT NULL,
-  `prefix` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
   `teach_status` varchar(255) NOT NULL,
   `institution_info` varchar(255) DEFAULT NULL,
   `teach_topic` varchar(255) DEFAULT NULL,
@@ -702,14 +691,13 @@ CREATE TABLE `teach_info` (
   `final_exam_time_start` varchar(5) DEFAULT NULL,
   `final_exam_time_end` varchar(5) DEFAULT NULL,
   `midterm_exam_time_end` varchar(5) DEFAULT NULL,
-  `prefix_other` varchar(255) DEFAULT NULL,
   `teach_location_other` varchar(255) DEFAULT NULL,
+  `teach_style_detail_other` varchar(255) DEFAULT NULL,
+  `final_exam_date_desc` date DEFAULT NULL,
+  `midterm_exam_date_desc` date DEFAULT NULL,
+  `teach_date_desc` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`staff_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
--- ALTER teach_info
-ALTER TABLE teach_info ADD teach_style_detail_other varchar(255);
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Table structure for table `textbook`

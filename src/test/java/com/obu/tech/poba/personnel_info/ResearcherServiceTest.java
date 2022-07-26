@@ -47,7 +47,7 @@ public class ResearcherServiceTest {
         Researcher researcher = new Researcher();
         researcher.setPrefix("Mr.");
         researcher.setName("John");
-        researcher.setSurname("Doe");
+        //researcher.setSurname("Doe");
         researcher.setStatus("อาจารย์");
         researcher.setType("นักวิจัยหลังปริญญาเอก (Postdoctoral)");
         researcher.setWorkStartDate(today);

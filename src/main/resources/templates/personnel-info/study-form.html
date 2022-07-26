@@ -15,20 +15,15 @@
 
         <form id="form-study" class="form-wrapper">
             <input type="hidden" id="staffId" name="staffId" th:value="${studyInfo.staffId}"/>
+            <input type="hidden" id="persNo" name="persNo" th:field="${studyInfo.persNo}"/>
             <div class="row mb-2">
                 <label class="col-sm-3 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-3 form-control bg-white" id="prefix" name="prefix"required>
-                    <option value="">กรุณาเลือก</option>
-                    <option value="นาย" th:selected="${studyInfo.prefix == 'นาย'}? 'selected'">นาย</option>
-                    <option value="นางสาว" th:selected="${studyInfo.prefix == 'นางสาว'}? 'selected'">นางสาว</option>
-                    <option value="นาง" th:selected="${studyInfo.prefix == 'นาง'}? 'selected'">นาง</option>
-                </select>
-            </div>
-            <div class="row mb-2">
-                <label for="name" class="form-control-label col-sm-3">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"
+                       th:value="${studyInfo.prefix}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
+                <label for="name" class="form-control-label ml-3">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
-                       th:attr="value=${studyInfo.name != null && studyInfo.name != ''}? ${studyInfo.name} : ''"
-                maxlength="255" required/>
+                       th:value="${studyInfo.name}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
+                <button type="button" class="btn btn-poba btn-search ml-2" data-toggle="modal" data-target="#personnelModal">ค้นหา</button>
             </div>
             <div class="row mb-2">
                 <label for="travelOrder" class="form-control-label col-sm-3">คำสั่งเดินทาง<span style="color:red !important;">*</span>:</label>

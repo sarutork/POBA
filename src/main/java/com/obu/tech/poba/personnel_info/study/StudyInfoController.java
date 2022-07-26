@@ -1,6 +1,9 @@
 package com.obu.tech.poba.personnel_info.study;
 
 import com.obu.tech.poba.authenticate.MemberAccess;
+import com.obu.tech.poba.personnel_info.profile.Profile;
+import com.obu.tech.poba.personnel_info.profile.ProfileService;
+import com.obu.tech.poba.personnel_info.research.Researcher;
 import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
@@ -43,6 +46,9 @@ public class StudyInfoController {
     @Autowired
     private MemberAccessUtils memberAccessUtils;
 
+    @Autowired
+    ProfileService profileService;
+
     @GetMapping
     public ModelAndView showListView(HttpServletRequest request) {
         ModelAndView view = new ModelAndView(FRAGMENT_STUDY);
@@ -60,19 +66,25 @@ public class StudyInfoController {
     @GetMapping(value = "/{id}")
     public ModelAndView showStudyInfo(@PathVariable String id,HttpServletRequest request){
         StudyInfo studyInfo = studyInfoService.findById(id);
-        studyInfo.setName(studyInfo.getName()+" "+studyInfo.getSurname());
+
+        Profile profile = profileService.findByPersNo(studyInfo.getPersNo());
+        studyInfo.setPrefix(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+        studyInfo.setName(profile.getName()+" "+profile.getSurname());
+
         return view(studyInfo,request);
     }
 
     @RolesAllowed(ROLE_PERSONNEL_INFO_STUDY_EDIT)
     @GetMapping(value = "/{id}/edit")
-    public ModelAndView showEditView(@PathVariable String id) {
-        ModelAndView view = new ModelAndView(FRAGMENT_STUDY_FORM);
-        view.addObject("viewName", "แก้ไขข้อมูล");
+    public ModelAndView showEditView(@PathVariable String id,HttpServletRequest request) {
+
         StudyInfo studyInfo = studyInfoService.findById(id);
-        studyInfo.setName(studyInfo.getName()+" "+studyInfo.getSurname());
-        view.addObject("studyInfo",studyInfo);
-        return view;
+
+        Profile profile = profileService.findByPersNo(studyInfo.getPersNo());
+        studyInfo.setPrefix(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+        studyInfo.setName(profile.getName()+" "+profile.getSurname());
+
+        return formUpdate(studyInfo,request);
     }
 
     @RolesAllowed(ROLE_PERSONNEL_INFO_STUDY_SEARCH)
@@ -90,13 +102,10 @@ public class StudyInfoController {
             throw new InvalidInputException(formAdd(studyInfo,request), bindingResult);
         }
         try {
-            if(!StringUtils.isBlank(studyInfo.getName())) {
-                String[] fullName = nameConverterUtils.fullNameToNameNSurname(studyInfo.getName());
-                studyInfo.setName(fullName[0]);
-                studyInfo.setSurname(fullName[1]);
-            }
+
             StudyInfo studyInfoRes = studyInfoService.save(studyInfo);
-            studyInfoRes.setName(studyInfoRes.getName()+" "+studyInfoRes.getSurname());
+            studyInfoRes.setPrefix(studyInfo.getPrefix());
+            studyInfoRes.setName(studyInfo.getName());
             return viewSuccess(studyInfoRes,request);
         }catch (Exception e){
             e.printStackTrace();
@@ -107,6 +116,11 @@ public class StudyInfoController {
 
     private ModelAndView formAdd(StudyInfo data,HttpServletRequest request) {
         return form(data,request).addObject("viewName", "เพิ่มข้อมูล");
+    }
+
+    private ModelAndView formUpdate(StudyInfo data, HttpServletRequest request) {
+
+        return form(data,request).addObject("viewName", "แก้ไขข้อมูล");
     }
 
     private ModelAndView form(StudyInfo data,HttpServletRequest request) {

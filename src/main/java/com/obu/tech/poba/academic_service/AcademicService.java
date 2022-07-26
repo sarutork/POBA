@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -19,14 +20,12 @@ public class AcademicService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long serviceId;
-
-    @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า")
+    @NotEmpty(message = "โปรดเลือก คำนำหน้า และ ชื่อ-นามสกุล ")
+    private String persNo;
+    @Transient
     private String prefix;
-    private String prefixOther;
-
-    @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-นามสกุล")
+    @Transient
     private String name;
-    private String surname;
 
     @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล สถานะ")
     private String serviceStatus;

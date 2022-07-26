@@ -21,26 +21,16 @@
                 <th:block th:replace="~{fragments/input-errors}"/>
 
                 <input type="hidden" th:field="*{staffId}"/>
+                <input type="hidden" th:field="*{persNo}"/>
 
                 <div class="row px-3 mb-3">
-                    <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
-                           for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                    <div class="col-lg-3 col-sm-4 px-0">
-                        <select class="form-control" id="prefix" required th:field="*{prefix}">
-                            <option value="" hidden>กรุณาเลือก</option>
-                            <option value="Mr.">Mr.</option>
-                            <option value="Miss">Miss</option>
-                            <option value="Mrs.">Mrs.</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row px-3 mb-3">
-                    <label class="col-sm-2 pl-0 pb-1 col-form-label text-sm-right"
-                           for="name">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
-                    <div class="col-lg-5 col-md-8 col-sm-10 px-0">
-                        <input type="text" class="form-control" id="name" th:field="*{name}" maxlength="255" required/>
-                    </div>
+                    <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
+                    <input type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"
+                           th:field="*{prefix}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
+                    <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                    <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
+                           th:field="*{name}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
+                    <button type="button" class="btn btn-poba btn-search ml-2" data-toggle="modal" data-target="#personnelModal">ค้นหา</button>
                 </div>
 
                 <div class="row px-3 mb-3">
