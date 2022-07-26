@@ -177,7 +177,7 @@ function summaryStudentSearch(){
                     thtr += "<th>อาจารย์ที่ปรึกษา</th>";
                 }else{
                     if(data.header[i]!= "-"){
-                        thtr += "<th>"+data.header[i].substring(2,4)+"4X</th>";
+                        thtr += "<th>"+data.header[i]+"</th>";
                     }else{
                         thtr += "<th>"+data.header[i]+"</th>";
                     }
