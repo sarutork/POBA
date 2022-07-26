@@ -118,23 +118,23 @@
                 <label><b>ข้อมูลการเผยแพร่</b></label>
             </div>
             <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookPbType">ประเภท<span style="color:red !important;">*</span>:</label>
+                <label class="col-sm-2 form-control-label" for="textbookPbType">ประเภท:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="textbookPbType" name="textbookPbType"
                        th:attr="value=${textbook.textbookPbType != null}? ${textbook.textbookPbType}: ''" maxlength="255" required/>
-                <label class="col-sm-2 form-control-label" for="textbookIssue">ครั้งที่<span style="color:red !important;">*</span>:</label>
+                <label class="col-sm-2 form-control-label" for="textbookIssue">ครั้งที่:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="textbookIssue" name="textbookIssue"
                        th:attr="value=${textbook.textbookIssue != null}? ${textbook.textbookIssue}: ''" maxlength="255" required/>
             </div>
 
             <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookYear">ปีที่<span style="color:red !important;">*</span>:</label>
+                <label class="col-sm-2 form-control-label" for="textbookYear">ปีที่:</label>
                 <select type="text" class="col-sm-2 form-control bg-white" id="textbookYear" name="textbookYear" required>
                     <option value="">กรุณาเลือก</option>
                     <option value="2565" th:selected="${textbook.textbookYear == '2565'}? 'selected'">2565</option>
                     <option value="2564" th:selected="${textbook.textbookYear == '2564'}? 'selected'">2564</option>
                     <option value="2563" th:selected="${textbook.textbookYear == '2563'}? 'selected'">2563</option>
                 </select>
-                <label class="col-sm-4 form-control-label" for="textbookInstitution">สำนัก<span style="color:red !important;">*</span>:</label>
+                <label class="col-sm-4 form-control-label" for="textbookInstitution">สำนัก:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="textbookInstitution" name="textbookInstitution"
                        th:attr="value=${textbook.textbookInstitution != null}? ${textbook.textbookInstitution}: ''" maxlength="255" required/>
             </div>
@@ -148,10 +148,10 @@
                        th:attr="value=${textbook.textbookRef != null}? ${textbook.textbookRef}: ''" maxlength="255" required/>
             </div>
             <div  class="row mb-2">
-                <label class="col-sm-2 form-control-label" for="textbookTCI">ข้อมูล(TCI)<span style="color:red !important;">*</span>:</label>
+                <label class="col-sm-2 form-control-label" for="textbookTCI">ข้อมูล(TCI):</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="textbookTCI" name="textbookTCI"
                        th:attr="value=${textbook.textbookTCI != null}? ${textbook.textbookTCI}: ''" maxlength="255"/>
-                <label class="col-sm-2 form-control-label" for="textbookLevel">ระดับกิจกรรม<span style="color:red !important;">*</span>:</label>
+                <label class="col-sm-2 form-control-label" for="textbookLevel">ระดับกิจกรรม:</label>
                 <select type="text" class="col-2 form-control" id="textbookLevel" name="textbookLevel" required>
                     <option value="">กรุณาเลือก</option>
                     <option value="ระดับชาติ" th:selected="${textbook.textbookLevel == 'ระดับชาติ'}? 'selected'">ระดับชาติ</option>
