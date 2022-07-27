@@ -2,6 +2,7 @@ package com.obu.tech.poba.students;
 
 import com.obu.tech.poba.authenticate.MemberAccess;
 import com.obu.tech.poba.personnel_info.profile.Profile;
+import com.obu.tech.poba.personnel_info.profile.ProfileService;
 import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.YearGeneratorUtils;
@@ -43,6 +44,9 @@ public class StudentsController {
 
     @Autowired
     private MemberAccessUtils memberAccessUtils;
+
+    @Autowired
+    ProfileService profileService;
 
     @GetMapping
     public ModelAndView showListView(HttpServletRequest request) {
@@ -102,15 +106,10 @@ public class StudentsController {
                 students.setStudentsSurname(fullName[1]);
             }
 
-            if(!StringUtils.isBlank(students.getName())) {
-                String[] fullName = nameConverter.fullNameToNameNSurname(students.getName());
-                students.setName(fullName[0]);
-                students.setSurname(fullName[1]);
-            }
-
             Students studentsRes = studentsService.save(students);
             studentsRes.setStudentsName(students.getStudentsName()+" "+students.getStudentsSurname());
-            studentsRes.setName(students.getName()+" "+students.getSurname());
+            studentsRes.setPrefix(students.getPrefix());
+            studentsRes.setName(students.getName());
 
             return viewSuccess(studentsRes,request);
         }catch (Exception e){
@@ -128,10 +127,14 @@ public class StudentsController {
 
     @RolesAllowed({ROLE_STUDENT_SEARCH,ROLE_STUDENT_EDIT})
     @GetMapping(value = "/{id}")
-    public ModelAndView showTeachingInfo(@PathVariable String id,HttpServletRequest request){
+    public ModelAndView showInfo(@PathVariable String id,HttpServletRequest request){
         Students students = studentsService.findById(id);
         students.setStudentsName(students.getStudentsName()+" "+students.getStudentsSurname());
-        students.setName(students.getName()+" "+students.getSurname());
+
+        Profile profile = profileService.findByPersNo(students.getPersNo());
+        students.setPrefix(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+        students.setName(profile.getName()+" "+profile.getSurname());
+
         students.setStudentsUpdate(LocalDate.now());
         return view(students,request);
     }

@@ -567,15 +567,12 @@ CREATE TABLE `students` (
   `students_how` varchar(255) NOT NULL,
   `students_level` varchar(255) NOT NULL,
   `students_course` varchar(255) NOT NULL,
-  `students_tel` int NOT NULL,
-  `students_telemergency` int DEFAULT NULL,
+  `students_tel` varchar(10),
+  `students_telemergency` varchar(10),
   `students_relation` varchar(255) DEFAULT NULL,
   `students_relation_other` varchar(255) DEFAULT NULL,
   `students_email` varchar(255) DEFAULT NULL,
-  `prefix` varchar(255) NOT NULL,
-  `prefix_other` varchar(255) DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
+  `pers_no` varchar(11),
   `students_status` varchar(255) DEFAULT NULL,
   `students_success` varchar(255) NOT NULL,
   `students_outreason` varchar(255) DEFAULT NULL,
@@ -833,10 +830,6 @@ CREATE TABLE `upload` (
 -- textbook
 ALTER TABLE textbook ADD textbook_extend_date2 date;
 ALTER TABLE textbook ADD textbook_extend_date3 date;
-
--- students
-ALTER TABLE students MODIFY COLUMN students_tel varchar(10);
-ALTER TABLE students MODIFY COLUMN students_telemergency varchar(10);
 
 -- consultant_students
 ALTER TABLE consultant_students MODIFY COLUMN students_id varchar(10);

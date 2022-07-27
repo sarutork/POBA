@@ -140,36 +140,18 @@
             </div>
 
             <div class="row mb-2">
+                <input type="hidden" id="persNo" name="persNo" th:field="${student.persNo}"/>
                 <label class="col-sm-2 form-control-label" for="prefix">คำนำหน้า<span style="color:red !important;">*</span>:</label>
-                <select type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"required>
-                    <option value="">กรุณาเลือก</option>
-                    <option value="นาย" th:selected="${student.prefix == 'นาย'}? 'selected'">นาย</option>
-                    <option value="นางสาว" th:selected="${student.prefix == 'นางสาว'}? 'selected'">นางสาว</option>
-                    <option value="นาง" th:selected="${student.prefix == 'นาง'}? 'selected'">นาง</option>
-                    <option value="อ." th:selected="${student.prefix == 'อ.'}? 'selected'">อ.</option>
-                    <option value="อ.ดร." th:selected="${student.prefix == 'อ.ดร.'}? 'selected'">อ.ดร.</option>
-                    <option value="ผศ." th:selected="${student.prefix == 'ผศ.'}? 'selected'">ผศ.</option>
-                    <option value="ผศ.ดร." th:selected="${student.prefix == 'ผศ.ดร.'}? 'selected'">ผศ.ดร.</option>
-                    <option value="รศ." th:selected="${student.prefix == 'รศ.'}? 'selected'">รศ.</option>
-                    <option value="รศ.ดร." th:selected="${student.prefix == 'รศ.ดร.'}? 'selected'">รศ.ดร.</option>
-                    <option value="ศ." th:selected="${student.prefix == 'ศ.'}? 'selected'">ศ.</option>
-                    <option value="ศ.ดร." th:selected="${student.prefix == 'ศ.ดร.'}? 'selected'">ศ.ดร.</option>
-                    <option value="อื่นๆ" th:selected="${student.prefix == 'อื่นๆ'}? 'selected'">อื่นๆ</option>
-                </select>
-
-                <div id="prefixOtherTmp" class="col-sm-2" th:classappend="${student.prefix == 'อื่นๆ'}? 'd-none':'d-block'"></div>
-                <input type="text" class="form-control bg-white col-sm-2" id="prefixOther" name="prefixOther" placeholder="อื่นๆ โปรดระบุ"
-                       th:attr="value=${student.prefixOther != null}? ${student.prefixOther}: ''"
-                       th:classappend="${student.prefix == 'อื่นๆ'}? 'd-block':'d-none'"
-                       th:disabled="${student.Id != 0}"/>
-
-                <label for="name" class="form-control-label col-sm-2">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="col-sm-2 form-control bg-white" id="prefix" name="prefix"
+                       th:value="${student.prefix}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
+                <label for="name" class="form-control-label ml-3">ชื่อ-นามสกุล<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="name" name="name"
-                       th:attr="value=${student.name != null}? ${student.name}: ''" maxlength="255" required/>
+                       th:value="${student.name}" placeholder="กรุณากดปุ่ม ค้นหา" readonly/>
+                <button type="button" class="btn btn-poba btn-search ml-2" data-toggle="modal" data-target="#personnelModal">ค้นหา</button>
             </div>
 
             <div class="row col-sm-12 mb-2">
-                <label><b>ข้อมูลนิสิตลาออก</b></label>
+                <label><b>ข้อมูลสถานภาพนิสิต</b></label>
             </div>
             <div class="row mb-2">
                 <label for="studentsStatus" class="form-control-label col-sm-2">สถานภาพนิสิต:</label>
@@ -224,23 +206,6 @@
 
         });
 
-        $('#prefix').change(function(){
-            var value = $(this).val();
-            if(value == "อื่นๆ"){
-                $("#prefixOther").removeClass("d-none");
-                $("#prefixOther").addClass("d-block");
-
-                $("#prefixOtherTmp").removeClass("d-block");
-                $("#prefixOtherTmp").addClass("d-none");
-            }else{
-                $("#prefixOther").val("");
-                $("#prefixOther").removeClass("d-block");
-                $("#prefixOther").addClass("d-none");
-
-                $("#prefixOtherTmp").removeClass("d-none");
-                $("#prefixOtherTmp").addClass("d-block");
-            }
-        });
 
          $('#studentsPrefix').change(function(){
             var value = $(this).val();

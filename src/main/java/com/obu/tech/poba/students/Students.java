@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -51,13 +52,13 @@ public class Students {
   private String studentsRelationOther;
   private String studentsEmail;
 
-  @Size(min = 1, max = 255, message = "โปรดเลือก คำนำหน้า อาจารย์ที่ปรึกษา")
-  private String prefix;
-  private String prefixOther;
+  @NotEmpty(message = "โปรดเลือก คำนำหน้า และ ชื่อ-นามสกุล ")
+  private String persNo;
 
-  @Size(min = 1, max = 255, message = "กรุณาตรวจสอบข้อมูล ชื่อ-นามสกุล อาจารย์ที่ปรึกษา")
+  @Transient
+  private String prefix;
+  @Transient
   private String name;
-  private String surname;
 
   private String studentsStatus;
   private String studentsSuccess;

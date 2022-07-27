@@ -77,11 +77,11 @@ public class ProjectController {
 
             p.setParticipantId(s.getStudentsId());
 
-            String prefix = s.getPrefix();
+            String prefix = s.getStudentsPrefix();
             if(prefix !=null && "อื่นๆ".equals(s.getPrefix())){
-                prefix = s.getPrefixOther();
+                prefix = s.getStudentsPrefixOther();
             }
-            p.setName(prefix+" "+s.getName()+" "+s.getSurname());
+            p.setName(prefix+" "+s.getStudentsName()+" "+s.getStudentsSurname());
 
             participants.add(p);
         }
