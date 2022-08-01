@@ -53,18 +53,9 @@
                 <label for="teachTimes" class="form-control-label col-sm-2">จำนวนครั้ง:</label>
                 <input type="text" class="form-control bg-white col-sm-4" id="teachTimes" name="teachTimes"
                        th:attr="value=${teaching.teachTimes != null}? ${teaching.teachTimes} : ''"/>
-                <label for="div-teachDate" class="form-control-label col-sm-2">วันเดือน ปี:</label>
-                <div class='col-sm-2'>
-                    <div class="form-group">
-                        <div class='input-group date' id='div-teachDate'>
-                            <input type='text' class="form-control bg-white date-thai" id="teachDate" name="teachDate"
-                                   th:attr="value=${teaching.teachDate != null}? ${teaching.teachDateDesc}: ''" readonly/>
-                            <span class="input-group-addon">
-                                <i class="far fa-calendar icon"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                <label for="teachDate" class="form-control-label col-sm-2">วันเดือน ปี:</label>
+                <input type="date" class="form-control bg-white col-sm-2" id="teachDate" name="teachDate"
+                       th:attr="value=${teaching.teachDate != null}? ${teaching.teachDate}: ''"/>
             </div>
             <div class="row mb-2">
                 <label for="noteOfTeach" class="form-control-label col-sm-2">เอกสารแนบ:</label>
@@ -228,17 +219,8 @@
             </div>
             <div class="row mb-2">
                 <label for="midtermExamDate" class="form-control-label col-sm-2">วันสอบกลางภาค:</label>
-                <div class='col-sm-2'>
-                    <div class="form-group">
-                        <div class='input-group date' id='div-midtermExamDate'>
-                            <input type='text' class="form-control bg-white date-thai" id="midtermExamDate" name="midtermExamDate"
-                                   th:attr="value=${teaching.midtermExamDate != null}? ${teaching.midtermExamDateDesc}: ''" readonly/>
-                            <span class="input-group-addon">
-                                <i class="far fa-calendar icon"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                <input type="date" class="form-control bg-white col-sm-2" id="midtermExamDate" name="midtermExamDate"
+                       th:attr="value=${teaching.midtermExamDate != null}? ${teaching.midtermExamDate} : ''"/>
                 <label for="midtermExamTimeStart" class="form-control-label col-sm-2">เวลาสอบเริ่มต้น:</label>
                 <input type="time" id="midtermExamTimeStart" name="midtermExamTimeStart" class="form-control col-sm-2"
                        th:attr="value=${teaching.midtermExamTimeStart != null}? ${teaching.midtermExamTimeStart}: ''"/>
@@ -247,18 +229,9 @@
                        th:attr="value=${teaching.midtermExamTimeEnd != null}? ${teaching.midtermExamTimeEnd}: ''"/>
             </div>
             <div class="row mb-2">
-                <label for="div-finalExamDate" class="form-control-label col-sm-2">วันสอบปลายภาค:</label>
-                <div class='col-sm-2'>
-                    <div class="form-group">
-                        <div class='input-group date' id='div-finalExamDate'>
-                            <input type='text' class="form-control bg-white date-thai" id="finalExamDate" name="finalExamDate"
-                                   th:attr="value=${teaching.finalExamDate != null}? ${teaching.finalExamDateDesc}: ''" readonly/>
-                            <span class="input-group-addon">
-                                <i class="far fa-calendar icon"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                <label for="finalExamDate" class="form-control-label col-sm-2">วันสอบปลายภาค:</label>
+                <input type="date" class="form-control bg-white col-sm-2" id="finalExamDate" name="finalExamDate"
+                        th:attr="value=${teaching.finalExamDate != null}? ${teaching.finalExamDate} : ''"/>
                 <label for="finalExamTimeStart" class="form-control-label col-sm-2">เวลาสอบเริ่มต้น:</label>
                 <input type="time" id="finalExamTimeStart" name="finalExamTimeStart" class="form-control col-sm-2"
                        th:attr="value=${teaching.finalExamTimeStart != null}? ${teaching.finalExamTimeStart}: ''"/>

@@ -78,8 +78,7 @@ public class Teaching {
     public String institutionInfo;
     public String teachTopic;
     public int teachTimes;
-    //@DateTimeFormat(pattern = "yyyy-MM-dd")
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate teachDate;
     public String noteOfTeach;
 
@@ -96,16 +95,14 @@ public class Teaching {
     @Pattern(regexp = "^\\d+$",message="กรุณาตรวจสอบข้อมูล จำนวนนิสิตลงทะเบียนเรียน")
     public String totalStudentsRegister;
 
-    //@DateTimeFormat(pattern = "yyyy-MM-dd")
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate midtermExamDate;
 
     public String midtermExamTimeStart;
 
     public String midtermExamTimeEnd;
 
-    //@DateTimeFormat(pattern = "yyyy-MM-dd")
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate finalExamDate;
 
     public String finalExamTimeStart;
