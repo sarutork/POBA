@@ -47,7 +47,7 @@ public class ConsultantStudentService {
 
        }else if(StringUtils.isBlank(consultantStudent.getStudentsLevel()) && (studentsLevel_2.equals(studentsLevel))){
            List<Object[]> dataList = consultantStudentRepository.findConsultantStudentInfo2(
-                   consultantStudent.getName(),consultantStudent.getYearOfStudy(),studentsLevel_1);
+                   consultantStudent.getName(),consultantStudent.getYearOfStudy(),studentsLevel_2);
 
            List<ConsultantStudent> resData = new ArrayList<>();
            if (!dataList.isEmpty() && dataList.size() >0){
