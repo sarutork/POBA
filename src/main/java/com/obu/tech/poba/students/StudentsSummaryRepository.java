@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface StudentsSummaryRepository extends JpaRepository<Students, Long>, JpaSpecificationExecutor<Students> {
-    @Query("SELECT CASE WHEN p.prefix = '' THEN p.prefixOther ELSE p.prefix END AS title,p.name,p.surname,s.studentsYear as year, " +
+    @Query("SELECT CASE WHEN p.prefix = 'อื่นๆ' THEN p.prefixOther ELSE p.prefix END AS title,p.name,p.surname,s.studentsYear as year, " +
             "COUNT(*) AS total " +
             "FROM Students AS s JOIN Profile p ON s.persNo = p.persNo " +
             "WHERE s.studentsYear BETWEEN  :fromYear AND :toYear " +
