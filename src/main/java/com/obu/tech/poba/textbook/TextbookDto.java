@@ -75,7 +75,5 @@ public class TextbookDto {
 
     @Column(name = "textbook_tci")
     private String textbookTCI;
-
-    @Size(min = 1, max = 255, message = "โปรดเลือก สถานะ")
     private String textbookLevel;
 }
