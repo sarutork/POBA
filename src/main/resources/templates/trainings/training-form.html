@@ -69,7 +69,7 @@
                 <button type="button" class="btn btn-poba btn-search ml-2" data-toggle="modal" data-target="#personnelModal3">ค้นหา</button>
 
                 <label class="ml-5 form-control-label" for="trainingStatus3">สถานะ&nbsp;&nbsp;:</label>
-                <select type="text" class="col-2 form-control" id="trainingStatus3" name="trainingStatus3" required>
+                <select type="text" class="col-2 form-control" id="trainingStatus3" name="trainingStatus3">
                     <option value="">กรุณาเลือก</option>
                     <option value="ผู้รับผิดชอบ" th:selected="${training.trainingStatus3 == 'ผู้รับผิดชอบ'}? 'selected'">ผู้รับผิดชอบ</option>
                     <option value="คณะทำงาน" th:selected="${training.trainingStatus3 == 'คณะทำงาน'}? 'selected'">คณะทำงาน</option>

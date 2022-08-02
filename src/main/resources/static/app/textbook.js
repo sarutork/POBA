@@ -12,7 +12,10 @@ function findTextbookInfo() {
             }
         },
         columns: [
-            { data: "textbookId" },
+            { data:  null,"sortable": false,
+                     render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                     }},
             { data: "name"},
             { data: "textbookType" },
             { data: "textbookTopic" },

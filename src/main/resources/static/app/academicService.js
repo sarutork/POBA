@@ -10,7 +10,10 @@ function findAcademicService() {
             }
         },
         columns: [
-            { data: "serviceId" },
+           { data:  null,"sortable": false,
+                    render: function (data, type, row, meta) {
+                       return meta.row + meta.settings._iDisplayStart + 1;
+                    }},
             { data: "name"},
             { data: "serviceStatus" },
             { data: "serviceLevel" },
