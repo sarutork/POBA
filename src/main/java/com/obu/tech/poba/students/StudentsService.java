@@ -51,12 +51,13 @@ public class StudentsService {
         results.stream().forEach(data->{
 
             StudentsSummary studentsSummary = new StudentsSummary();
-            String name = (String) data[0];
-            String surname = (String) data[1];
+            String title = (String) data[0];
+            String name = (String) data[1];
+            String surname = (String) data[2];
 
-            studentsSummary.setFullName(name.concat(" ").concat(surname));
-            studentsSummary.setYear((String) data[2]);
-            studentsSummary.setTotal(String.valueOf(data[3]));
+            studentsSummary.setFullName(title.concat(" ")+name.concat(" ").concat(surname));
+            studentsSummary.setYear((String) data[3]);
+            studentsSummary.setTotal(String.valueOf(data[4]));
 
             studentsSummary.setRowNum(String.valueOf(i.getAndIncrement()));
 
