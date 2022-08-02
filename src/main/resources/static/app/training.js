@@ -10,7 +10,10 @@ function findTraining() {
             }
         },
         columns: [
-            { data:"trainingId"},
+            { data:  null,"sortable": false,
+                     render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                     }},
             { data: "name1"},
             { data: "trainingStatus1" },
             { data: "trainingLevel" },

@@ -10,7 +10,10 @@ function findResolutionInfo() {
             data:{ 'bordNo' : bordNo, 'dateStart' : dateStart, 'dateEnd' : dateEnd },
         },
         columns: [
-            { data: "bordId" },
+            { data:  null,"sortable": false,
+                     render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                     }},
             { data: "bordNo1"},
             { data: "bordDate" },
             { data: "bordType" },

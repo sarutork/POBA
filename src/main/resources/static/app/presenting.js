@@ -11,7 +11,10 @@ function findPresentingInfo() {
             }
         },
         columns: [
-            { data: "presentId" },
+            { data:  null,"sortable": false,
+                     render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                     }},
             { data: "name"},
             { data: "presentTopic" },
             { data: "presentLevel" },

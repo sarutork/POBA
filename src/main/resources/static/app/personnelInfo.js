@@ -9,7 +9,10 @@ function findProfileInfo() {
             }
         },
         columns: [
-            { data: "staffId" },
+            { data:  null,"sortable": false,
+                     render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                     }},
             { data: "name"},
             { data: "structureNameLevel2" },
             { data: "emailOrg" },
@@ -152,7 +155,10 @@ function findStudyInfo() {
             }
         },
         columns: [
-            { data: "staffId" },
+            { data:  null,"sortable": false,
+                         render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                         }},
             { data: "name"},
             { data: "location" },
             { data: "country" },
@@ -295,7 +301,10 @@ function findResearcherInfo() {
             }
         },
         columns: [
-            { data: 'staffId' },
+            { data:  null,"sortable": false,
+                     render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                     }},
             { data: 'name' },
             { data: 'status' },
             { data: 'type' },
