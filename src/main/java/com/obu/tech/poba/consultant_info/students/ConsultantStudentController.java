@@ -243,7 +243,7 @@ public class ConsultantStudentController {
         consultantStudent.setStudentName(students.getStudentsName()+" "+students.getStudentsSurname());
         consultantStudent.setYearOfStudy(students.getStudentsYear());
         consultantStudent.setStudentsLevel(students.getStudentsLevel());
-        consultantStudent.setAdmissionStatus(students.getStudentsStatus());
+        consultantStudent.setAdmissionStatus(students.getStudentsHow());
         consultantStudent.setCourse(students.getStudentsCourse());
         return view(consultantStudent,request);
     }
