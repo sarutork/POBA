@@ -15,7 +15,7 @@
         <th:block th:replace="~{fragments/alert}"/>
 
         <form id="form-student" class="form-wrapper">
-            <input type="hidden" id="id" name="id" th:value="${student.Id}"/>
+            <input type="hidden" id="id" name="id" th:value="${student.id}"/>
             <div class="row col-sm-12 mb-2">
                 <label><b>ข้อมูลนิสิต</b></label>
             </div>
@@ -204,6 +204,7 @@
                 $("select").prop("disabled", true);
              }
 
+             $("#studentsLevel").trigger("change");
         });
 
 

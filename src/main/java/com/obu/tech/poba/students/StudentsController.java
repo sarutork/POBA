@@ -93,7 +93,7 @@ public class StudentsController {
 
     @RolesAllowed({ROLE_STUDENT_ADD,ROLE_STUDENT_EDIT})
     @RequestMapping(path = "/save", method = { RequestMethod.POST, RequestMethod.PUT , RequestMethod.PATCH}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ModelAndView save(@ModelAttribute("training") @Valid Students students,
+    public ModelAndView save(@ModelAttribute("students") @Valid Students students,
                              BindingResult bindingResult,
                              HttpServletRequest request) {
         if (bindingResult.hasErrors()) {

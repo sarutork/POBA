@@ -19,7 +19,7 @@ import java.time.LocalDate;
 public class Students {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long Id;
+  private long id;
 
   @Size(min = 1, max = 10, message = "กรุณาตรวจสอบข้อมูล เลขประจำตัวนิสิต")
   private String studentsId;
