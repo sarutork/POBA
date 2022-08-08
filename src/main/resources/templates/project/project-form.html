@@ -94,7 +94,7 @@
             </div>
 
             <div id="searchParticipant" class="row mt-4 mb-2 ml-1">
-                <button type="button" class="btn btn-poba btn-add mr-3" data-toggle="modal" data-target="#participantModal">เพิ่มผู้เข้าร่วม</button>
+                <button type="button" id="participantModalBtn" class="btn btn-poba btn-add mr-3" data-toggle="modal" data-target="#participantModal">เพิ่มผู้เข้าร่วม</button>
             </div>
 
             <div class="table table-responsive">
@@ -200,6 +200,12 @@
              amtFormat();
         });
 
+        $("#participantModalBtn").click(function() {
+           if(window.tableParticipantModal != undefined){
+                window.tableParticipantModal.clear().draw();
+           }
+           $('#searchTxt').val("");
+        });
     </script>
 
 </th:block>

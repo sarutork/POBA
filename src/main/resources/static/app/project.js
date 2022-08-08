@@ -103,7 +103,7 @@ function findParticipant() {
   var indexStatus = index;
 
   var searchTxt = $('#searchTxt').val();
-  var tableParticipantModal =  $('#table-participant-modal').DataTable({
+  window.tableParticipantModal =  $('#table-participant-modal').DataTable({
         ajax: {
             type: "GET",
             url: "/poba/project/search-participant",
@@ -180,7 +180,7 @@ function findParticipant() {
     });
     $('#table-participant-modal tbody').on('click', 'tr', function () {
             if(!$('#table-participant-modal tbody tr td').hasClass("dataTables_empty")){
-               var data = tableParticipantModal.row( this ).data();
+               var data = window.tableParticipantModal.row( this ).data();
             }
     } );
 }
