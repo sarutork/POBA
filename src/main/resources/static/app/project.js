@@ -96,11 +96,11 @@ function findParticipant() {
       $(this).find(".dataTables_empty").parents('tbody').empty();
   }).DataTable();
 
-  var index = $('#table-participant').dataTable().fnGetData().length;
-  //var index = $('#table-participant tr').length;;
-  var indexId = index;
-  var indexName = index;
-  var indexStatus = index;
+  //let index = $('#table-participant').dataTable().fnGetData().length;
+  let index = $('#table-participant tr').length -1;
+  let indexId = index;
+  let indexName = index;
+  let indexStatus = index;
 
   var searchTxt = $('#searchTxt').val();
   window.tableParticipantModal =  $('#table-participant-modal').DataTable({
