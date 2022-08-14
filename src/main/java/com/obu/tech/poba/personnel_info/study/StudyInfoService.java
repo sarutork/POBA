@@ -1,6 +1,7 @@
 package com.obu.tech.poba.personnel_info.study;
 
 import com.obu.tech.poba.personnel_info.research.Researcher;
+import com.obu.tech.poba.utils.CommonUtils;
 import com.obu.tech.poba.utils.search.SearchConditionBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,8 @@ import static com.obu.tech.poba.utils.search.SearchOperator.*;
 public class StudyInfoService {
     @Autowired StudyInfoRepository studyInfoRepository;
 
+    @Autowired CommonUtils commonUtils;
+
     public List<StudyInfo> findBySearchCriteria(StudyInfo studyInfo){
 
         List<Object[]> data = studyInfoRepository.findInfo("%"+studyInfo.getName()+"%",studyInfo.getStartDate(),studyInfo.getEndDate());
@@ -31,21 +34,21 @@ public class StudyInfoService {
                 result.setStaffId(Long.parseLong(e[0].toString()));
                 result.setPrefix( !e[1].toString().equals("อื่นๆ")? e[1].toString() : e[2].toString());
                 result.setName(e[3].toString()+" "+e[4].toString());
-                if (e[5] != null ) {
-                    result.setLocation(e[5].toString());
+                result.setTravelOrder(commonUtils.chkNullStrObj(e[5]));
+                if(e[6] != null) {
+                    result.setStartDate(LocalDate.parse(commonUtils.chkNullStrObj(e[6]),formatter));
                 }
-
-                if(e[6] != null){
-                    result.setCountry(e[6].toString());
+                if(e[7] != null) {
+                    result.setEndDate(LocalDate.parse(commonUtils.chkNullStrObj(e[7]),formatter));
                 }
-
-                if(e[7] != null){
-                    result.setStartDate(LocalDate.parse(e[7].toString(),formatter));
-                }
-                if(e[8] != null){
-                    result.setEndDate(LocalDate.parse(e[8].toString(),formatter));
-                }
-
+                result.setTotalYear(Integer.parseInt(commonUtils.chkNullStrObj(e[8])));
+                result.setTotalMonth(Integer.parseInt(commonUtils.chkNullStrObj(e[9])));
+                result.setTotalDay(Integer.parseInt(commonUtils.chkNullStrObj(e[10])));
+                result.setActivityDetail(commonUtils.chkNullStrObj(e[11]));
+                result.setLocation(commonUtils.chkNullStrObj(e[12]));
+                result.setLocationType(commonUtils.chkNullStrObj(e[13]));
+                result.setCountry(commonUtils.chkNullStrObj(e[14]));
+                result.setFund(commonUtils.chkNullStrObj(e[15]));
                 studyInfos.add(result);
             }
         }

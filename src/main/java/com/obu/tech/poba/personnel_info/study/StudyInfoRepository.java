@@ -11,8 +11,9 @@ import java.util.List;
 
 @Repository
 public interface StudyInfoRepository extends JpaRepository<StudyInfo, Long>, JpaSpecificationExecutor<StudyInfo> {
-    @Query("SELECT s.staffId, p.prefix, p.prefixOther, p.name, p.surname, s.location, s.country, " +
-            "s.startDate, s.endDate " +
+    @Query("SELECT s.staffId, p.prefix, p.prefixOther, p.name, p.surname, s.travelOrder, " +
+            "s.startDate, s.endDate , s.totalYear, s.totalMonth, s.totalDay, s.activityDetail, s.location, s.locationType, " +
+            "s.country, s.fund " +
             "FROM StudyInfo s JOIN Profile p ON s.persNo = p.persNo " +
             " WHERE (:name is null or :name = '' or p.name LIKE :name" +
             " or p.surname LIKE :name)" +

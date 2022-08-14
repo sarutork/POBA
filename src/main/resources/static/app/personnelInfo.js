@@ -13,11 +13,30 @@ function findProfileInfo() {
                      render: function (data, type, row, meta) {
                         return meta.row + meta.settings._iDisplayStart + 1;
                      }},
+            { data: "persNo"},
             { data: "name"},
-            { data: "structureNameLevel2" },
             { data: "emailOrg" },
+            { data: "emailPersonal" },
             { data: "tel" },
-            { data: "mobile" }
+            { data: "mobile" },
+            { data: "startWorkDate" },
+            { data: "startCountWorkDate" },
+            { data: "toWorkDate" },
+            { data: "ohecEducationLevel" },
+            { data: "ohecStructure" },
+            { data: "section" },
+            { data: "ohecPositionGroup" },
+            { data: "ohecAcademicPosition" },
+            { data: "structureNameLevel1" },
+            { data: "structureNameLevel2" },
+            { data: "structureNameLevel3" },
+            { data: "structureNameLevel4" },
+            { data: "staffGroup" },
+            { data: "staffSubGroup" },
+            { data: "position" },
+            { data: "work" },
+            { data: "empContract" },
+            { data: "subSectionScopeOfWork" }
         ],
         columnDefs: [
             {
@@ -29,7 +48,7 @@ function findProfileInfo() {
                       var fullName = prefix+' '+row["name"] + ' ' + row["surname"];
                           return fullName;
                },
-               targets: 1,
+               targets: 2,
             },
         ],
         searching: false,
@@ -160,10 +179,17 @@ function findStudyInfo() {
                             return meta.row + meta.settings._iDisplayStart + 1;
                          }},
             { data: "name"},
-            { data: "location" },
-            { data: "country" },
+            { data: "travelOrder"},
             { data: "startDate" },
-            { data: "endDate" }
+            { data: "endDate" },
+            { data: "totalYear" },
+            { data: "totalMonth" },
+            { data: "totalDay" },
+            { data: "activityDetail"},
+            { data: "location" },
+            { data: "locationType" },
+            { data: "country" },
+            { data: "fund" }
         ],
         columnDefs: [
             {
