@@ -19,7 +19,10 @@ public class PresentingService {
     @Autowired PresentingRepository presentingRepository;
 
     List<Presenting> findBySearchCriteria(Presenting presenting){
-        List<Object[]> data = presentingRepository.findPresentInfo("%"+presenting.getName()+"%",presenting.getPresentLevel());
+        List<Object[]> data = presentingRepository.findPresentInfo("%"+presenting.getName()+"%"
+                ,presenting.getPresentLevel()
+                ,presenting.getPresentDateStart()
+                ,presenting.getPresentDateEnd());
 
         List<Presenting> presentingList = new ArrayList<>();
         if (!data.isEmpty() && data.size() >0){

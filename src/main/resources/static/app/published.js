@@ -7,6 +7,7 @@ function findPublished() {
             data: function(d){
                 d.name = $('#name').val();
                 d.publishedLevel = $('#publishedLevel').val();
+                d.publishedYear2 = $('#publishedYear2').val();
             }
         },
         columns: [

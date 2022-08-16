@@ -8,6 +8,8 @@ function findPresentingInfo() {
             data: function(d){
                 d.name = $('#name').val();
                 d.presentLevel = $('#presentLevel').val();
+                d.presentDateStart = $('#presentDateStart').val();
+                d.presentDateEnd = $('#presentDateEnd').val();
             }
         },
         columns: [

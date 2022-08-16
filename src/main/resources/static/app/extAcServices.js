@@ -7,6 +7,8 @@ function findExtAcademicServices() {
             data: function(d){
                 d.name = $('#name').val();
                 d.level = $('#level').val();
+                d.startDate = $('#startDate').val();
+                d.endDate = $('#endDate').val();
             }
         },
         columns: [

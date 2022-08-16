@@ -12,22 +12,30 @@
     <div class="px-3">
         <th:block th:replace="~{fragments/alert}"/>
 
-        <form id="form-presenting" class="form-inline justify-content-end flex-md-row flex-column">
-            <div class="form-group mb-3">
-                <label for="name" class="mr-1">ค้นหาข้อมูล:</label>
-                <input type="text" class="form-control bg-white mr-3" id="name">
-            </div>
-            <div class="form-group mb-3">
-                <label for="presentLevel" class="mr-1">ระดับ:</label>
-                <select type="text" class="form-control bg-white mr-3" id="presentLevel" name="presentLevel">
-                    <option value="">กรุณาเลือก</option>
-                    <option value="ระดับชาติ">ระดับชาติ</option>
-                    <option value="ระดับนานาชาติ">ระดับนานาชาติ</option>
-                </select>
-            </div>
-            <div class="form-group mb-3">
-                <button type="button" class="btn btn-outline-poba mr-3" onclick="findPresentingInfo();" th:if="${#lists.contains(roles, 'ROLE_PRESENTING_SEARCH')}">ค้นหา</button>
-                <a href="javascript:void(0)" onclick="loadView('/poba/presenting/add')" class="btn btn-poba" th:if="${#lists.contains(roles, 'ROLE_PRESENTING_ADD')}">เพิ่มข้อมูล</a>
+        <form id="form-presenting" class="mb-5">
+            <div class="d-flex flex-xl-row flex-column">
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                    <label for="name" class="col-3 text-sm-right col-form-label">ค้นหาข้อมูล:</label>
+                    <input type="text" class="col-9 form-control flex-xl-grow-1" id="name" placeholder="ค้นหาด้วยชื่อ">
+                </div>
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                    <label for="presentLevel" class="col-3 text-sm-right col-form-label">ระดับ:</label>
+                    <select type="text" class="col-9 form-control flex-xl-grow-1" id="presentLevel" name="presentLevel">
+                        <option value="">กรุณาเลือก</option>
+                        <option value="ระดับชาติ">ระดับชาติ</option>
+                        <option value="ระดับนานาชาติ">ระดับนานาชาติ</option>
+                    </select>
+                </div>
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                    <label for="presentDateStart" class="col-2 text-sm-right col-form-label">วันที่เริ่ม:</label>
+                    <input type="date" class="col-4 form-control" id="presentDateStart">
+                    <label for="presentDateEnd" class="col-2 text-sm-right col-form-label">วันที่สิ้นสุด:</label>
+                    <input type="date" class="col-4 form-control" id="presentDateEnd">
+                </div>
+                <div class="pl-xl-3 d-inline-flex justify-content-end">
+                    <button type="button" class="btn btn-outline-poba mr-3" onclick="findPresentingInfo();" th:if="${#lists.contains(roles, 'ROLE_PRESENTING_SEARCH')}">ค้นหา</button>
+                    <a href="javascript:void(0)" onclick="loadView('/poba/presenting/add')" class="btn btn-poba" th:if="${#lists.contains(roles, 'ROLE_PRESENTING_ADD')}">เพิ่มข้อมูล</a>
+                </div>
             </div>
         </form>
 

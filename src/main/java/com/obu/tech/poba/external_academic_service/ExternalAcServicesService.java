@@ -20,7 +20,10 @@ public class ExternalAcServicesService {
     ExternalAcServicesRepository externalAcServicesRepository;
 
     List<ExternalAcServices> findBySearchCriteria(ExternalAcServices extAcServices){
-        List<Object[]> data = externalAcServicesRepository.findInfo("%"+extAcServices.getName()+"%",extAcServices.getLevel());
+        List<Object[]> data = externalAcServicesRepository.findInfo("%"+extAcServices.getName()+"%",
+                extAcServices.getLevel(),
+                extAcServices.getStartDate(),
+                extAcServices.getEndDate());
 
         List<ExternalAcServices> externalAcServices = new ArrayList<>();
         if (!data.isEmpty() && data.size() >0){

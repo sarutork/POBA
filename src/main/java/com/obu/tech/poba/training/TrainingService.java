@@ -14,7 +14,10 @@ public class TrainingService {
     TrainingPhaseRepository trainingPhaseRepository;
 
     List<Training> findBySearchCriteria(Training training){
-        List<Object[]> data = trainingRepository.findInfo("%"+training.getName1()+"%",training.getTrainingLevel());
+        List<Object[]> data = trainingRepository.findInfo("%"+training.getName1()+"%",
+                training.getTrainingLevel(),
+                training.getTrainingDateFrom(),
+                training.getTrainingDateTo());
 
         List<Training> trainings = new ArrayList<>();
         if (!data.isEmpty() && data.size() >0){

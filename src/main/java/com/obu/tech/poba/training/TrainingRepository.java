@@ -15,7 +15,11 @@ public interface TrainingRepository extends JpaRepository<Training, Long>, JpaSp
             "FROM Training t JOIN Profile p ON t.persNo1 = p.persNo " +
             " WHERE (:name is null or :name = '' or p.name LIKE :name" +
             " or p.surname LIKE :name)" +
-            " and (:trainingLevel is null or :trainingLevel = '' or t.trainingLevel = :trainingLevel)")
+            " and (:trainingLevel is null or :trainingLevel = '' or t.trainingLevel = :trainingLevel)"+
+            " and (:trainingDateFrom is null or t.trainingDateFrom >= :trainingDateFrom)" +
+            " and (:trainingDateTo is null or t.trainingDateTo <= :trainingDateTo)")
     List<Object[]> findInfo(@Param("name") String name,
-                            @Param("trainingLevel") String trainingLevel);
+                            @Param("trainingLevel") String trainingLevel,
+                            @Param("trainingDateFrom") LocalDate trainingDateFrom,
+                            @Param("trainingDateTo") LocalDate trainingDateTo);
 }

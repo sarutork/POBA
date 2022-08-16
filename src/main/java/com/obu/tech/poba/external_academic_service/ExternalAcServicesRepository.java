@@ -15,6 +15,11 @@ public interface ExternalAcServicesRepository extends JpaRepository<ExternalAcSe
             "FROM ExternalAcServices ext JOIN Profile p ON ext.persNo = p.persNo " +
             " WHERE (:name is null or :name = '' or p.name LIKE :name" +
             " or p.surname LIKE :name)" +
-            " and (:level is null or :level = '' or ext.level = :level)")
-    List<Object[]> findInfo(@Param("name") String name, @Param("level") String level);
+            " and (:level is null or :level = '' or ext.level = :level)"+
+            " and (:startDate is null or ext.startDate >= :startDate)" +
+            " and (:endDate is null or ext.endDate <= :endDate)")
+    List<Object[]> findInfo(@Param("name") String name,
+                            @Param("level") String level,
+                            @Param("startDate") LocalDate startDate,
+                            @Param("endDate") LocalDate endDate);
 }

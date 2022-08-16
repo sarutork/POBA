@@ -20,13 +20,19 @@
                     <label for="name" class="col-3 text-sm-right col-form-label">ค้นหาข้อมูล:</label>
                     <input id="name" type="text" class="col-9 form-control flex-xl-grow-1" placeholder="ค้นหาด้วยชื่อ">
                 </div>
-                <div class="row px-3 mb-xl-0 mb-3">
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
                     <label for="level" class="col-3 text-sm-right col-form-label">ระดับ:</label>
                     <select type="text" class="col-9 form-control" id="level" name="level">
                         <option value="">กรุณาเลือก</option>
                         <option value="ระดับชาติ">ระดับชาติ</option>
                         <option value="ระดับนานาชาติ">ระดับนานาชาติ</option>
                     </select>
+                </div>
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                    <label for="startDate" class="col-2 text-sm-right col-form-label">วันที่เริ่ม:</label>
+                    <input type="date" class="col-4 form-control" id="startDate">
+                    <label for="endDate" class="col-2 text-sm-right col-form-label">วันที่สิ้นสุด:</label>
+                    <input type="date" class="col-4 form-control" id="endDate">
                 </div>
                 <div class="pl-xl-3 d-inline-flex justify-content-end">
                     <button type="button" class="btn btn-outline-poba mr-3" onclick="findExtAcademicServices()" th:if="${#lists.contains(roles, 'ROLE_EXTERNAL_ACADEMIC_SERVICE_SEARCH')}">ค้นหา</button>

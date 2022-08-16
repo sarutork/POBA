@@ -14,7 +14,9 @@ public interface PublishedRepository extends JpaRepository<Published, Long>, Jpa
             "FROM Published pu JOIN Profile p ON pu.persNo = p.persNo " +
             " WHERE (:name is null or :name = '' or p.name LIKE :name" +
             " or p.surname LIKE :name)" +
-            " and (:publishedLevel is null or :publishedLevel = '' or pu.publishedLevel = :publishedLevel)")
+            " and (:publishedLevel is null or :publishedLevel = '' or pu.publishedLevel = :publishedLevel)" +
+            " and (:publishedYear2 is null or :publishedYear2 = '' or pu.publishedYear2 = :publishedYear2)")
     List<Object[]> findPublishedInfo(@Param("name") String name,
-                                     @Param("publishedLevel") String publishedLevel);
+                                     @Param("publishedLevel") String publishedLevel,
+                                     @Param("publishedYear2") String publishedYear2);
 }

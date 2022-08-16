@@ -14,16 +14,20 @@
         <form id="form-published" class="mb-5">
             <div class="d-flex flex-xl-row flex-column">
                 <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
-                    <label for="name" class="col-5 text-sm-right col-form-label">ค้นหาข้อมูล:</label>
-                    <input id="name" type="text" class="col-7 form-control flex-xl-grow-1" placeholder="ค้นหาด้วยชื่อ">
+                    <label for="name" class="col-3 text-sm-right col-form-label">ค้นหาข้อมูล:</label>
+                    <input id="name" type="text" class="col-9 form-control flex-xl-grow-1" placeholder="ค้นหาด้วยชื่อ">
                 </div>
-                <div class="row px-3 mb-xl-0 mb-3">
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
                     <label for="publishedLevel" class="col-3 text-sm-right col-form-label">ระดับ:</label>
                     <select type="text" class="col-9 form-control" id="publishedLevel" name="publishedLevel">
                         <option value="">กรุณาเลือก</option>
                         <option value="ระดับชาติ">ระดับชาติ</option>
                         <option value="ระดับนานาชาติ">ระดับนานาชาติ</option>
                     </select>
+                </div>
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                    <label for="publishedYear2" class="col-5 text-sm-right col-form-label">ปีที่พิมพ์:</label>
+                    <input id="publishedYear2" type="text" class="col-7 form-control flex-xl-grow-1" placeholder="ปีที่พิมพ์">
                 </div>
                 <div class="pl-xl-3 d-inline-flex justify-content-end">
                     <button type="button" class="btn btn-outline-poba mr-3" onclick="findPublished()" th:if="${#lists.contains(roles, 'ROLE_PUBLISHED_SEARCH')}">ค้นหา</button>

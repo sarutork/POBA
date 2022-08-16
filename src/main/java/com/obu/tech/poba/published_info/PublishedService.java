@@ -19,7 +19,7 @@ public class PublishedService {
     private FiscalYearRepository fiscalYearRepository;
 
     public  List<Published> findBySearchCriteria(Published published){
-        List<Object[]> dataList = publishedRepository.findPublishedInfo("%"+published.getName()+"%",published.getPublishedLevel());
+        List<Object[]> dataList = publishedRepository.findPublishedInfo("%"+published.getName()+"%",published.getPublishedLevel(),published.getPublishedYear2());
 
         List<Published> publisheds = new ArrayList<>();
         if (!dataList.isEmpty() && dataList.size() >0){

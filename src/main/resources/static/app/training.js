@@ -7,6 +7,8 @@ function findTraining() {
             data: function(d){
                 d.name1 = $('#name1').val();
                 d.trainingLevel = $('#trainingLevel').val();
+                d.trainingDateFrom = $('#trainingDateFrom').val();
+                d.trainingDateTo = $('#trainingDateTo').val();
             }
         },
         columns: [
