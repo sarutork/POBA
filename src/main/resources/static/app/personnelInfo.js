@@ -334,11 +334,13 @@ function findResearcherInfo() {
             { data: 'name' },
             { data: 'status' },
             { data: 'type' },
+            { data: 'workStartDate' },
+            { data: 'workEndDate' },
             { data: 'teacher1' },
             { data: 'teacher2' },
-            { data: 'subSegment' },
-            { data: 'workStartDate' },
-            { data: 'workEndDate' }
+            { data: 'subSegment'},
+            { data: 'noteOfWork'}
+
         ],
         columnDefs: [{
             render: function(data, type, row) {

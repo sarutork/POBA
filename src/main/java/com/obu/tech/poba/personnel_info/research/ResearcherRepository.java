@@ -14,7 +14,7 @@ import java.util.List;
 @Transactional
 public interface ResearcherRepository extends JpaRepository<Researcher, Long>, JpaSpecificationExecutor<Researcher> {
     @Query("SELECT r.staffId, p.prefix, p.prefixOther, p.name, p.surname, r.status, r.type, r.teacher1, r.teacher2, r.subSegment, " +
-            "r.workStartDate, r.workEndDate " +
+            "r.workStartDate, r.workEndDate, r.noteOfWork " +
             "FROM Researcher r JOIN Profile p ON r.persNo = p.persNo " +
             " WHERE (:name is null or :name = '' or p.name LIKE :name" +
             " or p.surname LIKE :name)" +

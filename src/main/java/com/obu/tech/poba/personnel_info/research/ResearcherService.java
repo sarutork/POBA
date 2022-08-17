@@ -75,6 +75,10 @@ public class ResearcherService {
                     result.setWorkEndDate(LocalDate.parse(e[11].toString(),formatter));
                 }
 
+                if(e[12] != null){
+                    result.setNoteOfWork(e[12].toString());
+                }
+
                 researchers.add(result);
             }
         }
