@@ -9,6 +9,8 @@ function findTextbookInfo() {
                 d.name = $('#name').val();
                 d.textbookLevel = $('#textbookLevel').val();
                 d.textbookType = $('#textbookType').val();
+                d.textbookDateFrom = $('#textbookDateFrom').val();
+                d.textbookDateTo = $('#textbookDateTo').val();
             }
         },
         columns: [

@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -14,8 +16,12 @@ public interface TextbookRepository extends JpaRepository<Textbook, Long>, JpaSp
             " WHERE (:name is null or :name = '' or p.name LIKE :name" +
             " or p.surname LIKE :name)" +
             " and (:textbookLevel is null or :textbookLevel = '' or t.textbookLevel = :textbookLevel)" +
-            " and (:textbookType is null or :textbookType = '' or t.textbookType = :textbookType)")
+            " and (:textbookType is null or :textbookType = '' or t.textbookType = :textbookType)"+
+            " and (:textbookDateFrom is null or t.textbookDateFrom >= :textbookDateFrom)" +
+            " and (:textbookDateTo is null or t.textbookDateTo <= :textbookDateTo)")
     List<Object[]> findTextbookInfo(@Param("name") String name,
                                     @Param("textbookLevel") String textbookLevel,
-                                    @Param("textbookType") String textbookType);
+                                    @Param("textbookType") String textbookType,
+                                    @Param("textbookDateFrom") LocalDate textbookDateFrom,
+                                    @Param("textbookDateTo") LocalDate textbookDateTo);
 }

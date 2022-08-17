@@ -15,7 +15,7 @@
         <th:block th:replace="~{fragments/alert}"/>
 
         <form id="form-textbook" class="mb-5">
-            <div class="d-flex flex-xl-row flex-column">
+            <div class="d-flex flex-xl-row flex-column mb-3">
                 <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
                     <label for="name" class="col-3 text-sm-right col-form-label">ค้นหาข้อมูล:</label>
                     <input id="name" type="text" class="col-9 form-control flex-xl-grow-1" placeholder="ค้นหาด้วยชื่อ">
@@ -36,6 +36,14 @@
                         <option value="หนังสือ">หนังสือ</option>
                     </select>
                 </div>
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                    <label for="textbookDateFrom" class="col-2 text-sm-right col-form-label">วันที่เริ่ม:</label>
+                    <input type="date" class="col-4 form-control" id="textbookDateFrom">
+                    <label for="textbookDateTo" class="col-2 text-sm-right col-form-label">วันที่สิ้นสุด:</label>
+                    <input type="date" class="col-4 form-control" id="textbookDateTo">
+                </div>
+            </div>
+            <div class="d-flex flex-xl-row flex-column mb-3 justify-content-end">
                 <div class="pl-xl-3 d-inline-flex justify-content-end">
                     <button type="button" class="btn btn-outline-poba mr-3" onclick="findTextbookInfo()" th:if="${#lists.contains(roles, 'ROLE_TEXTBOOK_SEARCH')}">ค้นหา</button>
                     <a class="btn btn-poba" href="javascript:void(0)" onclick="loadView('/poba/textbook/add')" th:if="${#lists.contains(roles, 'ROLE_TEXTBOOK_ADD')}">เพิ่มข้อมูล</a>

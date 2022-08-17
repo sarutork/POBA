@@ -18,7 +18,11 @@ public class TextbookService {
     @Autowired TextbookPhaseRepository textbookPhaseRepository;
 
     List<Textbook> findBySearchCriteria(Textbook textbook){
-        List<Object[]> data = textbookRepository.findTextbookInfo("%"+textbook.getName()+"%",textbook.getTextbookLevel(),textbook.getTextbookType());
+        List<Object[]> data = textbookRepository.findTextbookInfo("%"+textbook.getName()+"%",
+                textbook.getTextbookLevel(),
+                textbook.getTextbookType(),
+                textbook.getTextbookDateFrom(),
+                textbook.getTextbookDateTo());
 
         List<Textbook> textbookList = new ArrayList<>();
         if (!data.isEmpty() && data.size() >0){
