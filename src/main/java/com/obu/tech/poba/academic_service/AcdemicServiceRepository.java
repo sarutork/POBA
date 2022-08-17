@@ -10,7 +10,8 @@ import java.util.List;
 
 @Repository
 public interface AcdemicServiceRepository extends JpaRepository<AcademicService, Long>, JpaSpecificationExecutor<AcademicService> {
-    @Query("SELECT a.serviceId, p.prefix, p.prefixOther, p.name, p.surname, a.serviceStatus, a.serviceLevel " +
+    @Query("SELECT a.serviceId, p.prefix, p.prefixOther, p.name, p.surname, a.serviceStatus, a.serviceLevel, " +
+            "a.serviceOrder, a.serviceDateFrom, a.serviceDateTo, a.noteOfService, a.servicePosition, a.serviceInstitution " +
             "FROM AcademicService a JOIN Profile p ON a.persNo = p.persNo " +
             " WHERE (:name is null or :name = '' or p.name LIKE :name" +
             " or p.surname LIKE :name)" +

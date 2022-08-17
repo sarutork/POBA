@@ -16,6 +16,12 @@ function findAcademicService() {
                     }},
             { data: "name"},
             { data: "serviceStatus" },
+            { data: "serviceOrder" },
+            { data: "serviceDateFrom" },
+            { data: "serviceDateTo" },
+            { data: "noteOfService" },
+            { data: "servicePosition" },
+            { data: "serviceInstitution" },
             { data: "serviceLevel" },
         ],
         columnDefs: [
