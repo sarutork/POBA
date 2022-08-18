@@ -13,7 +13,37 @@ public interface TeachingRepository extends JpaRepository<Teaching, Long>, JpaSp
     @Query(value = "FROM Teaching t WHERE staff_id = :staffId")
     Optional<Teaching> findById(@Param("staffId") Long id);
 
-    @Query("SELECT t.staffId, p.prefix, p.prefixOther, p.name, p.surname, t.studyYear, t.semester, t.subjectName, t.studyType " +
+    @Query("SELECT t.staffId, p.prefix, p.prefixOther, p.name, p.surname" +
+            ",t.teachStatus" +
+            ",t.institutionInfo" +
+            ",t.teachTopic" +
+            ",t.teachTimes" +
+            ",t.teachDate" +
+            ",t.noteOfTeach" +
+            ",t.studyType" +
+            ",t.semester" +
+            ",t.studyYear" +
+            ",t.subjectId" +
+            ",t.subjectName" +
+            ",t.subjectCredit" +
+            ",t.currentCredit" +
+            ",t.teachType" +
+            ",t.teachDay" +
+            ",t.studyStart" +
+            ",t.studyEnd" +
+            ",t.teachLocation" +
+            ",t.teachLocationOther" +
+            ",t.teachRoom" +
+            ",t.teachStyle" +
+            ",t.teachStyleDetail" +
+            ",t.totalOfStudents" +
+            ",t.totalStudentsRegister" +
+            ",t.midtermExamDate" +
+            ",t.midtermExamTimeStart" +
+            ",t.midtermExamTimeEnd" +
+            ",t.finalExamDate" +
+            ",t.finalExamTimeStart" +
+            ",t.finalExamTimeEnd " +
             "FROM Teaching t JOIN Profile p ON t.persNo = p.persNo " +
             " WHERE (:name is null or :name = '' or p.name LIKE :name" +
             " or p.surname LIKE :name)" +
