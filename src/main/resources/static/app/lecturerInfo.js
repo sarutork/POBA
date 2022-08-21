@@ -16,11 +16,28 @@ function findLecturerInfo() {
                         return meta.row + meta.settings._iDisplayStart + 1;
                      }},
             { data: "name"},
-            { data: "studyYear" },
-            { data: "semester" },
-            { data: "subjectName" },
+            { data: "institutionInfo" },
+            { data: "teachTopic" },
+            { data: "teachTimes" },
+            { data: "teachDate"},
+            { data: "noteOfTeach" },
             { data: "studyType" },
-
+            { data: "semester" },
+            { data: "studyYear" },
+            { data: "subjectId"},
+            { data: "subjectName" },
+            { data: "subjectCredit" },
+            { data: "currentCredit" },
+            { data: "teachType" },
+            { data: "teachDay"},
+            { data: "studyStart" },
+            { data: "studyEnd" },
+            { data: "teachLocation" },
+            { data: "teachRoom"},
+            { data: "teachStyle" },
+            { data: "teachStyleDetail" },
+            { data: "totalOfStudents" },
+            { data: "totalStudentsRegister" }
         ],
         columnDefs: [
             {
@@ -35,7 +52,7 @@ function findLecturerInfo() {
                    const semesterArray = semester.split(":");
                    return semesterArray[1]
                    },
-               targets: 3,
+               targets: 8,
             },
         ],
         searching: false,

@@ -60,7 +60,7 @@ function findTeachingInfo() {
                    const semesterArray = semester.split(":");
                    return semesterArray[1]
                    },
-               targets: 3,
+               targets: 9,
             },
         ],
         searching: false,

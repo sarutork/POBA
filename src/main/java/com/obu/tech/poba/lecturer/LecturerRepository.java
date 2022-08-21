@@ -10,8 +10,32 @@ import java.util.List;
 
 @Repository
 public interface LecturerRepository extends JpaRepository<Lecturer,Long>,JpaSpecificationExecutor<Lecturer> {
-    @Query("SELECT l.lecturerId, p.prefix, p.prefixOther, p.name, p.surname, l.studyYear, l.semester, l.subjectName, l.studyType " +
-            "FROM Lecturer l JOIN Profile p ON l.persNo = p.persNo " +
+    @Query("SELECT l.lecturerId, p.prefix, p.prefixOther, p.name, p.surname"+
+            ",l.institutionInfo" +
+            ",l.teachTopic" +
+            ",l.teachTimes" +
+            ",l.teachDate" +
+            ",l.noteOfTeach" +
+            ",l.studyType" +
+            ",l.semester" +
+            ",l.studyYear" +
+            ",l.subjectId" +
+            ",l.subjectName" +
+            ",l.subjectCredit" +
+            ",l.currentCredit" +
+            ",l.teachType" +
+            ",l.teachDay" +
+            ",l.studyStart" +
+            ",l.studyEnd" +
+            ",l.teachLocation" +
+            ",l.teachLocationOther" +
+            ",l.teachRoom" +
+            ",l.teachStyle" +
+            ",l.teachStyleDetail" +
+            ",l.teachStyleDetailOther" +
+            ",l.totalOfStudents" +
+            ",l.totalStudentsRegister" +
+            " FROM Lecturer l JOIN Profile p ON l.persNo = p.persNo " +
             " WHERE (:name is null or :name = '' or p.name LIKE :name" +
             " or p.surname LIKE :name)" +
             " and (:studyYear is null or :studyYear = '' or l.studyYear = :studyYear)" +
