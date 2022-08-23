@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ConsultantThesisRepository extends JpaRepository<ConsultantThesis, Long>, JpaSpecificationExecutor<ConsultantThesis> {
     @Query("SELECT ct.thesisId, p.prefix, p.prefixOther, p.name, p.surname, ct.thesisType, s.studentsPrefix, s.studentsPrefixOther, " +
-            "s.studentsName, s.studentsSurname, s.studentsLevel, ct.thesisAssessment " +
+            "s.studentsName, s.studentsSurname, s.studentsLevel, ct.thesisAssessment,  ct.thesisStartdate, ct.thesisEnddate " +
             "FROM ConsultantThesis ct " +
             "JOIN Profile p ON p.persNo = ct.persNo " +
             "JOIN Students s ON s.studentsId = ct.studentsId "+

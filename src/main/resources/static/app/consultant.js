@@ -354,7 +354,8 @@ function findConsultantThesis() {
             { data: "studentName" },
             { data: "studentsLevel" },
             { data: "thesisAssessment" },
-
+            { data: "thesisStartdate"},
+            { data: "thesisEnddate"},
         ],
         columnDefs: [
             {
