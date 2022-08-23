@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +21,12 @@ public class ConsultantThesisService {
     CommonUtils commonUtils;
 
     List<ConsultantThesis> findBySearchCriteria(ConsultantThesis consultantThesis){
+
         List<Object[]> dataList = consultantThesisRepository.findConsultantThesisInfo("%"+consultantThesis.getName()+"%",
                 consultantThesis.getThesisType(),
                 consultantThesis.getStudentsLevel());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         List<ConsultantThesis> resData = new ArrayList<>();
         if (!dataList.isEmpty() && dataList.size() >0){
@@ -34,6 +40,16 @@ public class ConsultantThesisService {
                 result.setStudentName(commonUtils.chkNullStrObj(e[8])+" "+commonUtils.chkNullStrObj(e[9]));
                 result.setStudentsLevel(commonUtils.chkNullStrObj(e[10]));
                 result.setThesisAssessment(commonUtils.chkNullStrObj(e[11]));
+
+                if(e[12] != null) {
+                    result.setThesisStartdate(LocalDate.parse(commonUtils.chkNullStrObj(e[12])));
+
+                }
+                if(e[13] != null) {
+                    result.setThesisSuccessDate(LocalDate.parse(commonUtils.chkNullStrObj(e[13])));
+
+                }
+
                 resData.add(result);
             }
         }
