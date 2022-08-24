@@ -15,9 +15,17 @@ function findPressInfo() {
                         return meta.row + meta.settings._iDisplayStart + 1;
                      }},
             { data: "name"},
-            { data: "pressDate" },
             { data: "pressName" },
-
+            { data: "pressDate" },
+            { data: "pressTopic" },
+            { data: "pressSiteRef" },
+            { data: "pressPrint" },
+            { data: "pressTv"},
+            { data: "pressSatellite"},
+            { data: "pressOnline"},
+            { data: "guestName1"},
+            { data: "guestName2"},
+            { data: "guestName3"},
         ],
         columnDefs: [
             {
@@ -26,6 +34,25 @@ function findPressInfo() {
                },
                targets: 1,
             },
+            {
+               render: function (data, type, row) {
+                   return row["guestPrefix1"]+' '+row["guestName1"];
+               },
+               targets: 10,
+            },
+            {
+               render: function (data, type, row) {
+                   return row["guestPrefix2"]+' '+row["guestName2"];
+               },
+               targets: 11,
+            },
+            {
+               render: function (data, type, row) {
+                   return row["guestPrefix3"]+' '+row["guestName3"];
+               },
+               targets: 12,
+            },
+
         ],
         searching: false,
         "bDestroy": true,
