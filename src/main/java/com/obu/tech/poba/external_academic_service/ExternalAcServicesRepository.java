@@ -11,7 +11,27 @@ import java.util.List;
 
 @Repository
 public interface ExternalAcServicesRepository extends JpaRepository<ExternalAcServices,Long>, JpaSpecificationExecutor<ExternalAcServices> {
-    @Query("SELECT ext.id, p.prefix, p.prefixOther, p.name, p.surname, ext.title, ext.level, ext.institution, ext.year " +
+    @Query("SELECT ext.id, p.prefix, p.prefixOther, p.name, p.surname," +
+            "ext.title," +
+            "ext.type," +
+            "ext.typeOther," +
+            "ext.level," +
+            "ext.institution," +
+            "ext.year," +
+            "ext.startDate," +
+            "ext.startTime," +
+            "ext.endDate," +
+            "ext.endTime," +
+            "ext.location," +
+            "ext.numOfParticipants," +
+            "ext.letterReceivedDate," +
+            "ext.letterNo," +
+            "ext.letterSentDate," +
+            "ext.letterSendingNo," +
+            "ext.coordinator," +
+            "ext.coordinatorTel," +
+            "ext.confirmationNo," +
+            "ext.note " +
             "FROM ExternalAcServices ext JOIN Profile p ON ext.persNo = p.persNo " +
             " WHERE (:name is null or :name = '' or p.name LIKE :name" +
             " or p.surname LIKE :name)" +

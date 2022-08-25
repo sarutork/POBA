@@ -2,6 +2,7 @@ package com.obu.tech.poba.external_academic_service;
 
 import com.obu.tech.poba.presenting_info.Presenting;
 import com.obu.tech.poba.press_info.Press;
+import com.obu.tech.poba.utils.CommonUtils;
 import com.obu.tech.poba.utils.search.SearchConditionBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,11 +20,17 @@ public class ExternalAcServicesService {
     @Autowired
     ExternalAcServicesRepository externalAcServicesRepository;
 
+    @Autowired
+    CommonUtils commonUtils;
+
     List<ExternalAcServices> findBySearchCriteria(ExternalAcServices extAcServices){
         List<Object[]> data = externalAcServicesRepository.findInfo("%"+extAcServices.getName()+"%",
                 extAcServices.getLevel(),
                 extAcServices.getStartDate(),
                 extAcServices.getEndDate());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 
         List<ExternalAcServices> externalAcServices = new ArrayList<>();
         if (!data.isEmpty() && data.size() >0){
@@ -32,21 +39,36 @@ public class ExternalAcServicesService {
                 result.setId(Long.parseLong(e[0].toString()));
                 result.setPrefix( !e[1].toString().equals("อื่นๆ")? e[1].toString() : e[2].toString());
                 result.setName(e[3].toString()+" "+e[4].toString());
-                if (e[5] != null ) {
-                    result.setTitle(e[5].toString());
+                result.setTitle(commonUtils.chkNullStrObj(e[5]));
+                result.setType(commonUtils.chkNullStrObj(e[6]));
+                result.setTypeOther(commonUtils.chkNullStrObj(e[7]));
+                result.setLevel(commonUtils.chkNullStrObj(e[8]));
+                result.setInstitution(commonUtils.chkNullStrObj(e[9]));
+                result.setYear(commonUtils.chkNullStrObj(e[10]));
+                if(e[11] != null){
+                    result.setStartDate(LocalDate.parse(e[11].toString(),formatter));
                 }
-
-                if(e[6] != null){
-                    result.setLevel(e[6].toString());
+                result.setStartTime(commonUtils.chkNullStrObj(e[12]));
+                if(e[13] != null){
+                    result.setEndDate(LocalDate.parse(e[13].toString(),formatter));
                 }
-
-                if(e[7] != null){
-                    result.setInstitution(e[7].toString());
+                result.setEndTime(commonUtils.chkNullStrObj(e[14]));
+                result.setLocation(commonUtils.chkNullStrObj(e[15]));
+                if(e[16] != null ) {
+                    result.setNumOfParticipants(Integer.parseInt(e[16].toString()));
                 }
-
-                if(e[8] != null){
-                    result.setYear(e[8].toString());
+                if(e[17] != null) {
+                    result.setLetterReceivedDate(LocalDate.parse(e[17].toString(),formatter));
                 }
+                result.setLetterNo(commonUtils.chkNullStrObj(e[18]));
+                if(e[19] != null) {
+                    result.setLetterSentDate(LocalDate.parse(e[19].toString(),formatter));
+                }
+                result.setLetterSendingNo(commonUtils.chkNullStrObj(e[20]));
+                result.setCoordinator(commonUtils.chkNullStrObj(e[21]));
+                result.setCoordinatorTel(commonUtils.chkNullStrObj(e[22]));
+                result.setConfirmationNo(commonUtils.chkNullStrObj(e[23]));
+                result.setNote(commonUtils.chkNullStrObj(e[24]));
 
                 externalAcServices.add(result);
             }
