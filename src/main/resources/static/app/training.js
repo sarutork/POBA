@@ -18,6 +18,25 @@ function findTraining() {
                      }},
             { data: "name1"},
             { data: "trainingStatus1" },
+            { data: "name2"},
+            { data: "trainingStatus2" },
+            { data: "name3"},
+            { data: "trainingStatus3" },
+            { data: "trainingName" },
+            { data: "trainingDateFrom" },
+            { data: "trainingTimeFrom" },
+            { data: "trainingDateTo" },
+            { data: "trainingTimeTo" },
+            { data: "trainingTotalDay" },
+            { data: "trainingLocation" },
+            { data: "trainingType" },
+            { data: "trainingAnnounce" },
+            { data: "trainingJoin" },
+            { data: "trainingBudget" },
+            { data: "trainingAmountTotal" },
+            { data: "trainingThai" },
+            { data: "trainingForeign" },
+            { data: "trainingTotalPerson" },
             { data: "trainingLevel" },
         ],
         columnDefs: [
@@ -27,6 +46,19 @@ function findTraining() {
                },
                targets: 1,
             },
+            {
+               render: function (data, type, row) {
+                    return row["prefix2"]+' '+row["name2"];
+               },
+               targets: 3,
+            },
+            {
+               render: function (data, type, row) {
+                    return row["prefix3"]+' '+row["name3"];
+               },
+               targets: 5,
+            },
+
         ],
         searching: false,
         "bDestroy": true,

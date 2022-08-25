@@ -60,7 +60,28 @@ public class TrainingController {
     @RolesAllowed(ROLE_TRAINING_SEARCH)
     @GetMapping("/search")
     public ResponseEntity<List<Training>> search(@ModelAttribute Training training) {
-        return ResponseEntity.ok().body(trainingService.findBySearchCriteria(training));
+        List<Training> data = trainingService.findBySearchCriteria(training);
+        List<Training> result = new ArrayList<>();
+        for(Training t : data){
+            Training trainingObj = trainingService.findById(String.valueOf(t.getTrainingId()));
+
+            Profile profile = profileService.findByPersNo(trainingObj.getPersNo1());
+            trainingObj.setPrefix1(profile.getPrefix().equals("อื่นๆ")? profile.getPrefixOther() : profile.getPrefix());
+            trainingObj.setName1(profile.getName()+" "+profile.getSurname());
+
+            if(StringUtils.isNotEmpty(trainingObj.getPersNo2())) {
+                Profile profile2 = profileService.findByPersNo(trainingObj.getPersNo2());
+                trainingObj.setPrefix2(profile2.getPrefix().equals("อื่นๆ")? profile2.getPrefixOther() : profile2.getPrefix());
+                trainingObj.setName2(profile2.getName()+" "+profile2.getSurname());
+            }
+            if(StringUtils.isNotEmpty(trainingObj.getPersNo3())) {
+                Profile profile3 = profileService.findByPersNo(trainingObj.getPersNo3());
+                trainingObj.setPrefix3(profile3.getPrefix().equals("อื่นๆ")? profile3.getPrefixOther() : profile3.getPrefix());
+                trainingObj.setName3(profile3.getName()+" "+profile3.getSurname());
+            }
+            result.add(trainingObj);
+        }
+        return ResponseEntity.ok().body(result);
     }
 
     @RolesAllowed(ROLE_TRAINING_ADD)
