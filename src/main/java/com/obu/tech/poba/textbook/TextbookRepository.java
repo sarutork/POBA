@@ -11,7 +11,27 @@ import java.util.List;
 
 @Repository
 public interface TextbookRepository extends JpaRepository<Textbook, Long>, JpaSpecificationExecutor<Textbook> {
-    @Query("SELECT t.textbookId, p.prefix, p.prefixOther, p.name, p.surname, t.textbookType, t.textbookTopic, t.textbookLevel " +
+    @Query("SELECT t.textbookId, p.prefix, p.prefixOther, p.name, p.surname" +
+            ",t.textbookType" +
+            ",t.textbookAnnounce" +
+            ",t.textbookContract" +
+            ",t.textbookTopic" +
+            ",t.textbookFund" +
+            ",t.textbookAmountTotal" +
+            ",t.textbookDateFrom" +
+            ",t.textbookDateTo" +
+            ",t.textbookExtendDate" +
+            ",t.textbookExtendDate2" +
+            ",t.textbookExtendDate3" +
+            ",t.textbookStatus" +
+            ",t.textbookPbType" +
+            ",t.textbookIssue" +
+            ",t.textbookYear" +
+            ",t.textbookInstitution" +
+            ",t.textbookDiffText" +
+            ",t.textbookRef" +
+            ",t.textbookTCI" +
+            ",t.textbookLevel " +
             "FROM Textbook t JOIN Profile p ON t.persNo = p.persNo " +
             " WHERE (:name is null or :name = '' or p.name LIKE :name" +
             " or p.surname LIKE :name)" +
