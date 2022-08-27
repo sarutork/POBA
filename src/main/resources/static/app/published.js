@@ -17,9 +17,20 @@ function findPublished() {
                      }},
             { data: "name"},
             { data: "publishedStatus" },
+            { data: "publishedType" },
             { data: "publishedTopic" },
-            { data: "" },
+            { data: "publishedJournal"},
+            { data: "publishedYear"},
+            { data: "publishedIssue"},
+            { data: "publishedPage"},
+            { data: "publishedMonth"},
+            { data: "publishedYear2"},
+            { data: "publishedBase"},
             { data: "publishedLevel" },
+            { data: "publishedJoinName"},
+            { data: "publishedJoinName2"},
+            { data: "publishedJoinName3"},
+            { data: "publishedFund"},
         ],
         columnDefs: [
             {
@@ -27,6 +38,26 @@ function findPublished() {
                 return row["prefix"]+' '+row["name"];
                },
                targets: 1,
+            },
+            {
+               render: function (data, type, row) {
+                    var status = row["publishedStatus"];
+                    if(status == "อื่นๆ"){
+                        status = row["publishedStatusOther"]
+                    }
+                    return status;
+               },
+               targets: 2,
+            },
+             {
+               render: function (data, type, row) {
+                    var type = row["publishedType"];
+                    if(type == "อื่นๆ"){
+                        type = row["publishedTypeOther"]
+                    }
+                    return type;
+               },
+               targets: 3,
             },
             {
                render: function (data, type, row) {
@@ -41,7 +72,37 @@ function findPublished() {
                     }
                        return fullName;
                     },
-               targets: 4,
+               targets: 13,
+            },
+            {
+               render: function (data, type, row) {
+                   var prefix = row["publishedJoinPrefix2"];
+                   if(prefix == "อื่นๆ"){
+                        prefix = row["publishedJoinPrefixOther2"]
+                   }
+                   var fullName = prefix+' '+row["publishedJoinName2"] + ' ' + row["publishedJoinSurname2"];
+
+                    if (!row["publishedJoinName2"]){
+                        fullName = "-";
+                    }
+                       return fullName;
+                    },
+               targets: 14,
+            },
+            {
+               render: function (data, type, row) {
+                   var prefix = row["publishedJoinPrefix3"];
+                   if(prefix == "อื่นๆ"){
+                        prefix = row["publishedJoinPrefixOther3"]
+                   }
+                   var fullName = prefix+' '+row["publishedJoinName3"] + ' ' + row["publishedJoinSurname3"];
+
+                    if (!row["publishedJoinName3"]){
+                        fullName = "-";
+                    }
+                       return fullName;
+                    },
+               targets: 15,
             },
         ],
         searching: false,

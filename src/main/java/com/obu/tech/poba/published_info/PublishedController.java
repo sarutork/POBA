@@ -65,10 +65,13 @@ public class PublishedController {
             List<PublishedDto> publishedDtoList = new ArrayList<>();
             List<Published> publishedList = publishedService.findBySearchCriteria(published);
             publishedList.forEach( p -> {
-                List<PublishedJoin> publishedJoin = publishedService.findPublishedJoinById(p.getPublishedId());
                 PublishedDto publishedDto = new PublishedDto();
+                BeanUtils.copyProperties(p, publishedDto);
+                Published publishedNew = publishedService.findPublishedById(Long.toString(p.getPublishedId()));
+                BeanUtils.copyProperties(publishedNew,publishedDto,"prefix","name");
+
+                List<PublishedJoin> publishedJoin = publishedService.findPublishedJoinById(p.getPublishedId());
                 if(publishedJoin.size() > 0) {
-                    BeanUtils.copyProperties(p, publishedDto);
                     BeanUtils.copyProperties(publishedJoin.get(0), publishedDto);
                 }
                 publishedDtoList.add(publishedDto);
