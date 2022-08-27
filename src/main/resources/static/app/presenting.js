@@ -19,8 +19,16 @@ function findPresentingInfo() {
                      }},
             { data: "name"},
             { data: "presentTopic" },
+            { data: "presentName"},
+            { data: "presentInstitution"},
+            { data: "presentCountry"},
+            { data: "presentFund"},
+            { data: "presentAmount"},
+            { data: "presentFund2"},
+            { data: "presentAmount2"},
+            { data: "presentDateStart"},
+            { data: "presentDateEnd"},
             { data: "presentLevel" },
-
         ],
         columnDefs: [
             {

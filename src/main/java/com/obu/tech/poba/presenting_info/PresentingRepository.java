@@ -12,7 +12,17 @@ import java.util.List;
 
 @Repository
 public interface PresentingRepository extends JpaRepository<Presenting, Long>, JpaSpecificationExecutor<Presenting> {
-    @Query("SELECT pr.presentId, p.prefix, p.prefixOther, p.name, p.surname, pr.presentTopic, pr.presentLevel " +
+    @Query("SELECT pr.presentId, p.prefix, p.prefixOther, p.name, p.surname, pr.presentTopic" +
+            ",pr.presentName" +
+            ",pr.presentInstitution" +
+            ",pr.presentCountry" +
+            ",pr.presentFund" +
+            ",pr.presentAmount" +
+            ",pr.presentFund2" +
+            ",pr.presentAmount2" +
+            ",pr.presentDateStart" +
+            ",pr.presentDateEnd" +
+            ",pr.presentLevel " +
             "FROM Presenting pr JOIN Profile p ON pr.persNo = p.persNo " +
             " WHERE (:name is null or :name = '' or p.name LIKE :name" +
             " or p.surname LIKE :name)" +
