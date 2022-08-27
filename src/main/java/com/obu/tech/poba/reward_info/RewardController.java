@@ -3,11 +3,15 @@ package com.obu.tech.poba.reward_info;
 import com.obu.tech.poba.authenticate.MemberAccess;
 import com.obu.tech.poba.personnel_info.profile.Profile;
 import com.obu.tech.poba.personnel_info.profile.ProfileService;
+import com.obu.tech.poba.published_info.Published;
+import com.obu.tech.poba.published_info.PublishedDto;
+import com.obu.tech.poba.published_info.PublishedJoin;
 import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.obu.tech.poba.utils.role.Roles.*;
@@ -56,7 +61,17 @@ public class RewardController {
     @RolesAllowed(ROLE_REWARD_SEARCH)
     @GetMapping("/search")
     public ResponseEntity<List<RewardDto>> search(@ModelAttribute RewardDto rewardDto) {
-        return ResponseEntity.ok().body(rewardService.findBySearchCriteria(rewardDto));
+
+        List<RewardDto> listData =rewardService.findBySearchCriteria(rewardDto);
+        List<RewardDto> rewardDtos = new ArrayList<>();
+        listData.forEach( d -> {
+            RewardDto reward = new RewardDto();
+            BeanUtils.copyProperties(d, reward);
+            List<RewardDto> rewards = rewardService.findRewardByStaffId(Long.toString(d.getStaffId()));
+            BeanUtils.copyProperties(rewards.get(0),reward,"prefix","name");
+            rewardDtos.add(reward);
+        });
+        return ResponseEntity.ok().body(rewardDtos);
     }
 
     @RolesAllowed(ROLE_REWARD_ADD)

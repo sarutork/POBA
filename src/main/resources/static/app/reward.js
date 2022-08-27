@@ -17,10 +17,11 @@ function findRewardInfo() {
                      }},
             { data: "name"},
             { data: "rewardType" },
+            { data: "rewardDate"},
             { data: "rewardName" },
+            { data: "rewardTopic"},
+            { data: "rewardInstitution"},
             { data: "rewardLevel" },
-            { data: "rewardDate" },
-
         ],
         columnDefs: [
             {
