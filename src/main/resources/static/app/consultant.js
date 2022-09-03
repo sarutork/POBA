@@ -435,7 +435,9 @@ function findConsultantStudent2() {
             { data: "studentName" },
             { data: "yearOfStudy" },
             { data: "studentsLevel" },
-            { data: "course" },
+            { data: "admissionStatus"},
+            { data: "course"},
+            { data: "department" },
 
         ],
         columnDefs: [
