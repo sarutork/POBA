@@ -9,6 +9,7 @@ import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.obu.tech.poba.utils.role.Roles.*;
@@ -62,7 +64,18 @@ public class StudentsController {
     @RolesAllowed(ROLE_STUDENT_SEARCH)
     @GetMapping("/search")
     public ResponseEntity<List<Students>> search(@ModelAttribute Students students) {
-        return ResponseEntity.ok().body(studentsService.findBySearchCriteria(students));
+        List<Students> data = studentsService.findBySearchCriteria(students);
+        List<Students> resStd = new ArrayList<>();
+        for(Students s : data) {
+            Students std = new Students();
+            BeanUtils.copyProperties(s,std);
+            Profile profile = profileService.findByPersNo(s.getPersNo());
+            std.setPrefix(profile.getPrefix().equals("อื่นๆ") ? profile.getPrefixOther() : profile.getPrefix());
+            std.setName(std.getPrefix()+" "+profile.getName() + " " + profile.getSurname());
+            resStd.add(std);
+        }
+
+        return ResponseEntity.ok().body(resStd);
     }
 
     @RolesAllowed(ROLE_STUDENT_SEARCH)
