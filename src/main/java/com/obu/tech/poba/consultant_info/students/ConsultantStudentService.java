@@ -36,10 +36,11 @@ public class ConsultantStudentService {
 
                    result.setStudentPrefix( !e[5].toString().equals("อื่นๆ")? e[5].toString() : commonUtils.chkNullStrObj(e[6]));
                    result.setStudentName(commonUtils.chkNullStrObj(e[7])+" "+commonUtils.chkNullStrObj(e[8]));
-
                    result.setYearOfStudy(commonUtils.chkNullStrObj(e[9]));
                    result.setStudentsLevel(commonUtils.chkNullStrObj(e[10]));
-                   result.setCourse(commonUtils.chkNullStrObj(e[11]));
+                   result.setAdmissionStatus(commonUtils.chkNullStrObj(e[11]));
+                   result.setCourse(commonUtils.chkNullStrObj(e[12]));
+                   result.setDepartment(commonUtils.chkNullStrObj(e[13]));
                    resData.add(result);
                }
            }
@@ -63,7 +64,9 @@ public class ConsultantStudentService {
 
                    result.setYearOfStudy(commonUtils.chkNullStrObj(e[9]));
                    result.setStudentsLevel(commonUtils.chkNullStrObj(e[10]));
-                   result.setCourse(commonUtils.chkNullStrObj(e[11]));
+                   result.setAdmissionStatus(commonUtils.chkNullStrObj(e[11]));
+                   result.setCourse(commonUtils.chkNullStrObj(e[12]));
+                   result.setDepartment(commonUtils.chkNullStrObj(e[13]));
                    resData.add(result);
                }
            }
@@ -86,7 +89,9 @@ public class ConsultantStudentService {
 
                    result.setYearOfStudy(commonUtils.chkNullStrObj(e[9]));
                    result.setStudentsLevel(commonUtils.chkNullStrObj(e[10]));
-                   result.setCourse(commonUtils.chkNullStrObj(e[11]));
+                   result.setAdmissionStatus(commonUtils.chkNullStrObj(e[11]));
+                   result.setCourse(commonUtils.chkNullStrObj(e[12]));
+                   result.setDepartment(commonUtils.chkNullStrObj(e[13]));
                    resData.add(result);
                }
            }
@@ -190,7 +195,6 @@ public class ConsultantStudentService {
             return consultantStudentRepository.findById(Long.parseLong(id))
                     .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
         } else {
-            System.out.println("Invalid staff_id: '" + id + "'");
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
     }

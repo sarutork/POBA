@@ -14,12 +14,14 @@ function findConsultantStudent() {
             { data:  null,"sortable": false,
                          render: function (data, type, row, meta) {
                             return meta.row + meta.settings._iDisplayStart + 1;
-                         }},            { data: "name"},
+                         }},
+            { data: "name"},
             { data: "studentName" },
             { data: "yearOfStudy" },
             { data: "studentsLevel" },
-            { data: "course" },
-
+            { data: "admissionStatus"},
+            { data: "course"},
+            { data: "department" },
         ],
         columnDefs: [
             {
