@@ -17,6 +17,8 @@ function findResolutionInfo() {
             { data: "bordNo1"},
             { data: "bordDate" },
             { data: "bordType" },
+            { data: "bordAttach"},
+            { data: "noteOfBoard"},
         ],
         columnDefs: [
             {
