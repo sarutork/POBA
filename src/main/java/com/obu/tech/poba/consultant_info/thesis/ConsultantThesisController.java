@@ -13,6 +13,7 @@ import com.obu.tech.poba.utils.upload.Upload;
 import com.obu.tech.poba.utils.upload.UploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.obu.tech.poba.utils.role.Roles.*;
@@ -79,8 +81,43 @@ public class ConsultantThesisController {
 
     @RolesAllowed(ROLE_CONSULTANT_THESIS_SEARCH)
     @GetMapping("/search")
-    public ResponseEntity<List<ConsultantThesis>> search(@ModelAttribute ConsultantThesis consultantThesis) {
-        return ResponseEntity.ok().body(consultantThesisService.findBySearchCriteria(consultantThesis));
+    public ResponseEntity<List<ConsultantThesisDto>> search(@ModelAttribute ConsultantThesis consultantThesis) {
+        List<ConsultantThesisDto> consultantThesisDtos = new ArrayList<>();
+        List<ConsultantThesis> consultantTheses = consultantThesisService.findBySearchCriteria(consultantThesis);
+
+        for(ConsultantThesis c : consultantTheses){
+            ConsultantThesisDto ctdto = new ConsultantThesisDto();
+            ConsultantThesis thesis = consultantThesisService.findById(""+c.getThesisId());
+            if(thesis.getPersNo() !=null) {
+                Profile profile = profileService.findByPersNo(thesis.getPersNo());
+                thesis.setPrefix(profile.getPrefix().equals("อื่นๆ") ? profile.getPrefixOther() : profile.getPrefix());
+                thesis.setName(profile.getName() + " " + profile.getSurname());
+            }
+
+            if(thesis.getStudentsId() != null){
+                Students students = studentsService.findByStudentId(thesis.getStudentsId());
+                thesis.setStudentPrefix(students.getStudentsPrefix().equals("อื่นๆ")? students.getStudentsPrefixOther() :
+                        students.getStudentsPrefix());
+                thesis.setStudentName(students.getStudentsName()+" "+students.getStudentsSurname());
+
+                thesis.setStudentsLevel(students.getStudentsLevel());
+                thesis.setCourse(students.getStudentsCourse());
+            }
+
+            Journal journal = journalService.findByThesisId(""+c.getThesisId());
+
+            journal.setPublishedMonth(journal.getPublishedMonth().equals("อื่นๆ")? journal.getMonthOther() : journal.getPublishedMonth());
+
+            AcademicConference academicConference = academicConfService.findByThesisId(""+c.getThesisId());
+
+            BeanUtils.copyProperties(thesis,ctdto);
+            BeanUtils.copyProperties(journal,ctdto);
+            BeanUtils.copyProperties(academicConference,ctdto);
+
+            consultantThesisDtos.add(ctdto);
+        }
+
+        return ResponseEntity.ok().body(consultantThesisDtos);
     }
 
     @RolesAllowed(ROLE_CONSULTANT_THESIS_ADD)
