@@ -73,11 +73,17 @@ public class TrainingController {
                 Profile profile2 = profileService.findByPersNo(trainingObj.getPersNo2());
                 trainingObj.setPrefix2(profile2.getPrefix().equals("อื่นๆ")? profile2.getPrefixOther() : profile2.getPrefix());
                 trainingObj.setName2(profile2.getName()+" "+profile2.getSurname());
+            }else{
+                trainingObj.setPrefix2("");
+                trainingObj.setName2("");
             }
             if(StringUtils.isNotEmpty(trainingObj.getPersNo3())) {
                 Profile profile3 = profileService.findByPersNo(trainingObj.getPersNo3());
                 trainingObj.setPrefix3(profile3.getPrefix().equals("อื่นๆ")? profile3.getPrefixOther() : profile3.getPrefix());
                 trainingObj.setName3(profile3.getName()+" "+profile3.getSurname());
+            }else{
+                trainingObj.setPrefix3("");
+                trainingObj.setName3("");
             }
             result.add(trainingObj);
         }
