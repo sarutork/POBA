@@ -106,5 +106,10 @@ public class Roles {
     public static final String ROLE_RESOLUTION_SEARCH = "ROLE_RESOLUTION_SEARCH";
     public static final String ROLE_RESOLUTION_ADD = "ROLE_RESOLUTION_ADD";
     public static final String ROLE_RESOLUTION_EDIT = "ROLE_RESOLUTION_EDIT";
+    // User management.
+    public static final String ROLE_USER_MANAGEMENT_ACCESS = "ROLE_USER_MANAGEMENT_ACCESS";
+    public static final String ROLE_USER_MANAGEMENT_SEARCH = "ROLE_USER_MANAGEMENT_SEARCH";
+    public static final String ROLE_USER_MANAGEMENT_ADD = "ROLE_USER_MANAGEMENT_ADD";
+    public static final String ROLE_USER_MANAGEMENT_EDIT = "ROLE_USER_MANAGEMENT_EDIT";
 
 }

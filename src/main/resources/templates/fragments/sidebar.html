@@ -99,5 +99,11 @@
                 <span class="menu-title">มติกรรมการคณะ</span>
             </a>
         </li>
+        <li class="nav-item" th:if="${#lists.contains(roles, 'ROLE_USER_MANAGEMENT_ACCESS')}">
+            <a class="nav-link" href="javascript:void(0)" onclick="loadView('/poba/user-management')">
+                <i class="mdi mdi-book menu-icon"></i>
+                <span class="menu-title">User Management</span>
+            </a>
+        </li>
     </ul>
 </nav>

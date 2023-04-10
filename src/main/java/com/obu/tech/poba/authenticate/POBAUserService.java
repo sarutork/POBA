@@ -1,8 +1,11 @@
 package com.obu.tech.poba.authenticate;
 
+import com.obu.tech.poba.press_info.Press;
 import com.obu.tech.poba.utils.search.SearchConditionBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,5 +39,18 @@ public class POBAUserService {
 
     public POBAUser save(POBAUser pobaUser){
         return pobaUserRepository.saveAndFlush(pobaUser);
+    }
+
+    public List<POBAUser> findAll(){
+        return pobaUserRepository.findAll();
+    }
+
+    public POBAUser findById(String id) {
+        if (id.matches("\\d+")) {
+            return pobaUserRepository.findById(Long.parseLong(id))
+                    .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
+        } else {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        }
     }
 }

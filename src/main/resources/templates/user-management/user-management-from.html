@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="user-management-from">
+
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/poba/home">หน้าหลัก</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)" onclick="loadView('/poba/user-management')">User Management</a></li>
+            <li class="breadcrumb-item active"><span id="viewName" th:text="${viewName}"></span></li>
+        </ol>
+    </div>
+
+    <div class="container px-3">
+        <th:block th:replace="~{fragments/input-errors}"/>
+        <th:block th:replace="~{fragments/alert}"/>
+
+        <form id="form-user" class="form-wrapper">
+            <input type="hidden" id="id" name="id" th:value="${pobaUser.id}"/>
+
+            <div class="row mb-2">
+                <label for="username" class="form-control-label col-sm-2">User Name<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-2" id="username" name="username"
+                       th:attr="value=${pobaUser.username != null}? ${pobaUser.username} : ''" required/>
+
+                <label for="password" class="form-control-label col-sm-2">Password<span style="color:red !important;">*</span>:</label>
+                <input type="text" class="form-control bg-white col-sm-2" id="password" name="password"
+                       th:attr="value=${pobaUser.password != null}? ${pobaUser.password} : ''" required/>
+
+                <label class="col-sm-2 form-control-label" for="role">Role<span style="color:red !important;">*</span>:</label>
+                <select type="text" class="col-sm-2 form-control bg-white" th:field="${pobaUser.role}" id="role" name="role" required>
+                    <option value="">กรุณาเลือก</option>
+                    <option th:each="r : ${roleList}" th:value="${r}" th:text="${r}"></option>
+                </select>
+            </div>
+        </form>
+        <div id="submit" class="row mt-5 mb-5 text-align-center" th:classappend="${viewName != 'ดูข้อมูล' ? 'd-block' : 'd-none'} ">
+            <button type="button" class="btn btn-poba mr-3" onclick="submitUserInfo();" th:if="${#lists.contains(roles, 'ROLE_USER_MANAGEMENT_ADD') || #lists.contains(roles, 'ROLE_USER_MANAGEMENT_EDIT')}">บันทึก</button>
+            <a href="javascript:void(0)" onclick="loadView('/poba/user-management')" class="btn btn-outline-poba mr-3">ยกเลิก</a>
+        </div>
+        <div id="edit"class="row mt-5 mb-5 text-align-center" th:classappend="${viewName == 'ดูข้อมูล' ? 'd-block' : 'd-none'}">
+            <a href="javascript:void(0)" onclick="loadView('/poba/user-management')" class="btn btn-poba mr-3">ยกเลิก</a>
+            <button type="button" class="btn btn-outline-poba mr-3" onclick="editUser();" th:if="${#lists.contains(roles, 'ROLE_USER_MANAGEMENT_EDIT')}">แก้ไข</button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+             var viewName = $("#viewName").text();
+             console.log(viewName);
+             if(viewName == "ดูข้อมูล"){
+                $("input").prop("disabled", true);
+                $("select").prop("disabled", true);
+             }
+        });
+    </script>
+
+</th:block>
+</html>

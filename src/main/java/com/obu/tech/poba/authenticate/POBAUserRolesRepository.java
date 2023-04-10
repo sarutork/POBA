@@ -15,4 +15,7 @@ public interface POBAUserRolesRepository extends JpaRepository<POBAUserRoles, Lo
 
     @Query("FROM roles")
     List<Object[]> findRoles();
+
+    @Query("SELECT DISTINCT(role) as role FROM roles")
+    List<String> findDistinctRoles();
 }
