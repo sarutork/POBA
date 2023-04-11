@@ -18,7 +18,7 @@
             <input type="hidden" id="id" name="id" th:value="${pobaUser.id}"/>
 
             <div class="row mb-2">
-                <label for="username" class="form-control-label col-sm-2">User Name<span style="color:red !important;">*</span>:</label>
+                <label for="username" class="form-control-label col-sm-2">Username<span style="color:red !important;">*</span>:</label>
                 <input type="text" class="form-control bg-white col-sm-2" id="username" name="username"
                        th:attr="value=${pobaUser.username != null}? ${pobaUser.username} : ''" required/>
 
