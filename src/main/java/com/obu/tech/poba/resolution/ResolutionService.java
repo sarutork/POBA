@@ -16,13 +16,16 @@ public class ResolutionService {
     @Autowired
     ResolutionRepository resolutionRepository;
 
-    public List<Resolution> findBySearchCriteria(String bordNo1,String bordNo2, LocalDate bordDateStart, LocalDate bordDateEnd){
+    public List<Resolution> findBySearchCriteria(String bordNo1,String bordNo2,LocalDate startYear,LocalDate endYear, String boardType, LocalDate bordDateStart, LocalDate bordDateEnd){
         return resolutionRepository.findAll(new SearchConditionBuilder<Resolution>()
                 .ifNotNullThenAnd("bordNo1", EQUAL, bordNo1)
                 .ifNotNullThenOr("bordNo2",EQUAL,bordNo1)
                 .ifNotNullThenAnd("bordNo2", EQUAL, bordNo2)
                 .ifNotNullThenAnd("bordDate", DATE_AFTER_OR_EQUAL, bordDateStart)
                 .ifNotNullThenAnd("bordDate", DATE_BEFORE_OR_EQUAL, bordDateEnd)
+                .ifNotNullThenAnd("bordDate", DATE_AFTER_OR_EQUAL, startYear)
+                .ifNotNullThenAnd("bordDate", DATE_BEFORE_OR_EQUAL, endYear)
+                .ifNotNullThenAnd("bordType", LIKE, boardType.trim())
                 .build()
         );
     }

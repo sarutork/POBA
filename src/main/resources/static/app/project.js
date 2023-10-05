@@ -8,6 +8,7 @@ function findProjectInfo() {
                 d.projectName = $('#projectName').val();
                 d.projectYear = $('#projectYear').val();
                 d.projectDateFrom = $('#projectDateFrom').val();
+                d.projectDateTo = $('#projectDateTo').val();
             }
         },
         columns: [

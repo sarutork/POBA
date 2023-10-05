@@ -17,17 +17,20 @@
         <form id="form-project" class="mb-5">
             <div class="d-flex flex-xl-row flex-column">
                 <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
-                    <label for="projectName" class="col-3 text-sm-right col-form-label">ค้นหาข้อมูล:</label>
-                    <input id="projectName" type="text" class="col-9 form-control flex-xl-grow-1" placeholder="ค้นหาด้วยชื่อโครงการ/กิจกรรม">
-                </div>
-                <div class="row px-3 mb-xl-0 mb-3">
+                    <label for="projectName" class="col-2 text-sm-right col-form-label">ค้นหาข้อมูล:</label>
+                    <input id="projectName" type="text" class="col-4 form-control flex-xl-grow-1" placeholder="ค้นหาด้วยชื่อโครงการ/กิจกรรม">
+
                     <label for="projectYear" class="col-2 text-sm-right col-form-label">ปีการศึกษา:</label>
                     <select type="text" class="col-4 form-control" id="projectYear" name="projectYear">
                         <option value="">กรุณาเลือก</option>
                         <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
                     </select>
-                    <label for="projectDateFrom" class="col-2 text-sm-right col-form-label">วันที่จัดกิจกรรม:</label>
+                </div>
+                <div class="row px-3 mb-xl-0 mb-3">
+                    <label for="projectDateFrom" class="col-3 text-sm-right col-form-label">ช่วงวันที่จัดกิจกรรม:</label>
                     <input type="date" class="col-4 form-control" id="projectDateFrom" name="projectDateFrom"/>
+                    <label for="projectDateTo" class="col-1 text-sm-right col-form-label">ถึง:</label>
+                    <input type="date" class="col-4 form-control" id="projectDateTo" name="projectDateTo"/>
                 </div>
                 <div class="pl-xl-3 d-inline-flex justify-content-end">
                     <button type="button" class="btn btn-outline-poba mr-3" onclick="findProjectInfo()" th:if="${#lists.contains(roles, 'ROLE_PROJECT_SEARCH')}">ค้นหา</button>

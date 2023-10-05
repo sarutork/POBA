@@ -3,6 +3,7 @@ package com.obu.tech.poba.resolution;
 import com.obu.tech.poba.authenticate.MemberAccess;
 import com.obu.tech.poba.utils.MemberAccessUtils;
 import com.obu.tech.poba.utils.NameConverterUtils;
+import com.obu.tech.poba.utils.YearGeneratorUtils;
 import com.obu.tech.poba.utils.exceptions.InvalidInputException;
 import com.obu.tech.poba.utils.upload.Upload;
 import com.obu.tech.poba.utils.upload.UploadService;
@@ -51,12 +52,19 @@ public class ResolutionController {
     @Autowired
     private MemberAccessUtils memberAccessUtils;
 
+    @Autowired
+    private YearGeneratorUtils yearGeneratorUtils;
+
     @GetMapping
     public ModelAndView showListView(HttpServletRequest request) {
         ModelAndView view = new ModelAndView(FRAGMENT_RESOLUTION);
         MemberAccess member = memberAccessUtils.getMemberAccess(request);
         view.addObject("user",member.getMember());
         view.addObject("roles",member.getRoles());
+        List<Integer> years = yearGeneratorUtils.genYears();
+        view.addObject("years", years);
+
+
         return view;
     }
 
@@ -91,6 +99,8 @@ public class ResolutionController {
     @RolesAllowed(ROLE_RESOLUTION_SEARCH)
     @GetMapping(value = "/search")
     public ResponseEntity<List<Resolution>> search(String bordNo,
+                                                   String year,
+                                                   String boardType,
                                                    @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate dateStart ,
                                                    @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate dateEnd) {
         String bordNo1 = null, bordNo2 = null;
@@ -102,8 +112,16 @@ public class ResolutionController {
                 bordNo2 = bordNoArr[1];
             }
         }
+        LocalDate startYear = null;
+        LocalDate endYear = null;
+        if(StringUtils.isNotEmpty(year)){
+            int yearInt = Integer.parseInt(year) - 543;
+            startYear = LocalDate.parse(yearInt+"-01-01");
+            endYear = LocalDate.parse(yearInt+"-12-31");
+        }
 
-        return ResponseEntity.ok().body(resolutionService.findBySearchCriteria(bordNo1,bordNo2,dateStart,dateEnd));
+
+        return ResponseEntity.ok().body(resolutionService.findBySearchCriteria(bordNo1,bordNo2,startYear,endYear,boardType,dateStart,dateEnd));
     }
 
     @RolesAllowed({ROLE_RESOLUTION_EDIT,ROLE_RESOLUTION_ADD})

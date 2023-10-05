@@ -2,12 +2,14 @@ function findResolutionInfo() {
     var bordNo = $('#bordNo').val();
     var dateStart = $('#dateStart').val();
     var dateEnd = $('#dateEnd').val();
+    var year = $('#year').val();
+    var boardType = $('#boardType').val();
    var tableResolutionInfo =  $('#table-resolution').DataTable({
         ajax: {
             type: "GET",
             url: "/poba/resolution/search",
             dataSrc: "",
-            data:{ 'bordNo' : bordNo, 'dateStart' : dateStart, 'dateEnd' : dateEnd },
+            data:{ 'bordNo' : bordNo,'year':year,'boardType':boardType, 'dateStart' : dateStart, 'dateEnd' : dateEnd },
         },
         columns: [
             { data:  null,"sortable": false,
@@ -44,7 +46,10 @@ function findResolutionInfo() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+              "emptyTable": "ไม่พบผลการค้นหา"
+            }
     });
     $('#table-resolution tbody').on('click', 'tr', function () {
             if(!$('#table-resolution tbody tr td').hasClass("dataTables_empty")){

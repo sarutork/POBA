@@ -8,8 +8,8 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
-import static com.obu.tech.poba.utils.search.SearchOperator.DATE_AFTER_OR_EQUAL;
-import static com.obu.tech.poba.utils.search.SearchOperator.LIKE;
+import static com.obu.tech.poba.utils.search.SearchOperator.*;
+
 @Service
 public class ProjectService {
     @Autowired
@@ -23,6 +23,7 @@ public class ProjectService {
                 .ifNotNullThenAnd("projectName", LIKE, project.getProjectName())
                 .ifNotNullThenAnd("projectYear", LIKE, project.getProjectYear())
                 .ifNotNullThenAnd("projectDateFrom", DATE_AFTER_OR_EQUAL, project.getProjectDateFrom())
+                .ifNotNullThenAnd("projectDateTo", DATE_BEFORE_OR_EQUAL, project.getProjectDateTo())
                 .build()
         );
     }

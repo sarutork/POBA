@@ -13,19 +13,34 @@
         <th:block th:replace="~{fragments/alert}"/>
 
         <form id="form-resolution" class="form-inline justify-content-end flex-md-row flex-column">
-            <div class="form-group mb-3">
-                <label for="bordNo" class="mr-1">ค้นหาข้อมูล:</label>
-                <input type="text" class="form-control bg-white mr-3" id="bordNo" placeholder="ค้นหาด้วยการประชุมครั้งที่">
+            <div class="d-flex flex-xl-row flex-column">
+                <div class="row px-3 mb-xl-0 mb-3 flex-xl-fill">
+                    <label for="bordNo" class="col-2 text-sm-right col-form-label">ค้นหาข้อมูล:</label>
+                    <input type="text" class="col-10 form-control flex-xl-grow-1" id="bordNo" placeholder="ค้นหาด้วยการประชุมครั้งที่">
+                </div>
             </div>
-            <div class="form-group mb-3">
-                <label for="dateStart" class="mr-1">วันที่ไป:</label>
-                <input type="date" class="form-control bg-white mr-3" id="dateStart">
+            <div class="d-flex flex-xl-row flex-column mr-3">
+                <label for="year" class="col-2 text-sm-right col-form-label">ปีการประชุม:</label>
+                <select type="text" class="col-4 form-control" id="year" name="year">
+                    <option value="">กรุณาเลือก</option>
+                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}"></option>
+                </select>
+
+                <label for="boardType" class="col-2 text-sm-right col-form-label">การประชุม:</label>
+                <select type="text" class="col-4 form-control" id="boardType" name="boardType">
+                    <option value="">กรุณาเลือก</option>
+                    <option value="ปกติ">ปกติ</option>
+                    <option value="มติเวียน">มติเวียน</option>
+                </select>
             </div>
-            <div class="form-group mb-3">
-                <label for="dateEnd" class="mr-1">วันที่กลับ:</label>
-                <input type="date" class="form-control bg-white mr-3" id="dateEnd">
+            <div class="d-flex flex-xl-row flex-column">
+                <label for="dateStart" class="col-2 text-sm-right col-form-label">วันที่ไป:</label>
+                <input type="date" class="col-4 form-control" id="dateStart">
+                <label for="dateEnd" class="col-2 text-sm-right col-form-label">วันที่กลับ:</label>
+                <input type="date" class="col-4 form-control" id="dateEnd">
             </div>
-            <div class="form-group mb-3">
+
+            <div class="form-group mb-3 ml-3">
                 <button type="button" class="btn btn-outline-poba mr-3" onclick="findResolutionInfo();" th:if="${#lists.contains(roles, 'ROLE_RESOLUTION_SEARCH')}">ค้นหา</button>
                 <a href="javascript:void(0)" onclick="loadView('/poba/resolution/add')" class="btn btn-poba" th:if="${#lists.contains(roles, 'ROLE_RESOLUTION_ADD')}">เพิ่มข้อมูล</a>
             </div>

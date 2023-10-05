@@ -57,7 +57,7 @@ public class Roles {
     public static final String ROLE_PUBLISHED_SEARCH = "ROLE_PUBLISHED_SEARCH";
     public static final String ROLE_PUBLISHED_ADD = "ROLE_PUBLISHED_ADD";
     public static final String ROLE_PUBLISHED_EDIT = "ROLE_PUBLISHED_EDIT";
-    // ข้อมูลการเสนอผลงาน
+    // ข้อมูลการนำเสนอผลงาน
     public static final String ROLE_PRESENTING_ACCESS = "ROLE_PRESENTING_ACCESS";
     public static final String ROLE_PRESENTING_SEARCH = "ROLE_PRESENTING_SEARCH";
     public static final String ROLE_PRESENTING_ADD = "ROLE_PRESENTING_ADD";
