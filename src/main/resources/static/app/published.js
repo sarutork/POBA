@@ -121,7 +121,10 @@ function findPublished() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-published tbody').on('click', 'tr', function () {
             if(!$('#table-published tbody tr td').hasClass("dataTables_empty")){

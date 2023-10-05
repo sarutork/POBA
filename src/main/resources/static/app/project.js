@@ -47,7 +47,10 @@ function findProjectInfo() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-project tbody').on('click', 'tr', function () {
             if(!$('#table-project tbody tr td').hasClass("dataTables_empty")){
@@ -187,7 +190,10 @@ function findParticipant() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-participant-modal tbody').on('click', 'tr', function () {
             if(!$('#table-participant-modal tbody tr td').hasClass("dataTables_empty")){

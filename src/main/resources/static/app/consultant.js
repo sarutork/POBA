@@ -53,7 +53,10 @@ function findConsultantStudent() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-consultant-student tbody').on('click', 'tr', function () {
             if(!$('#table-consultant-student tbody tr td').hasClass("dataTables_empty")){
@@ -154,7 +157,10 @@ function findSumConsultant(){
                     extend: 'print',
                     title: $(".breadcrumb-item.active span").html()
                 }
-            ]
+            ],
+            language: {
+                "emptyTable": "ไม่พบผลการค้นหา"
+            }
         });
         $('#table-sum-consultant tbody').on('click', 'tr', function () {
                 if(!$('#table-sum-consultant tbody tr td').hasClass("dataTables_empty")){
@@ -215,7 +221,10 @@ function findStudentByConsultant(){
                     extend: 'print',
                     title: $(".breadcrumb-item.active span").html()
                 }
-            ]
+            ],
+            language: {
+                "emptyTable": "ไม่พบผลการค้นหา"
+            }
         });
 }
 
@@ -321,7 +330,10 @@ function findYearlyReport(){
                     extend: 'print',
                     title: $(".breadcrumb-item.active span").html()
                 }
-            ]
+            ],
+            language: {
+                "emptyTable": "ไม่พบผลการค้นหา"
+            }
         });
 
         for(var i = 0 ;i < 10 ;i++ ){
@@ -412,7 +424,10 @@ function findConsultantThesis() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-consultant-thesis tbody').on('click', 'tr', function () {
             if(!$('#table-consultant-thesis tbody tr td').hasClass("dataTables_empty")){
@@ -493,7 +508,10 @@ function findConsultantStudent2() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-consultant-student tbody').on('click', 'tr', function () {
             if(!$('#table-consultant-student tbody tr td').hasClass("dataTables_empty")){
@@ -622,7 +640,10 @@ function findYearlyReport2(){
                     extend: 'print',
                     title: $(".breadcrumb-item.active span").html()
                 }
-            ]
+            ],
+            language: {
+                "emptyTable": "ไม่พบผลการค้นหา"
+            }
         });
 
         for(var i = 0 ;i < 10 ;i++ ){

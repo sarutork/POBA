@@ -76,7 +76,10 @@ function findTraining() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-training tbody').on('click', 'tr', function () {
             if(!$('#table-training tbody tr td').hasClass("dataTables_empty")){
@@ -224,7 +227,10 @@ function findPersonnelTraining(index) {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
 
     if(index == 1){

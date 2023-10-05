@@ -61,7 +61,10 @@ function findStudent() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-students tbody').on('click', 'tr', function () {
             if(!$('#table-students tbody tr td').hasClass("dataTables_empty")){
@@ -221,7 +224,7 @@ function summaryStudentSearch(){
                     $("#table-students2 tbody").append(trtd);
                 }
             }else{
-                $("#table-students2 tbody").html('<tr><td colspan="12" class="dataTables_empty text-center bg-secondary">รายงานจำนวนนิสิต</td></tr>');
+                $("#table-students2 tbody").html('<tr><td colspan="12" class="dataTables_empty text-center bg-secondary">ไม่พบผลการค้นหา</td></tr>');
             }
 
          },

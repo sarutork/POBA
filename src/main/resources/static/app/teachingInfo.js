@@ -79,7 +79,10 @@ function findTeachingInfo() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-teaching tbody').on('click', 'tr', function () {
             if(!$('#table-teaching tbody tr td').hasClass("dataTables_empty")){

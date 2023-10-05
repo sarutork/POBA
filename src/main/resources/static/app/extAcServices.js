@@ -62,7 +62,10 @@ function findExtAcademicServices() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-ext-academic-services tbody').on('click', 'tr', function () {
             if(!$('#table-ext-academic-services tbody tr td').hasClass("dataTables_empty")){

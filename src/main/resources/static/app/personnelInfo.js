@@ -67,7 +67,10 @@ function findProfileInfo() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-profile tbody').on('click', 'tr', function () {
             if(!$('#table-profile tbody tr td').hasClass("dataTables_empty")){
@@ -216,7 +219,10 @@ function findStudyInfo() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+                    "emptyTable": "ไม่พบผลการค้นหา"
+                }
     });
     $('#table-study tbody').on('click', 'tr', function () {
             if(!$('#table-study tbody tr td').hasClass("dataTables_empty")){
@@ -365,7 +371,10 @@ function findResearcherInfo() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-researcher tbody').on('click', 'tr', function() {
         if (!$('#table-researcher tbody tr td').hasClass("dataTables_empty")) {

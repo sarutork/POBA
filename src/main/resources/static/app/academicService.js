@@ -48,7 +48,10 @@ function findAcademicService() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-academic-service tbody').on('click', 'tr', function () {
             if(!$('#table-academic-service tbody tr td').hasClass("dataTables_empty")){

@@ -26,7 +26,10 @@ function findUser() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-user-management tbody').on('click', 'tr', function () {
             if(!$('#table-user-management tbody tr td').hasClass("dataTables_empty")){

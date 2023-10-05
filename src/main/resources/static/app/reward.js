@@ -47,7 +47,10 @@ function findRewardInfo() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-reward tbody').on('click', 'tr', function () {
             if(!$('#table-reward tbody tr td').hasClass("dataTables_empty")){

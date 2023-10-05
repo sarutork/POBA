@@ -54,7 +54,10 @@ function findPresentingInfo() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-presenting tbody').on('click', 'tr', function () {
             if(!$('#table-presenting tbody tr td').hasClass("dataTables_empty")){

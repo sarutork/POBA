@@ -49,7 +49,10 @@ function findPolsciInfo() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-polsci tbody').on('click', 'tr', function () {
             if(!$('#table-polsci tbody tr td').hasClass("dataTables_empty")){

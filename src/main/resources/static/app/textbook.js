@@ -64,7 +64,10 @@ function findTextbookInfo() {
                 extend: 'print',
                 title: $(".breadcrumb-item.active span").html()
             }
-        ]
+        ],
+        language: {
+            "emptyTable": "ไม่พบผลการค้นหา"
+        }
     });
     $('#table-textbook tbody').on('click', 'tr', function () {
             if(!$('#table-textbook tbody tr td').hasClass("dataTables_empty")){
